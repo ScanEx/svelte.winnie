@@ -2,6 +2,11 @@
 
 ---
 
+  [Пример](https://originalsin.github.io/svelte.geomixer/public)
+  
+ Для работы примера сделайте пермалинк от winnie.kosmosnimki.ru и добавьте его в URL ?config=NALXY
+. 
+
 # svelte app
 
 This is a project template for [Svelte](https://svelte.technology) apps. It lives at https://github.com/sveltejs/template.
