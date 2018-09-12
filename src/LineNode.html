@@ -1,0 +1,48 @@
+<li class="line id_{line.content.properties.name}">
+	{line.content.properties.title}
+</li>
+ 
+
+<style>
+</style>
+
+<script>
+	export default {
+		data() {
+			return {
+				container: null,
+				line: null
+			}
+		},
+		methods: {
+			createMap(it) {
+		// var type = tItem.type,
+			// props = tItem.content.properties,
+			// id = props ? props.GroupID || props.name : 'root',
+			// tNode = L.DomUtil.create('ul', 'css-treeview node-props-' + id),
+			// node = this._addLine(props, type);
+
+			// tNode.appendChild(node);
+
+		// if (tItem.content.children) {	// могут быть потомки
+            // for (var i = 0, len = tItem.content.children.length; i < len; i++) {
+				// node.appendChild(this._addGroupNode(tItem.content.children[i]));
+            // }
+		// }
+		// return tNode;
+
+			},
+			_initTree(it) {
+console.log('_initTree', it); // true
+			}
+		},
+
+		onstate({ changed, current, previous }) {
+// console.log('LineNode in onstate', changed, current, previous);
+			if (changed.group && current.group) {
+				// this.createMap(current.permalink);
+				//this.getPermalink(current.urlParams.config)
+			}
+		}
+	}
+</script>

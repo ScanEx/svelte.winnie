@@ -1,0 +1,38 @@
+<div class="TreeView">
+	<GroupNode group={rawTree} />
+</div>
+ 
+
+<style>
+</style>
+
+<script>
+	export default {
+		data() {
+			return {
+				group: null,
+				container: null,
+				rawTree: null
+			}
+		},
+		methods: {
+			createMap(it) {
+			},
+			_initTree(it) {
+console.log('_initTree', it); // true
+			}
+		},
+		components: {
+			GroupNode: './GroupNode.html'
+		},
+
+		onstate({ changed, current, previous }) {
+console.log('TreeView in onstate', changed, current, previous);
+			if (changed.rawTree && current.rawTree) {
+				
+				// this.createMap(current.permalink);
+				//this.getPermalink(current.urlParams.config)
+			}
+		}
+	}
+</script>

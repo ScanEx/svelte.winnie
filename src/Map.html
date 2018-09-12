@@ -4,6 +4,8 @@
 </style>
 
 <script>
+	import TreeView from './TreeView.html';
+
 	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
 
 	export default {
@@ -33,12 +35,55 @@
 					zoom: pos.z || 3
 				});
 
+				var iconSidebar = L.control.iconSidebar({width111: 360});
+				map.addControl(iconSidebar);
+				var node = L.DomUtil.create('div', 'treeViewCont'),
+					tabIcon = L.DomUtil.create('div', 'tabIcon', node),
+					tabCont = L.DomUtil.create('div', 'tabCont', node);
+				tabIcon.innerHTML = '<svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg>';
+
+				var treePane = iconSidebar.setPane('treeView', {
+					createTab: function(state) {
+						if (state === 'active') {
+							L.DomUtil.addClass(node, 'icon_active')
+						} else {
+							L.DomUtil.removeClass(node, 'icon_active')
+						}
+						return node
+					}
+				});
+
 				map.gmxControlsManager.init();
 				
-				L.gmx.loadMap(mapID, {leafletMap: map});
+				L.gmx.loadMap(mapID, {leafletMap: map}).then(function(gmxMap) {
+					iconSidebar.on('opened', function(e) {
+						if (e.id === 'treeView') {
+							this._initTree({container: treePane, rawTree: gmxMap.rawTree});
+						}
+					}, this);
+				}.bind(this));
 				this.set({map: map});
+			},
+			_initTree(it) {
+				const app = new TreeView({
+					target: it.container,
+					data: {
+						container: it.container,
+						rawTree: {
+							type: 'group',
+							content: {
+								children: it.rawTree.children
+							}
+						}
+					}
+				});
+
+console.log('_initTree', it); // true
 			}
 		},
+		// components: {
+			// TreeView: './TreeView.html'
+		// },
 
 		onstate({ changed, current, previous }) {
 // console.log('Map in onstate', changed, current, previous);
