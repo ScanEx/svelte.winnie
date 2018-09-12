@@ -148,8 +148,8 @@
 					})
 					.then(res => res.json())
 					.then(json => {
-						if (json.Status === 'ok' && json.Result) {
-							let out = JSON.parse(json.Result);
+						if (json.Status === 'ok') {
+							let out = json.Result ? JSON.parse(json.Result) : {};
 							this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
 						}
 // console.log('TinyReference ____ ', json);

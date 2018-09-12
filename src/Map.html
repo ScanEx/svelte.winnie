@@ -16,11 +16,12 @@
 		methods: {
 			createMap(it) {
 				// console.log('createMap', it);
-				let gmxMap = it.app.gmxMap || {},
-					state = it.state,
-					mapID = gmxMap.mapID || '87418FB0B17148EAA1D0B26F2ECCDA8A',
+				let app = it.app || {},
+					gmxMap = app.gmxMap || {},
+					state = it.state || {},
+					mapID = gmxMap.mapID || '946GH',
 					apiKey = gmxMap.apiKey,
-					pos = state.map.position || {};
+					pos = state.map ? state.map.position : {};
 
 				var osm = L.tileLayer('//tilessputnik.ru/{z}/{x}/{y}.png', {
 					maxZoom: 18
