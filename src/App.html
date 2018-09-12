@@ -1,0 +1,188 @@
+<div class="editor-sidebarContainer editor_sidebarExpanded">
+	<div class="sidebarPanel">
+		<div class="sidebarPanel-toolbarContainer">
+			<div class="dropdownMenuWidget">
+{#each dropdownMenu as it}
+				<div class="dropdownMenuWidget-item{it.checked ? ' checked' : ''}" on:click="checkMe(it)">
+					<i class="icon-{it.name}"></i>
+					<span>{it.title}</span>
+				</div>
+{/each}
+			</div>
+		</div>
+		<div class="sidebarPanel-codeEditorContainer">
+			<div class="editor">
+				<ul class="dropdownMenuWidget right">
+					<li class="dropdownMenuWidget-item" on:click="editTrigger(this, true)">
+						<i class="icon-bell"></i>
+						<span>Edit</span>
+					</li>
+					<li class="dropdownMenuWidget-item checked" on:click="editTrigger(this)">
+						<i class="icon-eye"></i>
+						<span>View</span>
+					</li>
+				</ul>
+				<textarea class="text-input hidden">{confStr}</textarea>
+				<div class="view">{confStr}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="editor-viewerContainer editor_sidebarExpanded">
+	<Map permalink={permalink} bind:map />
+</div>
+
+<style>
+.sidebarPanel {
+    font-family: 'Roboto';
+}
+.hidden {
+	display: none;
+}
+.dropdownMenuWidget {
+	display: table;
+}
+.dropdownMenuWidget {
+	height:100%
+}
+.dropdownMenuWidget-item {
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 0px 10px;
+	white-space: nowrap;
+	color: #424242;
+}
+.dropdownMenuWidget-item:hover, .dropdownMenuWidget-item.checked {
+	background:rgba(0, 0, 0, 0.05)
+}
+
+.dropdownMenuWidget.right {
+    right: 0px;
+	padding: 0;
+    margin: 0;
+    position: absolute;
+    background-color: #ebebeb;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    height: 26px;
+}
+
+.editor textarea {
+	width:100%;
+	height:-webkit-fill-available
+}
+.editor .view {
+    white-space: pre-wrap;
+}
+.sidebarPanel-toolbarContainer {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	height:40px
+}
+.sidebarPanel-toolbarContainer {
+	border-right:1px solid #f0f0f0;
+	background-color:#ebebeb;
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5)
+}
+.sidebarPanel-codeEditorContainer {
+	position:absolute;
+	top:40px;
+	bottom:0;
+	left:0;
+	right:0
+}
+.sidebarPanel-codeEditorContainer {
+	border-right:1px solid #f0f0f0
+}
+.sidebarPanel-toolbarContainer {
+	z-index:40
+}
+.sidebarPanel-codeEditorContainer {
+	z-index:30
+}
+</style>
+
+<script>
+	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
+
+	export default {
+		data() {
+			return {
+				urlParams: {},
+				dropdownMenu: [
+					{ name: 'refresh', title: 'Refresh' },
+					{ name: 'link', title: 'Share' },
+					{ name: 'magic', title: 'Wizard' }
+				],
+				map: null,
+				permalink: null,
+				confStr: ''
+			}
+		},
+		methods: {
+			checkMe(it) {
+// console.log('checkMe', it);
+			},
+			editTrigger(node, flag) {
+// console.log('editTrigger', node, flag);
+				let parentNode = node.parentNode,
+					lastChild = parentNode.parentNode.lastChild;
+				if (flag) {
+					lastChild.previousElementSibling.classList.remove('hidden');
+					lastChild.classList.add('hidden');
+				} else {
+					lastChild.previousElementSibling.classList.add('hidden');
+					lastChild.classList.remove('hidden');
+				}
+				parentNode.firstChild.classList.remove('checked');
+				parentNode.lastChild.classList.remove('checked');
+				node.classList.add('checked');
+			},
+			getPermalink(id) {
+				return fetch(serverBase + 'TinyReference/Get.ashx?WrapStyle=None&id=' + id, {
+						mode: 'cors',
+						credentials: 'include'
+					})
+					.then(res => res.json())
+					.then(json => {
+						if (json.Status === 'ok') {
+							let out = JSON.parse(json.Result);
+							this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
+						}
+// console.log('TinyReference ____ ', json);
+					});
+					// .catch(err => console.log(err));
+			}
+		},
+
+		components: {
+			Map: './Map.html'
+		},
+
+		oncreate() {
+			// this fires when the component has been
+			// rendered to the DOM
+			// console.log('in oncreate');
+			
+		},
+
+		onstate({ changed, current, previous }) {
+// console.log('in onstate', changed, current, previous);
+			if (changed.urlParams) {
+				this.getPermalink(current.urlParams.config)
+			}
+		},
+
+		onupdate({ changed, current, previous }) {
+			// console.log('in onupdate', changed, current, previous);
+			if (changed.confStr) {
+				let node = document.getElementsByClassName('view')[0];
+				node.innerHTML = current.confStr;
+				hljs.highlightBlock(node);
+			}
+		}
+	}
+</script>

@@ -1,0 +1,50 @@
+<div id="map"></div>
+
+<style>
+</style>
+
+<script>
+	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
+
+	export default {
+		data() {
+			return {
+				permalink: null,
+				map: null
+			}
+		},
+		methods: {
+			createMap(it) {
+				// console.log('createMap', it);
+				let gmxMap = it.app.gmxMap || {},
+					state = it.state,
+					mapID = gmxMap.mapID || '87418FB0B17148EAA1D0B26F2ECCDA8A',
+					apiKey = gmxMap.apiKey,
+					pos = state.map.position || {};
+
+				var osm = L.tileLayer('//tilessputnik.ru/{z}/{x}/{y}.png', {
+					maxZoom: 18
+				});
+
+				let map = new L.Map('map', {
+					layers: [osm],
+					center: new L.LatLng(pos.y || 0, pos.x || 60),
+					zoom: pos.z || 3
+				});
+
+				map.gmxControlsManager.init();
+				
+				L.gmx.loadMap(mapID, {leafletMap: map});
+				this.set({map: map});
+			}
+		},
+
+		onstate({ changed, current, previous }) {
+// console.log('Map in onstate', changed, current, previous);
+			if (changed.permalink && current.permalink) {
+				this.createMap(current.permalink);
+				//this.getPermalink(current.urlParams.config)
+			}
+		}
+	}
+</script>
