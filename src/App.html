@@ -148,7 +148,7 @@
 					})
 					.then(res => res.json())
 					.then(json => {
-						if (json.Status === 'ok') {
+						if (json.Status === 'ok' && json.Result) {
 							let out = JSON.parse(json.Result);
 							this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
 						}
