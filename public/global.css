@@ -430,3 +430,22 @@ html, body, #map {
     width: 26px;
     height: 40px;
 }
+
+/*	for scrollbar	*/
+
+::-webkit-scrollbar
+{
+	cursor: pointer;
+	width: 4px;  /* for vertical scrollbars */
+	height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0.5);
+}

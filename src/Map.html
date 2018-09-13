@@ -5,6 +5,7 @@
 
 <script>
 	import TreeView from './TreeView.html';
+	// import EventedTreeView from './TreeView.js';
 
 	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
 
@@ -65,19 +66,23 @@
 				this.set({map: map});
 			},
 			_initTree(it) {
+				// const app = new EventedTreeView({
 				const app = new TreeView({
 					target: it.container,
 					data: {
 						container: it.container,
+						// rawTree: it.rawTree
 						rawTree: {
-							type: 'group',
-							content: {
-								children: it.rawTree.children
-							}
+							type: 'map',
+							content: it.rawTree
 						}
 					}
 				});
-
+// this.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
+app.on('foo', ({ changed, current, previous }) => {
+	console.log('sdddddddddddtate changed', current);
+});
+				// app.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
 console.log('_initTree', it); // true
 			}
 		},

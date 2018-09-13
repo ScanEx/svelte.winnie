@@ -1,12 +1,12 @@
 <div class="TreeView">
-	<GroupNode group={rawTree} />
+	<LineNode line={rawTree} />
 </div>
  
 
 <style>
 </style>
 
-<script>
+<script>	
 	export default {
 		data() {
 			return {
@@ -23,16 +23,20 @@ console.log('_initTree', it); // true
 			}
 		},
 		components: {
-			GroupNode: './GroupNode.html'
+			LineNode: './LineNode.html'
 		},
-
+		// oncreate() {
+				// this.fire('foo', {ggg: 'ddddddddd'});
+			
+		// },
 		onstate({ changed, current, previous }) {
 console.log('TreeView in onstate', changed, current, previous);
 			if (changed.rawTree && current.rawTree) {
-				
+				console.log('kjkkkkkkkkkkk in onstate', changed, current, previous);
 				// this.createMap(current.permalink);
 				//this.getPermalink(current.urlParams.config)
 			}
 		}
 	}
+
 </script>

@@ -8,5 +8,6 @@
 }.sidebarPanel-toolbarContainer.svelte-foruym{z-index:40
 }.sidebarPanel-codeEditorContainer.svelte-foruym{z-index:30
 }
+.TreeView.svelte-rp6a0{overflow:scroll;height:calc(100vh - 30px);width:360px;position:absolute}ul.svelte-rp6a0{padding-inline-start:12px}li.svelte-rp6a0{list-style:none;line-height:10px;text-overflow:ellipsis;white-space:nowrap;width:93%;overflow:hidden}svg.svelte-rp6a0{height:14px;width:14px}.expanderCont.svelte-rp6a0{margin-left:-20px;pointer-events:none}.cont-center.svelte-rp6a0{visibility:hidden}span.cont-overlays.svelte-rp6a0{position:absolute;left:4px;padding-top:4px}span.icons.svelte-rp6a0{right:2px;position:absolute}
 
 /*# sourceMappingURL=bundle.css.map */
