@@ -1,46 +1,42 @@
 <li class="line id_{properties ? properties.name : 'root'}" on:mouseover="mouseOverOut(event, true)">
-	{#if properties}
-		{#if line.type !== 'map'}
-			<div class="borders "></div>
-			<input class="expander hidden" type="checkbox" checked="{properties.expanded ? true : false}" />
-			<span class="expander expanderCont"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
-			{#if line.type === 'layer'}
-				{#if properties.styles.length > 1}
-					<span class="cont-overlays"><svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg></span>
-				{/if}
-				<span class="icons ">
-					<span class="cont-center hidden"  title="Move map to this layer">
-						<svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg>
-					</span>
-					{#if properties.description}
-						<span class="cont-info" title="View description">
-							<svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg>
-						</span>
-					{/if}
-				</span>
+{#if properties}
+	{#if line.type !== 'map'}
+	<div class="borders "></div>
+	<input class="expander hidden" type="checkbox" checked="{properties.expanded ? true : false}" />
+	<span class="expander expanderCont"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
+		{#if line.type === 'layer'}
+			{#if properties.styles.length > 1}
+	<span class="cont-overlays"><svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg></span>
 			{/if}
+	<span class="icons ">
+		<span class="cont-center hidden"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
+			{#if properties.description}
+		<span class="cont-info" title="View description"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
+			{/if}
+	</span>
 		{/if}
-		<span class="cont">
-			{#if line.type !== 'map'}
-				<input class="check visibility " type="checkbox">
-				<span class="styleIcon gmx-style-legend">
-					<span class="legendIconCell style">
-						<span class="legendIconStyle point" style="background-color: rgba(255, 255, 255, 0.2); border-color: rgb(0, 0, 255);"></span>
-					</span>
+	{/if}
+	<span class="cont">
+		{#if line.type !== 'map'}
+			<input class="check visibility " type="checkbox">
+			<span class="styleIcon gmx-style-legend">
+				<span class="legendIconCell style">
+					<span class="legendIconStyle point" style="background-color: rgba(255, 255, 255, 0.2); border-color: rgb(0, 0, 255);"></span>
 				</span>
-			{/if}
-			<label class="title">{properties.title}</label>
-			<div class="description collapse"></div>
-			<div class="legend collapse"></div>
-		</span>
-	{/if}
-	{#if line.content.children}
-		<ul class="group css-treeview id_{properties ? properties.name : 'root'}">
-		{#each line.content.children || [] as child}
-			<svelte:self line="{child}" />
-		{/each}
-		</ul>
-	{/if}
+			</span>
+		{/if}
+		<label class="title">{properties.title}</label>
+		<div class="description collapse"></div>
+		<div class="legend collapse"></div>
+	</span>
+{/if}
+{#if line.content.children}
+	<ul class="group css-treeview id_{properties ? properties.name : 'root'}">
+	{#each line.content.children || [] as child}
+		<svelte:self line="{child}" />
+	{/each}
+	</ul>
+{/if}
 </li>
  
 
@@ -59,7 +55,8 @@ li {
 	line-height: 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 93%;
+	width: 98%;
+    padding-right: 16px;
     overflow: hidden;	
 }
 
@@ -73,6 +70,9 @@ svg {
 }
 .cont-center {
 	visibility: hidden;
+}
+.icons span {
+    cursor: pointer;
 }
 /*
 li.line:hover .cont-center {
@@ -132,11 +132,11 @@ span.icons {
 			mouseOverOut(ev, flag) {
 				let target = ev.target,
 					node = target.getElementsByClassName('cont-center')[0];
-console.log('mouseover', node); // true
-				if (this.prevNode) {
-					this.prevNode.style.visibility = 'hidden';
-				}
+// console.log('mouseover', node); // true
 				if (node) {
+					if (this.prevNode) {
+						this.prevNode.style.visibility = 'hidden';
+					}
 					this.prevNode = node;
 					node.style.visibility = flag ? 'visible' : 'hidden';
 				}
