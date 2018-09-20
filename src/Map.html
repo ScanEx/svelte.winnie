@@ -80,7 +80,7 @@
 					}
 				});
 // this.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
-app.on('foo', ({ changed, current, previous }) => {
+app.on('fitBounds', ({ changed, current, previous }) => {
 	console.log('sdddddddddddtate changed', current);
 });
 				// app.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
@@ -90,7 +90,12 @@ console.log('_initTree', it); // true
 		// components: {
 			// TreeView: './TreeView.html'
 		// },
-
+		onupdate({ changed, current, previous }) {
+			// this fires after oncreate, and after every state change
+			// once the DOM is synchronised with the data
+console.log(`Mappppp The DOM has been updated`, changed, current, previous);
+		},
+		
 		onstate({ changed, current, previous }) {
 // console.log('Map in onstate', changed, current, previous);
 			if (changed.permalink && current.permalink) {

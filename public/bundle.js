@@ -277,17 +277,17 @@ var app = (function () {
 	// return tNode;
 
 		},
-		fitBounds(props) {
-	console.log('fitBounds', props); // true
-			this.fire('fitBounds', {layerID: props.layerID});
-		},
+		// fitBounds(props) {
+	// console.log('fitBounds', props, this); // true
+			// this.fire('fitBounds', {layerID: props.layerID});
+		// },
 		expanderChange(ev) {
 	console.log('expanderChange', ev); // true
 		},
 		mouseOverOut(ev, flag) {
 			let target = ev.target,
 				node = target.getElementsByClassName('cont-center')[0];
-	// console.log('mouseover', node); // true
+	 console.log('mouseover', node); // true
 			if (node) {
 				if (this.prevNode) {
 					this.prevNode.style.visibility = 'hidden';
@@ -322,7 +322,7 @@ var app = (function () {
 				text = createText("\r\n");
 				if (if_block_1) if_block_1.c();
 				addListener(li, "mouseover", mouseover_handler);
-				li.className = li_class_value = "line id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1q8m13e";
+				li.className = li_class_value = "line id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-790lec";
 				addLoc(li, file, 0, 0, 0);
 			},
 
@@ -364,7 +364,7 @@ var app = (function () {
 					});
 				}
 
-				if ((!current || changed.properties) && li_class_value !== (li_class_value = "line id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1q8m13e")) {
+				if ((!current || changed.properties) && li_class_value !== (li_class_value = "line id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-790lec")) {
 					li.className = li_class_value;
 				}
 			},
@@ -409,9 +409,9 @@ var app = (function () {
 				setAttribute(use, "href", "#overlays");
 				addLoc(use, file, 8, 61, 632);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1q8m13e");
+				setAttribute(svg, "class", "svgIcon svelte-790lec");
 				addLoc(svg, file, 8, 29, 600);
-				span.className = "cont-overlays svelte-1q8m13e";
+				span.className = "cont-overlays svelte-790lec";
 				addLoc(span, file, 8, 1, 572);
 			},
 
@@ -440,13 +440,13 @@ var app = (function () {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#info-circle-i");
 				setAttribute(use, "href", "#info-circle-i");
-				addLoc(use, file, 13, 83, 1084);
+				addLoc(use, file, 13, 83, 1054);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1q8m13e");
-				addLoc(svg, file, 13, 51, 1052);
-				span.className = "cont-info svelte-1q8m13e";
+				setAttribute(svg, "class", "svgIcon svelte-790lec");
+				addLoc(svg, file, 13, 51, 1022);
+				span.className = "cont-info svelte-790lec";
 				span.title = "View description";
-				addLoc(span, file, 13, 2, 1003);
+				addLoc(span, file, 13, 2, 973);
 			},
 
 			m: function mount(target, anchor) {
@@ -470,7 +470,7 @@ var app = (function () {
 		var if_block = (ctx.properties.styles.length > 1) && create_if_block_3(component, ctx);
 
 		function click_handler(event) {
-			component.fire('fitBounds', {layerID: ctx.properties.name});
+			component.fire('fitBounds', {});
 		}
 
 		var if_block_1 = (ctx.properties.description) && create_if_block_4(component, ctx);
@@ -487,15 +487,15 @@ var app = (function () {
 				if (if_block_1) if_block_1.c();
 				setXlinkAttribute(use, "xlink:href", "#center-on-click");
 				setAttribute(use, "href", "#center-on-click");
-				addLoc(use, file, 11, 156, 888);
+				addLoc(use, file, 11, 126, 858);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1q8m13e");
-				addLoc(svg, file, 11, 124, 856);
+				setAttribute(svg, "class", "svgIcon svelte-790lec");
+				addLoc(svg, file, 11, 94, 826);
 				addListener(span_1, "click", click_handler);
-				span_1.className = "cont-center hidden svelte-1q8m13e";
+				span_1.className = "cont-center svelte-790lec";
 				span_1.title = "Move map to this layer";
-				addLoc(span_1, file, 11, 2, 734);
-				span.className = "icons  svelte-1q8m13e";
+				addLoc(span_1, file, 11, 3, 735);
+				span.className = "icons  svelte-790lec";
 				addLoc(span, file, 10, 1, 709);
 			},
 
@@ -510,8 +510,7 @@ var app = (function () {
 				if (if_block_1) if_block_1.m(span, null);
 			},
 
-			p: function update(changed, _ctx) {
-				ctx = _ctx;
+			p: function update(changed, ctx) {
 				if (ctx.properties.styles.length > 1) {
 					if (!if_block) {
 						if_block = create_if_block_3(component, ctx);
@@ -577,7 +576,7 @@ var app = (function () {
 				div.className = "borders ";
 				addLoc(div, file, 3, 1, 150);
 				addListener(input, "click", click_handler);
-				input.className = "expander hidden svelte-1q8m13e";
+				input.className = "expander hidden svelte-790lec";
 				setAttribute(input, "type", "checkbox");
 				input.checked = input_checked_value = ctx.properties.expanded ? true : false;
 				addLoc(input, file, 4, 1, 181);
@@ -585,10 +584,10 @@ var app = (function () {
 				setAttribute(use, "href", "#arrow-small-down");
 				addLoc(use, file, 5, 107, 419);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1q8m13e");
+				setAttribute(svg, "class", "svgIcon svelte-790lec");
 				addLoc(svg, file, 5, 75, 387);
 				addListener(span, "click", click_handler_1);
-				span.className = "expander expanderCont svelte-1q8m13e";
+				span.className = "expander expanderCont svelte-790lec";
 				addLoc(span, file, 5, 1, 313);
 			},
 
@@ -664,15 +663,15 @@ var app = (function () {
 				span_2 = createElement("span");
 				input.className = "check visibility ";
 				setAttribute(input, "type", "checkbox");
-				addLoc(input, file, 20, 3, 1251);
-				span_2.className = "legendIconStyle point svelte-1q8m13e";
+				addLoc(input, file, 20, 3, 1221);
+				span_2.className = "legendIconStyle point svelte-790lec";
 				setStyle(span_2, "background-color", "rgba(255, 255, 255, 0.2)");
 				setStyle(span_2, "border-color", "rgb(0, 0, 255)");
-				addLoc(span_2, file, 23, 5, 1394);
-				span_1.className = "legendIconCell style svelte-1q8m13e";
-				addLoc(span_1, file, 22, 4, 1352);
-				span.className = "styleIcon gmx-style-legend svelte-1q8m13e";
-				addLoc(span, file, 21, 3, 1305);
+				addLoc(span_2, file, 23, 5, 1364);
+				span_1.className = "legendIconCell style svelte-790lec";
+				addLoc(span_1, file, 22, 4, 1322);
+				span.className = "styleIcon gmx-style-legend svelte-790lec";
+				addLoc(span, file, 21, 3, 1275);
 			},
 
 			m: function mount(target, anchor) {
@@ -715,13 +714,13 @@ var app = (function () {
 				text_4 = createText("\r\n\t\t");
 				div_1 = createElement("div");
 				label.className = "title";
-				addLoc(label, file, 27, 2, 1557);
+				addLoc(label, file, 27, 2, 1527);
 				div.className = "description collapse";
-				addLoc(div, file, 28, 2, 1608);
+				addLoc(div, file, 28, 2, 1578);
 				div_1.className = "legend collapse";
-				addLoc(div_1, file, 29, 2, 1652);
-				span.className = "cont svelte-1q8m13e";
-				addLoc(span, file, 18, 1, 1198);
+				addLoc(div_1, file, 29, 2, 1622);
+				span.className = "cont svelte-790lec";
+				addLoc(span, file, 18, 1, 1168);
 			},
 
 			m: function mount(target, anchor) {
@@ -857,8 +856,8 @@ var app = (function () {
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1q8m13e";
-				addLoc(ul, file, 33, 1, 1736);
+				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-790lec";
+				addLoc(ul, file, 33, 1, 1706);
 			},
 
 			m: function mount(target, anchor) {
@@ -889,7 +888,7 @@ var app = (function () {
 					for (; i < each_blocks.length; i += 1) outroBlock(i, 1);
 				}
 
-				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1q8m13e")) {
+				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-790lec")) {
 					ul.className = ul_class_value;
 				}
 			},
@@ -987,8 +986,8 @@ var app = (function () {
 	var methods$1 = {
 		createMap(it) {
 		},
-		fitBounds(props) {
-	console.log('TreeView fitBounds', props); // true
+		fitBounds1(props) {
+			console.log('TreeView fitBounds', props); // true
 			//this.fire('fitBounds', {layerID: props.layerID});
 		},
 		_initTree(it) {
@@ -1017,7 +1016,7 @@ var app = (function () {
 		});
 
 		linenode.on("fitBounds", function(event) {
-			component.set(event);
+			component.fitBounds1(event);
 		});
 
 		return {
@@ -1174,7 +1173,7 @@ var app = (function () {
 				}
 			});
 	// this.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
-	app.on('foo', ({ changed, current, previous }) => {
+	app.on('fitBounds', ({ changed, current, previous }) => {
 		console.log('sdddddddddddtate changed', current);
 	});
 			// app.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
@@ -1188,6 +1187,11 @@ var app = (function () {
 			this.createMap(current.permalink);
 			//this.getPermalink(current.urlParams.config)
 		}
+	}
+	function onupdate({ changed, current, previous }) {
+		// this fires after oncreate, and after every state change
+		// once the DOM is synchronised with the data
+	console.log(`Mappppp The DOM has been updated`, changed, current, previous);
 	}
 	const file$2 = "src\\Map.html";
 
@@ -1232,6 +1236,7 @@ var app = (function () {
 		this._intro = !!options.intro;
 
 		this._handlers.state = [onstate$2];
+		this._handlers.update = [onupdate];
 
 		onstate$2.call(this, { changed: assignTrue({}, this._state), current: this._state });
 
@@ -1261,7 +1266,6 @@ var app = (function () {
 	/* src\App.html generated by Svelte v2.13.4 */
 
 	const serverBase$1 = window.serverBase || '//maps.kosmosnimki.ru/';
-
 	function data$3() {
 		return {
 			urlParams: {},
@@ -1323,7 +1327,7 @@ var app = (function () {
 			this.getPermalink(current.urlParams.config);
 		}
 	}
-	function onupdate({ changed, current, previous }) {
+	function onupdate$1({ changed, current, previous }) {
 		// console.log('in onupdate', changed, current, previous);
 		if (changed.confStr) {
 			let node = document.getElementsByClassName('view')[0];
@@ -1631,7 +1635,7 @@ var app = (function () {
 		this._intro = !!options.intro;
 
 		this._handlers.state = [onstate$3];
-		this._handlers.update = [onupdate];
+		this._handlers.update = [onupdate$1];
 
 		onstate$3.call(this, { changed: assignTrue({}, this._state), current: this._state });
 

@@ -107,7 +107,7 @@
 
 <script>
 	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
-
+	import Map from './Map.html';
 	export default {
 		data() {
 			return {
@@ -159,7 +159,7 @@
 		},
 
 		components: {
-			Map: './Map.html'
+			Map
 		},
 
 		oncreate() {

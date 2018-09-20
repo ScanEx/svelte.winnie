@@ -1,12 +1,13 @@
 <div class="TreeView">
-	<LineNode line={rawTree} on:fitBounds="set(event)" />
+	<LineNode on:fitBounds="fitBounds1(event)" line={rawTree} />
 </div>
  
 
 <style>
 </style>
 
-<script>	
+<script>
+	import LineNode from './LineNode.html';
 	export default {
 		data() {
 			return {
@@ -17,7 +18,7 @@
 		},
 		// events: {
 			// fitBounds(node, callback) {
-// console.log('TreeView fitBoundsfitBounds', node, callback);
+// console.log('TreeView fitBoundsfitBounds', node, callback);
 			// }
 		// },
 
@@ -27,8 +28,8 @@
 		methods: {
 			createMap(it) {
 			},
-			fitBounds(props) {
-console.log('TreeView fitBounds', props); // true
+			fitBounds1(props) {
+				console.log('TreeView fitBounds', props); // true
 				//this.fire('fitBounds', {layerID: props.layerID});
 			},
 			_initTree(it) {
@@ -36,7 +37,7 @@ console.log('_initTree', it); // true
 			}
 		},
 		components: {
-			LineNode: './LineNode.html'
+			LineNode
 		},
 		// oncreate() {
 				// this.fire('foo', {ggg: 'ddddddddd'});

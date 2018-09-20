@@ -9,7 +9,7 @@
 	<span class="cont-overlays"><svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg></span>
 			{/if}
 	<span class="icons ">
-		<span on:click="fire('fitBounds', {layerID: properties.name})" class="cont-center hidden"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
+ 		<span on:click="fire('fitBounds', {})" class="cont-center"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
 			{#if properties.description}
 		<span class="cont-info" title="View description"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
 			{/if}
@@ -39,6 +39,79 @@
 {/if}
 </li>
  
+<script>
+	export default {
+		data() {
+			return {
+				container: null,
+				line: null
+			}
+		},
+		computed: {
+			properties: ({ line }) => line.content.properties,
+			minutes: ({ line }) => (new Date()).getMinutes(),
+			seconds: ({ line }) => (new Date()).getSeconds()
+		},
+// 		<span on:click="fire('fitBounds', {})" class="cont-center"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
+
+		// events: {
+			// fitBounds(props, tt) {
+// console.log('fitBounds TreeView', props, tt); // true
+			// }
+			
+		// },
+		methods: {
+			createMap(it) {
+		// var type = tItem.type,
+			// props = tItem.content.properties,
+			// id = props ? props.GroupID || props.name : 'root',
+			// tNode = L.DomUtil.create('ul', 'css-treeview node-props-' + id),
+			// node = this._addLine(props, type);
+
+			// tNode.appendChild(node);
+
+		// if (tItem.content.children) {	// могут быть потомки
+            // for (var i = 0, len = tItem.content.children.length; i < len; i++) {
+				// node.appendChild(this._addGroupNode(tItem.content.children[i]));
+            // }
+		// }
+		// return tNode;
+
+			},
+			// fitBounds(props) {
+// console.log('fitBounds', props, this); // true
+				// this.fire('fitBounds', {layerID: props.layerID});
+			// },
+			expanderChange(ev) {
+console.log('expanderChange', ev); // true
+			},
+			mouseOverOut(ev, flag) {
+				let target = ev.target,
+					node = target.getElementsByClassName('cont-center')[0];
+ console.log('mouseover', node); // true
+				if (node) {
+					if (this.prevNode) {
+						this.prevNode.style.visibility = 'hidden';
+					}
+					this.prevNode = node;
+					node.style.visibility = flag ? 'visible' : 'hidden';
+				}
+			}
+		},
+		// components: {
+			// GroupNode: './GroupNode.html'
+		// },
+
+		onstate({ changed, current, previous }) {
+// console.log('LineNode in onstate', changed, current, previous);
+			if (changed.group && current.group) {
+				// this.createMap(current.permalink);
+				//this.getPermalink(current.urlParams.config)
+			}
+		}
+	}
+</script>
+
 
 <style>
 .TreeView {
@@ -68,13 +141,13 @@ svg {
     margin-left: -20px;
 	pointer-events: none;
 }
-.cont-center {
-	visibility: hidden;
-}
 .icons span {
     cursor: pointer;
 }
 /*
+.cont-center {
+	visibility: hidden;
+}
 li.line:hover .cont-center {
 	visibility: visible;
 }
@@ -101,73 +174,3 @@ span.icons {
 }
 
 </style>
-<script>
-	export default {
-		data() {
-			return {
-				container: null,
-				line: null
-			}
-		},
-		computed: {
-			properties: ({ line }) => line.content.properties,
-			minutes: ({ line }) => (new Date()).getMinutes(),
-			seconds: ({ line }) => (new Date()).getSeconds()
-		},
-		// events: {
-			// fitBounds(props, tt) {
-// console.log('fitBounds TreeView', props, tt); // true
-			// }
-			
-		// },
-		methods: {
-			createMap(it) {
-		// var type = tItem.type,
-			// props = tItem.content.properties,
-			// id = props ? props.GroupID || props.name : 'root',
-			// tNode = L.DomUtil.create('ul', 'css-treeview node-props-' + id),
-			// node = this._addLine(props, type);
-
-			// tNode.appendChild(node);
-
-		// if (tItem.content.children) {	// могут быть потомки
-            // for (var i = 0, len = tItem.content.children.length; i < len; i++) {
-				// node.appendChild(this._addGroupNode(tItem.content.children[i]));
-            // }
-		// }
-		// return tNode;
-
-			},
-			fitBounds(props) {
-console.log('fitBounds', props); // true
-				this.fire('fitBounds', {layerID: props.layerID});
-			},
-			expanderChange(ev) {
-console.log('expanderChange', ev); // true
-			},
-			mouseOverOut(ev, flag) {
-				let target = ev.target,
-					node = target.getElementsByClassName('cont-center')[0];
-// console.log('mouseover', node); // true
-				if (node) {
-					if (this.prevNode) {
-						this.prevNode.style.visibility = 'hidden';
-					}
-					this.prevNode = node;
-					node.style.visibility = flag ? 'visible' : 'hidden';
-				}
-			}
-		},
-		// components: {
-			// GroupNode: './GroupNode.html'
-		// },
-
-		onstate({ changed, current, previous }) {
-// console.log('LineNode in onstate', changed, current, previous);
-			if (changed.group && current.group) {
-				// this.createMap(current.permalink);
-				//this.getPermalink(current.urlParams.config)
-			}
-		}
-	}
-</script>
