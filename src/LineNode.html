@@ -2,14 +2,14 @@
 {#if properties}
 	{#if line.type !== 'map'}
 	<div class="borders "></div>
-	<input class="expander hidden" type="checkbox" checked="{properties.expanded ? true : false}" />
-	<span class="expander expanderCont"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
+	<input class="expander hidden" type="checkbox" on:click="expanderChange(event)" checked="{properties.expanded ? true : false}" />
+	<span class="expander expanderCont" on:click="expanderChange(properties)"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
 		{#if line.type === 'layer'}
 			{#if properties.styles.length > 1}
 	<span class="cont-overlays"><svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg></span>
 			{/if}
 	<span class="icons ">
-		<span class="cont-center hidden"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
+		<span on:click="fire('fitBounds', {layerID: properties.name})" class="cont-center hidden"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
 			{#if properties.description}
 		<span class="cont-info" title="View description"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
 			{/if}
@@ -96,6 +96,9 @@ span.icons {
     right: 2px;
     position: absolute;
 }
+.hidden {
+    visibility: hidden;
+}
 
 </style>
 <script>
@@ -111,6 +114,12 @@ span.icons {
 			minutes: ({ line }) => (new Date()).getMinutes(),
 			seconds: ({ line }) => (new Date()).getSeconds()
 		},
+		// events: {
+			// fitBounds(props, tt) {
+// console.log('fitBounds TreeView', props, tt); // true
+			// }
+			
+		// },
 		methods: {
 			createMap(it) {
 		// var type = tItem.type,
@@ -128,6 +137,13 @@ span.icons {
 		// }
 		// return tNode;
 
+			},
+			fitBounds(props) {
+console.log('fitBounds', props); // true
+				this.fire('fitBounds', {layerID: props.layerID});
+			},
+			expanderChange(ev) {
+console.log('expanderChange', ev); // true
 			},
 			mouseOverOut(ev, flag) {
 				let target = ev.target,

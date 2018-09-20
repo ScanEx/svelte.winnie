@@ -1,5 +1,5 @@
 <div class="TreeView">
-	<LineNode line={rawTree} />
+	<LineNode line={rawTree} on:fitBounds="set(event)" />
 </div>
  
 
@@ -15,8 +15,21 @@
 				rawTree: null
 			}
 		},
+		// events: {
+			// fitBounds(node, callback) {
+// console.log('TreeView fitBoundsfitBounds', node, callback);
+			// }
+		// },
+
+		// oncreate() {
+// console.log('_initTree', LineNode); // true
+		// },
 		methods: {
 			createMap(it) {
+			},
+			fitBounds(props) {
+console.log('TreeView fitBounds', props); // true
+				//this.fire('fitBounds', {layerID: props.layerID});
 			},
 			_initTree(it) {
 console.log('_initTree', it); // true
@@ -29,6 +42,7 @@ console.log('_initTree', it); // true
 				// this.fire('foo', {ggg: 'ddddddddd'});
 			
 		// },
+
 		onstate({ changed, current, previous }) {
 console.log('TreeView in onstate', changed, current, previous);
 			if (changed.rawTree && current.rawTree) {
