@@ -1,5 +1,5 @@
-<div class="TreeView">
-	<LineNode on:fitBounds="fitBounds1(event)" line={rawTree} />
+<div class="TreeView" on:click="chkEvent(event)">
+	<LineNode line={rawTree} bind:layersTree />
 </div>
  
 
@@ -8,9 +8,15 @@
 
 <script>
 	import LineNode from './LineNode.html';
+	let regs = {
+		cmd: /cmd:(\w+)/,
+		id: /id:(\w+)/
+	}
 	export default {
 		data() {
 			return {
+				config: {},
+				layersTree: {},
 				group: null,
 				container: null,
 				rawTree: null
@@ -26,15 +32,62 @@
 // console.log('_initTree', LineNode); // true
 		// },
 		methods: {
-			createMap(it) {
+			chkEvent(ev) {
+				let target = ev.target,
+					className = target.className,
+					arr = regs.cmd.exec(className);
+
+				if (arr && arr.length === 2) {
+					let out = {
+						cmd: arr[1],
+						type: ev.type,
+						// className: className,
+						originalEvent: ev
+					};
+					for(let i = 0; i < 5; i++) {
+						if (target.classList.contains('line')) {
+							arr = regs.id.exec(target.className);
+							if (arr && arr.length === 2) {
+								out.id = arr[1];
+							}
+							break;
+						}
+						target = target.parentNode;
+					}
+					if (out.id) {
+						this.treeCommands(out);
+						this.fire('command', out);
+					}
+// console.log('chkEvent', out);
+				}
 			},
 			fitBounds1(props) {
 				console.log('TreeView fitBounds', props); // true
-				//this.fire('fitBounds', {layerID: props.layerID});
+				this.fire('fitBounds', {layerID: props.layerID});
 			},
-			_initTree(it) {
-console.log('_initTree', it); // true
-			}
+			treeCommands(attr) {
+				let {layersTree} = this.get();
+				console.log('treeCommands', attr, layersTree);
+				
+				if (attr.cmd === 'toggleFolder') {
+					let expanded = layersTree.expanded || {},
+						input = attr.originalEvent.target.previousElementSibling,
+						id = attr.id;
+					if (expanded[id]) {
+						delete expanded[id];
+						input.checked = false;
+					} else {
+						expanded[id] = true;
+						input.checked = true;
+					}
+					this.set({layersTree: layersTree});
+					return true;
+				}
+				return false;
+			},
+			// _initTree(it) {
+// console.log('_initTree', it); // true
+			// }
 		},
 		components: {
 			LineNode
@@ -43,14 +96,13 @@ console.log('_initTree', it); // true
 				// this.fire('foo', {ggg: 'ddddddddd'});
 			
 		// },
-
 		onstate({ changed, current, previous }) {
 console.log('TreeView in onstate', changed, current, previous);
-			if (changed.rawTree && current.rawTree) {
-				console.log('kjkkkkkkkkkkk in onstate', changed, current, previous);
+			// if (changed.rawTree && current.rawTree) {
+				// console.log('kjkkkkkkkkkkk in onstate', changed, current, previous);
 				// this.createMap(current.permalink);
 				//this.getPermalink(current.urlParams.config)
-			}
+			// }
 		}
 	}
 

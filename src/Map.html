@@ -22,6 +22,7 @@
 				let app = it.app || {},
 					gmxMap = app.gmxMap || {},
 					state = it.state || {},
+					layersTree = state.layersTree,
 					mapID = gmxMap.mapID || '946GH',
 					apiKey = gmxMap.apiKey,
 					pos = state.map ? state.map.position : {};
@@ -29,7 +30,7 @@
 				var osm = L.tileLayer('//tilessputnik.ru/{z}/{x}/{y}.png', {
 					maxZoom: 18
 				});
-
+layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
 				let map = new L.Map('map', {
 					layers: [osm],
 					center: new L.LatLng(pos.y || 0, pos.x || 60),
@@ -55,16 +56,28 @@
 				});
 
 				map.gmxControlsManager.init();
-				
-				L.gmx.loadMap(mapID, {leafletMap: map}).then(function(gmxMap) {
+map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
+
+				// L.gmx.loadMap(mapID, {leafletMap: map}).then(function(gmxMap) {
+				L.gmx.loadMap(mapID, {leafletMap: map, visibility: layersTree.visible}).then(function(gmxMap) {
+					this.set({gmxMap: gmxMap});
+
 					iconSidebar.on('opened', function(e) {
 						if (e.id === 'treeView') {
-							this._initTree({container: treePane, rawTree: gmxMap.rawTree});
+							this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree});
 						}
 					}, this);
 					iconSidebar.open('treeView', true);
 				}.bind(this));
-				this.set({map: map});
+				this.set({map: map, config: it});
+			},
+			_getNodeIndex(target) {
+				let arr = target.parentNode.children,
+					i, len;
+				for(i = 0, len = arr.length; i < len; i++) {
+					if (arr[i] === target) break;
+				}
+				return i === len ? null : i;
 			},
 			_initTree(it) {
 				// const app = new EventedTreeView({
@@ -72,7 +85,8 @@
 					target: it.container,
 					data: {
 						container: it.container,
-						// rawTree: it.rawTree
+						layersTree: it.layersTree,
+						// config: it.config,
 						rawTree: {
 							type: 'map',
 							content: it.rawTree
@@ -80,9 +94,35 @@
 					}
 				});
 // this.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
-app.on('fitBounds', ({ changed, current, previous }) => {
-	console.log('sdddddddddddtate changed', current);
-});
+				app.on('command', (ev) => {
+					let {map, gmxMap} = this.get();
+					let cmd = ev.cmd,
+						target = ev.originalEvent.target,
+						gmxLayer = gmxMap.layersByID[ev.id];
+console.log('Map command', ev, gmxLayer);
+					if (gmxLayer) {
+						if (cmd === 'fitBounds') {
+							map.fitBounds(gmxLayer.getBounds());
+						} else if (cmd === 'toggleVisibility') {
+							if (target.checked) {
+								map.addLayer(gmxLayer);
+							} else {
+								map.removeLayer(gmxLayer);
+							}
+						} else if (cmd === 'toggleStyle') {
+							let num = this._getNodeIndex(target.parentNode),
+								styles = gmxLayer.getStyles();
+							if (target.classList.contains('enabled')) {
+								target.classList.remove('enabled');
+								styles[num].disabled = true;
+							} else {
+								target.classList.add('enabled');
+								delete styles[num].disabled;
+							}
+							gmxLayer.setStyles(styles);
+						}
+					}
+				});
 				// app.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
 console.log('_initTree', it); // true
 			}
@@ -90,10 +130,10 @@ console.log('_initTree', it); // true
 		// components: {
 			// TreeView: './TreeView.html'
 		// },
-		onupdate({ changed, current, previous }) {
+		oncreate() {
 			// this fires after oncreate, and after every state change
 			// once the DOM is synchronised with the data
-console.log(`Mappppp The DOM has been updated`, changed, current, previous);
+// console.log(`Mappppp The DOM has been updated`, changed, current, previous);
 		},
 		
 		onstate({ changed, current, previous }) {

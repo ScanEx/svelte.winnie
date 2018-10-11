@@ -1,59 +1,79 @@
-<li class="line id_{properties ? properties.name : 'root'}" on:mouseover="mouseOverOut(event, true)">
+<li class="line cmd:toggleIcons id:{nodeID}">
 {#if properties}
 	{#if line.type !== 'map'}
 	<div class="borders "></div>
-	<input class="expander hidden" type="checkbox" on:click="expanderChange(event)" checked="{properties.expanded ? true : false}" />
-	<span class="expander expanderCont" on:click="expanderChange(properties)"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
+	<input class="expander hidden" type="checkbox" checked={properties.expanded ? true : false} />
+	<span class="expander pointer cmd:toggleFolder expanderCont {line.content.children ? '' : 'hidden'}"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
 		{#if line.type === 'layer'}
 			{#if properties.styles.length > 1}
 	<span class="cont-overlays"><svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg></span>
 			{/if}
 	<span class="icons ">
- 		<span on:click="fire('fitBounds', {})" class="cont-center"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
+ 		<span class="pointer cmd:fitBounds cont-center"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
 			{#if properties.description}
 		<span class="cont-info" title="View description"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
 			{/if}
 	</span>
 		{/if}
 	{/if}
-	<span class="cont">
 		{#if line.type !== 'map'}
-			<input class="check visibility " type="checkbox">
+	<span class="cont">
+			<input class="check visibility pointer cmd:toggleVisibility" type="checkbox" checked={layersTree && layersTree.visible[nodeID] ? true : false}>
 			<span class="styleIcon gmx-style-legend">
-				<span class="legendIconCell style">
-					<span class="legendIconStyle point" style="background-color: rgba(255, 255, 255, 0.2); border-color: rgb(0, 0, 255);"></span>
-				</span>
+			{#if styles.length && styles.length < 2 && styles[0].RenderStyle}
+				<LegendIconCell item={styles[0]} type={properties.GeometryType} />
+			{/if}
 			</span>
-		{/if}
 		<label class="title">{properties.title}</label>
 		<div class="description collapse"></div>
-		<div class="legend collapse"></div>
+		<div class="legend">
+			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
+			{#each styles as it}
+				<div class="gmx-style-legend">
+					<span class="legendIconEye enabled pointer cmd:toggleStyle">
+						<svg role="img" class="svgIcon on"><use xlink:href="#eye-on" href="#eye-on"></use></svg>
+						<svg role="img" class="svgIcon off"><use xlink:href="#eye-off" href="#eye-off"></use></svg>
+					</span>
+					<LegendIconCell item={it} type={properties.GeometryType} />
+					<span class="legendIconCell"><span class="styleName">{it.Name}</span></span>
+				</div>
+			{/each}
+			{/if}
+		</div>
 	</span>
+		{/if}
 {/if}
 {#if line.content.children}
 	<ul class="group css-treeview id_{properties ? properties.name : 'root'}">
 	{#each line.content.children || [] as child}
-		<svelte:self line="{child}" />
+		<svelte:self line="{child}"  bind:layersTree />
 	{/each}
 	</ul>
 {/if}
 </li>
  
 <script>
+	import LegendIconCell from './LegendIconCell.html';
 	export default {
 		data() {
 			return {
+				// layersTree: {
+					// visible: {}
+				// },
 				container: null,
 				line: null
 			}
 		},
 		computed: {
 			properties: ({ line }) => line.content.properties,
+			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
+			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : [],
 			minutes: ({ line }) => (new Date()).getMinutes(),
 			seconds: ({ line }) => (new Date()).getSeconds()
 		},
-// 		<span on:click="fire('fitBounds', {})" class="cont-center"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
-
+		components: {
+			LegendIconCell
+		},
 		// events: {
 			// fitBounds(props, tt) {
 // console.log('fitBounds TreeView', props, tt); // true
@@ -85,11 +105,15 @@
 			expanderChange(ev) {
 console.log('expanderChange', ev); // true
 			},
-			mouseOverOut(ev, flag) {
+			mouseOverOut_bak(ev, flag) {
+//			<li class="line cmd:toggleIcons id:{properties ? properties.name : 'root'}" on:mouseover="mouseOverOut(event, true)" on:mouseout="mouseOverOut(event)">
+
+L.DomEvent.stopPropagation(ev);
+L.DomEvent.preventDefault(ev);
 				let target = ev.target,
 					node = target.getElementsByClassName('cont-center')[0];
- console.log('mouseover', node); // true
-				if (node) {
+ console.log('mouseover', flag, node, target); // true
+				if (node && target.classList.contains('line')) {
 					if (this.prevNode) {
 						this.prevNode.style.visibility = 'hidden';
 					}
@@ -98,12 +122,9 @@ console.log('expanderChange', ev); // true
 				}
 			}
 		},
-		// components: {
-			// GroupNode: './GroupNode.html'
-		// },
 
 		onstate({ changed, current, previous }) {
-// console.log('LineNode in onstate', changed, current, previous);
+ // console.log('LineNode in onstate', changed, current, previous);
 			if (changed.group && current.group) {
 				// this.createMap(current.permalink);
 				//this.getPermalink(current.urlParams.config)
@@ -132,6 +153,18 @@ li {
     padding-right: 16px;
     overflow: hidden;	
 }
+li.line > .icons span.cont-center {
+	visibility: hidden;
+}
+li.line:hover > .icons span.cont-center {
+	visibility: visible;
+}
+/*
+*/
+
+svg {
+	pointer-events: none;
+}
 
 svg {
     height: 14px;
@@ -139,10 +172,58 @@ svg {
 }
 .expanderCont {
     margin-left: -20px;
-	pointer-events: none;
 }
-.icons span {
+
+.pointer {
     cursor: pointer;
+}
+
+input.expander:checked + span.expander svg {
+    transform: rotate(-90Deg);
+}
+
+.legend {
+	padding-left: 25px;
+}
+input.check.visibility ~ .legend {
+    display: none;
+}
+input.check.visibility:checked ~ .legend {
+    display: block;
+}
+.gmx-style-legend .legendIconCell.style {
+    top: 0px;
+    position: relative;
+}
+.gmx-style-legend .legendIconCell {
+    width: 100%;
+}
+.legendIconEye.enabled > .on, .legendIconEye > .off {
+    display: inline-block;
+}
+.legendIconEye > .on, .legendIconEye.enabled > .off {
+    display: none;
+}
+
+/*
+.gmx-style-legend .legendIconStyle {
+    background-color: rgb(255, 0, 0);
+    border-color: rgb(0, 0, 255);
+    border: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+*/
+
+.line input.expander:checked ~ ul {
+    display: block;
+}
+
+.line input.expander ~ ul {
+    display: none;
+}
+.collapse {
+    display: none;
 }
 /*
 .cont-center {
@@ -152,13 +233,6 @@ li.line:hover .cont-center {
 	visibility: visible;
 }
 
-.line input.expander:checked ~ ul {
-    display: block;
-}
-
-.line input.expander ~ ul {
-    display: none;
-}
 */
 span.cont-overlays {
     position: absolute;
