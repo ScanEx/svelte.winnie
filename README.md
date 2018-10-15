@@ -2,7 +2,7 @@
 
 ---
 
-  [Пример](https://originalsin.github.io/svelte.geomixer/public)
+  [Пример](https://originalsin.github.io/svelte.geomixer/public/?config=RSO4E)
   
  Для работы примера сделайте пермалинк от winnie.kosmosnimki.ru и добавьте его в URL ?config=NALXY
 . 
