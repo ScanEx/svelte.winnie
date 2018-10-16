@@ -1,3 +1,4 @@
+{#if urlParams.edit}
 <div class="editor-sidebarContainer editor_sidebarExpanded">
 	<div class="sidebarPanel">
 		<div class="sidebarPanel-toolbarContainer">
@@ -28,11 +29,26 @@
 		</div>
 	</div>
 </div>
+{/if}
 <div class="editor-viewerContainer editor_sidebarExpanded">
 	<Map permalink={permalink} bind:map />
 </div>
 
 <style>
+.editor-viewerContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 5;
+}
+.editor-sidebarContainer .editor-viewerContainer {
+  left: 500px;
+}
+
+
 .sidebarPanel {
     font-family: 'Roboto';
 }
@@ -182,7 +198,7 @@
 
 		onupdate({ changed, current, previous }) {
 			// console.log('in onupdate', changed, current, previous);
-			if (changed.confStr) {
+			if (current.urlParams.edit && changed.confStr) {
 				let node = document.getElementsByClassName('view')[0];
 				node.innerHTML = current.confStr;
 				hljs.highlightBlock(node);
