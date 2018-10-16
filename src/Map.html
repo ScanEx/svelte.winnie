@@ -5,7 +5,6 @@
 
 <script>
 	import TreeView from './TreeView.html';
-	// import EventedTreeView from './TreeView.js';
 
 	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
 
@@ -18,7 +17,6 @@
 		},
 		methods: {
 			createMap(it) {
-				// console.log('createMap', it);
 				let app = it.app || {},
 					gmxMap = app.gmxMap || {},
 					state = it.state || {},
@@ -56,10 +54,9 @@ layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
 				});
 
 				map.gmxControlsManager.init();
-map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
+				map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
 
-				// L.gmx.loadMap(mapID, {leafletMap: map}).then(function(gmxMap) {
-				L.gmx.loadMap(mapID, {leafletMap: map, visibility: layersTree.visible}).then(function(gmxMap) {
+				L.gmx.loadMap(mapID, {leafletMap: map, setZIndex: true, visibility: layersTree.visible}).then(function(gmxMap) {
 					this.set({gmxMap: gmxMap});
 
 					iconSidebar.on('opened', function(e) {
@@ -80,7 +77,6 @@ map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/
 				return i === len ? null : i;
 			},
 			_initTree(it) {
-				// const app = new EventedTreeView({
 				const app = new TreeView({
 					target: it.container,
 					data: {
@@ -93,21 +89,21 @@ map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/
 						}
 					}
 				});
-// this.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
 				app.on('command', (ev) => {
 					let {map, gmxMap} = this.get();
 					let cmd = ev.cmd,
 						target = ev.originalEvent.target,
 						gmxLayer = gmxMap.layersByID[ev.id];
-console.log('Map command', ev, gmxLayer);
+// console.log('Map command', ev, gmxLayer);
 					if (gmxLayer) {
 						if (cmd === 'fitBounds') {
 							map.fitBounds(gmxLayer.getBounds());
 						} else if (cmd === 'toggleVisibility') {
-							if (target.checked) {
-								map.addLayer(gmxLayer);
-							} else {
+							// if (target.checked) {
+							if (gmxLayer._map) {
 								map.removeLayer(gmxLayer);
+							} else {
+								map.addLayer(gmxLayer);
 							}
 						} else if (cmd === 'toggleStyle') {
 							let num = this._getNodeIndex(target.parentNode),
@@ -123,24 +119,12 @@ console.log('Map command', ev, gmxLayer);
 						}
 					}
 				});
-				// app.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
-console.log('_initTree', it); // true
 			}
-		},
-		// components: {
-			// TreeView: './TreeView.html'
-		// },
-		oncreate() {
-			// this fires after oncreate, and after every state change
-			// once the DOM is synchronised with the data
-// console.log(`Mappppp The DOM has been updated`, changed, current, previous);
 		},
 		
 		onstate({ changed, current, previous }) {
-// console.log('Map in onstate', changed, current, previous);
 			if (changed.permalink && current.permalink) {
 				this.createMap(current.permalink);
-				//this.getPermalink(current.urlParams.config)
 			}
 		}
 	}

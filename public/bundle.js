@@ -441,70 +441,38 @@ var app = (function () {
 		return properties.gmxStyles ? properties.gmxStyles.styles : [];
 	}
 
-	function minutes({ line }) {
-		return (new Date()).getMinutes();
-	}
-
-	function seconds({ line }) {
-		return (new Date()).getSeconds();
-	}
-
 	function data$1() {
 		return {
-			// layersTree: {
-				// visible: {}
-			// },
-			container: null,
 			line: null
 		}
 	}
 	var methods = {
-		createMap(it) {
-	// var type = tItem.type,
-		// props = tItem.content.properties,
-		// id = props ? props.GroupID || props.name : 'root',
-		// tNode = L.DomUtil.create('ul', 'css-treeview node-props-' + id),
-		// node = this._addLine(props, type);
-
-		// tNode.appendChild(node);
-
-	// if (tItem.content.children) {	// могут быть потомки
-	            // for (var i = 0, len = tItem.content.children.length; i < len; i++) {
-			// node.appendChild(this._addGroupNode(tItem.content.children[i]));
-	            // }
-	// }
-	// return tNode;
-
-		},
-		// fitBounds(props) {
-	// console.log('fitBounds', props, this); // true
-			// this.fire('fitBounds', {layerID: props.layerID});
-		// },
-		expanderChange(ev) {
-	console.log('expanderChange', ev); // true
-		},
-		mouseOverOut_bak(ev, flag) {
-	//			<li class="line cmd:toggleIcons id:{properties ? properties.name : 'root'}" on:mouseover="mouseOverOut(event, true)" on:mouseout="mouseOverOut(event)">
-
-	L.DomEvent.stopPropagation(ev);
-	L.DomEvent.preventDefault(ev);
-			let target = ev.target,
-				node = target.getElementsByClassName('cont-center')[0];
-	 console.log('mouseover', flag, node, target); // true
-			if (node && target.classList.contains('line')) {
-				if (this.prevNode) {
-					this.prevNode.style.visibility = 'hidden';
+		toggleVisibility(target) {
+			let {line} = this.get(),
+				node = line.type === 'group' ? target.parentNode.parentNode.getElementsByClassName('expanderInput')[0] : target.parentNode.getElementsByClassName('cmd:toggleVisibility')[0];
+			// console.log('toggleVisibility', node, line);
+			if (node) {
+				if (node.checked) {
+					node.checked = false;
+				} else {
+					node.checked = true;
 				}
-				this.prevNode = node;
-				node.style.visibility = flag ? 'visible' : 'hidden';
+			}
+		},
+		showInfo(target) {
+			let node = target.parentNode.nextElementSibling.getElementsByClassName('description')[0];
+			if (node) {
+				if (node.classList.contains('collapse')) {
+					let {line} = this.get();
+					node.innerHTML = line.content.properties.description || '';
+					node.classList.remove('collapse');
+				} else {
+					node.classList.add('collapse');
+				}
 			}
 		}
 	};
 
-	function onstate$1({ changed, current, previous }) {
-	 // console.log('LineNode in onstate', changed, current, previous);
-		if (changed.group && current.group) ;
-	}
 	const file$1 = "src\\LineNode.html";
 
 	function create_main_fragment$1(component, ctx) {
@@ -512,7 +480,7 @@ var app = (function () {
 
 		var if_block = (ctx.properties) && create_if_block$1(component, ctx);
 
-		var if_block_1 = (ctx.line.content.children) && create_if_block_8(component, ctx);
+		var if_block_1 = (ctx.line.content.children) && create_if_block_10(component, ctx);
 
 		return {
 			c: function create() {
@@ -520,7 +488,7 @@ var app = (function () {
 				if (if_block) if_block.c();
 				text = createText("\r\n");
 				if (if_block_1) if_block_1.c();
-				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-1ib7f1n";
+				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-nr7la9";
 				addLoc(li, file$1, 0, 0, 0);
 			},
 
@@ -553,7 +521,7 @@ var app = (function () {
 					if (if_block_1) {
 						if_block_1.p(changed, ctx);
 					} else {
-						if_block_1 = create_if_block_8(component, ctx);
+						if_block_1 = create_if_block_10(component, ctx);
 						if (if_block_1) if_block_1.c();
 					}
 
@@ -565,7 +533,7 @@ var app = (function () {
 					});
 				}
 
-				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-1ib7f1n")) {
+				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-nr7la9")) {
 					li.className = li_class_value;
 				}
 			},
@@ -612,12 +580,12 @@ var app = (function () {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#overlays");
 				setAttribute(use, "href", "#overlays");
-				addLoc(use, file$1, 8, 61, 568);
+				addLoc(use, file$1, 8, 61, 582);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1ib7f1n");
-				addLoc(svg, file$1, 8, 29, 536);
-				span.className = "cont-overlays svelte-1ib7f1n";
-				addLoc(span, file$1, 8, 1, 508);
+				setAttribute(svg, "class", "svgIcon svelte-nr7la9");
+				addLoc(svg, file$1, 8, 29, 550);
+				span.className = "cont-overlays svelte-nr7la9";
+				addLoc(span, file$1, 8, 1, 522);
 			},
 
 			m: function mount(target, anchor) {
@@ -638,6 +606,10 @@ var app = (function () {
 	function create_if_block_4(component, ctx) {
 		var span, svg, use;
 
+		function click_handler(event) {
+			component.showInfo(this, event);
+		}
+
 		return {
 			c: function create() {
 				span = createElement("span");
@@ -645,13 +617,14 @@ var app = (function () {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#info-circle-i");
 				setAttribute(use, "href", "#info-circle-i");
-				addLoc(use, file$1, 13, 83, 979);
+				addLoc(use, file$1, 13, 137, 1047);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1ib7f1n");
-				addLoc(svg, file$1, 13, 51, 947);
-				span.className = "cont-info";
+				setAttribute(svg, "class", "svgIcon svelte-nr7la9");
+				addLoc(svg, file$1, 13, 105, 1015);
+				addListener(span, "click", click_handler);
+				span.className = "pointer cmd:showInfo cont-info svelte-nr7la9";
 				span.title = "View description";
-				addLoc(span, file$1, 13, 2, 898);
+				addLoc(span, file$1, 13, 2, 912);
 			},
 
 			m: function mount(target, anchor) {
@@ -664,6 +637,8 @@ var app = (function () {
 				if (detach) {
 					detachNode(span);
 				}
+
+				removeListener(span, "click", click_handler);
 			}
 		};
 	}
@@ -688,15 +663,15 @@ var app = (function () {
 				if (if_block_1) if_block_1.c();
 				setXlinkAttribute(use, "xlink:href", "#center-on-click");
 				setAttribute(use, "href", "#center-on-click");
-				addLoc(use, file$1, 11, 115, 783);
+				addLoc(use, file$1, 11, 115, 797);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1ib7f1n");
-				addLoc(svg, file$1, 11, 83, 751);
-				span_1.className = "pointer cmd:fitBounds cont-center svelte-1ib7f1n";
+				setAttribute(svg, "class", "svgIcon svelte-nr7la9");
+				addLoc(svg, file$1, 11, 83, 765);
+				span_1.className = "pointer cmd:fitBounds cont-center svelte-nr7la9";
 				span_1.title = "Move map to this layer";
-				addLoc(span_1, file$1, 11, 3, 671);
-				span.className = "icons  svelte-1ib7f1n";
-				addLoc(span, file$1, 10, 1, 645);
+				addLoc(span_1, file$1, 11, 3, 685);
+				span.className = "icons  svelte-nr7la9";
+				addLoc(span, file$1, 10, 1, 659);
 			},
 
 			m: function mount(target, anchor) {
@@ -766,18 +741,18 @@ var app = (function () {
 				if_block_anchor = createComment();
 				div.className = "borders ";
 				addLoc(div, file$1, 3, 1, 94);
-				input.className = "expander hidden svelte-1ib7f1n";
+				input.className = "expander expanderInput hidden svelte-nr7la9";
 				setAttribute(input, "type", "checkbox");
 				input.checked = input_checked_value = ctx.properties.expanded ? true : false;
 				addLoc(input, file$1, 4, 1, 125);
 				setXlinkAttribute(use, "xlink:href", "#arrow-small-down");
 				setAttribute(use, "href", "#arrow-small-down");
-				addLoc(use, file$1, 5, 134, 355);
+				addLoc(use, file$1, 5, 134, 369);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1ib7f1n");
-				addLoc(svg, file$1, 5, 102, 323);
-				span.className = span_class_value = "expander pointer cmd:toggleFolder expanderCont " + (ctx.line.content.children ? '' : 'hidden') + " svelte-1ib7f1n";
-				addLoc(span, file$1, 5, 1, 222);
+				setAttribute(svg, "class", "svgIcon svelte-nr7la9");
+				addLoc(svg, file$1, 5, 102, 337);
+				span.className = span_class_value = "expander pointer cmd:toggleFolder expanderCont " + (ctx.line.content.children ? '' : 'hidden') + " svelte-nr7la9";
+				addLoc(span, file$1, 5, 1, 236);
 			},
 
 			m: function mount(target, anchor) {
@@ -798,7 +773,7 @@ var app = (function () {
 					input.checked = input_checked_value;
 				}
 
-				if ((changed.line) && span_class_value !== (span_class_value = "expander pointer cmd:toggleFolder expanderCont " + (ctx.line.content.children ? '' : 'hidden') + " svelte-1ib7f1n")) {
+				if ((changed.line) && span_class_value !== (span_class_value = "expander pointer cmd:toggleFolder expanderCont " + (ctx.line.content.children ? '' : 'hidden') + " svelte-nr7la9")) {
 					span.className = span_class_value;
 				}
 
@@ -834,8 +809,8 @@ var app = (function () {
 		};
 	}
 
-	// (23:3) {#if styles.length && styles.length < 2 && styles[0].RenderStyle}
-	function create_if_block_6(component, ctx) {
+	// (24:2) {#if styles.length && styles.length < 2 && styles[0].RenderStyle}
+	function create_if_block_7(component, ctx) {
 		var current;
 
 		var legendiconcell_initial_data = { item: ctx.styles[0], type: ctx.properties.GeometryType };
@@ -881,7 +856,84 @@ var app = (function () {
 		};
 	}
 
-	// (31:3) {#each styles as it}
+	// (21:2) {#if line.type === 'layer'}
+	function create_if_block_6(component, ctx) {
+		var input, input_checked_value, text, span, current;
+
+		var if_block = (ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) && create_if_block_7(component, ctx);
+
+		return {
+			c: function create() {
+				input = createElement("input");
+				text = createText("\r\n\t\t");
+				span = createElement("span");
+				if (if_block) if_block.c();
+				input.className = "check visibility pointer cmd:toggleVisibility svelte-nr7la9";
+				setAttribute(input, "type", "checkbox");
+				input.checked = input_checked_value = ctx.layersTree && ctx.layersTree.visible[ctx.nodeID] ? true : false;
+				addLoc(input, file$1, 21, 2, 1244);
+				span.className = "styleIcon gmx-style-legend svelte-nr7la9";
+				addLoc(span, file$1, 22, 2, 1393);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, input, anchor);
+				insert(target, text, anchor);
+				insert(target, span, anchor);
+				if (if_block) if_block.m(span, null);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if ((!current || changed.layersTree || changed.nodeID) && input_checked_value !== (input_checked_value = ctx.layersTree && ctx.layersTree.visible[ctx.nodeID] ? true : false)) {
+					input.checked = input_checked_value;
+				}
+
+				if (ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) {
+					if (if_block) {
+						if_block.p(changed, ctx);
+					} else {
+						if_block = create_if_block_7(component, ctx);
+						if (if_block) if_block.c();
+					}
+
+					if_block.i(span, null);
+				} else if (if_block) {
+					if_block.o(function() {
+						if_block.d(1);
+						if_block = null;
+					});
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (if_block) if_block.o(outrocallback);
+				else outrocallback();
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(input);
+					detachNode(text);
+					detachNode(span);
+				}
+
+				if (if_block) if_block.d();
+			}
+		};
+	}
+
+	// (34:3) {#each styles as it}
 	function create_each_block(component, ctx) {
 		var div, span, svg, use, text, svg_1, use_1, text_2, text_3, span_1, span_2, text_4_value = ctx.it.Name, text_4, current;
 
@@ -909,24 +961,24 @@ var app = (function () {
 				text_4 = createText(text_4_value);
 				setXlinkAttribute(use, "xlink:href", "#eye-on");
 				setAttribute(use, "href", "#eye-on");
-				addLoc(use, file$1, 33, 41, 1859);
+				addLoc(use, file$1, 36, 41, 2064);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon on svelte-1ib7f1n");
-				addLoc(svg, file$1, 33, 6, 1824);
+				setAttribute(svg, "class", "svgIcon on svelte-nr7la9");
+				addLoc(svg, file$1, 36, 6, 2029);
 				setXlinkAttribute(use_1, "xlink:href", "#eye-off");
 				setAttribute(use_1, "href", "#eye-off");
-				addLoc(use_1, file$1, 34, 42, 1956);
+				addLoc(use_1, file$1, 37, 42, 2161);
 				setAttribute(svg_1, "role", "img");
-				setAttribute(svg_1, "class", "svgIcon off svelte-1ib7f1n");
-				addLoc(svg_1, file$1, 34, 6, 1920);
-				span.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-1ib7f1n";
-				addLoc(span, file$1, 32, 5, 1756);
+				setAttribute(svg_1, "class", "svgIcon off svelte-nr7la9");
+				addLoc(svg_1, file$1, 37, 6, 2125);
+				span.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-nr7la9";
+				addLoc(span, file$1, 35, 5, 1961);
 				span_2.className = "styleName";
-				addLoc(span_2, file$1, 37, 34, 2127);
-				span_1.className = "legendIconCell svelte-1ib7f1n";
-				addLoc(span_1, file$1, 37, 5, 2098);
-				div.className = "gmx-style-legend svelte-1ib7f1n";
-				addLoc(div, file$1, 31, 4, 1719);
+				addLoc(span_2, file$1, 40, 34, 2332);
+				span_1.className = "legendIconCell svelte-nr7la9";
+				addLoc(span_1, file$1, 40, 5, 2303);
+				div.className = "gmx-style-legend svelte-nr7la9";
+				addLoc(div, file$1, 34, 4, 1924);
 			},
 
 			m: function mount(target, anchor) {
@@ -980,8 +1032,8 @@ var app = (function () {
 		};
 	}
 
-	// (30:3) {#if styles.length && styles.length > 1 && styles[0].RenderStyle}
-	function create_if_block_7(component, ctx) {
+	// (33:3) {#if styles.length && styles.length > 1 && styles[0].RenderStyle}
+	function create_if_block_9(component, ctx) {
 		var each_anchor, current;
 
 		var each_value = ctx.styles;
@@ -1067,68 +1119,116 @@ var app = (function () {
 		};
 	}
 
-	// (19:2) {#if line.type !== 'map'}
-	function create_if_block_5(component, ctx) {
-		var span, input, input_checked_value, text, span_1, text_2, label, text_3_value = ctx.properties.title, text_3, text_4, div, text_5, div_1, current;
+	// (31:2) {#if line.type === 'layer'}
+	function create_if_block_8(component, ctx) {
+		var div, current;
 
-		var if_block = (ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) && create_if_block_6(component, ctx);
-
-		var if_block_1 = (ctx.styles.length && ctx.styles.length > 1 && ctx.styles[0].RenderStyle) && create_if_block_7(component, ctx);
+		var if_block = (ctx.styles.length && ctx.styles.length > 1 && ctx.styles[0].RenderStyle) && create_if_block_9(component, ctx);
 
 		return {
 			c: function create() {
-				span = createElement("span");
-				input = createElement("input");
-				text = createText("\r\n\t\t\t");
-				span_1 = createElement("span");
-				if (if_block) if_block.c();
-				text_2 = createText("\r\n\t\t");
-				label = createElement("label");
-				text_3 = createText(text_3_value);
-				text_4 = createText("\r\n\t\t");
 				div = createElement("div");
-				text_5 = createText("\r\n\t\t");
-				div_1 = createElement("div");
-				if (if_block_1) if_block_1.c();
-				input.className = "check visibility pointer cmd:toggleVisibility svelte-1ib7f1n";
-				setAttribute(input, "type", "checkbox");
-				input.checked = input_checked_value = ctx.layersTree && ctx.layersTree.visible[ctx.nodeID] ? true : false;
-				addLoc(input, file$1, 20, 3, 1146);
-				span_1.className = "styleIcon gmx-style-legend svelte-1ib7f1n";
-				addLoc(span_1, file$1, 21, 3, 1294);
-				label.className = "title";
-				addLoc(label, file$1, 26, 2, 1503);
-				div.className = "description collapse svelte-1ib7f1n";
-				addLoc(div, file$1, 27, 2, 1554);
-				div_1.className = "legend svelte-1ib7f1n";
-				addLoc(div_1, file$1, 28, 2, 1598);
-				span.className = "cont";
-				addLoc(span, file$1, 19, 1, 1122);
+				if (if_block) if_block.c();
+				div.className = "legend svelte-nr7la9";
+				addLoc(div, file$1, 31, 2, 1803);
 			},
 
 			m: function mount(target, anchor) {
-				insert(target, span, anchor);
-				append(span, input);
-				append(span, text);
-				append(span, span_1);
-				if (if_block) if_block.m(span_1, null);
-				append(span, text_2);
-				append(span, label);
-				append(label, text_3);
-				append(span, text_4);
-				append(span, div);
-				append(span, text_5);
-				append(span, div_1);
-				if (if_block_1) if_block_1.m(div_1, null);
+				insert(target, div, anchor);
+				if (if_block) if_block.m(div, null);
 				current = true;
 			},
 
 			p: function update(changed, ctx) {
-				if ((!current || changed.layersTree || changed.nodeID) && input_checked_value !== (input_checked_value = ctx.layersTree && ctx.layersTree.visible[ctx.nodeID] ? true : false)) {
-					input.checked = input_checked_value;
+				if (ctx.styles.length && ctx.styles.length > 1 && ctx.styles[0].RenderStyle) {
+					if (if_block) {
+						if_block.p(changed, ctx);
+					} else {
+						if_block = create_if_block_9(component, ctx);
+						if (if_block) if_block.c();
+					}
+
+					if_block.i(div, null);
+				} else if (if_block) {
+					if_block.o(function() {
+						if_block.d(1);
+						if_block = null;
+					});
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (if_block) if_block.o(outrocallback);
+				else outrocallback();
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div);
 				}
 
-				if (ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) {
+				if (if_block) if_block.d();
+			}
+		};
+	}
+
+	// (19:2) {#if line.type !== 'map'}
+	function create_if_block_5(component, ctx) {
+		var span, text, label, text_1_value = ctx.properties.title, text_1, text_2, div, text_3, current;
+
+		var if_block = (ctx.line.type === 'layer') && create_if_block_6(component, ctx);
+
+		function click_handler(event) {
+			component.toggleVisibility(this, event);
+		}
+
+		var if_block_1 = (ctx.line.type === 'layer') && create_if_block_8(component, ctx);
+
+		return {
+			c: function create() {
+				span = createElement("span");
+				if (if_block) if_block.c();
+				text = createText("\r\n\t\t");
+				label = createElement("label");
+				text_1 = createText(text_1_value);
+				text_2 = createText("\r\n\t\t");
+				div = createElement("div");
+				text_3 = createText("\r\n\t\t");
+				if (if_block_1) if_block_1.c();
+				addListener(label, "click", click_handler);
+				label.className = "pointer title cmd:toggleVisibility svelte-nr7la9";
+				addLoc(label, file$1, 28, 2, 1607);
+				div.className = "description collapse svelte-nr7la9";
+				addLoc(div, file$1, 29, 2, 1728);
+				span.className = "cont";
+				addLoc(span, file$1, 19, 1, 1190);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, span, anchor);
+				if (if_block) if_block.m(span, null);
+				append(span, text);
+				append(span, label);
+				append(label, text_1);
+				append(span, text_2);
+				append(span, div);
+				append(span, text_3);
+				if (if_block_1) if_block_1.m(span, null);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (ctx.line.type === 'layer') {
 					if (if_block) {
 						if_block.p(changed, ctx);
 					} else {
@@ -1136,7 +1236,7 @@ var app = (function () {
 						if (if_block) if_block.c();
 					}
 
-					if_block.i(span_1, null);
+					if_block.i(span, text);
 				} else if (if_block) {
 					if_block.o(function() {
 						if_block.d(1);
@@ -1144,19 +1244,19 @@ var app = (function () {
 					});
 				}
 
-				if ((!current || changed.properties) && text_3_value !== (text_3_value = ctx.properties.title)) {
-					setData(text_3, text_3_value);
+				if ((!current || changed.properties) && text_1_value !== (text_1_value = ctx.properties.title)) {
+					setData(text_1, text_1_value);
 				}
 
-				if (ctx.styles.length && ctx.styles.length > 1 && ctx.styles[0].RenderStyle) {
+				if (ctx.line.type === 'layer') {
 					if (if_block_1) {
 						if_block_1.p(changed, ctx);
 					} else {
-						if_block_1 = create_if_block_7(component, ctx);
+						if_block_1 = create_if_block_8(component, ctx);
 						if (if_block_1) if_block_1.c();
 					}
 
-					if_block_1.i(div_1, null);
+					if_block_1.i(span, null);
 				} else if (if_block_1) {
 					if_block_1.o(function() {
 						if_block_1.d(1);
@@ -1191,6 +1291,7 @@ var app = (function () {
 				}
 
 				if (if_block) if_block.d();
+				removeListener(label, "click", click_handler);
 				if (if_block_1) if_block_1.d();
 			}
 		};
@@ -1280,7 +1381,7 @@ var app = (function () {
 		};
 	}
 
-	// (48:1) {#each line.content.children || [] as child}
+	// (52:1) {#each line.content.children || [] as child}
 	function create_each_block_1(component, ctx) {
 		var linenode_updating = {}, current;
 
@@ -1348,8 +1449,8 @@ var app = (function () {
 		};
 	}
 
-	// (46:0) {#if line.content.children}
-	function create_if_block_8(component, ctx) {
+	// (50:0) {#if line.content.children}
+	function create_if_block_10(component, ctx) {
 		var ul, ul_class_value, current;
 
 		var each_value_1 = ctx.line.content.children || [];
@@ -1379,8 +1480,8 @@ var app = (function () {
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1ib7f1n";
-				addLoc(ul, file$1, 46, 1, 2276);
+				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-nr7la9";
+				addLoc(ul, file$1, 50, 1, 2490);
 			},
 
 			m: function mount(target, anchor) {
@@ -1411,7 +1512,7 @@ var app = (function () {
 					for (; i < each_blocks.length; i += 1) outroBlock(i, 1);
 				}
 
-				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1ib7f1n")) {
+				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-nr7la9")) {
 					ul.className = ul_class_value;
 				}
 			},
@@ -1470,15 +1571,7 @@ var app = (function () {
 		if (!('layersTree' in this._state)) console.warn("<LineNode> was created without expected data property 'layersTree'");
 		this._intro = !!options.intro;
 
-		this._handlers.state = [onstate$1];
-
-		onstate$1.call(this, { changed: assignTrue({}, this._state), current: this._state });
-
 		this._fragment = create_main_fragment$1(this, this._state);
-
-		this.root._oncreate.push(() => {
-			this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
-		});
 
 		if (options.target) {
 			if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1498,8 +1591,6 @@ var app = (function () {
 		if ('properties' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'properties'");
 		if ('nodeID' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'nodeID'");
 		if ('styles' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'styles'");
-		if ('minutes' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'minutes'");
-		if ('seconds' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'seconds'");
 	};
 
 	LineNode.prototype._recompute = function _recompute(changed, state) {
@@ -1510,11 +1601,6 @@ var app = (function () {
 		if (changed.properties) {
 			if (this._differs(state.nodeID, (state.nodeID = nodeID(state)))) changed.nodeID = true;
 			if (this._differs(state.styles, (state.styles = styles(state)))) changed.styles = true;
-		}
-
-		if (changed.line) {
-			if (this._differs(state.minutes, (state.minutes = minutes(state)))) changed.minutes = true;
-			if (this._differs(state.seconds, (state.seconds = seconds(state)))) changed.seconds = true;
 		}
 	};
 
@@ -1529,7 +1615,6 @@ var app = (function () {
 			config: {},
 			layersTree: {},
 			group: null,
-			container: null,
 			rawTree: null
 		}
 	}
@@ -1543,7 +1628,6 @@ var app = (function () {
 				let out = {
 					cmd: arr[1],
 					type: ev.type,
-					// className: className,
 					originalEvent: ev
 				};
 				for(let i = 0; i < 5; i++) {
@@ -1560,17 +1644,13 @@ var app = (function () {
 					this.treeCommands(out);
 					this.fire('command', out);
 				}
-	// console.log('chkEvent', out);
 			}
 		},
-		fitBounds1(props) {
-			console.log('TreeView fitBounds', props); // true
-			this.fire('fitBounds', {layerID: props.layerID});
-		},
+
 		treeCommands(attr) {
-			let {layersTree} = this.get();
-			console.log('treeCommands', attr, layersTree);
-			
+			let {layersTree, rawTree} = this.get();
+			// console.log('treeCommands', attr, layersTree, rawTree);
+
 			if (attr.cmd === 'toggleFolder') {
 				let expanded = layersTree.expanded || {},
 					input = attr.originalEvent.target.previousElementSibling,
@@ -1584,22 +1664,14 @@ var app = (function () {
 				}
 				this.set({layersTree: layersTree});
 				return true;
+			} else if (attr.cmd === 'showInfo') {
+				let input = attr.originalEvent.target,
+					id = attr.id;
 			}
 			return false;
 		},
-		// _initTree(it) {
-	// console.log('_initTree', it); // true
-		// }
 	};
 
-	function onstate$2({ changed, current, previous }) {
-	console.log('TreeView in onstate', changed, current, previous);
-		// if (changed.rawTree && current.rawTree) {
-			// console.log('kjkkkkkkkkkkk in onstate', changed, current, previous);
-			// this.createMap(current.permalink);
-			//this.getPermalink(current.urlParams.config)
-		// }
-	}
 	const file$2 = "src\\TreeView.html";
 
 	function create_main_fragment$2(component, ctx) {
@@ -1692,15 +1764,7 @@ var app = (function () {
 		if (!('layersTree' in this._state)) console.warn("<TreeView> was created without expected data property 'layersTree'");
 		this._intro = !!options.intro;
 
-		this._handlers.state = [onstate$2];
-
-		onstate$2.call(this, { changed: assignTrue({}, this._state), current: this._state });
-
 		this._fragment = create_main_fragment$2(this, this._state);
-
-		this.root._oncreate.push(() => {
-			this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
-		});
 
 		if (options.target) {
 			if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1721,8 +1785,6 @@ var app = (function () {
 
 	/* src\Map.html generated by Svelte v2.13.4 */
 
-	// import EventedTreeView from './TreeView.js';
-
 	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
 
 	function data$3() {
@@ -1733,7 +1795,6 @@ var app = (function () {
 	}
 	var methods$2 = {
 		createMap(it) {
-			// console.log('createMap', it);
 			let app = it.app || {},
 				gmxMap = app.gmxMap || {},
 				state = it.state || {},
@@ -1771,10 +1832,9 @@ var app = (function () {
 			});
 
 			map.gmxControlsManager.init();
-	map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
+			map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
 
-			// L.gmx.loadMap(mapID, {leafletMap: map}).then(function(gmxMap) {
-			L.gmx.loadMap(mapID, {leafletMap: map, visibility: layersTree.visible}).then(function(gmxMap) {
+			L.gmx.loadMap(mapID, {leafletMap: map, setZIndex: true, visibility: layersTree.visible}).then(function(gmxMap) {
 				this.set({gmxMap: gmxMap});
 
 				iconSidebar.on('opened', function(e) {
@@ -1795,7 +1855,6 @@ var app = (function () {
 			return i === len ? null : i;
 		},
 		_initTree(it) {
-			// const app = new EventedTreeView({
 			const app = new TreeView({
 				target: it.container,
 				data: {
@@ -1808,21 +1867,21 @@ var app = (function () {
 					}
 				}
 			});
-	// this.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
 			app.on('command', (ev) => {
 				let {map, gmxMap} = this.get();
 				let cmd = ev.cmd,
 					target = ev.originalEvent.target,
 					gmxLayer = gmxMap.layersByID[ev.id];
-	console.log('Map command', ev, gmxLayer);
+	// console.log('Map command', ev, gmxLayer);
 				if (gmxLayer) {
 					if (cmd === 'fitBounds') {
 						map.fitBounds(gmxLayer.getBounds());
 					} else if (cmd === 'toggleVisibility') {
-						if (target.checked) {
-							map.addLayer(gmxLayer);
-						} else {
+						// if (target.checked) {
+						if (gmxLayer._map) {
 							map.removeLayer(gmxLayer);
+						} else {
+							map.addLayer(gmxLayer);
 						}
 					} else if (cmd === 'toggleStyle') {
 						let num = this._getNodeIndex(target.parentNode),
@@ -1838,21 +1897,12 @@ var app = (function () {
 					}
 				}
 			});
-			// app.on('foo', e => console.log('hhhhhhhhhhhhhhh', e));
-	console.log('_initTree', it); // true
 		}
 	};
 
-	function oncreate() {
-		// this fires after oncreate, and after every state change
-		// once the DOM is synchronised with the data
-	// console.log(`Mappppp The DOM has been updated`, changed, current, previous);
-	}
-	function onstate$3({ changed, current, previous }) {
-	// console.log('Map in onstate', changed, current, previous);
+	function onstate$1({ changed, current, previous }) {
 		if (changed.permalink && current.permalink) {
 			this.createMap(current.permalink);
-			//this.getPermalink(current.urlParams.config)
 		}
 	}
 	const file$3 = "src\\Map.html";
@@ -1897,14 +1947,13 @@ var app = (function () {
 		this._state = assign(data$3(), options.data);
 		this._intro = !!options.intro;
 
-		this._handlers.state = [onstate$3];
+		this._handlers.state = [onstate$1];
 
-		onstate$3.call(this, { changed: assignTrue({}, this._state), current: this._state });
+		onstate$1.call(this, { changed: assignTrue({}, this._state), current: this._state });
 
 		this._fragment = create_main_fragment$3(this, this._state);
 
 		this.root._oncreate.push(() => {
-			oncreate.call(this);
 			this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
 		});
 
@@ -1977,13 +2026,13 @@ var app = (function () {
 		}
 	};
 
-	function oncreate$1() {
+	function oncreate() {
 		// this fires when the component has been
 		// rendered to the DOM
 		// console.log('in oncreate');
 		
 	}
-	function onstate$4({ changed, current, previous }) {
+	function onstate$2({ changed, current, previous }) {
 	// console.log('in onstate', changed, current, previous);
 		if (changed.urlParams) {
 			this.getPermalink(current.urlParams.config);
@@ -2296,15 +2345,15 @@ var app = (function () {
 		if (!('map' in this._state)) console.warn("<App> was created without expected data property 'map'");
 		this._intro = !!options.intro;
 
-		this._handlers.state = [onstate$4];
+		this._handlers.state = [onstate$2];
 		this._handlers.update = [onupdate];
 
-		onstate$4.call(this, { changed: assignTrue({}, this._state), current: this._state });
+		onstate$2.call(this, { changed: assignTrue({}, this._state), current: this._state });
 
 		this._fragment = create_main_fragment$4(this, this._state);
 
 		this.root._oncreate.push(() => {
-			oncreate$1.call(this);
+			oncreate.call(this);
 			this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
 		});
 

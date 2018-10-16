@@ -2,7 +2,7 @@
 {#if properties}
 	{#if line.type !== 'map'}
 	<div class="borders "></div>
-	<input class="expander hidden" type="checkbox" checked={properties.expanded ? true : false} />
+	<input class="expander expanderInput hidden" type="checkbox" checked={properties.expanded ? true : false} />
 	<span class="expander pointer cmd:toggleFolder expanderCont {line.content.children ? '' : 'hidden'}"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
 		{#if line.type === 'layer'}
 			{#if properties.styles.length > 1}
@@ -11,21 +11,24 @@
 	<span class="icons ">
  		<span class="pointer cmd:fitBounds cont-center"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
 			{#if properties.description}
-		<span class="cont-info" title="View description"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
+		<span class="pointer cmd:showInfo cont-info" title="View description" on:click="showInfo(this, event)"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
 			{/if}
 	</span>
 		{/if}
 	{/if}
 		{#if line.type !== 'map'}
 	<span class="cont">
-			<input class="check visibility pointer cmd:toggleVisibility" type="checkbox" checked={layersTree && layersTree.visible[nodeID] ? true : false}>
-			<span class="styleIcon gmx-style-legend">
-			{#if styles.length && styles.length < 2 && styles[0].RenderStyle}
-				<LegendIconCell item={styles[0]} type={properties.GeometryType} />
-			{/if}
-			</span>
-		<label class="title">{properties.title}</label>
+		{#if line.type === 'layer'}
+		<input class="check visibility pointer cmd:toggleVisibility" type="checkbox" checked={layersTree && layersTree.visible[nodeID] ? true : false} />
+		<span class="styleIcon gmx-style-legend">
+		{#if styles.length && styles.length < 2 && styles[0].RenderStyle}
+			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
+		{/if}
+		</span>
+		{/if}
+		<label class="pointer title cmd:toggleVisibility" on:click="toggleVisibility(this, event)">{properties.title}</label>
 		<div class="description collapse"></div>
+		{#if line.type === 'layer'}
 		<div class="legend">
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
 			{#each styles as it}
@@ -40,6 +43,7 @@
 			{/each}
 			{/if}
 		</div>
+		{/if}
 	</span>
 		{/if}
 {/if}
@@ -57,77 +61,41 @@
 	export default {
 		data() {
 			return {
-				// layersTree: {
-					// visible: {}
-				// },
-				container: null,
 				line: null
 			}
 		},
 		computed: {
 			properties: ({ line }) => line.content.properties,
 			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
-			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : [],
-			minutes: ({ line }) => (new Date()).getMinutes(),
-			seconds: ({ line }) => (new Date()).getSeconds()
+			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : []
 		},
 		components: {
 			LegendIconCell
 		},
-		// events: {
-			// fitBounds(props, tt) {
-// console.log('fitBounds TreeView', props, tt); // true
-			// }
-			
-		// },
 		methods: {
-			createMap(it) {
-		// var type = tItem.type,
-			// props = tItem.content.properties,
-			// id = props ? props.GroupID || props.name : 'root',
-			// tNode = L.DomUtil.create('ul', 'css-treeview node-props-' + id),
-			// node = this._addLine(props, type);
-
-			// tNode.appendChild(node);
-
-		// if (tItem.content.children) {	// могут быть потомки
-            // for (var i = 0, len = tItem.content.children.length; i < len; i++) {
-				// node.appendChild(this._addGroupNode(tItem.content.children[i]));
-            // }
-		// }
-		// return tNode;
-
-			},
-			// fitBounds(props) {
-// console.log('fitBounds', props, this); // true
-				// this.fire('fitBounds', {layerID: props.layerID});
-			// },
-			expanderChange(ev) {
-console.log('expanderChange', ev); // true
-			},
-			mouseOverOut_bak(ev, flag) {
-//			<li class="line cmd:toggleIcons id:{properties ? properties.name : 'root'}" on:mouseover="mouseOverOut(event, true)" on:mouseout="mouseOverOut(event)">
-
-L.DomEvent.stopPropagation(ev);
-L.DomEvent.preventDefault(ev);
-				let target = ev.target,
-					node = target.getElementsByClassName('cont-center')[0];
- console.log('mouseover', flag, node, target); // true
-				if (node && target.classList.contains('line')) {
-					if (this.prevNode) {
-						this.prevNode.style.visibility = 'hidden';
+			toggleVisibility(target) {
+				let {line} = this.get(),
+					node = line.type === 'group' ? target.parentNode.parentNode.getElementsByClassName('expanderInput')[0] : target.parentNode.getElementsByClassName('cmd:toggleVisibility')[0];
+				// console.log('toggleVisibility', node, line);
+				if (node) {
+					if (node.checked) {
+						node.checked = false;
+					} else {
+						node.checked = true;
 					}
-					this.prevNode = node;
-					node.style.visibility = flag ? 'visible' : 'hidden';
 				}
-			}
-		},
-
-		onstate({ changed, current, previous }) {
- // console.log('LineNode in onstate', changed, current, previous);
-			if (changed.group && current.group) {
-				// this.createMap(current.permalink);
-				//this.getPermalink(current.urlParams.config)
+			},
+			showInfo(target) {
+				let node = target.parentNode.nextElementSibling.getElementsByClassName('description')[0];
+				if (node) {
+					if (node.classList.contains('collapse')) {
+						let {line} = this.get();
+						node.innerHTML = line.content.properties.description || '';
+						node.classList.remove('collapse');
+					} else {
+						node.classList.add('collapse');
+					}
+				}
 			}
 		}
 	}
@@ -159,8 +127,9 @@ li.line > .icons span.cont-center {
 li.line:hover > .icons span.cont-center {
 	visibility: visible;
 }
-/*
-*/
+li.line:hover > .cont label.title {
+	font-weight: bold;
+}
 
 svg {
 	pointer-events: none;
@@ -205,16 +174,6 @@ input.check.visibility:checked ~ .legend {
     display: none;
 }
 
-/*
-.gmx-style-legend .legendIconStyle {
-    background-color: rgb(255, 0, 0);
-    border-color: rgb(0, 0, 255);
-    border: solid;
-    border-width: 1px;
-    border-radius: 2px;
-}
-*/
-
 .line input.expander:checked ~ ul {
     display: block;
 }
@@ -225,15 +184,7 @@ input.check.visibility:checked ~ .legend {
 .collapse {
     display: none;
 }
-/*
-.cont-center {
-	visibility: hidden;
-}
-li.line:hover .cont-center {
-	visibility: visible;
-}
 
-*/
 span.cont-overlays {
     position: absolute;
     left: 4px;

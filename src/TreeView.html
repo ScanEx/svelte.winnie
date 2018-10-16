@@ -18,19 +18,10 @@
 				config: {},
 				layersTree: {},
 				group: null,
-				container: null,
 				rawTree: null
 			}
 		},
-		// events: {
-			// fitBounds(node, callback) {
-// console.log('TreeView fitBoundsfitBounds', node, callback);
-			// }
-		// },
 
-		// oncreate() {
-// console.log('_initTree', LineNode); // true
-		// },
 		methods: {
 			chkEvent(ev) {
 				let target = ev.target,
@@ -41,7 +32,6 @@
 					let out = {
 						cmd: arr[1],
 						type: ev.type,
-						// className: className,
 						originalEvent: ev
 					};
 					for(let i = 0; i < 5; i++) {
@@ -58,17 +48,13 @@
 						this.treeCommands(out);
 						this.fire('command', out);
 					}
-// console.log('chkEvent', out);
 				}
 			},
-			fitBounds1(props) {
-				console.log('TreeView fitBounds', props); // true
-				this.fire('fitBounds', {layerID: props.layerID});
-			},
+
 			treeCommands(attr) {
-				let {layersTree} = this.get();
-				console.log('treeCommands', attr, layersTree);
-				
+				let {layersTree, rawTree} = this.get();
+				// console.log('treeCommands', attr, layersTree, rawTree);
+
 				if (attr.cmd === 'toggleFolder') {
 					let expanded = layersTree.expanded || {},
 						input = attr.originalEvent.target.previousElementSibling,
@@ -82,27 +68,16 @@
 					}
 					this.set({layersTree: layersTree});
 					return true;
+				} else if (attr.cmd === 'showInfo') {
+					let tt = rawTree;
+					let input = attr.originalEvent.target,
+						id = attr.id;
 				}
 				return false;
 			},
-			// _initTree(it) {
-// console.log('_initTree', it); // true
-			// }
 		},
 		components: {
 			LineNode
-		},
-		// oncreate() {
-				// this.fire('foo', {ggg: 'ddddddddd'});
-			
-		// },
-		onstate({ changed, current, previous }) {
-console.log('TreeView in onstate', changed, current, previous);
-			// if (changed.rawTree && current.rawTree) {
-				// console.log('kjkkkkkkkkkkk in onstate', changed, current, previous);
-				// this.createMap(current.permalink);
-				//this.getPermalink(current.urlParams.config)
-			// }
 		}
 	}
 
