@@ -2,8 +2,10 @@
 {#if properties}
 	{#if line.type !== 'map'}
 	<div class="borders "></div>
+	{#if line.type === 'group'}
 	<input class="expander expanderInput hidden" type="checkbox" checked={properties.expanded ? true : false} />
 	<span class="expander pointer cmd:toggleFolder expanderCont {line.content.children ? '' : 'hidden'}"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
+	{/if}
 		{#if line.type === 'layer'}
 			{#if properties.styles.length > 1}
 	<span class="cont-overlays"><svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg></span>
@@ -13,6 +15,9 @@
 			{#if properties.description}
 		<span class="pointer cmd:showInfo cont-info" title="View description" on:click="showInfo(this, event)"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
 			{/if}
+		{#if properties.Temporal}
+		<span class="pointer cmd:toggleTimeline timeline disabled" on:click="toggleTimeline(this)"><svg role="img" class="svgIcon"><use xlink:href="#timeline-icon" href="#timeline-icon"></use></svg></span>
+		{/if}
 	</span>
 		{/if}
 	{/if}
@@ -20,13 +25,11 @@
 	<span class="cont">
 		{#if line.type === 'layer'}
 		<input class="check visibility pointer cmd:toggleVisibility" type="checkbox" checked={layersTree && layersTree.visible[nodeID] ? true : false} />
-		<span class="styleIcon gmx-style-legend">
 		{#if styles.length && styles.length < 2 && styles[0].RenderStyle}
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
-		</span>
 		{/if}
-		<label class="pointer title cmd:toggleVisibility" on:click="toggleVisibility(this, event)">{properties.title}</label>
+		<label class="pointer title cmd:toggleVisibility" on:click="toggleVisibility(this)">{properties.title}</label>
 		<div class="description collapse"></div>
 		{#if line.type === 'layer'}
 		<div class="legend">
@@ -38,7 +41,7 @@
 						<svg role="img" class="svgIcon off"><use xlink:href="#eye-off" href="#eye-off"></use></svg>
 					</span>
 					<LegendIconCell item={it} type={properties.GeometryType} />
-					<span class="legendIconCell"><span class="styleName">{it.Name}</span></span>
+					<span class="styleName">{it.Name}</span>
 				</div>
 			{/each}
 			{/if}
@@ -82,6 +85,17 @@
 						node.checked = false;
 					} else {
 						node.checked = true;
+					}
+				}
+			},
+			toggleTimeline(node) {
+				if (node) {
+					if (node.classList.contains('disabled')) {
+						node.classList.remove('disabled');
+						node.classList.add('enabled');
+					} else {
+						node.classList.add('disabled');
+						node.classList.remove('enabled');
 					}
 				}
 			},
@@ -139,6 +153,13 @@ svg {
     height: 14px;
     width: 14px;
 }
+.timeline.disabled {
+	fill: #999999;
+}
+.timeline.enabled {
+	fill: #45B0D8;
+}
+
 .expanderCont {
     margin-left: -20px;
 }
@@ -166,6 +187,9 @@ input.check.visibility:checked ~ .legend {
 }
 .gmx-style-legend .legendIconCell {
     width: 100%;
+}
+.legendIconEye {
+	margin-right: -5px;
 }
 .legendIconEye.enabled > .on, .legendIconEye > .off {
     display: inline-block;
