@@ -58,8 +58,15 @@
 				map.gmxControlsManager.init();
 				map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
 
-				L.gmx.loadMap(mapID, {leafletMap: map, setZIndex: true, visibility: layersTree.visible}).then(function(gmxMap) {
-					this.set({gmxMap: gmxMap});
+				this.mapID = mapID;
+				let opt = {
+					leafletMap: map,
+					visibleItemOnly: true,	// только видимые элементы (слои и папки)
+					setZIndex: true,
+					visibility: layersTree.visible
+				};
+				L.gmx.loadMap(mapID, opt).then(function(gmxMap) {
+					this.set({gmxMap: gmxMap}); 
 
 					iconSidebar.on('opened', function(e) {
 						if (e.id === 'treeView') {
@@ -86,6 +93,19 @@
 				}.bind(this));
 				this.set({map: map, config: it});
 			},
+			_createLayer(layerID) {
+				let _maps = L.gmx._maps,
+					host = 'maps.kosmosnimki.ru',
+					info = _maps[host] && _maps[host][this.mapID] && _maps[host][this.mapID]._nodes[layerID] ? _maps[host][this.mapID]._nodes[layerID] :
+							L.gmx.gmxMapManager.findLayerInfo('maps.kosmosnimki.ru', this.mapID, layerID);
+				// console.log('_createLayer', info);
+				return info ? L.gmx.createLayer(info.content, {
+					layerID: layerID
+					// ,
+					// srs: 3857
+				}) : null;
+
+			},
 			_getNodeIndex(target) {
 				let arr = target.parentNode.children,
 					i, len;
@@ -95,24 +115,29 @@
 				return i === len ? null : i;
 			},
 			_initTree(it) {
+				let rawTree = {
+					type: 'map',
+					content: it.rawTree
+				};
 				const app = new TreeView({
 					target: it.container,
 					data: {
 						container: it.container,
 						layersTree: it.layersTree,
 						// config: it.config,
-						rawTree: {
-							type: 'map',
-							content: it.rawTree
-						}
+						rawTree: rawTree
 					}
 				});
+				this._treeView = app;
+
 				app.on('command', (ev) => {
 					let {map, gmxMap} = this.get();
 					let cmd = ev.cmd,
 						target = ev.originalEvent.target,
 						gmxLayer = gmxMap.layersByID[ev.id];
-console.log('Map command', ev, gmxLayer);
+						// gmxLayer = this._createLayer(ev.id);
+
+console.log('Map command', ev, gmxLayer, gmxMap);
 					if (gmxLayer) {
 						if (cmd === 'fitBounds') {
 							map.fitBounds(gmxLayer.getBounds());
@@ -140,6 +165,14 @@ console.log('Map command', ev, gmxLayer);
 								delete styles[num].disabled;
 							}
 							gmxLayer.setStyles(styles);
+						}
+					} else {
+						if (cmd === 'toggleVisibility') {
+							L.gmx.gmxMapManager.getMapFolder({mapId: this.mapID, folderId: ev.id}).then(function(attr) {
+								app.set({rawTree: rawTree});
+
+console.log('________', attr);
+							});
 						}
 					}
 				});
