@@ -21,6 +21,7 @@
 					gmxMap = app.gmxMap || {},
 					state = it.state || {},
 					layersTree = state.layersTree,
+					calendar = state.calendar || {},
 					mapID = gmxMap.mapID || '946GH',
 					apiKey = gmxMap.apiKey,
 					pos = state.map ? state.map.position : {};
@@ -28,8 +29,9 @@
 				var osm = L.tileLayer('//tilessputnik.ru/{z}/{x}/{y}.png', {
 					maxZoom: 18
 				});
-layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
+//layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
 				let map = new L.Map('map', {
+					srs: 3857,
 					layers: [osm],
 					center: new L.LatLng(pos.y || 0, pos.x || 60),
 					zoom: pos.z || 3
@@ -65,6 +67,22 @@ layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
 						}
 					}, this);
 					iconSidebar.open('treeView', true);
+
+					/* TimeLine */
+					var control = L.control.gmxTimeline({
+						moveable: true
+					})	.on('dateInterval', function (ev) {
+							gmxMap.layersByID[ev.layerID].setDateInterval(ev.beginDate, ev.endDate);
+						})
+						.on('statechanged', function (ev) {
+							console.log('statechanged', ev);
+						})
+						.on('click', function (ev) {
+							gmxMap.layersByID[ev.layerID].repaint();
+						});
+
+					map.addControl(control);
+					this.gmxTimeline = control;
 				}.bind(this));
 				this.set({map: map, config: it});
 			},
@@ -94,7 +112,7 @@ layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
 					let cmd = ev.cmd,
 						target = ev.originalEvent.target,
 						gmxLayer = gmxMap.layersByID[ev.id];
-// console.log('Map command', ev, gmxLayer);
+console.log('Map command', ev, gmxLayer);
 					if (gmxLayer) {
 						if (cmd === 'fitBounds') {
 							map.fitBounds(gmxLayer.getBounds());
@@ -104,6 +122,12 @@ layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
 								map.removeLayer(gmxLayer);
 							} else {
 								map.addLayer(gmxLayer);
+							}
+						} else if (cmd === 'toggleTimeline') {
+							if (target.classList.contains('enabled')) {
+								this.gmxTimeline.addLayer(gmxLayer);
+							} else {
+								this.gmxTimeline.removeLayer(gmxLayer);
 							}
 						} else if (cmd === 'toggleStyle') {
 							let num = this._getNodeIndex(target.parentNode),

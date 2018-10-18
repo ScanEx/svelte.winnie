@@ -273,7 +273,7 @@ var app = (function () {
 			c: function create() {
 				span = createElement("span");
 				if_block.c();
-				span.className = "legendIconCell style";
+				span.className = "legendIconCell style svelte-r7og3";
 				addLoc(span, file, 0, 0, 0);
 			},
 
@@ -322,6 +322,7 @@ var app = (function () {
 				img.src = img_src_value = ctx.item.RenderStyle.iconUrl;
 				setAttribute(img, "crossorigin", "");
 				img.alt = "Style Icon";
+				img.className = "svelte-r7og3";
 				addLoc(img, file, 2, 1, 68);
 			},
 
@@ -350,7 +351,7 @@ var app = (function () {
 		return {
 			c: function create() {
 				span = createElement("span");
-				span.className = span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-8hjctx";
+				span.className = span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-r7og3";
 				setStyle(span, "background-color", ctx.backgroundColor);
 				setStyle(span, "border-color", ctx.borderColor);
 				addLoc(span, file, 4, 1, 150);
@@ -361,7 +362,7 @@ var app = (function () {
 			},
 
 			p: function update(changed, ctx) {
-				if ((changed.type) && span_class_value !== (span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-8hjctx")) {
+				if ((changed.type) && span_class_value !== (span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-r7og3")) {
 					span.className = span_class_value;
 				}
 
@@ -459,6 +460,17 @@ var app = (function () {
 				}
 			}
 		},
+		toggleTimeline(node) {
+			if (node) {
+				if (node.classList.contains('disabled')) {
+					node.classList.remove('disabled');
+					node.classList.add('enabled');
+				} else {
+					node.classList.add('disabled');
+					node.classList.remove('enabled');
+				}
+			}
+		},
 		showInfo(target) {
 			let node = target.parentNode.nextElementSibling.getElementsByClassName('description')[0];
 			if (node) {
@@ -480,7 +492,7 @@ var app = (function () {
 
 		var if_block = (ctx.properties) && create_if_block$1(component, ctx);
 
-		var if_block_1 = (ctx.line.content.children) && create_if_block_10(component, ctx);
+		var if_block_1 = (ctx.line.content.children) && create_if_block_12(component, ctx);
 
 		return {
 			c: function create() {
@@ -488,7 +500,7 @@ var app = (function () {
 				if (if_block) if_block.c();
 				text = createText("\n");
 				if (if_block_1) if_block_1.c();
-				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-z4m8pi";
+				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-xj5m2m";
 				addLoc(li, file$1, 0, 0, 0);
 			},
 
@@ -521,7 +533,7 @@ var app = (function () {
 					if (if_block_1) {
 						if_block_1.p(changed, ctx);
 					} else {
-						if_block_1 = create_if_block_10(component, ctx);
+						if_block_1 = create_if_block_12(component, ctx);
 						if (if_block_1) if_block_1.c();
 					}
 
@@ -533,7 +545,7 @@ var app = (function () {
 					});
 				}
 
-				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-z4m8pi")) {
+				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-xj5m2m")) {
 					li.className = li_class_value;
 				}
 			},
@@ -569,8 +581,61 @@ var app = (function () {
 		};
 	}
 
-	// (8:3) {#if properties.styles.length > 1}
-	function create_if_block_3(component, ctx) {
+	// (5:1) {#if line.type === 'group'}
+	function create_if_block_2(component, ctx) {
+		var input, input_checked_value, text, span, svg, use, span_class_value;
+
+		return {
+			c: function create() {
+				input = createElement("input");
+				text = createText("\n\t");
+				span = createElement("span");
+				svg = createSvgElement("svg");
+				use = createSvgElement("use");
+				input.className = "expander expanderInput hidden svelte-xj5m2m";
+				setAttribute(input, "type", "checkbox");
+				input.checked = input_checked_value = ctx.properties.expanded ? true : false;
+				addLoc(input, file$1, 5, 1, 150);
+				setXlinkAttribute(use, "xlink:href", "#arrow-small-down");
+				setAttribute(use, "href", "#arrow-small-down");
+				addLoc(use, file$1, 6, 134, 393);
+				setAttribute(svg, "role", "img");
+				setAttribute(svg, "class", "svgIcon svelte-xj5m2m");
+				addLoc(svg, file$1, 6, 102, 361);
+				span.className = span_class_value = "expander pointer cmd:toggleFolder expanderCont " + (ctx.line.content.children ? '' : 'hidden') + " svelte-xj5m2m";
+				addLoc(span, file$1, 6, 1, 260);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, input, anchor);
+				insert(target, text, anchor);
+				insert(target, span, anchor);
+				append(span, svg);
+				append(svg, use);
+			},
+
+			p: function update(changed, ctx) {
+				if ((changed.properties) && input_checked_value !== (input_checked_value = ctx.properties.expanded ? true : false)) {
+					input.checked = input_checked_value;
+				}
+
+				if ((changed.line) && span_class_value !== (span_class_value = "expander pointer cmd:toggleFolder expanderCont " + (ctx.line.content.children ? '' : 'hidden') + " svelte-xj5m2m")) {
+					span.className = span_class_value;
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(input);
+					detachNode(text);
+					detachNode(span);
+				}
+			}
+		};
+	}
+
+	// (10:3) {#if properties.styles.length > 1}
+	function create_if_block_4(component, ctx) {
 		var span, svg, use;
 
 		return {
@@ -580,12 +645,12 @@ var app = (function () {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#overlays");
 				setAttribute(use, "href", "#overlays");
-				addLoc(use, file$1, 8, 61, 574);
+				addLoc(use, file$1, 10, 61, 610);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-z4m8pi");
-				addLoc(svg, file$1, 8, 29, 542);
-				span.className = "cont-overlays svelte-z4m8pi";
-				addLoc(span, file$1, 8, 1, 514);
+				setAttribute(svg, "class", "svgIcon svelte-xj5m2m");
+				addLoc(svg, file$1, 10, 29, 578);
+				span.className = "cont-overlays svelte-xj5m2m";
+				addLoc(span, file$1, 10, 1, 550);
 			},
 
 			m: function mount(target, anchor) {
@@ -602,8 +667,8 @@ var app = (function () {
 		};
 	}
 
-	// (13:3) {#if properties.description}
-	function create_if_block_4(component, ctx) {
+	// (15:3) {#if properties.description}
+	function create_if_block_5(component, ctx) {
 		var span, svg, use;
 
 		function click_handler(event) {
@@ -617,14 +682,14 @@ var app = (function () {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#info-circle-i");
 				setAttribute(use, "href", "#info-circle-i");
-				addLoc(use, file$1, 13, 137, 1034);
+				addLoc(use, file$1, 15, 137, 1070);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-z4m8pi");
-				addLoc(svg, file$1, 13, 105, 1002);
+				setAttribute(svg, "class", "svgIcon svelte-xj5m2m");
+				addLoc(svg, file$1, 15, 105, 1038);
 				addListener(span, "click", click_handler);
-				span.className = "pointer cmd:showInfo cont-info svelte-z4m8pi";
+				span.className = "pointer cmd:showInfo cont-info svelte-xj5m2m";
 				span.title = "View description";
-				addLoc(span, file$1, 13, 2, 899);
+				addLoc(span, file$1, 15, 2, 935);
 			},
 
 			m: function mount(target, anchor) {
@@ -643,13 +708,55 @@ var app = (function () {
 		};
 	}
 
-	// (7:2) {#if line.type === 'layer'}
-	function create_if_block_2(component, ctx) {
-		var text, span, span_1, svg, use, text_1;
+	// (18:2) {#if properties.Temporal}
+	function create_if_block_6(component, ctx) {
+		var span, svg, use;
 
-		var if_block = (ctx.properties.styles.length > 1) && create_if_block_3(component, ctx);
+		function click_handler(event) {
+			component.toggleTimeline(this);
+		}
 
-		var if_block_1 = (ctx.properties.description) && create_if_block_4(component, ctx);
+		return {
+			c: function create() {
+				span = createElement("span");
+				svg = createSvgElement("svg");
+				use = createSvgElement("use");
+				setXlinkAttribute(use, "xlink:href", "#timeline-icon");
+				setAttribute(use, "href", "#timeline-icon");
+				addLoc(use, file$1, 18, 125, 1307);
+				setAttribute(svg, "role", "img");
+				setAttribute(svg, "class", "svgIcon svelte-xj5m2m");
+				addLoc(svg, file$1, 18, 93, 1275);
+				addListener(span, "click", click_handler);
+				span.className = "pointer cmd:toggleTimeline timeline disabled svelte-xj5m2m";
+				addLoc(span, file$1, 18, 2, 1184);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, span, anchor);
+				append(span, svg);
+				append(svg, use);
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(span);
+				}
+
+				removeListener(span, "click", click_handler);
+			}
+		};
+	}
+
+	// (9:2) {#if line.type === 'layer'}
+	function create_if_block_3(component, ctx) {
+		var text, span, span_1, svg, use, text_1, text_2;
+
+		var if_block = (ctx.properties.styles.length > 1) && create_if_block_4(component, ctx);
+
+		var if_block_1 = (ctx.properties.description) && create_if_block_5(component, ctx);
+
+		var if_block_2 = (ctx.properties.Temporal) && create_if_block_6(component, ctx);
 
 		return {
 			c: function create() {
@@ -661,17 +768,19 @@ var app = (function () {
 				use = createSvgElement("use");
 				text_1 = createText("\n\t\t\t");
 				if (if_block_1) if_block_1.c();
+				text_2 = createText("\n\t\t");
+				if (if_block_2) if_block_2.c();
 				setXlinkAttribute(use, "xlink:href", "#center-on-click");
 				setAttribute(use, "href", "#center-on-click");
-				addLoc(use, file$1, 11, 115, 786);
+				addLoc(use, file$1, 13, 115, 822);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-z4m8pi");
-				addLoc(svg, file$1, 11, 83, 754);
-				span_1.className = "pointer cmd:fitBounds cont-center svelte-z4m8pi";
+				setAttribute(svg, "class", "svgIcon svelte-xj5m2m");
+				addLoc(svg, file$1, 13, 83, 790);
+				span_1.className = "pointer cmd:fitBounds cont-center svelte-xj5m2m";
 				span_1.title = "Move map to this layer";
-				addLoc(span_1, file$1, 11, 3, 674);
-				span.className = "icons  svelte-z4m8pi";
-				addLoc(span, file$1, 10, 1, 649);
+				addLoc(span_1, file$1, 13, 3, 710);
+				span.className = "icons  svelte-xj5m2m";
+				addLoc(span, file$1, 12, 1, 685);
 			},
 
 			m: function mount(target, anchor) {
@@ -683,12 +792,14 @@ var app = (function () {
 				append(svg, use);
 				append(span, text_1);
 				if (if_block_1) if_block_1.m(span, null);
+				append(span, text_2);
+				if (if_block_2) if_block_2.m(span, null);
 			},
 
 			p: function update(changed, ctx) {
 				if (ctx.properties.styles.length > 1) {
 					if (!if_block) {
-						if_block = create_if_block_3(component, ctx);
+						if_block = create_if_block_4(component, ctx);
 						if_block.c();
 						if_block.m(text.parentNode, text);
 					}
@@ -699,13 +810,24 @@ var app = (function () {
 
 				if (ctx.properties.description) {
 					if (!if_block_1) {
-						if_block_1 = create_if_block_4(component, ctx);
+						if_block_1 = create_if_block_5(component, ctx);
 						if_block_1.c();
-						if_block_1.m(span, null);
+						if_block_1.m(span, text_2);
 					}
 				} else if (if_block_1) {
 					if_block_1.d(1);
 					if_block_1 = null;
+				}
+
+				if (ctx.properties.Temporal) {
+					if (!if_block_2) {
+						if_block_2 = create_if_block_6(component, ctx);
+						if_block_2.c();
+						if_block_2.m(span, null);
+					}
+				} else if (if_block_2) {
+					if_block_2.d(1);
+					if_block_2 = null;
 				}
 			},
 
@@ -717,77 +839,65 @@ var app = (function () {
 				}
 
 				if (if_block_1) if_block_1.d();
+				if (if_block_2) if_block_2.d();
 			}
 		};
 	}
 
 	// (3:1) {#if line.type !== 'map'}
 	function create_if_block_1$1(component, ctx) {
-		var div, text, input, input_checked_value, text_1, span, svg, use, span_class_value, text_2, if_block_anchor;
+		var div, text, text_1, if_block_1_anchor;
 
-		var if_block = (ctx.line.type === 'layer') && create_if_block_2(component, ctx);
+		var if_block = (ctx.line.type === 'group') && create_if_block_2(component, ctx);
+
+		var if_block_1 = (ctx.line.type === 'layer') && create_if_block_3(component, ctx);
 
 		return {
 			c: function create() {
 				div = createElement("div");
 				text = createText("\n\t");
-				input = createElement("input");
-				text_1 = createText("\n\t");
-				span = createElement("span");
-				svg = createSvgElement("svg");
-				use = createSvgElement("use");
-				text_2 = createText("\n\t\t");
 				if (if_block) if_block.c();
-				if_block_anchor = createComment();
+				text_1 = createText("\n\t\t");
+				if (if_block_1) if_block_1.c();
+				if_block_1_anchor = createComment();
 				div.className = "borders ";
 				addLoc(div, file$1, 3, 1, 91);
-				input.className = "expander expanderInput hidden svelte-z4m8pi";
-				setAttribute(input, "type", "checkbox");
-				input.checked = input_checked_value = ctx.properties.expanded ? true : false;
-				addLoc(input, file$1, 4, 1, 121);
-				setXlinkAttribute(use, "xlink:href", "#arrow-small-down");
-				setAttribute(use, "href", "#arrow-small-down");
-				addLoc(use, file$1, 5, 134, 364);
-				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-z4m8pi");
-				addLoc(svg, file$1, 5, 102, 332);
-				span.className = span_class_value = "expander pointer cmd:toggleFolder expanderCont " + (ctx.line.content.children ? '' : 'hidden') + " svelte-z4m8pi";
-				addLoc(span, file$1, 5, 1, 231);
 			},
 
 			m: function mount(target, anchor) {
 				insert(target, div, anchor);
 				insert(target, text, anchor);
-				insert(target, input, anchor);
-				insert(target, text_1, anchor);
-				insert(target, span, anchor);
-				append(span, svg);
-				append(svg, use);
-				insert(target, text_2, anchor);
 				if (if_block) if_block.m(target, anchor);
-				insert(target, if_block_anchor, anchor);
+				insert(target, text_1, anchor);
+				if (if_block_1) if_block_1.m(target, anchor);
+				insert(target, if_block_1_anchor, anchor);
 			},
 
 			p: function update(changed, ctx) {
-				if ((changed.properties) && input_checked_value !== (input_checked_value = ctx.properties.expanded ? true : false)) {
-					input.checked = input_checked_value;
-				}
-
-				if ((changed.line) && span_class_value !== (span_class_value = "expander pointer cmd:toggleFolder expanderCont " + (ctx.line.content.children ? '' : 'hidden') + " svelte-z4m8pi")) {
-					span.className = span_class_value;
-				}
-
-				if (ctx.line.type === 'layer') {
+				if (ctx.line.type === 'group') {
 					if (if_block) {
 						if_block.p(changed, ctx);
 					} else {
 						if_block = create_if_block_2(component, ctx);
 						if_block.c();
-						if_block.m(if_block_anchor.parentNode, if_block_anchor);
+						if_block.m(text_1.parentNode, text_1);
 					}
 				} else if (if_block) {
 					if_block.d(1);
 					if_block = null;
+				}
+
+				if (ctx.line.type === 'layer') {
+					if (if_block_1) {
+						if_block_1.p(changed, ctx);
+					} else {
+						if_block_1 = create_if_block_3(component, ctx);
+						if_block_1.c();
+						if_block_1.m(if_block_1_anchor.parentNode, if_block_1_anchor);
+					}
+				} else if (if_block_1) {
+					if_block_1.d(1);
+					if_block_1 = null;
 				}
 			},
 
@@ -795,22 +905,23 @@ var app = (function () {
 				if (detach) {
 					detachNode(div);
 					detachNode(text);
-					detachNode(input);
-					detachNode(text_1);
-					detachNode(span);
-					detachNode(text_2);
 				}
 
 				if (if_block) if_block.d(detach);
 				if (detach) {
-					detachNode(if_block_anchor);
+					detachNode(text_1);
+				}
+
+				if (if_block_1) if_block_1.d(detach);
+				if (detach) {
+					detachNode(if_block_1_anchor);
 				}
 			}
 		};
 	}
 
-	// (24:2) {#if styles.length && styles.length < 2 && styles[0].RenderStyle}
-	function create_if_block_7(component, ctx) {
+	// (28:2) {#if styles.length && styles.length < 2 && styles[0].RenderStyle}
+	function create_if_block_9(component, ctx) {
 		var current;
 
 		var legendiconcell_initial_data = { item: ctx.styles[0], type: ctx.properties.GeometryType };
@@ -856,31 +967,29 @@ var app = (function () {
 		};
 	}
 
-	// (21:2) {#if line.type === 'layer'}
-	function create_if_block_6(component, ctx) {
-		var input, input_checked_value, text, span, current;
+	// (26:2) {#if line.type === 'layer'}
+	function create_if_block_8(component, ctx) {
+		var input, input_checked_value, text, if_block_anchor, current;
 
-		var if_block = (ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) && create_if_block_7(component, ctx);
+		var if_block = (ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) && create_if_block_9(component, ctx);
 
 		return {
 			c: function create() {
 				input = createElement("input");
 				text = createText("\n\t\t");
-				span = createElement("span");
 				if (if_block) if_block.c();
-				input.className = "check visibility pointer cmd:toggleVisibility svelte-z4m8pi";
+				if_block_anchor = createComment();
+				input.className = "check visibility pointer cmd:toggleVisibility svelte-xj5m2m";
 				setAttribute(input, "type", "checkbox");
 				input.checked = input_checked_value = ctx.layersTree && ctx.layersTree.visible[ctx.nodeID] ? true : false;
-				addLoc(input, file$1, 21, 2, 1223);
-				span.className = "styleIcon gmx-style-legend svelte-z4m8pi";
-				addLoc(span, file$1, 22, 2, 1371);
+				addLoc(input, file$1, 26, 2, 1495);
 			},
 
 			m: function mount(target, anchor) {
 				insert(target, input, anchor);
 				insert(target, text, anchor);
-				insert(target, span, anchor);
-				if (if_block) if_block.m(span, null);
+				if (if_block) if_block.m(target, anchor);
+				insert(target, if_block_anchor, anchor);
 				current = true;
 			},
 
@@ -893,11 +1002,11 @@ var app = (function () {
 					if (if_block) {
 						if_block.p(changed, ctx);
 					} else {
-						if_block = create_if_block_7(component, ctx);
+						if_block = create_if_block_9(component, ctx);
 						if (if_block) if_block.c();
 					}
 
-					if_block.i(span, null);
+					if_block.i(if_block_anchor.parentNode, if_block_anchor);
 				} else if (if_block) {
 					if_block.o(function() {
 						if_block.d(1);
@@ -925,17 +1034,19 @@ var app = (function () {
 				if (detach) {
 					detachNode(input);
 					detachNode(text);
-					detachNode(span);
 				}
 
-				if (if_block) if_block.d();
+				if (if_block) if_block.d(detach);
+				if (detach) {
+					detachNode(if_block_anchor);
+				}
 			}
 		};
 	}
 
-	// (34:3) {#each styles as it}
+	// (37:3) {#each styles as it}
 	function create_each_block(component, ctx) {
-		var div, span, svg, use, text, svg_1, use_1, text_2, text_3, span_1, span_2, text_4_value = ctx.it.Name, text_4, current;
+		var div, span, svg, use, text, svg_1, use_1, text_2, text_3, span_1, text_4_value = ctx.it.Name, text_4, current;
 
 		var legendiconcell_initial_data = { item: ctx.it, type: ctx.properties.GeometryType };
 		var legendiconcell = new LegendIconCell({
@@ -957,28 +1068,25 @@ var app = (function () {
 				legendiconcell._fragment.c();
 				text_3 = createText("\n\t\t\t\t\t");
 				span_1 = createElement("span");
-				span_2 = createElement("span");
 				text_4 = createText(text_4_value);
 				setXlinkAttribute(use, "xlink:href", "#eye-on");
 				setAttribute(use, "href", "#eye-on");
-				addLoc(use, file$1, 36, 41, 2028);
+				addLoc(use, file$1, 39, 41, 2239);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon on svelte-z4m8pi");
-				addLoc(svg, file$1, 36, 6, 1993);
+				setAttribute(svg, "class", "svgIcon on svelte-xj5m2m");
+				addLoc(svg, file$1, 39, 6, 2204);
 				setXlinkAttribute(use_1, "xlink:href", "#eye-off");
 				setAttribute(use_1, "href", "#eye-off");
-				addLoc(use_1, file$1, 37, 42, 2124);
+				addLoc(use_1, file$1, 40, 42, 2335);
 				setAttribute(svg_1, "role", "img");
-				setAttribute(svg_1, "class", "svgIcon off svelte-z4m8pi");
-				addLoc(svg_1, file$1, 37, 6, 2088);
-				span.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-z4m8pi";
-				addLoc(span, file$1, 35, 5, 1926);
-				span_2.className = "styleName svelte-z4m8pi";
-				addLoc(span_2, file$1, 40, 34, 2292);
-				span_1.className = "legendIconCell svelte-z4m8pi";
-				addLoc(span_1, file$1, 40, 5, 2263);
-				div.className = "gmx-style-legend svelte-z4m8pi";
-				addLoc(div, file$1, 34, 4, 1890);
+				setAttribute(svg_1, "class", "svgIcon off svelte-xj5m2m");
+				addLoc(svg_1, file$1, 40, 6, 2299);
+				span.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-xj5m2m";
+				addLoc(span, file$1, 38, 5, 2137);
+				span_1.className = "styleName svelte-xj5m2m";
+				addLoc(span_1, file$1, 43, 5, 2474);
+				div.className = "gmx-style-legend svelte-xj5m2m";
+				addLoc(div, file$1, 37, 4, 2101);
 			},
 
 			m: function mount(target, anchor) {
@@ -993,8 +1101,7 @@ var app = (function () {
 				legendiconcell._mount(div, null);
 				append(div, text_3);
 				append(div, span_1);
-				append(span_1, span_2);
-				append(span_2, text_4);
+				append(span_1, text_4);
 				current = true;
 			},
 
@@ -1032,8 +1139,8 @@ var app = (function () {
 		};
 	}
 
-	// (33:3) {#if styles.length && styles.length > 1 && styles[0].RenderStyle}
-	function create_if_block_9(component, ctx) {
+	// (36:3) {#if styles.length && styles.length > 1 && styles[0].RenderStyle}
+	function create_if_block_11(component, ctx) {
 		var each_anchor, current;
 
 		var each_value = ctx.styles;
@@ -1119,18 +1226,18 @@ var app = (function () {
 		};
 	}
 
-	// (31:2) {#if line.type === 'layer'}
-	function create_if_block_8(component, ctx) {
+	// (34:2) {#if line.type === 'layer'}
+	function create_if_block_10(component, ctx) {
 		var div, current;
 
-		var if_block = (ctx.styles.length && ctx.styles.length > 1 && ctx.styles[0].RenderStyle) && create_if_block_9(component, ctx);
+		var if_block = (ctx.styles.length && ctx.styles.length > 1 && ctx.styles[0].RenderStyle) && create_if_block_11(component, ctx);
 
 		return {
 			c: function create() {
 				div = createElement("div");
 				if (if_block) if_block.c();
-				div.className = "legend svelte-z4m8pi";
-				addLoc(div, file$1, 31, 2, 1772);
+				div.className = "legend svelte-xj5m2m";
+				addLoc(div, file$1, 34, 2, 1983);
 			},
 
 			m: function mount(target, anchor) {
@@ -1144,7 +1251,7 @@ var app = (function () {
 					if (if_block) {
 						if_block.p(changed, ctx);
 					} else {
-						if_block = create_if_block_9(component, ctx);
+						if_block = create_if_block_11(component, ctx);
 						if (if_block) if_block.c();
 					}
 
@@ -1182,17 +1289,17 @@ var app = (function () {
 		};
 	}
 
-	// (19:2) {#if line.type !== 'map'}
-	function create_if_block_5(component, ctx) {
+	// (24:2) {#if line.type !== 'map'}
+	function create_if_block_7(component, ctx) {
 		var span, text, label, text_1_value = ctx.properties.title, text_1, text_2, div, text_3, current;
 
-		var if_block = (ctx.line.type === 'layer') && create_if_block_6(component, ctx);
+		var if_block = (ctx.line.type === 'layer') && create_if_block_8(component, ctx);
 
 		function click_handler(event) {
-			component.toggleVisibility(this, event);
+			component.toggleVisibility(this);
 		}
 
-		var if_block_1 = (ctx.line.type === 'layer') && create_if_block_8(component, ctx);
+		var if_block_1 = (ctx.line.type === 'layer') && create_if_block_10(component, ctx);
 
 		return {
 			c: function create() {
@@ -1206,12 +1313,12 @@ var app = (function () {
 				text_3 = createText("\n\t\t");
 				if (if_block_1) if_block_1.c();
 				addListener(label, "click", click_handler);
-				label.className = "pointer title cmd:toggleVisibility svelte-z4m8pi";
-				addLoc(label, file$1, 28, 2, 1579);
-				div.className = "description collapse svelte-z4m8pi";
-				addLoc(div, file$1, 29, 2, 1699);
+				label.className = "pointer title cmd:toggleVisibility svelte-xj5m2m";
+				addLoc(label, file$1, 31, 2, 1797);
+				div.className = "description collapse svelte-xj5m2m";
+				addLoc(div, file$1, 32, 2, 1910);
 				span.className = "cont";
-				addLoc(span, file$1, 19, 1, 1171);
+				addLoc(span, file$1, 24, 1, 1443);
 			},
 
 			m: function mount(target, anchor) {
@@ -1232,7 +1339,7 @@ var app = (function () {
 					if (if_block) {
 						if_block.p(changed, ctx);
 					} else {
-						if_block = create_if_block_6(component, ctx);
+						if_block = create_if_block_8(component, ctx);
 						if (if_block) if_block.c();
 					}
 
@@ -1252,7 +1359,7 @@ var app = (function () {
 					if (if_block_1) {
 						if_block_1.p(changed, ctx);
 					} else {
-						if_block_1 = create_if_block_8(component, ctx);
+						if_block_1 = create_if_block_10(component, ctx);
 						if (if_block_1) if_block_1.c();
 					}
 
@@ -1303,7 +1410,7 @@ var app = (function () {
 
 		var if_block = (ctx.line.type !== 'map') && create_if_block_1$1(component, ctx);
 
-		var if_block_1 = (ctx.line.type !== 'map') && create_if_block_5(component, ctx);
+		var if_block_1 = (ctx.line.type !== 'map') && create_if_block_7(component, ctx);
 
 		return {
 			c: function create() {
@@ -1339,7 +1446,7 @@ var app = (function () {
 					if (if_block_1) {
 						if_block_1.p(changed, ctx);
 					} else {
-						if_block_1 = create_if_block_5(component, ctx);
+						if_block_1 = create_if_block_7(component, ctx);
 						if (if_block_1) if_block_1.c();
 					}
 
@@ -1381,7 +1488,7 @@ var app = (function () {
 		};
 	}
 
-	// (52:1) {#each line.content.children || [] as child}
+	// (55:1) {#each line.content.children || [] as child}
 	function create_each_block_1(component, ctx) {
 		var linenode_updating = {}, current;
 
@@ -1449,8 +1556,8 @@ var app = (function () {
 		};
 	}
 
-	// (50:0) {#if line.content.children}
-	function create_if_block_10(component, ctx) {
+	// (53:0) {#if line.content.children}
+	function create_if_block_12(component, ctx) {
 		var ul, ul_class_value, current;
 
 		var each_value_1 = ctx.line.content.children || [];
@@ -1480,8 +1587,8 @@ var app = (function () {
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-z4m8pi";
-				addLoc(ul, file$1, 50, 1, 2440);
+				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-xj5m2m";
+				addLoc(ul, file$1, 53, 1, 2615);
 			},
 
 			m: function mount(target, anchor) {
@@ -1512,7 +1619,7 @@ var app = (function () {
 					for (; i < each_blocks.length; i += 1) outroBlock(i, 1);
 				}
 
-				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-z4m8pi")) {
+				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-xj5m2m")) {
 					ul.className = ul_class_value;
 				}
 			},
@@ -1799,6 +1906,7 @@ var app = (function () {
 				gmxMap = app.gmxMap || {},
 				state = it.state || {},
 				layersTree = state.layersTree,
+				calendar = state.calendar || {},
 				mapID = gmxMap.mapID || '946GH',
 				apiKey = gmxMap.apiKey,
 				pos = state.map ? state.map.position : {};
@@ -1806,8 +1914,9 @@ var app = (function () {
 			var osm = L.tileLayer('//tilessputnik.ru/{z}/{x}/{y}.png', {
 				maxZoom: 18
 			});
-	layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
+	//layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
 			let map = new L.Map('map', {
+				srs: 3857,
 				layers: [osm],
 				center: new L.LatLng(pos.y || 0, pos.x || 60),
 				zoom: pos.z || 3
@@ -1843,6 +1952,22 @@ var app = (function () {
 					}
 				}, this);
 				iconSidebar.open('treeView', true);
+
+				/* TimeLine */
+				var control = L.control.gmxTimeline({
+					moveable: true
+				})	.on('dateInterval', function (ev) {
+						gmxMap.layersByID[ev.layerID].setDateInterval(ev.beginDate, ev.endDate);
+					})
+					.on('statechanged', function (ev) {
+						console.log('statechanged', ev);
+					})
+					.on('click', function (ev) {
+						gmxMap.layersByID[ev.layerID].repaint();
+					});
+
+				map.addControl(control);
+				this.gmxTimeline = control;
 			}.bind(this));
 			this.set({map: map, config: it});
 		},
@@ -1872,7 +1997,7 @@ var app = (function () {
 				let cmd = ev.cmd,
 					target = ev.originalEvent.target,
 					gmxLayer = gmxMap.layersByID[ev.id];
-	// console.log('Map command', ev, gmxLayer);
+	console.log('Map command', ev, gmxLayer);
 				if (gmxLayer) {
 					if (cmd === 'fitBounds') {
 						map.fitBounds(gmxLayer.getBounds());
@@ -1882,6 +2007,12 @@ var app = (function () {
 							map.removeLayer(gmxLayer);
 						} else {
 							map.addLayer(gmxLayer);
+						}
+					} else if (cmd === 'toggleTimeline') {
+						if (target.classList.contains('enabled')) {
+							this.gmxTimeline.addLayer(gmxLayer);
+						} else {
+							this.gmxTimeline.removeLayer(gmxLayer);
 						}
 					} else if (cmd === 'toggleStyle') {
 						let num = this._getNodeIndex(target.parentNode),
@@ -2082,7 +2213,7 @@ var app = (function () {
 				text = createText("\n");
 				div = createElement("div");
 				map._fragment.c();
-				div.className = "editor-viewerContainer editor_sidebarExpanded svelte-jdrrmv";
+				div.className = "editor-viewerContainer editor_sidebarExpanded svelte-1wb6pg";
 				addLoc(div, file$4, 32, 0, 980);
 			},
 
@@ -2155,14 +2286,14 @@ var app = (function () {
 				text = createText("\n\t\t\t\t\t");
 				span = createElement("span");
 				text_1 = createText(text_1_value);
-				i.className = i_class_value = "icon-" + ctx.it.name + " svelte-jdrrmv";
+				i.className = i_class_value = "icon-" + ctx.it.name + " svelte-1wb6pg";
 				addLoc(i, file$4, 7, 5, 319);
 				addLoc(span, file$4, 8, 5, 355);
 
 				div._svelte = { component, ctx };
 
 				addListener(div, "click", click_handler);
-				div.className = div_class_value = "dropdownMenuWidget-item" + (ctx.it.checked ? ' checked' : '') + " svelte-jdrrmv";
+				div.className = div_class_value = "dropdownMenuWidget-item" + (ctx.it.checked ? ' checked' : '') + " svelte-1wb6pg";
 				addLoc(div, file$4, 6, 4, 223);
 			},
 
@@ -2176,7 +2307,7 @@ var app = (function () {
 
 			p: function update(changed, _ctx) {
 				ctx = _ctx;
-				if ((changed.dropdownMenu) && i_class_value !== (i_class_value = "icon-" + ctx.it.name + " svelte-jdrrmv")) {
+				if ((changed.dropdownMenu) && i_class_value !== (i_class_value = "icon-" + ctx.it.name + " svelte-1wb6pg")) {
 					i.className = i_class_value;
 				}
 
@@ -2185,7 +2316,7 @@ var app = (function () {
 				}
 
 				div._svelte.ctx = ctx;
-				if ((changed.dropdownMenu) && div_class_value !== (div_class_value = "dropdownMenuWidget-item" + (ctx.it.checked ? ' checked' : '') + " svelte-jdrrmv")) {
+				if ((changed.dropdownMenu) && div_class_value !== (div_class_value = "dropdownMenuWidget-item" + (ctx.it.checked ? ' checked' : '') + " svelte-1wb6pg")) {
 					div.className = div_class_value;
 				}
 			},
@@ -2251,36 +2382,36 @@ var app = (function () {
 				text_12 = createText("\n\t\t\t\t");
 				div_6 = createElement("div");
 				text_13 = createText(ctx.confStr);
-				div_3.className = "dropdownMenuWidget svelte-jdrrmv";
+				div_3.className = "dropdownMenuWidget svelte-1wb6pg";
 				addLoc(div_3, file$4, 4, 3, 159);
-				div_2.className = "sidebarPanel-toolbarContainer svelte-jdrrmv";
+				div_2.className = "sidebarPanel-toolbarContainer svelte-1wb6pg";
 				addLoc(div_2, file$4, 3, 2, 112);
-				i.className = "icon-bell";
+				i.className = "icon-bell svelte-1wb6pg";
 				addLoc(i, file$4, 17, 6, 615);
 				addLoc(span, file$4, 18, 6, 647);
 				addListener(li, "click", click_handler_1);
-				li.className = "dropdownMenuWidget-item svelte-jdrrmv";
+				li.className = "dropdownMenuWidget-item svelte-1wb6pg";
 				addLoc(li, file$4, 16, 5, 537);
-				i_1.className = "icon-eye";
+				i_1.className = "icon-eye svelte-1wb6pg";
 				addLoc(i_1, file$4, 21, 6, 771);
 				addLoc(span_1, file$4, 22, 6, 802);
 				addListener(li_1, "click", click_handler_2);
-				li_1.className = "dropdownMenuWidget-item checked svelte-jdrrmv";
+				li_1.className = "dropdownMenuWidget-item checked svelte-1wb6pg";
 				addLoc(li_1, file$4, 20, 5, 691);
-				ul.className = "dropdownMenuWidget right svelte-jdrrmv";
+				ul.className = "dropdownMenuWidget right svelte-1wb6pg";
 				addLoc(ul, file$4, 15, 4, 494);
-				textarea.className = "text-input hidden svelte-jdrrmv";
+				textarea.className = "text-input hidden svelte-1wb6pg";
 				textarea.value = ctx.confStr;
 				addLoc(textarea, file$4, 25, 4, 845);
-				div_6.className = "view svelte-jdrrmv";
+				div_6.className = "view svelte-1wb6pg";
 				addLoc(div_6, file$4, 26, 4, 906);
-				div_5.className = "editor svelte-jdrrmv";
+				div_5.className = "editor svelte-1wb6pg";
 				addLoc(div_5, file$4, 14, 3, 469);
-				div_4.className = "sidebarPanel-codeEditorContainer svelte-jdrrmv";
+				div_4.className = "sidebarPanel-codeEditorContainer svelte-1wb6pg";
 				addLoc(div_4, file$4, 13, 2, 419);
-				div_1.className = "sidebarPanel svelte-jdrrmv";
+				div_1.className = "sidebarPanel svelte-1wb6pg";
 				addLoc(div_1, file$4, 2, 1, 83);
-				div.className = "editor-sidebarContainer editor_sidebarExpanded svelte-jdrrmv";
+				div.className = "editor-sidebarContainer editor_sidebarExpanded svelte-1wb6pg";
 				addLoc(div, file$4, 1, 0, 21);
 			},
 

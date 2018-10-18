@@ -12,6 +12,11 @@
 	<script src="./ext/IconSidebarControl.js" charset="utf-8"></script>
 	<link rel="stylesheet" href="./ext/IconSidebarControl.css" charset="utf-8">
 
+	<link rel="stylesheet" href="http://maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.css" />
+	<script src="http://maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.js"></script>
+	<script src="./ext/L.Control.gmxTimeline.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="./ext/L.Control.gmxTimeline.css" charset="utf-8">
+
 	<link rel="stylesheet" href="styles/dark.css">
 	<script src="highlight.pack.js"></script>
 
@@ -20,6 +25,16 @@
 </head>
 
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+  
+      <clippath id="clip-path"><rect x="0" y="0" width="13" height="13"/></clippath>
+  </defs>
+    <symbol id="timeline-icon" viewbox="0 0 13 13">
+      <title>gmxTimeline</title>
+	<path d="M6.5,0C2.9,0,0,2.9,0,6.5S2.9,13,6.5,13S13,10.1,13,6.5S10.1,0,6.5,0z M9.8,7.3H5.7V3.3h1.6v2.4h2.4V7.3z"/>
+    </symbol>
+</svg>
 	<script src='bundle.js'></script>
 </body>
 </html>

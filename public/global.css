@@ -6,6 +6,7 @@ html, body, #map {
     flex-direction: row;
 }
 
+/* контейнер sidebar */
 @font-face {
   font-family: 'fontello';
   src: url('font/fontello.eot?2f1ce1');
@@ -17,6 +18,7 @@ html, body, #map {
   font-style: normal;
 }
 
+<<<<<<< HEAD
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
   font-family: "fontello";
@@ -418,13 +420,14 @@ html, body, #map {
 
 /* контейнер карты */
 
+=======
+>>>>>>> d85fc53dcd3529aa9a18edee416df43b7e516513
 .tabIcon svg {
     width: 26px;
     height: 40px;
 }
 
 /*	for scrollbar	*/
-
 ::-webkit-scrollbar
 {
 	cursor: pointer;
