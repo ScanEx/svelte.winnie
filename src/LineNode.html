@@ -15,7 +15,7 @@
 			{#if properties.description}
 		<span class="pointer cmd:showInfo cont-info" title="View description" on:click="showInfo(this, event)"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
 			{/if}
-		{#if properties.Temporal}
+		{#if properties.Temporal && (properties.IsRasterCatalog || (properties.Quicklook && properties.Quicklook !== 'null'))}
 		<span class="pointer cmd:toggleTimeline timeline disabled" on:click="toggleTimeline(this)"><svg role="img" class="svgIcon"><use xlink:href="#timeline-icon" href="#timeline-icon"></use></svg></span>
 		{/if}
 	</span>

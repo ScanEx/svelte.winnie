@@ -1,7 +1,7 @@
 (function () {
 var define = null;
-var buildDate = '2018-10-15 12:17:48';
-var buildUUID = '1553ebac62fe4eb5a6adaf485b2b28e2';
+var buildDate = '2018-10-22 16:37:52';
+var buildUUID = '54b3a83491db459188c6c9e7f69e6b0a';
 /*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
@@ -20399,48 +20399,41 @@ var gmxMapManager = {
     },
 
 	getMapFolder: function(options) {
-        var maps = this._maps,
-			serverHost = options.hostName || options.serverHost || 'maps.kosmosnimki.ru',
+        var serverHost = options.hostName || options.serverHost || 'maps.kosmosnimki.ru',
 			mapId = options.mapId,
 			folderId = options.folderId;
 
 		var opt = {
-			// WrapStyle: 'func',
 			folderId: folderId || '',
 			mapId: mapId,
 			skipTiles: options.skipTiles || 'All', // All, NotVisible, None
 			srs: options.srs || 3857
-			// ftc: options.ftc || 'osm',
-			// ModeKey: 'map'
 		};
-		var promise = new Promise(function(resolve, reject) {
+		return new Promise(function(resolve, reject) {
 			if (L.gmx.sendCmd) {
+				console.log('TODO: L.gmx.sendCmd');
 			} else {
 				gmxSessionManager.requestSessionKey(serverHost, options.apiKey).then(function(sessionKey) {
 					opt.key = sessionKey;
 					gmxAPIutils.requestJSONP(L.gmxUtil.protocol + '//' + serverHost + '/Map/GetMapFolder', opt).then(function(json) {
 						if (json && json.Status === 'ok' && json.Result) {
-							var mapInfo = L.gmx._maps[serverHost][mapId];
-							//gmxMapManager.findLayerInfo()
+							var mapInfo = L.gmx._maps[serverHost][mapId],
+								gmxMap = mapInfo.loaded,
+								res = json.Result.content,
+								outInfo = {
+									children: res.children,
+									properties: gmxMap.properties
+								};
 							gmxMapManager.iterateNode(mapInfo._rawTree, function(it) {
-								var props = it.content.properties,
-									id = props.GroupID;
-								if (folderId === id) {
-									// it.content.children.push('dddddd');
+								if (folderId === it.content.properties.GroupID) {
 									L.extend(it, json.Result);
-	console.log('ssssss', it);
-									// if (it.type === 'layer') {
-										// var props = it.content.properties;
-										// if (props.styles && !props.gmxStyles) {
-											// it.content.properties.gmxStyles = L.gmx.StyleManager.decodeOldStyles(props);
-										// }
 								}
 							}, true);
-
-							// json.Result.properties.hostName = serverHost;
-							// json.Result.properties.sessionKey = sessionKey;
-							//gmxMapManager._addMapProperties(json.Result, serverHost, mapName);
-							resolve(json.Result);
+							gmxMap.layersCreated.then(function() {
+								gmxMap.layersCreatePromise(outInfo).then(function() {
+									resolve(json.Result);
+								});
+							});
 						} else {
 							reject(json);
 						}
@@ -20448,10 +20441,6 @@ var gmxMapManager = {
 				}, reject);
 			}
 		});
-		// maps[serverHost] = maps[serverHost] || {};
-		// maps[serverHost][mapName] = {promise: promise};
-
-        return promise;
     },
 
 	loadMapProperties: function(options) {
@@ -20609,21 +20598,23 @@ var gmxMap = L.Class.extend({
 		this.layersByTitle = {};
 		this.layersByID = {};
 		this.dataManagers = {};
-
-		var _this = this;
+		this.options = commonLayerOptions;
 
 		this.properties = L.extend({}, mapInfo.properties);
 		this.properties.BaseLayers = this.properties.BaseLayers ? JSON.parse(this.properties.BaseLayers) : [];
 		this.rawTree = mapInfo;
-		var _skipTiles = commonLayerOptions.skipTiles || 'All',
-			_ftc = commonLayerOptions.ftc || 'osm',
-			_srs = commonLayerOptions.srs || 3857;
+		this.layersCreated = this.layersCreatePromise(mapInfo);
+	},
 
-		// var hostName = this.properties.hostName,
-		var mapID = this.properties.name;
-
-		this.layersCreated = new Promise(function(resolve) {
-			var missingLayerTypes = {},
+	layersCreatePromise: function(mapInfo) {
+		return new Promise(function(resolve) {
+			var mapID = mapInfo.properties.name,
+				_this = this,
+				commonOptions = this.options,
+				_skipTiles = this.options.skipTiles || 'All',
+				_ftc = this.options.ftc || 'osm',
+				_srs = this.options.srs || 3857,
+				missingLayerTypes = {},
 				dataSources = {};
 
 			gmxMapManager.iterateLayers(mapInfo, function(layerInfo) {
@@ -20641,8 +20632,11 @@ var gmxMap = L.Class.extend({
 
 				var type = props.ContentID || props.type,
 					meta = props.MetaProperties || {},
-					layerOptions = L.extend(options, commonLayerOptions);
+					layerOptions = L.extend(options, commonOptions);
 
+				if (props.styles && !props.gmxStyles) {
+					props.gmxStyles = L.gmx.StyleManager.decodeOldStyles(props);
+				}
 				if (props.dataSource || 'parentLayer' in meta) {      	// Set dataSource layer
 					layerOptions.parentLayer = props.dataSource || '';
 					if ('parentLayer' in meta) {      	// todo удалить после изменений вов вьювере

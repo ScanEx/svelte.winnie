@@ -19,6 +19,9 @@
 		zeroDate = new Date(1980, 0, 1),
 		modeSelect = 'range',
 		translate = {
+			warning: 'Zoom map for TimeLine',
+			differentInterval: 'Different interval for tabs',
+			singleInterval: 'Single interval for tabs',
 			modeSelectedOff: 'By all',
 			modeSelectedOn: 'By selected'
 		},

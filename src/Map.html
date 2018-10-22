@@ -88,7 +88,7 @@
 							gmxMap.layersByID[ev.layerID].repaint();
 						});
 
-					map.addControl(control);
+					// map.addControl(control);
 					this.gmxTimeline = control;
 				}.bind(this));
 				this.set({map: map, config: it});
@@ -150,6 +150,9 @@ console.log('Map command', ev, gmxLayer, gmxMap);
 							}
 						} else if (cmd === 'toggleTimeline') {
 							if (target.classList.contains('enabled')) {
+								if (!this.gmxTimeline._map) {
+									map.addControl(this.gmxTimeline);
+								}
 								this.gmxTimeline.addLayer(gmxLayer);
 							} else {
 								this.gmxTimeline.removeLayer(gmxLayer);
