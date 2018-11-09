@@ -1,7 +1,7 @@
 (function () {
 var define = null;
-var buildDate = '2018-10-22 16:37:52';
-var buildUUID = '54b3a83491db459188c6c9e7f69e6b0a';
+var buildDate = '2018-10-25 14:07:08';
+var buildUUID = '0d010e694b2b42398c79c81332f73bae';
 /*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
@@ -20380,9 +20380,10 @@ var gmxMapManager = {
 
 	_addMapProperties: function(res, serverHost, mapName) {
 		L.gmx._maps[serverHost] = L.gmx._maps[serverHost] || {};
+		var _nodes = {};
 		L.gmx._maps[serverHost][mapName] = {
 			_rawTree: res,
-			_nodes: {}
+			_nodes: _nodes
 		};
 		gmxMapManager.iterateNode(res, function(it) {	// TODO: удалить после переделки стилей на сервере
 			if (it.type === 'layer') {
@@ -20391,7 +20392,7 @@ var gmxMapManager = {
 					it.content.properties.gmxStyles = L.gmx.StyleManager.decodeOldStyles(props);
 				}
 			}
-		});
+		}, {nodes: _nodes});
 
 		if (L.gmx.mapPropertiesHook) {
 			L.gmx.mapPropertiesHook(res);
@@ -20428,7 +20429,7 @@ var gmxMapManager = {
 								if (folderId === it.content.properties.GroupID) {
 									L.extend(it, json.Result);
 								}
-							}, true);
+							}, {onceFlag: true, nodes: gmxMap._nodes});
 							gmxMap.layersCreated.then(function() {
 								gmxMap.layersCreatePromise(outInfo).then(function() {
 									resolve(json.Result);
@@ -20524,14 +20525,14 @@ var gmxMapManager = {
 
 		if (hostMaps && hostMaps[mapID]) {
 			var mapInfo = hostMaps[mapID];
-			if (!mapInfo._nodes[layerID]) {
-				gmxMapManager.iterateNode(mapInfo._rawTree, function(it) {
-					mapInfo._nodes[it.content.properties.name] = it;
-				});
-			}
+			// if (!mapInfo._nodes[layerID]) {
+				// gmxMapManager.iterateNode(mapInfo._rawTree, function(it) {
+					// mapInfo._nodes[it.content.properties.name] = it;
+				// });
+			// }
 			layerInfo = mapInfo._nodes[layerID];
 		}
-		return layerInfo ? layerInfo.content : null;
+		return layerInfo || null;
     },
     iterateLayers: function(treeInfo, callback) {
         var iterate = function(arr) {
@@ -20548,16 +20549,26 @@ var gmxMapManager = {
 
         treeInfo && iterate(treeInfo.children);
     },
-    iterateNode: function(treeInfo, callback, onceFlag) {
+    setNodeLink: function(node, nodes) {
+		var props = node.properties,
+			nodeID = props.name || props.GroupID;
+		if (nodeID && !nodes[nodeID]) {
+			nodes[nodeID] = node;
+		}
+    },
+    iterateNode: function(treeInfo, callback, opt) {
         var iterate = function(node) {
-			var arr = node.children || [];
+			var nodes = opt.nodes,
+				arr = node.children || [];
+			if (nodes) { gmxMapManager.setNodeLink(node, nodes); }
             for (var i = 0, len = arr.length; i < len; i++) {
-                var layer = arr[i];
-
-				if (callback(layer) && onceFlag) { break; }
-                if (layer.type === 'group') {
-                    iterate(layer.content);
-                }
+                var it = arr[i];
+				if (callback(it) && opt.onceFlag) { break; }
+                if (it.type === 'group') {
+                    iterate(it.content);
+                } else if (nodes) {
+					gmxMapManager.setNodeLink(it.content, nodes);
+				}
             }
         };
 
@@ -25261,10 +25272,9 @@ ScreenVectorTile.prototype = {
 					result();
 					return;
 				}
-				var ts = this.layer.options.tileSize;
-				this.tile.width = this.tile.height = ts;
 				var doDraw = function() {
 					var gmx = _this.gmx,
+						ts = _this.layer.options.tileSize || 256,
 						dattr = {
 							//tileLink: tileLink,
 							tbounds: _this.tbounds,
@@ -25277,6 +25287,7 @@ ScreenVectorTile.prototype = {
 						},
 						tinfo = 'zKey:' + _this.zKey + ' count: ' + geoItems.length;
 					L.DomUtil.addClass(tile, tinfo);
+					_this.tile.width = _this.tile.height = ts;
 
 					if (!_this.layer._gridClusters) {
 						ctx.clearRect(0, 0, ts, ts);
@@ -25300,7 +25311,7 @@ ScreenVectorTile.prototype = {
 					gmx.preRenderHooks.forEach(function (f) {
 						if (!bgImage) {
 							bgImage = document.createElement('canvas');
-							bgImage.width = bgImage.height = ts || 256;
+							bgImage.width = bgImage.height = ts;
 						}
 						var res = f(bgImage, hookInfo);
 						if (res && res.then) {
@@ -27250,11 +27261,14 @@ L.gmx.VectorLayer.include({
                     }
                     this._map.doubleClickZoom.disable();
                     return idr;
-                } else if (this._map) {
-					this._map.doubleClickZoom.enable();
+                // } else if (this._map) {
+					// this._map.doubleClickZoom.enable();
 				}
             }
         }
+		if (!this._map.doubleClickZoom.enabled()) {
+			this._map.doubleClickZoom.enable();
+		}
         return 0;
     },
 
@@ -30787,6 +30801,7 @@ L.gmx.loadMap = function(mapID, options) {
 			} else {
 				var loadedMap = new L.gmx.gmxMap(mapInfo, options);
 				mapHash.loaded = loadedMap;
+				loadedMap.nodes = mapHash._nodes;
 
 				loadedMap.layersCreated.then(function() {
 					if (options.leafletMap || options.setZIndex) {

@@ -3,8 +3,8 @@
 	{#if line.type !== 'map'}
 	<div class="borders "></div>
 	{#if line.type === 'group'}
-	<input class="expander expanderInput hidden" type="checkbox" checked={properties.expanded ? true : false} />
-	<span class="expander pointer cmd:toggleFolder expanderCont"><svg role="img" class="svgIcon"><use xlink:href="#arrow-small-down" href="#arrow-small-down"></use></svg></span>
+	<input class="expander expanderInput hidden" type="checkbox" checked="{isVisible}" />
+	<span class="expander pointer expanderCont cmd:toggleVisibility" on:click="toggleVisibility(this)"></span>
 	{/if}
 		{#if line.type === 'layer'}
 			{#if properties.styles.length > 1}
@@ -24,16 +24,16 @@
 		{#if line.type !== 'map'}
 	<span class="cont">
 		{#if line.type === 'layer'}
-		<input class="check visibility pointer cmd:toggleVisibility" type="checkbox" checked={isVisible(properties, layersTree.visible[nodeID])} />
+		<input class="check visibility pointer cmd:toggleVisibility" type="checkbox" checked="{isVisible}" />
 		{#if styles.length && styles.length < 2 && styles[0].RenderStyle}
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
 		{/if}
 		<label class="pointer title cmd:toggleVisibility" on:click="toggleVisibility(this)">{properties.title}</label>
 		<div class="description collapse"></div>
-		{#if line.type === 'layer'}
-		<div class="legend">
+{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
+		<div class="legend">
 			{#each styles as it}
 				<div class="gmx-style-legend">
 					<span class="legendIconEye enabled pointer cmd:toggleStyle">
@@ -44,10 +44,10 @@
 					<span class="styleName">{it.Name}</span>
 				</div>
 			{/each}
-			{/if}
 		</div>
-		{/if}
-	</span>
+			{/if}
+{/if}
+</span>
 		{/if}
 {/if}
 {#if line.content.children}
@@ -61,6 +61,15 @@
  
 <script>
 	import LegendIconCell from './LegendIconCell.html';
+	// let isOpened = ({line, layersTree}) => {
+		// let content = line.content,
+			// props = content.properties,
+			// nodeID = props.name || props.GroupID || 'root',
+			// flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID];
+
+		// return flag === undefined ? props && props.visible : flag;
+	// };
+
 	export default {
 		data() {
 			return {
@@ -68,20 +77,47 @@
 			}
 		},
 		helpers: {
-			isVisible: (props, flagConf) => flagConf === undefined ? props && props.visible : flagConf
 		},
 		computed: {
 			properties: ({ line }) => line.content.properties,
 			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
-			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : []
+			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : [],
+			isVisible: ({line, layersTree}) => {
+				let content = line.content,
+					props = content.properties,
+					nodeID = props.name || props.GroupID || 'root',
+					flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID],
+					isOpened = flag === undefined ? props && props.visible : flag;
+
+// console.log('isVisible', line, layersTree)
+				return isOpened;
+			}
 		},
 		components: {
 			LegendIconCell
 		},
 		methods: {
+			isOpened() {
+				let {line, layersTree} = this.get();
+				// console.log('isOpened', this.root, line, layersTree);
+				let content = line.content,
+					props = content.properties,
+					nodeID = props.name || props.GroupID || 'root',
+					flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID],
+					opened = flag === undefined ? props && props.visible : flag;
+
+				if (opened && props.GroupID && content.children === undefined) {
+// console.log('isVisible', this.root, line, layersTree)
+				}
+				return opened;
+			},
 			toggleVisibility(target) {
 				let {line} = this.get(),
-					node = line.type === 'group' ? target.parentNode.parentNode.getElementsByClassName('expanderInput')[0] : target.parentNode.getElementsByClassName('cmd:toggleVisibility')[0];
+					node = line.type === 'group' ? target.parentNode.getElementsByClassName('expanderInput')[0] : target;
+					// node = line.type === 'group' ? target.parentNode.getElementsByClassName('expanderInput')[0] : target.parentNode.getElementsByClassName('cmd:toggleVisibility')[0];
+				
+				if (target.classList.contains('title')) {
+				}
 				// console.log('toggleVisibility', node, line);
 				if (node) {
 					if (node.checked) {
@@ -114,28 +150,52 @@
 					}
 				}
 			}
+/*
+		},
+
+		onstate({ changed, current, previous }) {
+			// console.log('onstate', current.line, current.layersTree);
+			if (current.line && current.layersTree) {
+				let content = current.line.content,
+					props = content.properties;
+				if (props.GroupID && content.children === undefined) {
+					let nodeID = props.name || props.GroupID || 'root',
+						layersTree = current.layersTree,
+						flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID];
+
+					if (flag === undefined ? props && props.visible : flag) {
+						this.root.appendNode(nodeID);
+					}
+				}
+			}
+*/
 		}
 	}
 </script>
 
 
 <style>
+/*
 .TreeView {
     overflow: scroll;
     height: calc(100vh - 30px);
     width: 360px;
     position: absolute;
 }
+*/
 ul {
 	padding-inline-start: 12px;
 }
 li {
-    list-style: none;
-	line-height: 10px;
+	list-style: none;
+	/* line-height: 10px;
+	flex-flow: wrap;
+    display: flex;
+    padding-right: 16px;
+	*/
     text-overflow: ellipsis;
     white-space: nowrap;
 	width: 98%;
-    padding-right: 16px;
     overflow: hidden;	
 }
 li.line > .icons span.cont-center {
@@ -163,26 +223,35 @@ svg {
 	fill: #45B0D8;
 }
 
-.expanderCont {
-    margin-left: -20px;
-}
-
 .pointer {
     cursor: pointer;
 }
+.expanderInput {
+	display: initial;
+}
+.expanderCont {
+    position: relative;
+	top: -5px;
+	padding-right: 3px;
+	margin-left: -20px;
+}
 
-input.expander:checked + span.expander svg {
-    transform: rotate(-90Deg);
+span.expander:before {
+	content: '\2b9e';
+}
+input.expander:checked + span.expander:before {
+    content: '\2b9f';
 }
 
 .legend {
-	padding-left: 25px;
+	padding-left: 20px;
 }
 input.check.visibility ~ .legend {
     display: none;
 }
 input.check.visibility:checked ~ .legend {
     display: block;
+	float: left;
 }
 .gmx-style-legend .legendIconCell.style {
     top: 0px;
@@ -193,6 +262,10 @@ input.check.visibility:checked ~ .legend {
 }
 .legendIconEye {
 	margin-right: -5px;
+}
+.legendIconEye > .off {
+    left: -4px;
+    position: relative;
 }
 .legendIconEye.enabled > .on, .legendIconEye > .off {
     display: inline-block;
@@ -214,12 +287,12 @@ input.check.visibility:checked ~ .legend {
 
 span.cont-overlays {
     position: absolute;
-    left: 4px;
-	padding-top: 4px;
+    left: 1px;
+    padding-top: 2px;
 }
 span.icons {
 	z-index: 1;
-    right: 2px;
+    right: 8px;
     position: absolute;
 }
 .hidden {

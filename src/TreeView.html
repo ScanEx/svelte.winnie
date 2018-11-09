@@ -4,6 +4,14 @@
  
 
 <style>
+.TreeView {
+    position: absolute;
+	max-height: calc(100vh - 128px);
+	width: 100%;
+    overflow-y: scroll;
+	background-color: white;
+	border: 1px solid;
+}
 </style>
 
 <script>
@@ -16,7 +24,9 @@
 		data() {
 			return {
 				config: {},
-				layersTree: {},
+				layersTree: {
+					visible: {}
+				},
 				group: null,
 				rawTree: null
 			}
@@ -40,6 +50,7 @@
 							if (arr && arr.length === 2) {
 								out.id = arr[1];
 							}
+							out.target = target;
 							break;
 						}
 						target = target.parentNode;
@@ -53,28 +64,35 @@
 
 			treeCommands(attr) {
 				let {layersTree, rawTree} = this.get();
-console.log('treeCommands', attr, layersTree, rawTree);
 
-				if (attr.cmd === 'toggleFolder') {
-					let expanded = layersTree.expanded || {},
-						input = attr.originalEvent.target.previousElementSibling,
+				if (attr.cmd === 'toggleVisibility') {
+					let isGroup = attr.target.getElementsByClassName('expanderInput')[0],
+						input = isGroup || attr.target.getElementsByClassName('visibility')[0],
+						target = attr.originalEvent.target,
+						// isTitle = target.classList.contains('title'),
+						expanded = isGroup ? layersTree.expanded : layersTree.visible,
 						id = attr.id;
-					if (expanded[id]) {
+					if (expanded[id]) {			// TODO: layersTree для пермалинков
 						delete expanded[id];
 						input.checked = false;
+						//layersTree.visible[id]
 					} else {
 						expanded[id] = true;
 						input.checked = true;
 					}
 					this.set({layersTree: layersTree});
 					return true;
-				} else if (attr.cmd === 'showInfo') {
-					let tt = rawTree;
-					let input = attr.originalEvent.target,
-						id = attr.id;
+				// } else if (attr.cmd === 'showInfo') {
+					// let tt = rawTree;
+					// let input = attr.originalEvent.target,
+						// id = attr.id;
 				}
 				return false;
 			},
+
+			appendNode(id) {
+				this.options.appendNode(id);
+			}
 		},
 		components: {
 			LineNode

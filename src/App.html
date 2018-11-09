@@ -534,8 +534,7 @@
 				urlParams: {},
 				dropdownMenu: [
 					{ name: 'refresh', title: 'Refresh' },
-					{ name: 'link', title: 'Share' },
-					{ name: 'magic', title: 'Wizard' }
+					{ name: 'link', title: 'Share' }
 				],
 				map: null,
 				permalink: null,
@@ -562,19 +561,26 @@
 				node.classList.add('checked');
 			},
 			getPermalink(id) {
-				return fetch(serverBase + 'TinyReference/Get.ashx?WrapStyle=None&id=' + id, {
+				let out = {};
+				if (id) {
+					fetch(serverBase + 'TinyReference/Get.ashx?WrapStyle=None&id=' + id, {
 						mode: 'cors',
 						credentials: 'include'
 					})
 					.then(res => res.json())
 					.then(json => {
 						if (json.Status === 'ok') {
-							let out = json.Result ? JSON.parse(json.Result) : {};
-							this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
+							out = json.Result ? JSON.parse(json.Result) : {};
 						}
+						this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
 // console.log('TinyReference ____ ', json);
 					});
-					// .catch(err => console.log(err));
+						// .catch(err => console.log(err));
+				} else {
+					setTimeout(function() {
+						this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
+					}.bind(this), 0);
+				}
 			}
 		},
 

@@ -2,6 +2,8 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "dependencies": {
+    "leaflet-iconlayers": "git+https://github.com/ScanEx/Leaflet-IconLayers.git",
+    "scanex-leaflet-sidebar": "git+https://github.com/Scanex/Leaflet.Sidebar.git",
     "scanex-event-target": "git+https://github.com/Scanex/EventTarget.git"
   },
   "devDependencies": {
@@ -9,6 +11,8 @@
     "rollup": "^0.64.1",
     "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-commonjs": "^9.1.5",
+    "rollup-plugin-cpy": "^1.1.0",
+    "rollup-plugin-css-porter": "^0.1.2",
     "rollup-plugin-node-resolve": "^3.0.3",
     "rollup-plugin-svelte": "^4.2.1",
     "rollup-plugin-terser": "^1.0.1",

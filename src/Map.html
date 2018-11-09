@@ -6,79 +6,99 @@
 <script>
 	import TreeView from './TreeView.html';
 
+	import SidebarControl from  'scanex-leaflet-sidebar';
+	import 'scanex-leaflet-sidebar/dist/scanex-leaflet-sidebar.css';
+
+	import IconLayers from 'leaflet-iconlayers';
+	import 'leaflet-iconlayers/dist/iconLayers.css';
+
 	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
 
 	export default {
 		data() {
 			return {
+				layersTree: {
+					visible: {}
+				},
 				permalink: null,
 				map: null
 			}
 		},
 		methods: {
 			createMap(it) {
+				let {layersTree} = this.get();
 				let app = it.app || {},
 					gmxMap = app.gmxMap || {},
 					state = it.state || {},
-					layersTree = state.layersTree,
+					// layersTree = state.layersTree || {},
 					calendar = state.calendar || {},
 					mapID = gmxMap.mapID || '946GH',
 					apiKey = gmxMap.apiKey,
 					pos = state.map ? state.map.position : {};
 
-				var osm = L.tileLayer('//tilessputnik.ru/{z}/{x}/{y}.png', {
-					maxZoom: 18
-				});
-				//layersTree.visible['6D24C9ED5F5C4F3189AABDC2CE8A751F'] = true;
+					
+				layersTree = state.layersTree || layersTree;
+				this.layersTree = layersTree;
 				let map = new L.Map('map', {
 					srs: 3857,
-					layers: [osm],
+					layers: [],
 					center: new L.LatLng(pos.y || 0, pos.x || 60),
 					zoom: pos.z || 3
 				});
 
-				var iconSidebar = L.control.iconSidebar({width111: 360});
-				map.addControl(iconSidebar);
-				var node = L.DomUtil.create('div', 'treeViewCont'),
-					tabIcon = L.DomUtil.create('div', 'tabIcon', node),
-					tabCont = L.DomUtil.create('div', 'tabCont', node);
-				tabIcon.innerHTML = '<svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg>';
-
-				var treePane = iconSidebar.setPane('treeView', {
-					createTab: function(state) {
-						if (state === 'active') {
-							L.DomUtil.addClass(node, 'icon_active')
-						} else {
-							L.DomUtil.removeClass(node, 'icon_active')
-						}
-						return node
-					}
+				map.gmxControlsManager.init({
+					gmxDrawing: {position: 'right'},
+					gmxZoom: {position: 'gmxbottomright'},
+					gmxHide: null
 				});
-
-				map.gmxControlsManager.init();
 				map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
+
+				var iconSidebar = new SidebarControl({position: 'topleft'});
+				iconSidebar.addTo(map);
+				var treePane = iconSidebar.addTab({id: 'treeView', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
+				this.iconSidebar = iconSidebar;
+				this.treePane = treePane;
 
 				this.mapID = mapID;
 				let opt = {
 					leafletMap: map,
-					visibleItemOnly: true,	// только видимые элементы (слои и папки)
-					setZIndex: true,
-					visibility: layersTree.visible
+					// visibleItemOnly: true,	// только видимые элементы (слои и папки)
+					setZIndex: true
+					// ,
+					// visibility: layersTree.visible || {}
 				};
 				L.gmx.loadMap(mapID, opt).then(function(gmxMap) {
-					this.set({gmxMap: gmxMap}); 
-
-					iconSidebar.on('opened', function(e) {
-						if (e.id === 'treeView') {
-							this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree});
+					this.gmxMap = gmxMap;
+					gmxMap.layers.forEach((it) => {
+						if(it._map) {
+							layersTree.visible[it._gmx.layerID] = true;
 						}
-					}, this);
-					iconSidebar.open('treeView', true);
+					});
+					// let visible = layersTree.visible || {};
+					// L.gmx.gmxMapManager.iterateNode(gmxMap.rawTree, function(node) {
+						// let props = node.content.properties,
+							// layerId = props.name;
+						// if (layerId && layerId in visible && visible[layerId] !== props.visible) {
+							// props.visible = visible[layerId];
+						// }
+					// });
+
+					// this.set({layersTree: layersTree}); 
+					// this.set({gmxMap: gmxMap}); 
+					iconSidebar.on('change', e => {
+						let id = e.detail.current;
+						if (id === 'treeView') {
+							this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree});
+						} else {
+							treePane.innerHTML = '';
+						}
+					});
+this.iconSidebar.setCurrent('treeView');
 
 					/* TimeLine */
 					var control = L.control.gmxTimeline({
 						moveable: true
-					})	.on('dateInterval', function (ev) {
+						}).on('dateInterval', function (ev) {
 							gmxMap.layersByID[ev.layerID].setDateInterval(ev.beginDate, ev.endDate);
 						})
 						.on('statechanged', function (ev) {
@@ -90,21 +110,32 @@
 
 					// map.addControl(control);
 					this.gmxTimeline = control;
+					this._initBaseLayers(map, gmxMap.properties.BaseLayers);
 				}.bind(this));
 				this.set({map: map, config: it});
 			},
-			_createLayer(layerID) {
-				let _maps = L.gmx._maps,
-					host = 'maps.kosmosnimki.ru',
-					info = _maps[host] && _maps[host][this.mapID] && _maps[host][this.mapID]._nodes[layerID] ? _maps[host][this.mapID]._nodes[layerID] :
-							L.gmx.gmxMapManager.findLayerInfo('maps.kosmosnimki.ru', this.mapID, layerID);
-				// console.log('_createLayer', info);
-				return info ? L.gmx.createLayer(info.content, {
-					layerID: layerID
-					// ,
-					// srs: 3857
-				}) : null;
+			_initBaseLayers(map, baseLayers) {
+				const lang = 'rus';
+				let blm = map.gmxBaseLayersManager;
+				blm.initDefaults().then(function() {
+					blm.setActiveIDs(baseLayers);
+					let layers = blm.getActiveIDs().map(id => {
+						var layer = blm.get(id);
+						if (!layer) {
+							return null;
+						} else {
+							return {
+								layer: layer,
+								icon: layer.options.icon,
+								title: layer.options[lang]
+							}
+						}
+					}).filter(e => e);
 
+					let baseLayersControl = new IconLayers(layers, {id: 'iconLayers'});
+					map.gmxControlsManager.add(baseLayersControl);
+					map.addControl(baseLayersControl);
+				});
 			},
 			_getNodeIndex(target) {
 				let arr = target.parentNode.children,
@@ -114,30 +145,63 @@
 				}
 				return i === len ? null : i;
 			},
+
 			_initTree(it) {
 				let rawTree = {
 					type: 'map',
 					content: it.rawTree
 				};
 				const app = new TreeView({
+					appendNode: (id) => {
+						if (this.gmxMap.nodes) {
+							let {map} = this.get();
+							let mapID = this.mapID,
+								layersTree = this.layersTree,
+								visible = layersTree.visible || {},
+								// mapItem = L.gmx._maps['maps.kosmosnimki.ru'][mapID],
+								gmxMap = this.gmxMap,
+								layersByID = gmxMap.layersByID;
+							L.gmx.gmxMapManager.getMapFolder({
+								treeConfig: layersTree,
+								mapId: mapID,
+								folderId: id
+							}).then(function(json) {
+								L.gmx.gmxMapManager.iterateNode(json.content, function(node) {
+									let props = node.content.properties,
+										layerId = props.name;
+									if (layerId && layerId in visible && visible[layerId] !== props.visible) {
+										props.visible = visible[layerId];
+									}
+								}, {nodes: gmxMap.nodes});
+								gmxMap.addLayersToMap(map);
+								this.treePane.innerHTML = '';
+								this._initTree({
+									container: this.treePane,
+									layersTree: this.layersTree,
+									rawTree: gmxMap.rawTree
+								});
+
+							}.bind(this));
+						}
+					},
 					target: it.container,
 					data: {
 						container: it.container,
 						layersTree: it.layersTree,
-						// config: it.config,
 						rawTree: rawTree
 					}
 				});
 				this._treeView = app;
 
 				app.on('command', (ev) => {
-					let {map, gmxMap} = this.get();
+					let {map} = this.get();
 					let cmd = ev.cmd,
 						target = ev.originalEvent.target,
+						gmxMap = this.gmxMap,
+						node = gmxMap.nodes ? gmxMap.nodes[ev.id] : true,
 						gmxLayer = gmxMap.layersByID[ev.id];
-						// gmxLayer = this._createLayer(ev.id);
 
-console.log('Map command', ev, gmxLayer, gmxMap);
+					// console.log('Map command', ev, gmxLayer, gmxMap);
 					if (gmxLayer) {
 						if (cmd === 'fitBounds') {
 							map.fitBounds(gmxLayer.getBounds());
@@ -170,12 +234,8 @@ console.log('Map command', ev, gmxLayer, gmxMap);
 							gmxLayer.setStyles(styles);
 						}
 					} else {
-						if (cmd === 'toggleVisibility') {
-							L.gmx.gmxMapManager.getMapFolder({mapId: this.mapID, folderId: ev.id}).then(function(attr) {
-								app.set({rawTree: rawTree});
-
-console.log('________', attr);
-							});
+						if (cmd === 'toggleVisibility' && !node) {
+							app.appendNode(ev.id);
 						}
 					}
 				});
