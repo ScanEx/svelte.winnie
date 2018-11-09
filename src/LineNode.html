@@ -34,6 +34,7 @@
 {#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
 		<div class="legend">
+			<div class="legend-cont">
 			{#each styles as it}
 				<div class="gmx-style-legend">
 					<span class="legendIconEye enabled pointer cmd:toggleStyle">
@@ -44,6 +45,7 @@
 					<span class="styleName">{it.Name}</span>
 				</div>
 			{/each}
+			</div>
 		</div>
 			{/if}
 {/if}
@@ -245,13 +247,19 @@ input.expander:checked + span.expander:before {
 
 .legend {
 	padding-left: 20px;
+    display: none;
 }
+.legend-cont {
+	float: left;
+}
+/*	
 input.check.visibility ~ .legend {
     display: none;
 }
+*/
 input.check.visibility:checked ~ .legend {
     display: block;
-	float: left;
+	clear: both;
 }
 .gmx-style-legend .legendIconCell.style {
     top: 0px;
