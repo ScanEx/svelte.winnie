@@ -11,6 +11,8 @@
 
 	import IconLayers from 'leaflet-iconlayers';
 	import 'leaflet-iconlayers/dist/iconLayers.css';
+	
+	import './iconLayersDark.css';
 
 	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
 
@@ -18,7 +20,8 @@
 		data() {
 			return {
 				layersTree: {
-					visible: {}
+					visible: {},
+					expanded: {}
 				},
 				permalink: null,
 				map: null
@@ -36,7 +39,11 @@
 					apiKey = gmxMap.apiKey,
 					pos = state.map ? state.map.position : {};
 
-					
+console.log('createMap', it)
+				if(app.theme) {
+					document.body.classList.add(app.theme);
+				}
+
 				layersTree = state.layersTree || layersTree;
 				this.layersTree = layersTree;
 				let map = new L.Map('map', {
@@ -45,19 +52,24 @@
 					center: new L.LatLng(pos.y || 0, pos.x || 60),
 					zoom: pos.z || 3
 				});
+				L.leafletMap = map;
 
 				map.gmxControlsManager.init({
-					gmxDrawing: {position: 'right'},
+					gmxDrawing: !app.drawing || app.drawing === 'false' ? null : {position: 'right'},
 					gmxZoom: {position: 'gmxbottomright'},
 					gmxHide: null
 				});
 				map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
 
-				var iconSidebar = new SidebarControl({position: 'topleft'});
-				iconSidebar.addTo(map);
-				var treePane = iconSidebar.addTab({id: 'treeView', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
-				this.iconSidebar = iconSidebar;
-				this.treePane = treePane;
+				if (app.iconSidebar && app.iconSidebar !== 'false') {
+					var iconSidebar = new SidebarControl({position: 'topleft'});
+					iconSidebar.addTo(map);
+					var treePane = iconSidebar.addTab({id: 'treeView', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
+					this.iconSidebar = iconSidebar;
+					this.treePane = treePane;
+				} else {
+					document.body.classList.add('noIconSidebar');
+				}
 
 				this.mapID = mapID;
 				let opt = {
@@ -85,15 +97,22 @@
 
 					// this.set({layersTree: layersTree}); 
 					// this.set({gmxMap: gmxMap}); 
-					iconSidebar.on('change', e => {
-						let id = e.detail.current;
-						if (id === 'treeView') {
-							this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree});
-						} else {
-							treePane.innerHTML = '';
-						}
-					});
-this.iconSidebar.setCurrent('treeView');
+					if (this.iconSidebar) {
+						let triggerSidebar = (id) => {
+							let shiftIconLayers = false;
+	// console.log('triggerSidebar', id)
+							if (id === 'treeView') {
+								this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree});
+								shiftIconLayers = true;
+							} else {
+								treePane.innerHTML = '';
+							}
+							if (this.IconLayersContainer) {
+								this.IconLayersContainer.classList[shiftIconLayers ? 'add' : 'remove']('shiftIconLayers');
+							}
+						};
+						iconSidebar.on('change', e => triggerSidebar(e.detail.current));
+					}
 
 					/* TimeLine */
 					var control = L.control.gmxTimeline({
@@ -110,15 +129,21 @@ this.iconSidebar.setCurrent('treeView');
 
 					// map.addControl(control);
 					this.gmxTimeline = control;
-					this._initBaseLayers(map, gmxMap.properties.BaseLayers);
+					let bLayersConf = state.baseLayersManager || { activeIDs: gmxMap.properties.BaseLayers };
+					this._initBaseLayers(map, bLayersConf, app);
+
+//this.iconSidebar.setCurrent('treeView');
+
 				}.bind(this));
 				this.set({map: map, config: it});
 			},
-			_initBaseLayers(map, baseLayers) {
+			_initBaseLayers(map, baseLayers, app) {
 				const lang = 'rus';
-				let blm = map.gmxBaseLayersManager;
+				let blm = map.gmxBaseLayersManager,
+					activeIDs = baseLayers.activeIDs || ['sputnik'],
+					currentID = baseLayers.currentID || activeIDs[0];
 				blm.initDefaults().then(function() {
-					blm.setActiveIDs(baseLayers);
+					blm.setActiveIDs(activeIDs);
 					let layers = blm.getActiveIDs().map(id => {
 						var layer = blm.get(id);
 						if (!layer) {
@@ -132,10 +157,16 @@ this.iconSidebar.setCurrent('treeView');
 						}
 					}).filter(e => e);
 
-					let baseLayersControl = new IconLayers(layers, {id: 'iconLayers'});
-					map.gmxControlsManager.add(baseLayersControl);
-					map.addControl(baseLayersControl);
-				});
+					if (app.iconLayers && app.iconLayers !== 'false') {
+						let baseLayersControl = new IconLayers(layers, {id: 'iconLayers'});
+						map.gmxControlsManager.add(baseLayersControl);
+						map.addControl(baseLayersControl);
+						this.IconLayersContainer = baseLayersControl.getContainer();
+					} else {
+						blm.setActiveIDs(activeIDs).setCurrentID(currentID);
+					}
+					if (this.iconSidebar) { this.iconSidebar.setCurrent('treeView'); }
+				}.bind(this));
 			},
 			_getNodeIndex(target) {
 				let arr = target.parentNode.children,

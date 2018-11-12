@@ -1,3 +1,38 @@
+.scanex-sidebar .tabs {
+    background-color: white;
+    display: block;
+}
+
+
+.dark .noselect.leaflet-control {
+	margin: initial;
+}
+.dark .scanex-sidebar .tabs {
+    background-color: black;
+    display: block;
+    height: calc(100vh - 20px);
+}
+.dark .opened {
+    color: white;
+}
+.dark .closed {
+    color: lightgray;
+}
+.dark .TreeView {
+	max-height: calc(100vh - 20px);
+	border-top: inherit;
+    border-bottom: inherit;
+}
+
+.dark .leaflet-iconLayers.shiftIconLayers {
+	margin-left: 360px;
+}
+.dark .leaflet-iconLayers {
+    padding-left: 44px;
+}
+.dark.noIconSidebar .leaflet-iconLayers {
+    padding-left: inherit;
+}
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

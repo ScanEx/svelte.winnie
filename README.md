@@ -1,76 +1,23 @@
-*Psst — looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+*Управление конструктором приложений
 
 ---
 
-  [Пример](https://originalsin.github.io/svelte.geomixer/public/?config=RSO4E)
-  [Пример1](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4)
+Примеры
+------
+  * [config=RSO4E](https://originalsin.github.io/svelte.geomixer/public/?config=RSO4E) - пермалинк 1 (по умолчанию)
+  * [config=7ZSC4](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4) - пермалинк 2 (по умолчанию)
+
   
  Для работы примера сделайте пермалинк от winnie.kosmosnimki.ru и добавьте его в URL ?config=NALXY
-. 
+ 
+ #### Параметры ключей конструктора
 
-# svelte app
+Свойство|По умолчанию|Описание|Пример
+------|:---------:|:-----------|:-----------
+theme|`dark`| стилевая схема приложения| [переключение стилевай схемы на theme=white](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&theme=white)
+iconSidebar|`true`| управление контролом Sidebar| [отключение контрола Sidebar](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&iconSidebar=false)
+iconLayers|`true`| управление контролом iconLayers| [отключение контрола iconLayers](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&iconLayers=false)
+drawing|`true`| управление контролом gmxDrawing| [отключение контрола gmxDrawing](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&drawing=false)
 
-This is a project template for [Svelte](https://svelte.technology) apps. It lives at https://github.com/sveltejs/template.
-
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
-
-```bash
-npm install -g degit # you only need to do this once
-
-degit sveltejs/template svelte-app
-cd svelte-app
-```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
-
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
-npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
-
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
-
-```bash
-now
-```
-
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public
-```
+Все вышеперечисленные ключи могут указываться как в свойствах приложения так и в параметрах URL приложения.
+В параметрах URL приложения можно указывать дополнительный ключ `edit=1` для отображения параметров приложения.

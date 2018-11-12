@@ -1,4 +1,3 @@
-
 {#if urlParams.edit}
 <div class="editor-sidebarContainer editor_sidebarExpanded">
 	<div class="sidebarPanel">
@@ -543,10 +542,10 @@
 		},
 		methods: {
 			checkMe(it) {
-// console.log('checkMe', it);
+console.log('checkMe', it);
 			},
 			editTrigger(node, flag) {
-// console.log('editTrigger', node, flag);
+console.log('editTrigger', node, flag);
 				let parentNode = node.parentNode,
 					lastChild = parentNode.parentNode.lastChild;
 				if (flag) {
@@ -560,6 +559,17 @@
 				parentNode.lastChild.classList.remove('checked');
 				node.classList.add('checked');
 			},
+			checkPermalink(out) {
+				let {urlParams} = this.get();
+console.log('?config=7ZSC4  dddddddd', out, urlParams)
+				if (out.app) {
+					out.app.theme = urlParams.theme || out.app.theme || 'dark'; 				// тема по умолчанию
+					out.app.iconSidebar = urlParams.iconSidebar || out.app.iconSidebar || true;	// iconSidebar по умолчанию
+					out.app.iconLayers = urlParams.iconLayers || out.app.iconLayers || true;	// iconLayers по умолчанию
+					out.app.drawing = urlParams.drawing || out.app.drawing || true;				// drawing по умолчанию
+				}
+				this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
+			},
 			getPermalink(id) {
 				let out = {};
 				if (id) {
@@ -572,13 +582,12 @@
 						if (json.Status === 'ok') {
 							out = json.Result ? JSON.parse(json.Result) : {};
 						}
-						this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
-// console.log('TinyReference ____ ', json);
+						this.checkPermalink(out);
 					});
 						// .catch(err => console.log(err));
 				} else {
 					setTimeout(function() {
-						this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
+						this.checkPermalink(out);
 					}.bind(this), 0);
 				}
 			}

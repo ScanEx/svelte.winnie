@@ -6,11 +6,9 @@
 <style>
 .TreeView {
     position: absolute;
-	max-height: calc(100vh - 128px);
 	width: 100%;
     overflow-y: scroll;
 	background-color: white;
-	border: 1px solid;
 }
 </style>
 
@@ -25,7 +23,8 @@
 			return {
 				config: {},
 				layersTree: {
-					visible: {}
+					visible: {},
+					expanded: {}
 				},
 				group: null,
 				rawTree: null
