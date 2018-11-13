@@ -33,6 +33,14 @@
 .dark.noIconSidebar .leaflet-iconLayers {
     padding-left: inherit;
 }
+
+.dark .gmxTimeline.leaflet-control {
+    left: 145px;
+    right: 48px;
+}
+.dark .gmxTimeline.shiftTimeline.leaflet-control {
+    left: 490px;
+}
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

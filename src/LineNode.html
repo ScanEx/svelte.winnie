@@ -15,7 +15,7 @@
 			{#if properties.description}
 		<span class="pointer cmd:showInfo cont-info" title="View description" on:click="showInfo(this, event)"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
 			{/if}
-		{#if properties.Temporal && (properties.IsRasterCatalog || (properties.Quicklook && properties.Quicklook !== 'null'))}
+		{#if gmxTimeline && properties.Temporal && (properties.IsRasterCatalog || (properties.Quicklook && properties.Quicklook !== 'null'))}
 		<span class="pointer cmd:toggleTimeline timeline disabled" on:click="toggleTimeline(this)"><svg role="img" class="svgIcon"><use xlink:href="#timeline-icon" href="#timeline-icon"></use></svg></span>
 		{/if}
 	</span>
@@ -55,7 +55,7 @@
 {#if line.content.children}
 	<ul class="group css-treeview id_{properties ? properties.name : 'root'}">
 	{#each line.content.children || [] as child}
-		<svelte:self line="{child}"  bind:layersTree />
+		<svelte:self line="{child}"  bind:layersTree bind:gmxTimeline />
 	{/each}
 	</ul>
 {/if}
@@ -63,23 +63,16 @@
  
 <script>
 	import LegendIconCell from './LegendIconCell.html';
-	// let isOpened = ({line, layersTree}) => {
-		// let content = line.content,
-			// props = content.properties,
-			// nodeID = props.name || props.GroupID || 'root',
-			// flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID];
-
-		// return flag === undefined ? props && props.visible : flag;
-	// };
 
 	export default {
 		data() {
 			return {
+				//gmxTimeline: false,
 				line: null
 			}
 		},
-		helpers: {
-		},
+		// helpers: {
+		// },
 		computed: {
 			properties: ({ line }) => line.content.properties,
 			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
@@ -91,7 +84,6 @@
 					flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID],
 					isOpened = flag === undefined ? props && props.visible : flag;
 
-// console.log('isVisible', line, layersTree)
 				return isOpened;
 			}
 		},
@@ -109,18 +101,13 @@
 					opened = flag === undefined ? props && props.visible : flag;
 
 				if (opened && props.GroupID && content.children === undefined) {
-// console.log('isVisible', this.root, line, layersTree)
 				}
 				return opened;
 			},
 			toggleVisibility(target) {
 				let {line} = this.get(),
 					node = line.type === 'group' ? target.parentNode.getElementsByClassName('expanderInput')[0] : target;
-					// node = line.type === 'group' ? target.parentNode.getElementsByClassName('expanderInput')[0] : target.parentNode.getElementsByClassName('cmd:toggleVisibility')[0];
 				
-				if (target.classList.contains('title')) {
-				}
-				// console.log('toggleVisibility', node, line);
 				if (node) {
 					if (node.checked) {
 						node.checked = false;
@@ -152,49 +139,18 @@
 					}
 				}
 			}
-/*
-		},
-
-		onstate({ changed, current, previous }) {
-			// console.log('onstate', current.line, current.layersTree);
-			if (current.line && current.layersTree) {
-				let content = current.line.content,
-					props = content.properties;
-				if (props.GroupID && content.children === undefined) {
-					let nodeID = props.name || props.GroupID || 'root',
-						layersTree = current.layersTree,
-						flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID];
-
-					if (flag === undefined ? props && props.visible : flag) {
-						this.root.appendNode(nodeID);
-					}
-				}
-			}
-*/
 		}
 	}
 </script>
 
 
 <style>
-/*
-.TreeView {
-    overflow: scroll;
-    height: calc(100vh - 30px);
-    width: 360px;
-    position: absolute;
-}
-*/
+
 ul {
 	padding-inline-start: 12px;
 }
 li {
 	list-style: none;
-	/* line-height: 10px;
-	flex-flow: wrap;
-    display: flex;
-    padding-right: 16px;
-	*/
     text-overflow: ellipsis;
     white-space: nowrap;
 	width: 98%;
@@ -252,11 +208,7 @@ input.expander:checked + span.expander:before {
 .legend-cont {
 	float: left;
 }
-/*	
-input.check.visibility ~ .legend {
-    display: none;
-}
-*/
+
 input.check.visibility:checked ~ .legend {
     display: block;
 	clear: both;

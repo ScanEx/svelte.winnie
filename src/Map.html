@@ -39,7 +39,7 @@
 					apiKey = gmxMap.apiKey,
 					pos = state.map ? state.map.position : {};
 
-console.log('createMap', it)
+				console.log('createMap', it)
 				if(app.theme) {
 					document.body.classList.add(app.theme);
 				}
@@ -74,16 +74,33 @@ console.log('createMap', it)
 				this.mapID = mapID;
 				let opt = {
 					leafletMap: map,
-					// visibleItemOnly: true,	// только видимые элементы (слои и папки)
+					// visibleItemOnly: true,	// TODO: только видимые элементы (слои и папки) баги серверного скрипта
 					setZIndex: true
 					// ,
 					// visibility: layersTree.visible || {}
 				};
 				L.gmx.loadMap(mapID, opt).then(function(gmxMap) {
 					this.gmxMap = gmxMap;
+					let dateInterval = state.calendar || {},
+						tb = dateInterval.dateBegin,
+						te = dateInterval.dateEnd;
+					if(!tb) {
+						let day = 1000*60*60*24,
+							cd = new Date();
+						tb = Date.UTC(cd.getUTCFullYear(), cd.getUTCMonth(), cd.getUTCDate());
+						te = tb + day;
+					}
+					let db = new Date(tb), de = new Date(te);
 					gmxMap.layers.forEach((it) => {
-						if(it._map) {
-							layersTree.visible[it._gmx.layerID] = true;
+						if(it.getGmxProperties) {
+							let props = it.getGmxProperties(),
+								id = props.name;
+							if(it.setDateInterval) {
+								it.setDateInterval(db, de);
+							}
+							if(id in layersTree.visible) {
+								map[layersTree.visible[id] ? 'addLayer' : 'removeLayer'](it);
+							}
 						}
 					});
 					// let visible = layersTree.visible || {};
@@ -97,43 +114,54 @@ console.log('createMap', it)
 
 					// this.set({layersTree: layersTree}); 
 					// this.set({gmxMap: gmxMap}); 
+					let shiftIconLayers = false,
+						gmxTimelineContainer = null,
+						repaintTimeline = null;
+
+					if (app.gmxTimeline && app.gmxTimeline !== 'false') {
+						/* TimeLine */
+						var control = L.control.gmxTimeline({
+							moveable: true
+							}).on('dateInterval', function (ev) {
+								gmxMap.layersByID[ev.layerID].setDateInterval(ev.beginDate, ev.endDate);
+							})
+							.on('statechanged', function () {
+								repaintTimeline();
+							})
+							.on('click', function (ev) {
+								gmxMap.layersByID[ev.layerID].repaint();
+							});
+						this.gmxTimeline = control;
+						repaintTimeline = () => {
+							if (control._container) {
+								control._container.classList[shiftIconLayers ? 'add' : 'remove']('shiftTimeline');
+								control._redrawTimeline();
+							}
+						};
+					}
+
 					if (this.iconSidebar) {
 						let triggerSidebar = (id) => {
-							let shiftIconLayers = false;
-	// console.log('triggerSidebar', id)
+							
 							if (id === 'treeView') {
-								this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree});
+								this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree, gmxTimeline: this.gmxTimeline});
 								shiftIconLayers = true;
 							} else {
 								treePane.innerHTML = '';
+								shiftIconLayers = false;
 							}
 							if (this.IconLayersContainer) {
 								this.IconLayersContainer.classList[shiftIconLayers ? 'add' : 'remove']('shiftIconLayers');
+							}
+							if (repaintTimeline) {
+								repaintTimeline();
 							}
 						};
 						iconSidebar.on('change', e => triggerSidebar(e.detail.current));
 					}
 
-					/* TimeLine */
-					var control = L.control.gmxTimeline({
-						moveable: true
-						}).on('dateInterval', function (ev) {
-							gmxMap.layersByID[ev.layerID].setDateInterval(ev.beginDate, ev.endDate);
-						})
-						.on('statechanged', function (ev) {
-							console.log('statechanged', ev);
-						})
-						.on('click', function (ev) {
-							gmxMap.layersByID[ev.layerID].repaint();
-						});
-
-					// map.addControl(control);
-					this.gmxTimeline = control;
 					let bLayersConf = state.baseLayersManager || { activeIDs: gmxMap.properties.BaseLayers };
 					this._initBaseLayers(map, bLayersConf, app);
-
-//this.iconSidebar.setCurrent('treeView');
-
 				}.bind(this));
 				this.set({map: map, config: it});
 			},
@@ -162,9 +190,8 @@ console.log('createMap', it)
 						map.gmxControlsManager.add(baseLayersControl);
 						map.addControl(baseLayersControl);
 						this.IconLayersContainer = baseLayersControl.getContainer();
-					} else {
-						blm.setActiveIDs(activeIDs).setCurrentID(currentID);
 					}
+					blm.setCurrentID(currentID);
 					if (this.iconSidebar) { this.iconSidebar.setCurrent('treeView'); }
 				}.bind(this));
 			},
@@ -182,8 +209,9 @@ console.log('createMap', it)
 					type: 'map',
 					content: it.rawTree
 				};
-				const app = new TreeView({
-					appendNode: (id) => {
+				this._treeView = new TreeView({
+					appendNode: (id) => {	// TODO: только видимые элементы (слои и папки) баги серверного скрипта
+						return;
 						if (this.gmxMap.nodes) {
 							let {map} = this.get();
 							let mapID = this.mapID,
@@ -219,12 +247,13 @@ console.log('createMap', it)
 					data: {
 						container: it.container,
 						layersTree: it.layersTree,
+						gmxTimeline: it.gmxTimeline ? true : false,
 						rawTree: rawTree
 					}
 				});
-				this._treeView = app;
+				// this._treeView = app;
 
-				app.on('command', (ev) => {
+				this._treeView.on('command', (ev) => {
 					let {map} = this.get();
 					let cmd = ev.cmd,
 						target = ev.originalEvent.target,
@@ -243,7 +272,7 @@ console.log('createMap', it)
 							} else {
 								map.addLayer(gmxLayer);
 							}
-						} else if (cmd === 'toggleTimeline') {
+						} else if (cmd === 'toggleTimeline' && this.gmxTimeline) {
 							if (target.classList.contains('enabled')) {
 								if (!this.gmxTimeline._map) {
 									map.addControl(this.gmxTimeline);
@@ -266,7 +295,7 @@ console.log('createMap', it)
 						}
 					} else {
 						if (cmd === 'toggleVisibility' && !node) {
-							app.appendNode(ev.id);
+							this._treeView.appendNode(ev.id);
 						}
 					}
 				});

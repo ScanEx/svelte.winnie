@@ -561,12 +561,13 @@ console.log('editTrigger', node, flag);
 			},
 			checkPermalink(out) {
 				let {urlParams} = this.get();
-console.log('?config=7ZSC4  dddddddd', out, urlParams)
+				//console.log('?config=7ZSC4  dddddddd', out, urlParams)
 				if (out.app) {
 					out.app.theme = urlParams.theme || out.app.theme || 'dark'; 				// тема по умолчанию
 					out.app.iconSidebar = urlParams.iconSidebar || out.app.iconSidebar || true;	// iconSidebar по умолчанию
 					out.app.iconLayers = urlParams.iconLayers || out.app.iconLayers || true;	// iconLayers по умолчанию
 					out.app.drawing = urlParams.drawing || out.app.drawing || true;				// drawing по умолчанию
+					out.app.gmxTimeline = urlParams.gmxTimeline || out.app.gmxTimeline || true;	// gmxTimeline по умолчанию
 				}
 				this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
 			},

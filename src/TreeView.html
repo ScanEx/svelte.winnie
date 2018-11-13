@@ -1,5 +1,5 @@
 <div class="TreeView" on:click="chkEvent(event)">
-	<LineNode line={rawTree} bind:layersTree />
+	<LineNode line={rawTree} bind:layersTree bind:gmxTimeline />
 </div>
  
 
@@ -26,6 +26,7 @@
 					visible: {},
 					expanded: {}
 				},
+				//gmxTimeline: false,
 				group: null,
 				rawTree: null
 			}
