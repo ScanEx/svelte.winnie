@@ -189,6 +189,7 @@
 						let baseLayersControl = new IconLayers(layers, {id: 'iconLayers'});
 						map.gmxControlsManager.add(baseLayersControl);
 						map.addControl(baseLayersControl);
+						baseLayersControl.setActiveLayer(blm.get(currentID));
 						this.IconLayersContainer = baseLayersControl.getContainer();
 					}
 					blm.setCurrentID(currentID);

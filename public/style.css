@@ -20,6 +20,7 @@
 }
 .dark .TreeView {
 	max-height: calc(100vh - 20px);
+	height: 100%;
 	border-top: inherit;
     border-bottom: inherit;
 }
