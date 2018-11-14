@@ -42,6 +42,12 @@
 .dark .gmxTimeline.shiftTimeline.leaflet-control {
     left: 490px;
 }
+
+.dark .ace_scrollbar-v {
+    width: 4px;
+    background-color: beige;
+}
+
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

@@ -11,22 +11,7 @@
 {/each}
 			</div>
 		</div>
-		<div class="sidebarPanel-codeEditorContainer">
-			<div class="editor">
-				<ul class="dropdownMenuWidget right">
-					<li class="dropdownMenuWidget-item" on:click="editTrigger(this, true)">
-						<i class="icon-bell"></i>
-						<span>Edit</span>
-					</li>
-					<li class="dropdownMenuWidget-item checked" on:click="editTrigger(this)">
-						<i class="icon-eye"></i>
-						<span>View</span>
-					</li>
-				</ul>
-				<textarea class="text-input hidden">{confStr}</textarea>
-				<div class="view">{confStr}</div>
-			</div>
-		</div>
+			<div id="editor" class="editor">{confStr}</div>
 	</div>
 </div>
 {/if}
@@ -34,7 +19,136 @@
 	<Map permalink={permalink} bind:map />
 </div>
 
+
+<script>
+	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
+	import Map from './Map.html';
+	export default {
+		data() {
+			return {
+				urlParams: {},
+				dropdownMenu: [
+					{ name: 'refresh', title: 'Refresh' },
+					{ name: 'link', title: 'Share' }
+				],
+				map: null,
+				permalink: null,
+				confStr: ''
+			}
+		},
+		methods: {
+			checkMe(it) {
+console.log('checkMe', it);
+			},
+			editConf(node, flag) {
+console.log('editConf', node, flag);
+			},
+			editTrigger(node, flag) {
+console.log('editTrigger', node, flag);
+				let parentNode = node.parentNode,
+					lastChild = parentNode.parentNode.lastChild;
+				if (flag) {
+					lastChild.previousElementSibling.classList.remove('hidden');
+					lastChild.classList.add('hidden');
+				} else {
+					lastChild.previousElementSibling.classList.add('hidden');
+					lastChild.classList.remove('hidden');
+				}
+				parentNode.firstChild.classList.remove('checked');
+				parentNode.lastChild.classList.remove('checked');
+				node.classList.add('checked');
+			},
+			checkPermalink(out) {
+				let {urlParams} = this.get();
+				//console.log('?config=7ZSC4  dddddddd', out, urlParams)
+				if (out.app) {
+					out.app.theme = urlParams.theme || out.app.theme || 'dark'; 				// тема по умолчанию
+					out.app.iconSidebar = urlParams.iconSidebar || out.app.iconSidebar || true;	// iconSidebar по умолчанию
+					out.app.treeView = urlParams.treeView || out.app.treeView || true;			// treeView по умолчанию
+					out.app.iconLayers = urlParams.iconLayers || out.app.iconLayers || true;	// iconLayers по умолчанию
+					out.app.drawing = urlParams.drawing || out.app.drawing || true;				// drawing по умолчанию
+					out.app.drawing = urlParams.drawing || out.app.drawing || true;				// drawing по умолчанию
+					out.app.gmxTimeline = urlParams.gmxTimeline || out.app.gmxTimeline || true;	// gmxTimeline по умолчанию
+				}
+				this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
+				L.gmxUtil.requestLink('ext/ace.js').then(() => {
+					var editor = ace.edit("editor");
+					editor.setTheme("ace/theme/monokai");
+					editor.session.setMode("ace/mode/json");
+					// editor.session.setMode("ace/mode/javascript");
+					editor.container.getElementsByClassName('ace_scrollbar-v')[0].style.width = '4px';
+				});
+				if (out.app.gmxTimeline && out.app.gmxTimeline !== 'false') {
+					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.js');
+					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.css');
+					// L.gmxUtil.requestLink('L.Control.gmxTimeLine.js');
+					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.js');
+					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.css');
+				}
+			},
+			getPermalink(id) {
+				let out = {};
+				if (id) {
+					fetch(serverBase + 'TinyReference/Get.ashx?WrapStyle=None&id=' + id, {
+						mode: 'cors',
+						credentials: 'include'
+					})
+					.then(res => res.json())
+					.then(json => {
+						if (json.Status === 'ok') {
+							out = json.Result ? JSON.parse(json.Result) : {};
+						}
+						this.checkPermalink(out);
+					});
+						// .catch(err => console.log(err));
+				} else {
+					setTimeout(function() {
+						this.checkPermalink(out);
+					}.bind(this), 0);
+				}
+			}
+		},
+
+		components: {
+			Map
+		},
+
+		oncreate() {
+			// this fires when the component has been
+			// rendered to the DOM
+			// console.log('in oncreate');
+			
+		},
+
+		onstate({ changed, current, previous }) {
+// console.log('in onstate', changed, current, previous);
+			if (changed.urlParams) {
+				this.getPermalink(current.urlParams.config)
+			}
+		},
+
+		onupdate({ changed, current, previous }) {
+			// console.log('in onupdate', changed, current, previous);
+			// if (current.urlParams.edit && changed.confStr) {
+				// let node = document.getElementsByClassName('view')[0];
+				// node.innerHTML = current.confStr;
+				// hljs.highlightBlock(node);
+			// }
+		}
+	}
+</script>
+
 <style>
+#editor {
+	height: calc(100% - 40px);
+	top: 40px;
+}
+
+.sidebarPanel {
+    font-family: 'Roboto';
+	height: 100%;
+}
+
 .editor-viewerContainer {
   position: relative;
   top: 0;
@@ -67,10 +181,6 @@
   width: 500px;
 }
 
-
-.sidebarPanel {
-    font-family: 'Roboto';
-}
 .hidden {
 	display: none;
 }
@@ -102,7 +212,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     height: 26px;
 }
-
+/*
 .editor textarea {
 	width:100%;
 	height:-webkit-fill-available
@@ -110,6 +220,7 @@
 .editor .view {
     white-space: pre-wrap;
 }
+*/
 .sidebarPanel-toolbarContainer {
 	position:absolute;
 	top:0;
@@ -169,7 +280,7 @@
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-
+/*
 .icon-help2:before {
   content: '\';
 }
@@ -521,104 +632,5 @@
 .icon-menu2:before {
   content: '\';
 }
-
+*/
 </style>
-
-<script>
-	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
-	import Map from './Map.html';
-	export default {
-		data() {
-			return {
-				urlParams: {},
-				dropdownMenu: [
-					{ name: 'refresh', title: 'Refresh' },
-					{ name: 'link', title: 'Share' }
-				],
-				map: null,
-				permalink: null,
-				confStr: ''
-			}
-		},
-		methods: {
-			checkMe(it) {
-console.log('checkMe', it);
-			},
-			editTrigger(node, flag) {
-console.log('editTrigger', node, flag);
-				let parentNode = node.parentNode,
-					lastChild = parentNode.parentNode.lastChild;
-				if (flag) {
-					lastChild.previousElementSibling.classList.remove('hidden');
-					lastChild.classList.add('hidden');
-				} else {
-					lastChild.previousElementSibling.classList.add('hidden');
-					lastChild.classList.remove('hidden');
-				}
-				parentNode.firstChild.classList.remove('checked');
-				parentNode.lastChild.classList.remove('checked');
-				node.classList.add('checked');
-			},
-			checkPermalink(out) {
-				let {urlParams} = this.get();
-				//console.log('?config=7ZSC4  dddddddd', out, urlParams)
-				if (out.app) {
-					out.app.theme = urlParams.theme || out.app.theme || 'dark'; 				// тема по умолчанию
-					out.app.iconSidebar = urlParams.iconSidebar || out.app.iconSidebar || true;	// iconSidebar по умолчанию
-					out.app.iconLayers = urlParams.iconLayers || out.app.iconLayers || true;	// iconLayers по умолчанию
-					out.app.drawing = urlParams.drawing || out.app.drawing || true;				// drawing по умолчанию
-					out.app.gmxTimeline = urlParams.gmxTimeline || out.app.gmxTimeline || true;	// gmxTimeline по умолчанию
-				}
-				this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
-			},
-			getPermalink(id) {
-				let out = {};
-				if (id) {
-					fetch(serverBase + 'TinyReference/Get.ashx?WrapStyle=None&id=' + id, {
-						mode: 'cors',
-						credentials: 'include'
-					})
-					.then(res => res.json())
-					.then(json => {
-						if (json.Status === 'ok') {
-							out = json.Result ? JSON.parse(json.Result) : {};
-						}
-						this.checkPermalink(out);
-					});
-						// .catch(err => console.log(err));
-				} else {
-					setTimeout(function() {
-						this.checkPermalink(out);
-					}.bind(this), 0);
-				}
-			}
-		},
-
-		components: {
-			Map
-		},
-
-		oncreate() {
-			// this fires when the component has been
-			// rendered to the DOM
-			// console.log('in oncreate');
-			
-		},
-
-		onstate({ changed, current, previous }) {
-// console.log('in onstate', changed, current, previous);
-			if (changed.urlParams) {
-				this.getPermalink(current.urlParams.config)
-			}
-		},
-
-		onupdate({ changed, current, previous }) {
-			// console.log('in onupdate', changed, current, previous);
-			if (current.urlParams.edit && changed.confStr) {
-				let node = document.getElementsByClassName('view')[0];
-				node.innerHTML = current.confStr;
-				hljs.highlightBlock(node);
-			}
-		}
-	}
-</script>

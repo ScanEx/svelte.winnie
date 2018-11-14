@@ -64,9 +64,11 @@
 				if (app.iconSidebar && app.iconSidebar !== 'false') {
 					var iconSidebar = new SidebarControl({position: 'topleft'});
 					iconSidebar.addTo(map);
-					var treePane = iconSidebar.addTab({id: 'treeView', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
 					this.iconSidebar = iconSidebar;
-					this.treePane = treePane;
+					if (app.treeView && app.treeView !== 'false') {
+						var treePane = iconSidebar.addTab({id: 'treeView', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
+						this.treePane = treePane;
+					}
 				} else {
 					document.body.classList.add('noIconSidebar');
 				}
@@ -144,11 +146,15 @@
 						let triggerSidebar = (id) => {
 							
 							if (id === 'treeView') {
-								this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree, gmxTimeline: this.gmxTimeline});
 								shiftIconLayers = true;
+								if (treePane) {
+									this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree, gmxTimeline: this.gmxTimeline});
+								}
 							} else {
-								treePane.innerHTML = '';
 								shiftIconLayers = false;
+								if (treePane) {
+									treePane.innerHTML = '';
+								}
 							}
 							if (this.IconLayersContainer) {
 								this.IconLayersContainer.classList[shiftIconLayers ? 'add' : 'remove']('shiftIconLayers');
@@ -193,7 +199,7 @@
 						this.IconLayersContainer = baseLayersControl.getContainer();
 					}
 					blm.setCurrentID(currentID);
-					if (this.iconSidebar) { this.iconSidebar.setCurrent('treeView'); }
+					if (app.treeView === 'opened' && this.iconSidebar) { this.iconSidebar.setCurrent('treeView'); }
 				}.bind(this));
 			},
 			_getNodeIndex(target) {

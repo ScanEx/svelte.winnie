@@ -21,7 +21,7 @@
 	</span>
 		{/if}
 	{/if}
-		{#if line.type !== 'map'}
+	{#if line.type !== 'map'}
 	<span class="cont">
 		{#if line.type === 'layer'}
 		<input class="check visibility pointer cmd:toggleVisibility" type="checkbox" checked="{isVisible}" />
@@ -31,26 +31,26 @@
 		{/if}
 		<label class="pointer title cmd:toggleVisibility" on:click="toggleVisibility(this)">{properties.title}</label>
 		<div class="description collapse"></div>
-{#if line.type === 'layer'}
+		{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
-		<div class="legend">
-			<div class="legend-cont">
-			{#each styles as it}
-				<div class="gmx-style-legend">
-					<span class="legendIconEye enabled pointer cmd:toggleStyle">
-						<svg role="img" class="svgIcon on"><use xlink:href="#eye-on" href="#eye-on"></use></svg>
-						<svg role="img" class="svgIcon off"><use xlink:href="#eye-off" href="#eye-off"></use></svg>
-					</span>
-					<LegendIconCell item={it} type={properties.GeometryType} />
-					<span class="styleName">{it.Name}</span>
+			<div class="legend">
+				<div class="legend-cont">
+				{#each styles as it}
+					<div class="gmx-style-legend">
+						<span class="legendIconEye enabled pointer cmd:toggleStyle">
+							<svg role="img" class="svgIcon on"><use xlink:href="#eye-on" href="#eye-on"></use></svg>
+							<svg role="img" class="svgIcon off"><use xlink:href="#eye-off" href="#eye-off"></use></svg>
+						</span>
+						<LegendIconCell item={it} type={properties.GeometryType} />
+						<span class="styleName">{it.Name}</span>
+					</div>
+				{/each}
 				</div>
-			{/each}
 			</div>
-		</div>
 			{/if}
-{/if}
-</span>
 		{/if}
+	</span>
+	{/if}
 {/if}
 {#if line.content.children}
 	<ul class="group css-treeview id_{properties ? properties.name : 'root'}">

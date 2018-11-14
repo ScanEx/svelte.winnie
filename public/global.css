@@ -47,6 +47,18 @@ html, body, #map {
   content: '\e82e';
 }
 
+.icon-refresh:before {
+  content: '\';
+}
+
+.icon-link:before {
+  content: '\';
+}
+/*
+.overlays:before {
+    content: "\f5fd";
+}
+*/
 /* контейнер sidebar */
 .editor-sidebarContainer {
   position: relative;
@@ -118,9 +130,7 @@ html, body, #map {
     content: "\f5fd";
 }
  */
-.overlays:before {
-    content: "\f5fd";
-}
+
 .opened {
 	color: #f57c00;
 }

@@ -12,13 +12,14 @@
  
  #### Параметры ключей конструктора
 
-Свойство|По умолчанию|Описание|Пример
+Свойство|По умолчанию|Значения|Описание|Пример
 ------|:---------:|:-----------|:-----------
-theme|`dark`| стилевая схема приложения| [переключение стилевой схемы на `theme=white`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&theme=white)
-iconSidebar|`true`| управление контролом Sidebar| [отключение контрола Sidebar `iconSidebar=false`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&iconSidebar=false)
-iconLayers|`true`| управление контролом iconLayers| [отключение контрола iconLayers `iconLayers=false`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&iconLayers=false)
-drawing|`true`| управление контролом gmxDrawing| [отключение контрола gmxDrawing `drawing=false`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&drawing=false)
-gmxTimeline|`true`| управление контролом gmxTimeline| [отключение контрола gmxTimeline `gmxTimeline=false`](https://originalsin.github.io/svelte.geomixer/public/?config=196JI&gmxTimeline=false)
+theme|`dark`| `dark`, `white` | стилевая схема приложения| [переключение стилевой схемы на `theme=white`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&theme=white)
+iconSidebar|`true`|`true`, `false`| управление контролом Sidebar| [отключение контрола Sidebar `iconSidebar=false`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&iconSidebar=false)
+treeView|`true`|`true`, `false`, `opened`| дерево-легенда слоев| [отключение `treeView=false`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&iconSidebar=false)
+iconLayers|`true`|`true`, `false`| управление контролом iconLayers| [отключение контрола iconLayers `iconLayers=false`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&iconLayers=false)
+drawing|`true`|`true`, `false`| управление контролом gmxDrawing| [отключение контрола gmxDrawing `drawing=false`](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4&drawing=false)
+gmxTimeline|`true`|`true`, `false`| управление контролом gmxTimeline| [отключение контрола gmxTimeline `gmxTimeline=false`](https://originalsin.github.io/svelte.geomixer/public/?config=196JI&gmxTimeline=false)
 
 Все вышеперечисленные ключи могут указываться как в свойствах приложения так и в параметрах URL приложения.
 В параметрах URL приложения можно указывать дополнительный ключ `edit=1` для отображения параметров приложения.
