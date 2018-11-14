@@ -71,13 +71,15 @@ console.log('editTrigger', node, flag);
 					out.app.gmxTimeline = urlParams.gmxTimeline || out.app.gmxTimeline || true;	// gmxTimeline по умолчанию
 				}
 				this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
-				L.gmxUtil.requestLink('ext/ace.js').then(() => {
-					var editor = ace.edit("editor");
-					editor.setTheme("ace/theme/monokai");
-					editor.session.setMode("ace/mode/json");
-					// editor.session.setMode("ace/mode/javascript");
-					editor.container.getElementsByClassName('ace_scrollbar-v')[0].style.width = '4px';
-				});
+				if (urlParams.edit) {
+					L.gmxUtil.requestLink('ext/ace.js').then(() => {
+						var editor = ace.edit("editor");
+						editor.setTheme("ace/theme/monokai");
+						editor.session.setMode("ace/mode/json");
+						// editor.session.setMode("ace/mode/javascript");
+						editor.container.getElementsByClassName('ace_scrollbar-v')[0].style.width = '4px';
+					});
+				}
 				if (out.app.gmxTimeline && out.app.gmxTimeline !== 'false') {
 					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.js');
 					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.css');
