@@ -6,6 +6,7 @@
 ------
   * [config=RSO4E](https://originalsin.github.io/svelte.geomixer/public/?config=RSO4E) - пермалинк 1 (по умолчанию)
   * [config=7ZSC4](https://originalsin.github.io/svelte.geomixer/public/?config=7ZSC4) - пермалинк 2 (по умолчанию)
+  * [config=7ZSC4](https://originalsin.github.io/svelte.geomixer/public/?config=196JI&edit=1) - пермалинк 3 (редактирование `edit=1`)
 
   
  Для работы примера сделайте пермалинк от winnie.kosmosnimki.ru и добавьте его в URL ?config=NALXY
