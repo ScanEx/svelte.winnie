@@ -27,65 +27,67 @@ gmxTimeline|`true`|`true`, `false`| управление контролом gmxT
 
 
  ### Пример параметров конфигурации конструктора
-`{`
-  `"app": {`
-    `"gmxMap": {`
-      `"mapID": "ATTBP",`
-      `"apiKey": "DV62UD5A78"`
-    `},`
-    `"theme": "dark",`
-    `"iconSidebar": true,`
-    `"treeView": true,`
-    `"iconLayers": true,`
-    `"drawing": false,`
-    `"gmxTimeline": true`
-  `},`
-  `"state": {`
-    `"map": {`
-      `"position": {`
-        `"x": 88.59375000000001,`
-        `"y": 59.355596110016315,`
-        `"z": 3`
-      `}`
-    `},`
-    `"calendar": {`
-      `"version": "1.1.0",`
-      `"dateBegin": 1542067200000,`
-      `"dateEnd": 1542153600000`
-    `},`
-    `"baseLayersManager": {`
-      `"version": "1.0.0",`
-      `"currentID": "sputnik",`
-      `"activeIDs": [`
-        `"satellite",`
-        `"sputnik",`
-        `"here",`
-        `"here_hyb",`
-        `"OSMHybrid",`
-        `"empty",`
-        `"agroRelief",`
-        `"slope",`
-        `"aspect"`
-      `]`
-    `},`
-    `"layersTree": {`
-      `"expanded": {`
-        `"8Tq6kDaDdiXTPahQ": false,`
-        `"O20voTbJf5ituSW9": false,`
-        `"vmxVgP21s0kA2OHw": false,`
-        `"pUJpeZzMEFhrlpuM": false,`
-        `"63B00BB3B936416A9FC8F51AA56804E1": true,`
-        `"10riUTvti2NTfC5I": false,`
-        `"50D44BE4164F4E3594B5F7C02A60E66D": false,`
-        `"0E2E354D0BAA45498A48367615E2B4FC": false,`
-        `"snBwe5yM3Gr7mJ68": false,`
-        `"sRFAyNt60qdTa8wB": false,`
-        `"LfcC9XEk9D6kZOz3": false,`
-        `"IPCByT94sAUJQTCn": false`
-      `},`
-      `"visible": {`
-        `"8EE2C7996800458AAF70BABB43321FA4": true`
-      `}`
-    `}`
-  `}`
-`}`
+ ```javascript
+{
+  "app": {                       // конфигурации приложения
+    "gmxMap": {
+      "mapID": "ATTBP",          // id - карты
+      "apiKey": "DV62UD5A78"     // АПИ ключ
+    },
+    "theme": "dark",             // стилевая схема приложения
+    "iconSidebar": true,         // добавление сайдбар плагина
+    "treeView": true,            // добавление дерева легенды слоев
+    "iconLayers": true,          // добавление плагина базовых подложек
+    "drawing": false,            // добавление плагина рисования
+    "gmxTimeline": true          // добавление плагина таймлана КР
+  },
+  "state": {                     // состояние карты
+    "map": {                     // позиция карты
+      "position": {
+        "x": 88.59375000000001,
+        "y": 59.355596110016315,
+        "z": 3
+      }
+    },
+    "calendar": {                 // временной интервал для мультивременных слоев
+      "version": "1.1.0",
+      "dateBegin": 1542067200000,
+      "dateEnd": 1542153600000
+    },
+    "baseLayersManager": {        // настройки базовых подложек
+      "version": "1.0.0",
+      "currentID": "sputnik",
+      "activeIDs": [
+        "satellite",
+        "sputnik",
+        "here",
+        "here_hyb",
+        "OSMHybrid",
+        "empty",
+        "agroRelief",
+        "slope",
+        "aspect"
+      ]
+    },
+    "layersTree": {              // изменения в дереве слоев
+      "expanded": {              // изменения касающиеся папок
+        "8Tq6kDaDdiXTPahQ": false,
+        "O20voTbJf5ituSW9": false,
+        "vmxVgP21s0kA2OHw": false,
+        "pUJpeZzMEFhrlpuM": false,
+        "63B00BB3B936416A9FC8F51AA56804E1": true,
+        "10riUTvti2NTfC5I": false,
+        "50D44BE4164F4E3594B5F7C02A60E66D": false,
+        "0E2E354D0BAA45498A48367615E2B4FC": false,
+        "snBwe5yM3Gr7mJ68": false,
+        "sRFAyNt60qdTa8wB": false,
+        "LfcC9XEk9D6kZOz3": false,
+        "IPCByT94sAUJQTCn": false
+      },
+      "visible": {              // изменения касающиеся слоев
+        "8EE2C7996800458AAF70BABB43321FA4": true
+      }
+    }
+  }
+}
+```
