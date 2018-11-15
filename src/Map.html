@@ -39,9 +39,12 @@
 					apiKey = gmxMap.apiKey,
 					pos = state.map ? state.map.position : {};
 
-				console.log('createMap', it)
+				// console.log('createMap', it)
 				if(app.theme) {
 					document.body.classList.add(app.theme);
+				}
+				if(L.leafletMap) {
+					L.leafletMap.remove();
 				}
 
 				layersTree = state.layersTree || layersTree;
@@ -163,12 +166,13 @@
 								repaintTimeline();
 							}
 						};
-						iconSidebar.on('change', e => triggerSidebar(e.detail.current));
+						this.iconSidebar.on('change', e => triggerSidebar(e.detail.current));
 					}
 
 					let bLayersConf = state.baseLayersManager || { activeIDs: gmxMap.properties.BaseLayers };
 					this._initBaseLayers(map, bLayersConf, app);
-				}.bind(this));
+				}.bind(this))
+				.catch(console.log);
 				this.set({map: map, config: it});
 			},
 			_initBaseLayers(map, baseLayers, app) {

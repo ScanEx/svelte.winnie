@@ -28076,16 +28076,18 @@ L.LabelsLayer = (L.Layer || L.Class).extend({
             }
         };
         this.remove = function (layer) {
-            var id = layer._leaflet_id;
-            if (_this._observers[id]) {
-                var gmx = layer._gmx,
-                    dataManager = gmx.dataManager;
-                dataManager.removeObserver(_this._observers[id].id);
-                delete _this._observers[id];
-                delete _this._styleManagers[id];
-                delete _this._labels['_' + id];
-                delete _this._labelsIndex['_' + id];
-                _this.redraw();
+            if (layer) {
+				var id = layer._leaflet_id;
+				if (_this._observers[id]) {
+					var gmx = layer._gmx,
+						dataManager = gmx.dataManager;
+					dataManager.removeObserver(_this._observers[id].id);
+					delete _this._observers[id];
+					delete _this._styleManagers[id];
+					delete _this._labels['_' + id];
+					delete _this._labelsIndex['_' + id];
+					_this.redraw();
+				}
             }
         };
         this._layeradd = function (ev) {
@@ -32680,55 +32682,58 @@ L.Control.GmxCopyright = L.Control.extend({
     },
 
     _redrawItems: function() {
-        var prefix = '<a target="_blank"',
-            texts = [],
-            _layers = this._map._layers,
-            _zoom = this._map._zoom,
-            _bounds = this._map.getBounds(),
-            arr = [],
-            chkExists = {};
+        var _layers = this._map._layers,
+			len = _layers.length;
 
-        if (this.options.scanexCopyright) { texts.push(this.options.scanexCopyright); }
-        if (this.options.mapCopyright) { texts.push(this.options.mapCopyright); }
-        for (var id in _layers) {
-            if (_layers[id].options) { arr.push(_layers[id].options); }
-        }
-        arr = arr.sort(function(a, b) { return a.zIndex - b.zIndex; });
+		if (len) {
+			var prefix = '<a target="_blank"',
+				texts = [],
+				_zoom = this._map._zoom,
+				_bounds = this._map.getBounds(),
+				arr = _layers.map(function(it) { return it.options; }).sort(function(a, b) { return a.zIndex - b.zIndex; }),
+				chkExists = {};
 
-        arr.forEach(function(item) {
-            var attribution = item.attribution;
-            if (attribution && !chkExists[attribution]) {
-                chkExists[attribution] = true;
-                texts.push(attribution.split('<a').join(prefix));
-            }
+			if (this.options.scanexCopyright) { texts.push(this.options.scanexCopyright); }
+			if (this.options.mapCopyright) { texts.push(this.options.mapCopyright); }
+			// for (var id in _layers) {
+				// if (_layers[id].options) { arr.push(_layers[id].options); }
+			// }
+			// arr = arr.sort(function(a, b) { return a.zIndex - b.zIndex; });
 
-            if (item.gmxCopyright) {
-                item.gmxCopyright.forEach(function(item1) {
-                    var copyright = item1.attribution;
-                    if (chkExists[copyright] || _zoom < item1.minZoom || _zoom > item1.maxZoom) { return; }
-                    if (item1.bounds) {
-                        if (!(item1.bounds instanceof L.LatLngBounds)) {
-                            item1.bounds = L.latLngBounds(item1.bounds);
-                        }
-                        if (!_bounds.intersects(item1.bounds)) { return; }
-                    }
-                    chkExists[copyright] = true;
-                    texts.push(copyright.split('<a').join(prefix));
-                });
-            }
-        });
-        if (this.options.leafletCopyright) { texts.push(this.options.leafletCopyright); }
+			arr.forEach(function(item) {
+				var attribution = item.attribution;
+				if (attribution && !chkExists[attribution]) {
+					chkExists[attribution] = true;
+					texts.push(attribution.split('<a').join(prefix));
+				}
 
-        var text = texts.join(' ');
+				if (item.gmxCopyright) {
+					item.gmxCopyright.forEach(function(item1) {
+						var copyright = item1.attribution;
+						if (chkExists[copyright] || _zoom < item1.minZoom || _zoom > item1.maxZoom) { return; }
+						if (item1.bounds) {
+							if (!(item1.bounds instanceof L.LatLngBounds)) {
+								item1.bounds = L.latLngBounds(item1.bounds);
+							}
+							if (!_bounds.intersects(item1.bounds)) { return; }
+						}
+						chkExists[copyright] = true;
+						texts.push(copyright.split('<a').join(prefix));
+					});
+				}
+			});
+			if (this.options.leafletCopyright) { texts.push(this.options.leafletCopyright); }
 
-        if (this._currentText !== text) {
-            this._currentText = text;
-            if (this.options.type === 'window') {
-                this._windowContent.innerHTML = texts.join('<br>');
-            } else {
-                this._copyrights.innerHTML = text;
-            }
+			var text = texts.join(' ');
 
+			if (this._currentText !== text) {
+				this._currentText = text;
+				if (this.options.type === 'window') {
+					this._windowContent.innerHTML = texts.join('<br>');
+				} else {
+					this._copyrights.innerHTML = text;
+				}
+			}
         }
     },
 
