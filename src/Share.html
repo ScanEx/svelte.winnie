@@ -48,55 +48,7 @@
 			}
 		},
 		computed: {
-			link: ({ conf }) => location.origin + '?config=' + conf,
-			/*
-			twitter: ({ conf }) => '//www.twitter.com/share?url=http%3A//winnie.kosmosnimki.ru/viewer.html%3Fconfig%3D' + conf,
-			facebook: ({ conf }) => '//www.facebook.com/sharer/sharer.php?u=http%3A//winnie.kosmosnimki.ru/viewer.html%3Fconfig%3D' + conf,
-				<a class="gmx-link_icon" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A//winnie.kosmosnimki.ru/viewer.html%3Fconfig%3DJ8M5F"><i class="icon-facebook"></i></a>
-				<a class="gmx-link_icon" target="_blank" href="http://vkontakte.ru/share.php?url=http%3A//winnie.kosmosnimki.ru/viewer.html%3Fconfig%3DJ8M5F"><i class="icon-vk"></i></a>
-			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
-			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : [],
-			isVisible: ({line, layersTree}) => {
-				let content = line.content,
-					props = content.properties,
-					nodeID = props.name || props.GroupID || 'root',
-					flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID],
-					isOpened = flag === undefined ? props && props.visible : flag;
-
-				return isOpened;
-			}*/
-		},
-		methods: {
-			/*
-			isOpened() {
-				let {line, layersTree} = this.get();
-				// console.log('isOpened', this.root, line, layersTree);
-				let content = line.content,
-					props = content.properties,
-					nodeID = props.name || props.GroupID || 'root',
-					flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID],
-					opened = flag === undefined ? props && props.visible : flag;
-
-				if (opened && props.GroupID && content.children === undefined) {
-				}
-				return opened;
-			showInfo(target) {
-				let node = target.parentNode.nextElementSibling.getElementsByClassName('description')[0];
-				if (node) {
-					if (node.classList.contains('collapse')) {
-						let {line} = this.get();
-						node.innerHTML = line.content.properties.description || '';
-						node.classList.remove('collapse');
-					} else {
-						node.classList.add('collapse');
-					}
-				}
-			}*/
-			
-		},
-
-		onstate({ changed, current, previous }) {
-			console.log('share', changed);
+			link: ({ conf }) => location.origin + location.pathname + '?config=' + conf,
 		}
 	}
 </script>
