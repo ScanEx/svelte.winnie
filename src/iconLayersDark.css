@@ -121,12 +121,13 @@
 .dark li {
 	list-style: none;
 	text-overflow: ellipsis;
-	white-space: nowrap;
 	width: 100% !important;
 	overflow: hidden;
 	float: left;
 	position: relative;
 	line-height: 201%;
+	padding-bottom: 3px;
+	white-space: initial !important;
 }
 
 

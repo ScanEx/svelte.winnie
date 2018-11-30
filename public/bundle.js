@@ -1,2 +1,3849 @@
-var app=function(e){"use strict";function t(){}function i(e,t){for(var i in t)e[i]=t[i];return e}function n(e,t){for(var i in t)e[i]=1;return e}function r(e,t){return 0===t&&e(),function(){--t||e()}}function a(e){e()}function s(e,t){e.appendChild(t)}function o(e,t,i){e.insertBefore(t,i)}function l(e){e.parentNode.removeChild(e)}function c(e,t){for(var i=0;i<e.length;i+=1)e[i]&&e[i].d(t)}function d(e){return document.createElement(e)}function h(e){return document.createTextNode(e)}function u(){return document.createComment("")}function m(e,t,i,n){e.addEventListener(t,i,n)}function f(e,t,i,n){e.removeEventListener(t,i,n)}function p(e,t,i){null==i?e.removeAttribute(t):e.setAttribute(t,i)}function v(e,t){e.data=""+t}function g(e,t,i){e.style.setProperty(t,i)}function y(){return Object.create(null)}function _(e){e._lock=!0,k(e._beforecreate),k(e._oncreate),k(e._aftercreate),e._lock=!1}function b(e,t){e._handlers=y(),e._slots=y(),e._bind=t._bind,e._staged={},e.options=t,e.root=t.root||e,e.store=t.store||e.root.store,t.root||(e._beforecreate=[],e._oncreate=[],e._aftercreate=[])}function k(e){for(;e&&e.length;)e.shift()()}e=e&&e.hasOwnProperty("default")?e.default:e;var x={destroy:function(e){this.destroy=t,this.fire("destroy"),this.set=t,this._fragment.d(!1!==e),this._fragment=null,this._state={}},get:function(){return this._state},fire:function(e,t){var i=e in this._handlers&&this._handlers[e].slice();if(i)for(var n=0;n<i.length;n+=1){var r=i[n];if(!r.__calling)try{r.__calling=!0,r.call(this,t)}finally{r.__calling=!1}}},on:function(e,t){var i=this._handlers[e]||(this._handlers[e]=[]);return i.push(t),{cancel:function(){var e=i.indexOf(t);~e&&i.splice(e,1)}}},set:function(e){this._set(i({},e)),this.root._lock||_(this.root)},_recompute:t,_set:function(e){var t=this._state,n={},r=!1;for(var a in e=i(this._staged,e),this._staged={},e)this._differs(e[a],t[a])&&(n[a]=r=!0);r&&(this._state=i(i({},t),e),this._recompute(n,this._state),this._bind&&this._bind(n,this._state),this._fragment&&(this.fire("state",{changed:n,current:this._state,previous:t}),this._fragment.p(n,this._state),this.fire("update",{changed:n,current:this._state,previous:t})))},_stage:function(e){i(this._staged,e)},_mount:function(e,t){this._fragment[this._fragment.i?"i":"m"](e,t||null)},_differs:function(e,t){return e!=e?t==t:e!==t||e&&"object"==typeof e||"function"==typeof e}};function w(e){e.changed,e.current,e.previous}function T(e,t){var i,n;return{c:function(){(i=d("span")).className=n=t.type+" legendIconStyle  svelte-r7og3",g(i,"background-color",t.backgroundColor),g(i,"border-color",t.borderColor)},m:function(e,t){o(e,i,t)},p:function(e,t){e.type&&n!==(n=t.type+" legendIconStyle  svelte-r7og3")&&(i.className=n),e.backgroundColor&&g(i,"background-color",t.backgroundColor),e.borderColor&&g(i,"border-color",t.borderColor)},d:function(e){e&&l(i)}}}function C(e,t){var i,n;return{c:function(){(i=d("img")).src=n=t.item.RenderStyle.iconUrl,p(i,"crossorigin",""),i.alt="Style Icon",i.className="svelte-r7og3"},m:function(e,t){o(e,i,t)},p:function(e,t){e.item&&n!==(n=t.item.RenderStyle.iconUrl)&&(i.src=n)},d:function(e){e&&l(i)}}}function N(e){var t=this;b(this,e),this._state=i({},e.data),this._recompute({item:1},this._state),this._intro=!!e.intro,this._handlers.state=[w],w.call(this,{changed:n({},this._state),current:this._state}),this._fragment=function(e,t){var i,n;function r(e){return e.item.RenderStyle.iconUrl?C:T}var s=r(t),c=s(e,t);return{c:function(){i=d("span"),c.c(),i.className="legendIconCell style svelte-r7og3"},m:function(e,t){o(e,i,t),c.m(i,null),n=!0},p:function(t,n){s===(s=r(n))&&c?c.p(t,n):(c.d(1),(c=s(e,n)).c(),c.m(i,null))},i:function(e,t){n||this.m(e,t)},o:a,d:function(e){e&&l(i),c.d()}}}(this,this._state),this.root._oncreate.push(function(){t.fire("update",{changed:n({},t._state),current:t._state})}),e.target&&(this._fragment.c(),this._mount(e.target,e.anchor),_(this)),this._intro=!0}i(N.prototype,x),N.prototype._recompute=function(e,t){var i;e.item&&(this._differs(t.backgroundColor,t.backgroundColor=(i=t.item,L.gmxUtil.dec2rgba(i.RenderStyle.fillColor,i.RenderStyle.fillOpacity||1)))&&(e.backgroundColor=!0),this._differs(t.borderColor,t.borderColor=function(e){var t=e.item;return L.gmxUtil.dec2rgba(t.RenderStyle.color,t.RenderStyle.opacity||1)}(t))&&(e.borderColor=!0))};var I={isOpened:function(){var e=this.get(),t=e.line,i=e.layersTree,n=t.content,r=n.properties,a=r.name||r.GroupID||"root",s=i.visible[a]||i.expanded[a],o=void 0===s?r&&r.visible:s;return o&&r.GroupID&&n.children,o},toggleVisibility:function(e){var t="group"===this.get().line.type?e.parentNode.getElementsByClassName("expanderInput")[0]:e;t&&(t.checked?t.checked=!1:t.checked=!0)},toggleTimeline:function(e){e&&(e.classList.contains("disabled")?(e.classList.remove("disabled"),e.classList.add("enabled")):(e.classList.add("disabled"),e.classList.remove("enabled")))},showInfo:function(e){var t=e.parentNode.nextElementSibling.getElementsByClassName("description")[0];if(t)if(t.classList.contains("collapse")){var i=this.get().line;t.innerHTML=i.content.properties.description||"",t.classList.remove("collapse")}else t.classList.add("collapse")}};function D(e,t,i){var n=Object.create(e);return n.child=t[i],n}function q(e,t,i){var n=Object.create(e);return n.it=t[i],n}function E(e,t){var i,n,r,a="map"!==t.line.type&&M(e,t),s="map"!==t.line.type&&A(e,t);return{c:function(){a&&a.c(),i=h("\n\t"),s&&s.c(),n=u()},m:function(e,t){a&&a.m(e,t),o(e,i,t),s&&s.m(e,t),o(e,n,t),r=!0},p:function(t,r){"map"!==r.line.type?a?a.p(t,r):((a=M(e,r)).c(),a.m(i.parentNode,i)):a&&(a.d(1),a=null),"map"!==r.line.type?(s?s.p(t,r):(s=A(e,r))&&s.c(),s.i(n.parentNode,n)):s&&s.o(function(){s.d(1),s=null})},i:function(e,t){r||this.m(e,t)},o:function(e){r&&(s?s.o(e):e(),r=!1)},d:function(e){a&&a.d(e),e&&l(i),s&&s.d(e),e&&l(n)}}}function M(e,t){var i,n,r,a,s="group"===t.line.type&&S(e,t),c="layer"===t.line.type&&P(e,t);return{c:function(){i=d("div"),n=h("\n\t"),s&&s.c(),r=h("\n\t\t"),c&&c.c(),a=u(),i.className="borders "},m:function(e,t){o(e,i,t),o(e,n,t),s&&s.m(e,t),o(e,r,t),c&&c.m(e,t),o(e,a,t)},p:function(t,i){"group"===i.line.type?s?s.p(t,i):((s=S(e,i)).c(),s.m(r.parentNode,r)):s&&(s.d(1),s=null),"layer"===i.line.type?c?c.p(t,i):((c=P(e,i)).c(),c.m(a.parentNode,a)):c&&(c.d(1),c=null)},d:function(e){e&&(l(i),l(n)),s&&s.d(e),e&&l(r),c&&c.d(e),e&&l(a)}}}function S(e,t){var i,n,r;function a(t){e.toggleVisibility(this)}return{c:function(){i=d("input"),n=h("\n\t"),r=d("span"),i.className="expander expanderInput hidden svelte-1hqp5ox",p(i,"type","checkbox"),i.checked=t.isVisible,m(r,"click",a),r.className="expander pointer expanderCont cmd:toggleVisibility svelte-1hqp5ox"},m:function(e,t){o(e,i,t),o(e,n,t),o(e,r,t)},p:function(e,t){e.isVisible&&(i.checked=t.isVisible)},d:function(e){e&&(l(i),l(n),l(r)),f(r,"click",a)}}}function P(e,t){var i,n,r,a,c,u=t.properties.styles.length>1&&B(e,t),m=t.properties.description&&V(e,t),f=t.gmxTimeline&&t.properties.Temporal&&(t.properties.IsRasterCatalog||t.properties.Quicklook&&"null"!==t.properties.Quicklook)&&U(e,t);return{c:function(){u&&u.c(),i=h("\n\t"),n=d("span"),(r=d("span")).innerHTML='<svg role="img" class="svgIcon svelte-1hqp5ox"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg>',a=h("\n\t\t\t"),m&&m.c(),c=h("\n\t\t"),f&&f.c(),r.className="pointer cmd:fitBounds cont-center svelte-1hqp5ox",r.title="Move map to this layer",n.className="icons  svelte-1hqp5ox"},m:function(e,t){u&&u.m(e,t),o(e,i,t),o(e,n,t),s(n,r),s(n,a),m&&m.m(n,null),s(n,c),f&&f.m(n,null)},p:function(t,r){r.properties.styles.length>1?u||((u=B(e,r)).c(),u.m(i.parentNode,i)):u&&(u.d(1),u=null),r.properties.description?m||((m=V(e,r)).c(),m.m(n,c)):m&&(m.d(1),m=null),r.gmxTimeline&&r.properties.Temporal&&(r.properties.IsRasterCatalog||r.properties.Quicklook&&"null"!==r.properties.Quicklook)?f||((f=U(e,r)).c(),f.m(n,null)):f&&(f.d(1),f=null)},d:function(e){u&&u.d(e),e&&(l(i),l(n)),m&&m.d(),f&&f.d()}}}function B(e,t){var i;return{c:function(){(i=d("span")).innerHTML='<svg role="img" class="svgIcon svelte-1hqp5ox"><use xlink:href="#overlays" href="#overlays"></use></svg>',i.className="cont-overlays svelte-1hqp5ox"},m:function(e,t){o(e,i,t)},d:function(e){e&&l(i)}}}function V(e,t){var i;function n(t){e.showInfo(this,t)}return{c:function(){(i=d("span")).innerHTML='<svg role="img" class="svgIcon svelte-1hqp5ox"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg>',m(i,"click",n),i.className="pointer cmd:showInfo cont-info svelte-1hqp5ox",i.title="View description"},m:function(e,t){o(e,i,t)},d:function(e){e&&l(i),f(i,"click",n)}}}function U(e,t){var i;function n(t){e.toggleTimeline(this)}return{c:function(){(i=d("span")).innerHTML='<svg role="img" class="svgIcon svelte-1hqp5ox"><use xlink:href="#timeline-icon" href="#timeline-icon"></use></svg>',m(i,"click",n),i.className="pointer cmd:toggleTimeline timeline disabled svelte-1hqp5ox"},m:function(e,t){o(e,i,t)},d:function(e){e&&l(i),f(i,"click",n)}}}function A(e,t){var i,n,a,c,u,p,g,y,_=t.properties.title,b="layer"===t.line.type&&O(e,t);function k(t){e.toggleVisibility(this)}var L="layer"===t.line.type&&H(e,t);return{c:function(){i=d("span"),b&&b.c(),n=h("\n\t\t"),a=d("label"),c=h(_),u=h("\n\t\t"),p=d("div"),g=h("\n\t\t"),L&&L.c(),m(a,"click",k),a.className="pointer title cmd:toggleVisibility svelte-1hqp5ox",p.className="description collapse svelte-1hqp5ox",i.className="cont"},m:function(e,t){o(e,i,t),b&&b.m(i,null),s(i,n),s(i,a),s(a,c),s(i,u),s(i,p),s(i,g),L&&L.m(i,null),y=!0},p:function(t,r){"layer"===r.line.type?(b?b.p(t,r):(b=O(e,r))&&b.c(),b.i(i,n)):b&&b.o(function(){b.d(1),b=null}),y&&!t.properties||_===(_=r.properties.title)||v(c,_),"layer"===r.line.type?(L?L.p(t,r):(L=H(e,r))&&L.c(),L.i(i,null)):L&&L.o(function(){L.d(1),L=null})},i:function(e,t){y||this.m(e,t)},o:function(e){y&&(e=r(e,2),b?b.o(e):e(),L?L.o(e):e(),y=!1)},d:function(e){e&&l(i),b&&b.d(),f(a,"click",k),L&&L.d()}}}function O(e,t){var i,n,r,a,s=t.styles.length&&t.styles.length<2&&t.styles[0].RenderStyle&&R(e,t);return{c:function(){i=d("input"),n=h("\n\t\t"),s&&s.c(),r=u(),i.className="check visibility pointer cmd:toggleVisibility svelte-1hqp5ox",p(i,"type","checkbox"),i.checked=t.isVisible},m:function(e,t){o(e,i,t),o(e,n,t),s&&s.m(e,t),o(e,r,t),a=!0},p:function(t,n){a&&!t.isVisible||(i.checked=n.isVisible),n.styles.length&&n.styles.length<2&&n.styles[0].RenderStyle?(s?s.p(t,n):(s=R(e,n))&&s.c(),s.i(r.parentNode,r)):s&&s.o(function(){s.d(1),s=null})},i:function(e,t){a||this.m(e,t)},o:function(e){a&&(s?s.o(e):e(),a=!1)},d:function(e){e&&(l(i),l(n)),s&&s.d(e),e&&l(r)}}}function R(e,t){var i,n={item:t.styles[0],type:t.properties.GeometryType},r=new N({root:e.root,store:e.store,data:n});return{c:function(){r._fragment.c()},m:function(e,t){r._mount(e,t),i=!0},p:function(e,t){var i={};e.styles&&(i.item=t.styles[0]),e.properties&&(i.type=t.properties.GeometryType),r._set(i)},i:function(e,t){i||this.m(e,t)},o:function(e){i&&(r&&r._fragment.o(e),i=!1)},d:function(e){r.destroy(e)}}}function H(e,t){var i,n,r=t.styles.length&&t.styles.length>1&&t.styles[0].RenderStyle&&W(e,t);return{c:function(){r&&r.c(),i=u()},m:function(e,t){r&&r.m(e,t),o(e,i,t),n=!0},p:function(t,n){n.styles.length&&n.styles.length>1&&n.styles[0].RenderStyle?(r?r.p(t,n):(r=W(e,n))&&r.c(),r.i(i.parentNode,i)):r&&r.o(function(){r.d(1),r=null})},i:function(e,t){n||this.m(e,t)},o:function(e){n&&(r?r.o(e):e(),n=!1)},d:function(e){r&&r.d(e),e&&l(i)}}}function W(e,t){for(var i,n,a,h=t.styles,u=[],m=0;m<h.length;m+=1)u[m]=j(e,q(t,h,m));function f(e,t,i){u[e]&&u[e].o(function(){t&&(u[e].d(t),u[e]=null),i&&i()})}return{c:function(){i=d("div"),n=d("div");for(var e=0;e<u.length;e+=1)u[e].c();n.className="legend-cont svelte-1hqp5ox",i.className="legend svelte-1hqp5ox"},m:function(e,t){o(e,i,t),s(i,n);for(var r=0;r<u.length;r+=1)u[r].i(n,null);a=!0},p:function(t,i){if(t.styles||t.properties){h=i.styles;for(var r=0;r<h.length;r+=1){var a=q(i,h,r);u[r]?u[r].p(t,a):(u[r]=j(e,a),u[r].c()),u[r].i(n,null)}for(;r<u.length;r+=1)f(r,1)}},i:function(e,t){a||this.m(e,t)},o:function(e){if(a){for(var t=r(e,(u=u.filter(Boolean)).length),i=0;i<u.length;i+=1)f(i,0,t);a=!1}},d:function(e){e&&l(i),c(u,e)}}}function j(e,t){var i,n,r,a,c,u,m,f=t.it.Name,p={item:t.it,type:t.properties.GeometryType},g=new N({root:e.root,store:e.store,data:p});return{c:function(){i=d("div"),(n=d("span")).innerHTML='<svg role="img" class="svgIcon on svelte-1hqp5ox"><use xlink:href="#eye-on" href="#eye-on"></use></svg>\n\t\t\t\t\t\t\t\t\t\t<svg role="img" class="svgIcon off svelte-1hqp5ox"><use xlink:href="#eye-off" href="#eye-off"></use></svg>',r=h("\n\t\t\t\t\t\t"),g._fragment.c(),a=h("\n\t\t\t\t\t\t"),c=d("span"),u=h(f),n.className="legendIconEye enabled pointer cmd:toggleStyle svelte-1hqp5ox",c.className="styleName svelte-1hqp5ox",i.className="gmx-style-legend svelte-1hqp5ox"},m:function(e,t){o(e,i,t),s(i,n),s(i,r),g._mount(i,null),s(i,a),s(i,c),s(c,u),m=!0},p:function(e,t){var i={};e.styles&&(i.item=t.it),e.properties&&(i.type=t.properties.GeometryType),g._set(i),m&&!e.styles||f===(f=t.it.Name)||v(u,f)},i:function(e,t){m||this.m(e,t)},o:function(e){m&&(g&&g._fragment.o(e),m=!1)},d:function(e){e&&l(i),g.destroy()}}}function G(e,t){for(var i,n,a,s=t.line.content.children||[],h=[],u=0;u<s.length;u+=1)h[u]=z(e,D(t,s,u));function m(e,t,i){h[e]&&h[e].o(function(){t&&(h[e].d(t),h[e]=null),i&&i()})}return{c:function(){i=d("ul");for(var e=0;e<h.length;e+=1)h[e].c();i.className=n="group css-treeview id_"+(t.properties?t.properties.name:"root")+" svelte-1hqp5ox"},m:function(e,t){o(e,i,t);for(var n=0;n<h.length;n+=1)h[n].i(i,null);a=!0},p:function(t,r){if(t.line||t.layersTree||t.gmxTimeline){s=r.line.content.children||[];for(var o=0;o<s.length;o+=1){var l=D(r,s,o);h[o]?h[o].p(t,l):(h[o]=z(e,l),h[o].c()),h[o].i(i,null)}for(;o<h.length;o+=1)m(o,1)}a&&!t.properties||n===(n="group css-treeview id_"+(r.properties?r.properties.name:"root")+" svelte-1hqp5ox")||(i.className=n)},i:function(e,t){a||this.m(e,t)},o:function(e){if(a){for(var t=r(e,(h=h.filter(Boolean)).length),i=0;i<h.length;i+=1)m(i,0,t);a=!1}},d:function(e){e&&l(i),c(h,e)}}}function z(e,t){var i,n={},r={line:t.child};void 0!==t.layersTree&&(r.layersTree=t.layersTree,n.layersTree=!0),void 0!==t.gmxTimeline&&(r.gmxTimeline=t.gmxTimeline,n.gmxTimeline=!0);var a=new $({root:e.root,store:e.store,data:r,_bind:function(t,i){var r={};!n.layersTree&&t.layersTree&&(r.layersTree=i.layersTree),!n.gmxTimeline&&t.gmxTimeline&&(r.gmxTimeline=i.gmxTimeline),e._set(r),n={}}});return e.root._beforecreate.push(function(){a._bind({layersTree:1,gmxTimeline:1},a.get())}),{c:function(){a._fragment.c()},m:function(e,t){a._mount(e,t),i=!0},p:function(e,i){t=i;var r={};e.line&&(r.line=t.child),!n.layersTree&&e.layersTree&&(r.layersTree=t.layersTree,n.layersTree=void 0!==t.layersTree),!n.gmxTimeline&&e.gmxTimeline&&(r.gmxTimeline=t.gmxTimeline,n.gmxTimeline=void 0!==t.gmxTimeline),a._set(r),n={}},i:function(e,t){i||this.m(e,t)},o:function(e){i&&(a&&a._fragment.o(e),i=!1)},d:function(e){a.destroy(e)}}}function $(e){var t,n,a,c,u,m,f,p;b(this,e),this._state=i({line:null},e.data),this._recompute({line:1,properties:1,layersTree:1},this._state),this._intro=!!e.intro,this._fragment=(t=this,n=this._state,f=n.properties&&E(t,n),p=n.line.content.children&&G(t,n),{c:function(){a=d("li"),f&&f.c(),c=h("\n"),p&&p.c(),a.className=u="line cmd:toggleIcons id:"+n.nodeID+" svelte-1hqp5ox"},m:function(e,t){o(e,a,t),f&&f.m(a,null),s(a,c),p&&p.m(a,null),m=!0},p:function(e,i){i.properties?(f?f.p(e,i):(f=E(t,i))&&f.c(),f.i(a,c)):f&&f.o(function(){f.d(1),f=null}),i.line.content.children?(p?p.p(e,i):(p=G(t,i))&&p.c(),p.i(a,null)):p&&p.o(function(){p.d(1),p=null}),m&&!e.nodeID||u===(u="line cmd:toggleIcons id:"+i.nodeID+" svelte-1hqp5ox")||(a.className=u)},i:function(e,t){m||this.m(e,t)},o:function(e){m&&(e=r(e,2),f?f.o(e):e(),p?p.o(e):e(),m=!1)},d:function(e){e&&l(a),f&&f.d(),p&&p.d()}}),e.target&&(this._fragment.c(),this._mount(e.target,e.anchor),_(this)),this._intro=!0}i($.prototype,x),i($.prototype,I),$.prototype._recompute=function(e,t){e.line&&this._differs(t.properties,t.properties=t.line.content.properties)&&(e.properties=!0),e.properties&&(this._differs(t.nodeID,t.nodeID=function(e){var t=e.properties;return t?t.name||t.GroupID:"root"}(t))&&(e.nodeID=!0),this._differs(t.styles,t.styles=function(e){var t=e.properties;return t.gmxStyles?t.gmxStyles.styles:[]}(t))&&(e.styles=!0)),(e.line||e.layersTree)&&this._differs(t.isVisible,t.isVisible=function(e){var t=e.line,i=e.layersTree,n=t.content.properties,r=n.name||n.GroupID||"root",a=i.visible[r]||i.expanded[r];return void 0===a?n&&n.visible:a}(t))&&(e.isVisible=!0)};var Q={cmd:/cmd:(\w+)/,id:/id:(\w+)/};var J={chkEvent:function(e){var t=e.target,i=t.className,n=Q.cmd.exec(i);if(n&&2===n.length){for(var r={cmd:n[1],type:e.type,originalEvent:e},a=0;a<10;a++){if(t.classList.contains("line")){(n=Q.id.exec(t.className))&&2===n.length&&(r.id=n[1]),r.target=t;break}t=t.parentNode}r.id&&(this.treeCommands(r),this.fire("command",r))}},treeCommands:function(e){var t=this.get(),i=t.layersTree;t.rawTree;if("toggleVisibility"===e.cmd){var n=e.target.getElementsByClassName("expanderInput")[0],r=n||e.target.getElementsByClassName("visibility")[0],a=(e.originalEvent.target,n?i.expanded:i.visible),s=e.id;return a[s]?(delete a[s],r.checked=!1):(a[s]=!0,r.checked=!0),this.set({layersTree:i}),!0}return!1},appendNode:function(e){this.options.appendNode(e)}};function Z(e){b(this,e),this._state=i({config:{},layersTree:{visible:{},expanded:{}},group:null,rawTree:null},e.data),this._intro=!!e.intro,this._fragment=function(e,t){var i,n,r={},a={line:t.rawTree};void 0!==t.layersTree&&(a.layersTree=t.layersTree,r.layersTree=!0),void 0!==t.gmxTimeline&&(a.gmxTimeline=t.gmxTimeline,r.gmxTimeline=!0);var s=new $({root:e.root,store:e.store,data:a,_bind:function(t,i){var n={};!r.layersTree&&t.layersTree&&(n.layersTree=i.layersTree),!r.gmxTimeline&&t.gmxTimeline&&(n.gmxTimeline=i.gmxTimeline),e._set(n),r={}}});function c(t){e.chkEvent(t)}return e.root._beforecreate.push(function(){s._bind({layersTree:1,gmxTimeline:1},s.get())}),{c:function(){i=d("div"),s._fragment.c(),m(i,"click",c),i.className="TreeView svelte-aljqq6"},m:function(e,t){o(e,i,t),s._mount(i,null),n=!0},p:function(e,i){t=i;var n={};e.rawTree&&(n.line=t.rawTree),!r.layersTree&&e.layersTree&&(n.layersTree=t.layersTree,r.layersTree=void 0!==t.layersTree),!r.gmxTimeline&&e.gmxTimeline&&(n.gmxTimeline=t.gmxTimeline,r.gmxTimeline=void 0!==t.gmxTimeline),s._set(n),r={}},i:function(e,t){n||this.m(e,t)},o:function(e){n&&(s&&s._fragment.o(e),n=!1)},d:function(e){e&&l(i),s.destroy(),f(i,"click",c)}}}(this,this._state),e.target&&(this._fragment.c(),this._mount(e.target,e.anchor),_(this)),this._intro=!0}i(Z.prototype,x),i(Z.prototype,J);var F=function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")},X=function(){function e(e,t){for(var i=0;i<t.length;i++){var n=t[i];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,i,n){return i&&e(t.prototype,i),n&&e(t,n),t}}(),Y=function(){function e(){F(this,e),this.listeners={}}return X(e,[{key:"addEventListener",value:function(e,t){e in this.listeners||(this.listeners[e]=[]),this.listeners[e].push(t)}},{key:"on",value:function(e,t){return this.addEventListener(e,t),this}},{key:"removeEventListener",value:function(e,t){if(e in this.listeners)for(var i=this.listeners[e],n=0,r=i.length;n<r;n++)if(i[n]===t)return i.splice(n,1),this.removeEventListener(e,t)}},{key:"off",value:function(e,t){return this.removeEventListener(e,t),this}},{key:"dispatchEvent",value:function(e){if(e.type in this.listeners){var t=this.listeners[e.type];Object.defineProperty(e,"target",{enumerable:!1,configurable:!1,writable:!1,value:this});for(var i=0,n=t.length;i<n;i++)t[i].call(this,e)}}}]),e}();class K extends Y{constructor(e,{position:t="left"}={}){super(),this._container=e,this._container.classList.add("noselect"),this._container.innerHTML=`<div class="scanex-sidebar">\n            <div class="${"left"===t?"tabs":"panes"}"></div>\n            <div class="${"left"===t?"panes":"tabs"}"></div>\n        </div>`,this._tabContainer=this._container.querySelector(".tabs"),this._paneContainer=this._container.querySelector(".panes"),this._current=null,this._data={}}enable(e){this._data[e]&&(this._data[e].enabled=!0)}enabled(e){const{enabled:t}=e&&this._data[e]?this._data[e]:{enabled:!1};return t}disable(e){this._data[e]&&(e===this.current&&(this.current=null),this._data[e].enabled=!1)}get current(){return this._current}set current(e){const t=this._tabContainer.children,i=this._paneContainer.children;let n=!1;for(let r=0;r<t.length;++r){const a=t[r].getAttribute("data-tab-id"),{opened:s,closed:o,enabled:l}=this._data[a];let c=t[r].querySelector("i"),d=i[r];a===e?(c.classList.remove(o),c.classList.add(s),d.classList.remove("hidden"),d.classList.add("shown"),n=!0):(c.classList.remove(s),c.classList.add(o),d.classList.remove("shown"),d.classList.add("hidden"))}this._current=n?e:null;let r=document.createEvent("Event");r.detail={current:this._current},r.initEvent("change",!1,!1),this.dispatchEvent(r)}addTab({id:e,icon:t,opened:i,closed:n,tooltip:r,enabled:a=!0}){let s=document.createElement("div"),o=document.createElement("i");t.split(/\s+/g).forEach(e=>o.classList.add(e)),o.classList.add(e===this._current?i:n),s.appendChild(o),s.setAttribute("data-tab-id",e),r&&s.setAttribute("title",r),s.addEventListener("click",this._toggle.bind(this,e)),this._tabContainer.appendChild(s);let l=document.createElement("div");return l.setAttribute("data-pane-id",e),l.classList.add(this.visible&&this.current===e?"shown":"hidden"),this._paneContainer.appendChild(l),this._data[e]={icon:t,opened:i,closed:n,enabled:a},l}removeTab(e){const t=this._tabContainer.querySelector(`[data-tab-id=${e}]`);t.removeEventListener("click",this._toggle.bind(this,e)),this._tabContainer.removeChild(t);const i=this._paneContainer.querySelector(`[data-pane-id=${e}]`);this._paneContainer.removeChild(i);for(let t=0;t<this._data.length;++t)if(this._data[t].id===e){this._data.splice(t,1);break}}_toggle(e){this.enabled(e)&&(this.current=this.current===e?null:e)}getPane(e){return this._paneContainer.querySelector(`[data-pane-id=${e}]`)}}var ee=L.Control.extend({includes:L.Evented?L.Evented.prototype:L.Mixin.Events,initialize:function(e){L.setOptions(this,e)},enable:function(e){this._sidebar.enable(e)},enabled:function(e){return this._sidebar.enabled(e)},disable:function(e){this._sidebar.disable(e)},getCurrent:function(){return this._sidebar.current},setCurrent:function(e){this._sidebar.current=e},addTab:function({id:e,icon:t,opened:i,closed:n,tooltip:r,enabled:a}){return this._sidebar.addTab({id:e,icon:t,opened:i,closed:n,tooltip:r,enabled:a})},removeTab:function(e){this._sidebar.removeTab(e)},getPane:function(e){return this._sidebar.getPane(e)},onAdd:function(e){this._container=L.DomUtil.create("div"),L.DomEvent.disableClickPropagation(this._container),L.DomEvent.disableScrollPropagation(this._container);const{position:t}=this.options;return this._sidebar=new K(this._container,{position:"topleft"===t||"bottomleft"===t?"left":"right"}),this._sidebar.addEventListener("change",e=>{this.fire("change",e)}),this._container},addTo:function(e){return L.Control.prototype.addTo.call(this,e),this.options.addBefore&&this.addBefore(this.options.addBefore),this},addBefore:function(e){let t=this._parent&&this._parent._container;if(t||(t=this._map&&this._map._controlCorners[this.getPosition()]),t)for(let i=0,n=t.childNodes.length;i<n;i++){let n=t.childNodes[i];if(e===n._id){t.insertBefore(this._container,n);break}}else this.options.addBefore=e;return this}});var te,ie=(function(t){var i;i=function(e){function t(e,t){for(var i in e)e.hasOwnProperty(i)&&t(e[i],i,e)}function i(e,t){e.children.length?e.insertBefore(t,e.children[0]):e.appendChild(t)}var n=e.Control.extend({includes:e.Evented?e.Evented.prototype:e.Mixin.Events,_getActiveLayer:function(){return this._activeLayerId?this._layers[this._activeLayerId]:function(e){var t=0;for(var i in e)e.hasOwnProperty(i)&&t++;return t}(this._layers)?function(e){for(var t in e)if(e.hasOwnProperty(t))return e[t]}(this._layers):null},_getPreviousLayer:function(){var e=this._getActiveLayer();return e?this._previousLayerId?this._layers[this._previousLayerId]:function(e,t){if(e.length){for(var i=0;i<e.length;i++)if(t(e[i]))return e[i]}else for(var n in e)if(e.hasOwnProperty(n)&&t(e[n]))return e[n]}(this._layers,function(t){return t.id!==e.id}.bind(this))||null:null},_getInactiveLayers:function(){var e=[],i=this._getActiveLayer()?this._getActiveLayer().id:null,n=this._getPreviousLayer()?this._getPreviousLayer().id:null;return t(this._layers,function(t){t.id!==i&&t.id!==n&&e.push(t)}),e},_arrangeLayers:function(){var e={previous:function(){var e=this._getInactiveLayers();return this._getActiveLayer()&&e.unshift(this._getActiveLayer()),this._getPreviousLayer()&&e.unshift(this._getPreviousLayer()),e}};return e[this.options.behavior].apply(this,arguments)},_getLayerCellByLayerId:function(e){for(var t=this._container.getElementsByClassName("leaflet-iconLayers-layerCell"),i=0;i<t.length;i++)if(t[i].getAttribute("data-layerid")==e)return t[i]},_createLayerElement:function(t){var i=e.DomUtil.create("div","leaflet-iconLayers-layer");if(t.title){var n=e.DomUtil.create("div","leaflet-iconLayers-layerTitleContainer"),r=e.DomUtil.create("div","leaflet-iconLayers-layerTitle"),a=e.DomUtil.create("div","leaflet-iconLayers-layerCheckIcon");r.innerHTML=t.title,n.appendChild(r),i.appendChild(n),i.appendChild(a)}return t.icon&&i.setAttribute("style","background-image: url('"+t.icon+"')"),i},_createLayerElements:function(){for(var t,n,r=this._arrangeLayers(),a=this._getActiveLayer()&&this._getActiveLayer().id,s=0;s<r.length;s++)s%this.options.maxLayersInRow==0&&(t=e.DomUtil.create("div","leaflet-iconLayers-layersRow"),-1===this.options.position.indexOf("bottom")?this._container.appendChild(t):i(this._container,t)),(n=e.DomUtil.create("div","leaflet-iconLayers-layerCell")).setAttribute("data-layerid",r[s].id),0!==s&&e.DomUtil.addClass(n,"leaflet-iconLayers-layerCell_hidden"),r[s].id===a&&e.DomUtil.addClass(n,"leaflet-iconLayers-layerCell_active"),"left"===this._expandDirection?e.DomUtil.addClass(n,"leaflet-iconLayers-layerCell_expandLeft"):e.DomUtil.addClass(n,"leaflet-iconLayers-layerCell_expandRight"),n.appendChild(this._createLayerElement(r[s])),-1===this.options.position.indexOf("right")?t.appendChild(n):i(t,n)},_onLayerClick:function(e){e.stopPropagation();var t=e.currentTarget.getAttribute("data-layerid"),i=this._layers[t];this.setActiveLayer(i.layer),this.expand()},_attachEvents:function(){t(this._layers,function(e){var t=this._getLayerCellByLayerId(e.id);t&&t.addEventListener("click",this._onLayerClick.bind(this))}.bind(this));for(var e=this._container.getElementsByClassName("leaflet-iconLayers-layersRow"),i=function(e){e.stopPropagation(),this.expand()}.bind(this),n=function(e){e.stopPropagation(),this.collapse()}.bind(this),r=function(e){e.stopPropagation()},a=0;a<e.length;a++){var s=e[a];s.addEventListener("mouseenter",i),s.addEventListener("mouseleave",n),s.addEventListener("mousemove",r)}},_render:function(){this._container.innerHTML="",this._createLayerElements(),this._attachEvents()},_switchMapLayers:function(){if(this._map){var e=this._getActiveLayer(),i=this._getPreviousLayer();i?this._map.removeLayer(i.layer):t(this._layers,function(e){var t=e.layer;this._map.removeLayer(t)}.bind(this)),e&&this._map.addLayer(e.layer)}},options:{position:"bottomleft",behavior:"previous",expand:"horizontal",autoZIndex:!0,maxLayersInRow:5,manageLayers:!0},initialize:function(t,i){e.Util.isArray(arguments[0])||(i=t,t=[]),e.setOptions(this,i),this._expandDirection=-1!=this.options.position.indexOf("left")?"right":"left",this.options.manageLayers&&this.on("activelayerchange",this._switchMapLayers,this),this.setLayers(t)},onAdd:function(t){return this._container=e.DomUtil.create("div","leaflet-iconLayers"),e.DomUtil.addClass(this._container,"leaflet-iconLayers_"+this.options.position),this._render(),t.on("click",this.collapse,this),this.options.manageLayers&&this._switchMapLayers(),this._container},onRemove:function(e){e.off("click",this.collapse,this)},setLayers:function(t){this._layers={},t.map(function(t){var i=e.stamp(t.layer);this._layers[i]=e.extend(t,{id:i})}.bind(this)),this._container&&this._render()},setActiveLayer:function(t){var i=t&&this._layers[e.stamp(t)];i&&i.id!==this._activeLayerId&&(this._previousLayerId=this._activeLayerId,this._activeLayerId=i.id,this._container&&this._render(),this.fire("activelayerchange",{layer:t}))},expand:function(){this._arrangeLayers().slice(1).map(function(t){var i=this._getLayerCellByLayerId(t.id);e.DomUtil.removeClass(i,"leaflet-iconLayers-layerCell_hidden")}.bind(this))},collapse:function(){this._arrangeLayers().slice(1).map(function(t){var i=this._getLayerCellByLayerId(t.id);e.DomUtil.addClass(i,"leaflet-iconLayers-layerCell_hidden")}.bind(this))}}),r=function(e,t){return new n(e,t)};return r.Constructor=n,r},t.exports?t.exports=i(e):(window.L.control.iconLayers=i(window.L),window.L.Control.IconLayers=window.L.control.iconLayers.Constructor)}(te={exports:{}},te.exports),te.exports);window.serverBase;var ne={createMap:function(e){var t=this.get().layersTree,i=e.app||{},n=i.gmxMap||{},r=e.state||{},a=(r.calendar,n.mapID||"946GH"),s=(n.apiKey,r.map?r.map.position:{});i.theme&&document.body.classList.add(i.theme),L.leafletMap&&L.leafletMap.remove(),t=r.layersTree||t,this.layersTree=t;var o=new L.Map("map",{srs:3857,layers:[],center:new L.LatLng(s.y||0,s.x||60),zoom:s.z||3});if(L.leafletMap=o,o.gmxControlsManager.init({gmxDrawing:i.drawing&&"false"!==i.drawing?{position:"right"}:null,gmxZoom:{position:"gmxbottomright"},gmxHide:null}),o.gmxControlsManager.setSvgSprites("//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg"),i.iconSidebar&&"false"!==i.iconSidebar){var l=new ee({position:"topleft"});if(l.addTo(o),this.iconSidebar=l,i.treeView&&"false"!==i.treeView){var c=l.addTab({id:"treeView",icon:"icon-layers",opened:"opened",closed:"closed"});this.treePane=c}}else document.body.classList.add("noIconSidebar");this.mapID=a;var d={leafletMap:o,setZIndex:!0};L.gmx.loadMap(a,d).then(function(e){var n=this;this.gmxMap=e;var a=r.calendar||{},s=a.dateBegin,l=a.dateEnd;if(!s){var d=new Date;l=(s=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()))+864e5}var h=new Date(s),u=new Date(l);e.layers.forEach(function(e){if(e.getGmxProperties){var i=e.getGmxProperties().name;e.setDateInterval&&e.setDateInterval(h,u),i in t.visible&&o[t.visible[i]?"addLayer":"removeLayer"](e)}});var m=!1,f=null;if(i.gmxTimeline&&"false"!==i.gmxTimeline){var p=L.control.gmxTimeline({moveable:!0}).on("dateInterval",function(t){e.layersByID[t.layerID].setDateInterval(t.beginDate,t.endDate)}).on("statechanged",function(){f()}).on("click",function(t){e.layersByID[t.layerID].repaint()});this.gmxTimeline=p,f=function(){p._container&&(p._container.classList[m?"add":"remove"]("shiftTimeline"),p._redrawTimeline())}}if(this.iconSidebar){this.iconSidebar.on("change",function(i){return"treeView"===i.detail.current?(m=!0,c&&n._initTree({container:c,layersTree:t,rawTree:e.rawTree,gmxTimeline:n.gmxTimeline})):(m=!1,c&&(c.innerHTML="")),n.IconLayersContainer&&n.IconLayersContainer.classList[m?"add":"remove"]("shiftIconLayers"),void(f&&f())})}var v=r.baseLayersManager||{activeIDs:e.properties.BaseLayers};this._initBaseLayers(o,v,i)}.bind(this)).catch(console.log),this.set({map:o,config:e})},_initBaseLayers:function(e,t,i){var n=e.gmxBaseLayersManager,r=t.activeIDs||["sputnik"],a=t.currentID||r[0];n.initDefaults().then(function(){n.setActiveIDs(r);var t=n.getActiveIDs().map(function(e){var t=n.get(e);return t?{layer:t,icon:t.options.icon,title:t.options.rus}:null}).filter(function(e){return e});if(i.iconLayers&&"false"!==i.iconLayers){var s=new ie(t,{id:"iconLayers"});e.gmxControlsManager.add(s),e.addControl(s),s.setActiveLayer(n.get(a)),this.IconLayersContainer=s.getContainer()}n.setCurrentID(a),"opened"===i.treeView&&this.iconSidebar&&this.iconSidebar.setCurrent("treeView")}.bind(this))},_getNodeIndex:function(e){var t,i,n=e.parentNode.children;for(t=0,i=n.length;t<i&&n[t]!==e;t++);return t===i?null:t},_initTree:function(e){var t=this,i={type:"map",content:e.rawTree};this._treeView=new Z({appendNode:function(e){},target:e.container,data:{container:e.container,layersTree:e.layersTree,gmxTimeline:!!e.gmxTimeline,rawTree:i}}),this._treeView.on("command",function(e){var i=t.get().map,n=e.cmd,r=e.originalEvent.target,a=t.gmxMap,s=!a.nodes||a.nodes[e.id],o=a.layersByID[e.id];if(o){if("fitBounds"===n)i.fitBounds(o.getBounds());else if("toggleVisibility"===n)o._map?i.removeLayer(o):i.addLayer(o);else if("toggleTimeline"===n&&t.gmxTimeline)r.classList.contains("enabled")?(t.gmxTimeline._map||i.addControl(t.gmxTimeline),t.gmxTimeline.addLayer(o)):t.gmxTimeline.removeLayer(o);else if("toggleStyle"===n){var l=t._getNodeIndex(r.parentNode),c=o.getStyles();r.classList.contains("enabled")?(r.classList.remove("enabled"),c[l].disabled=!0):(r.classList.add("enabled"),delete c[l].disabled),o.setStyles(c)}}else"toggleVisibility"!==n||s||t._treeView.appendNode(e.id)})}};function re(e){var t=e.changed,i=e.current;e.previous;t.permalink&&i.permalink&&this.createMap(i.permalink)}function ae(e){var r,s,c=this;b(this,e),this._state=i({layersTree:{visible:{},expanded:{}},permalink:null,map:null},e.data),this._intro=!!e.intro,this._handlers.state=[re],re.call(this,{changed:n({},this._state),current:this._state}),this._fragment=(this._state,{c:function(){(r=d("div")).id="map"},m:function(e,t){o(e,r,t),s=!0},p:t,i:function(e,t){s||this.m(e,t)},o:a,d:function(e){e&&l(r)}}),this.root._oncreate.push(function(){c.fire("update",{changed:n({},c._state),current:c._state})}),e.target&&(this._fragment.c(),this._mount(e.target,e.anchor),_(this)),this._intro=!0}function se(e,t){var i,n;return{c:function(){i=d("h3"),n=h(t.title),i.className="popover-title"},m:function(e,t){o(e,i,t),s(i,n)},p:function(e,t){e.title&&v(n,t.title)},d:function(e){e&&l(i)}}}function oe(e){b(this,e),this._state=i({frameWidth:800,frameHeight:600,conf:"R6UIY",title:""},e.data),this._recompute({conf:1},this._state),this._intro=!!e.intro,this._fragment=function(e,t){var i,n,r,c,u,v,g,y,_,b,k,L,x,w,T,C,N,I,D,q,E,M,S,P,B,V,U,A,O,R,H,W,j,G,z,$,Q,J,Z,F,X,Y,K,ee,te,ie,ne,re,ae,oe,le,ce,de,he=t.title&&se(0,t);function ue(t){e.set({frameWidth:this.value})}function me(t){e.set({frameHeight:this.value})}return{c:function(){i=d("div"),n=d("div"),r=h("\n\t"),he&&he.c(),c=h("\n\t"),u=d("div"),v=d("div"),g=d("div"),y=d("div"),(_=d("span")).textContent="Ссылка на карту:",b=h("\n\t\t\t\t"),k=d("a"),L=d("i"),w=h("\n\t\t\t\t"),T=d("a"),C=d("i"),I=h("\n\t\t\t\t"),D=d("a"),q=d("i"),M=h("\n\t\t"),S=d("div"),P=d("div"),B=d("input"),V=h("\n\t\t"),U=d("a"),A=d("i"),O=h("\n"),(R=d("div")).textContent="Код для вставки:",H=h("\n"),W=d("div"),j=d("div"),G=d("input"),z=h("\n            "),($=d("span")).textContent="x",Q=h("\n            "),J=d("input"),Z=h("\n        "),(F=d("span")).innerHTML='<span>предпросмотр</span><i class="icon-link-ext svelte-whikqv"></i>',X=h("\n        "),Y=d("span"),K=d("a"),ee=h("предпросмотр"),ie=d("i"),ne=h("\n"),re=d("div"),ae=d("textarea"),le=h("\n    "),(ce=d("div")).innerHTML='<div class="alertWidget ui-widget"></div>',n.className="arrow svelte-whikqv",_.className="bold svelte-whikqv",L.className="icon-twitter svelte-whikqv",k.className="gmx-link_icon svelte-whikqv",k.target="_blank",k.href=x="//www.twitter.com/share?url="+t.link,C.className="icon-facebook svelte-whikqv",T.className="gmx-link_icon svelte-whikqv",T.target="_blank",T.href=N="https://www.facebook.com/sharer/sharer.php?u="+t.link,q.className="icon-vk svelte-whikqv",D.className="gmx-link_icon svelte-whikqv",D.target="_blank",D.href=E="//vkontakte.ru/share.php?url"+t.link,y.className="shareDialog-row shareDialog-title svelte-whikqv",B.className="shareDialog-inputPermalinkUrl svelte-whikqv",p(B,"type","text"),B.readOnly="readonly",B.value=t.link,A.className="icon-link-ext svelte-whikqv",A.title="открыть в новом окне",U.className="gmx-link_icon svelte-whikqv",U.target="_blank",U.href=t.link,P.className="gmx-table",S.className="shareDialog-row svelte-whikqv",R.className="shareDialog-row bold svelte-whikqv",m(G,"change",ue),G.className=" svelte-whikqv",p(G,"type","number"),G.value=t.frameWidth,$.className="shareDialog-resolutionCross",m(J,"change",me),J.className=" svelte-whikqv",p(J,"type","number"),J.value=t.frameHeight,F.className="shareDialog-validationError hidden svelte-whikqv",K.className="shareDialog-previewLink gmx-link svelte-whikqv",K.href=te="http://winnie.kosmosnimki.ru/iframePreview.html?width="+t.frameWidth+"&height="+t.frameHeight+"&url="+t.link,K.target="_blank",ie.className="gmx-icon icon-link-ext svelte-whikqv",Y.className="shareDialog-previewLinkCell shareDialog-validationOk svelte-whikqv",j.className="gmx-table shareDialog-resolutionTable svelte-whikqv",W.className="shareDialog-row svelte-whikqv",ae.className="shareDialog-validationOk svelte-whikqv",ae.readOnly="readonly",ae.value=oe='<iframe src="'+t.link+'" width="'+t.frameWidth+'" height="'+t.frameHeight+'"></iframe>',ce.className="shareDialog-validationErrorView hidden svelte-whikqv",re.className="shareDialog-row svelte-whikqv",g.className="shareDialog",v.className="shareDialogContainer",u.className="popover-content svelte-whikqv",i.className="share svelte-whikqv"},m:function(e,t){o(e,i,t),s(i,n),s(i,r),he&&he.m(i,null),s(i,c),s(i,u),s(u,v),s(v,g),s(g,y),s(y,_),s(y,b),s(y,k),s(k,L),s(y,w),s(y,T),s(T,C),s(y,I),s(y,D),s(D,q),s(g,M),s(g,S),s(S,P),s(P,B),s(P,V),s(P,U),s(U,A),s(g,O),s(g,R),s(g,H),s(g,W),s(W,j),s(j,G),s(j,z),s(j,$),s(j,Q),s(j,J),s(j,Z),s(j,F),s(j,X),s(j,Y),s(Y,K),s(K,ee),s(Y,ie),s(g,ne),s(g,re),s(re,ae),s(re,le),s(re,ce),de=!0},p:function(e,t){t.title?he?he.p(e,t):((he=se(0,t)).c(),he.m(i,c)):he&&(he.d(1),he=null),e.link&&x!==(x="//www.twitter.com/share?url="+t.link)&&(k.href=x),e.link&&N!==(N="https://www.facebook.com/sharer/sharer.php?u="+t.link)&&(T.href=N),e.link&&E!==(E="//vkontakte.ru/share.php?url"+t.link)&&(D.href=E),e.link&&(B.value=t.link,U.href=t.link),e.frameWidth&&(G.value=t.frameWidth),e.frameHeight&&(J.value=t.frameHeight),(e.frameWidth||e.frameHeight||e.link)&&te!==(te="http://winnie.kosmosnimki.ru/iframePreview.html?width="+t.frameWidth+"&height="+t.frameHeight+"&url="+t.link)&&(K.href=te),(e.link||e.frameWidth||e.frameHeight)&&oe!==(oe='<iframe src="'+t.link+'" width="'+t.frameWidth+'" height="'+t.frameHeight+'"></iframe>')&&(ae.value=oe)},i:function(e,t){de||this.m(e,t)},o:a,d:function(e){e&&l(i),he&&he.d(),f(G,"change",ue),f(J,"change",me)}}}(this,this._state),e.target&&(this._fragment.c(),this._mount(e.target,e.anchor)),this._intro=!0}i(ae.prototype,x),i(ae.prototype,ne),i(oe.prototype,x),oe.prototype._recompute=function(e,t){var i;e.conf&&this._differs(t.link,t.link=(i=t.conf,location.pathname+"?config="+i))&&(e.link=!0)};var le=window.serverBase||"//maps.kosmosnimki.ru/",ce=function(e,t,i,n){return t[e]||(e in i?i[e]:n||!0)};var de={checkMe:function(e,t){var i=this,n=e.name,r=this.editor.getValue(),a=null;try{a=JSON.parse(r)}catch(e){var s=this.editor.getSession().getAnnotations()[0];alert("Ошибка в конфигурации:\n строка: "+s.row+"\n позиция: "+s.column+"\n сообщение: "+s.text),console.log("error in json: ",s)}if(a)if("refresh"===n)this.set({permalink:a});else if("link"===n){this.get().share?(t.classList.remove("checked"),this.set({share:!1})):(t.classList.add("checked"),fetch(le+"TinyReference/Create.ashx",{method:"post",headers:{"Content-type":"application/x-www-form-urlencoded"},body:L.gmxUtil.getFormData({WrapStyle:"None",content:a}),mode:"cors",credentials:"include"}).then(function(e){return e.json()}).then(function(e){"ok"===e.Status&&i.set({share:!0,conf:e.Result})}).catch(console.error))}},checkPermalink:function(e){var t=this.get().urlParams;if(e.app&&(e.app.theme=ce("theme",t,e.app,"dark"),e.app.iconSidebar=ce("iconSidebar",t,e.app),e.app.treeView=ce("treeView",t,e.app),e.app.iconLayers=ce("iconLayers",t,e.app),e.app.drawing=ce("drawing",t,e.app),e.app.gmxTimeline=ce("gmxTimeline",t,e.app)),this.set({permalink:e}),t.edit){var i=ace.edit("editor");i.setTheme("ace/theme/monokai"),i.getSession().setMode("ace/mode/json"),i.container.getElementsByClassName("ace_scrollbar-v")[0].style.width="4px",i.setValue(JSON.stringify(e,null,2)),this.editor=i}e.app.gmxTimeline&&"false"!==e.app.gmxTimeline&&(L.gmxUtil.requestLink("//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.js"),L.gmxUtil.requestLink("//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.css"),L.gmxUtil.requestLink("//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.js"),L.gmxUtil.requestLink("//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.css"))},getPermalink:function(e){var t=this,i={};e&&fetch(le+"TinyReference/Get.ashx?WrapStyle=None&id="+e,{mode:"cors",credentials:"include"}).then(function(e){return e.json()}).then(function(e){"ok"===e.Status&&(i=e.Result?JSON.parse(e.Result):{}),t.checkPermalink(i)})}};function he(e){var t=e.changed,i=e.current;e.previous;t.urlParams&&this.getPermalink(i.urlParams.config)}function ue(e){var t=this._svelte,i=t.component,n=t.ctx;i.checkMe(n.it,this)}function me(e,t,i){var n=Object.create(e);return n.it=t[i],n}function fe(e,t){for(var i,n,r,a,u,m,f=t.dropdownMenu,p=[],v=0;v<f.length;v+=1)p[v]=pe(e,me(t,f,v));return{c:function(){i=d("div"),n=d("div"),r=d("div"),a=d("div");for(var e=0;e<p.length;e+=1)p[e].c();u=h("\n\t\t\t"),m=d("div"),a.className="dropdownMenuWidget svelte-gw2s3e",r.className="sidebarPanel-toolbarContainer svelte-gw2s3e",m.id="editor",m.className="editor svelte-gw2s3e",n.className="sidebarPanel svelte-gw2s3e",i.className="editor-sidebarContainer editor_sidebarExpanded svelte-gw2s3e"},m:function(e,t){o(e,i,t),s(i,n),s(n,r),s(r,a);for(var l=0;l<p.length;l+=1)p[l].m(a,null);s(n,u),s(n,m)},p:function(t,i){if(t.dropdownMenu){f=i.dropdownMenu;for(var n=0;n<f.length;n+=1){var r=me(i,f,n);p[n]?p[n].p(t,r):(p[n]=pe(e,r),p[n].c(),p[n].m(a,null))}for(;n<p.length;n+=1)p[n].d(1);p.length=f.length}},d:function(e){e&&l(i),c(p,e)}}}function pe(e,t){var i,n,r,a,c,u,p,g=t.it.title;return{c:function(){i=d("div"),n=d("i"),a=h("\n\t\t\t\t\t"),c=d("span"),u=h(g),n.className=r="icon-"+t.it.name+" svelte-gw2s3e",i._svelte={component:e,ctx:t},m(i,"click",ue),i.className=p="dropdownMenuWidget-item"+(t.it.checked?" checked":"")+" svelte-gw2s3e"},m:function(e,t){o(e,i,t),s(i,n),s(i,a),s(i,c),s(c,u)},p:function(e,a){t=a,e.dropdownMenu&&r!==(r="icon-"+t.it.name+" svelte-gw2s3e")&&(n.className=r),e.dropdownMenu&&g!==(g=t.it.title)&&v(u,g),i._svelte.ctx=t,e.dropdownMenu&&p!==(p="dropdownMenuWidget-item"+(t.it.checked?" checked":"")+" svelte-gw2s3e")&&(i.className=p)},d:function(e){e&&l(i),f(i,"click",ue)}}}function ve(e,t){var i,n={conf:t.conf},r=new oe({root:e.root,store:e.store,data:n});return{c:function(){r._fragment.c()},m:function(e,t){r._mount(e,t),i=!0},p:function(e,t){var i={};e.conf&&(i.conf=t.conf),r._set(i)},i:function(e,t){i||this.m(e,t)},o:function(e){i&&(r&&r._fragment.o(e),i=!1)},d:function(e){r.destroy(e)}}}function ge(e){var t=this;b(this,e),this._state=i({share:!1,conf:"",urlParams:{},dropdownMenu:[{name:"refresh",title:"Refresh"},{name:"link",title:"Share",checked:!1}],map:null,permalink:null},e.data),this._intro=!!e.intro,this._handlers.state=[he],he.call(this,{changed:n({},this._state),current:this._state}),this._fragment=function(e,t){var i,n,a,s,c,m={},f=t.urlParams.edit&&fe(e,t),p={permalink:t.permalink};void 0!==t.map&&(p.map=t.map,m.map=!0);var v=new ae({root:e.root,store:e.store,data:p,_bind:function(t,i){var n={};!m.map&&t.map&&(n.map=i.map),e._set(n),m={}}});e.root._beforecreate.push(function(){v._bind({map:1},v.get())});var g=t.share&&ve(e,t);return{c:function(){f&&f.c(),i=h("\n"),n=d("div"),v._fragment.c(),a=h("\n"),g&&g.c(),s=u(),n.className="editor-viewerContainer editor_sidebarExpanded svelte-gw2s3e"},m:function(e,t){f&&f.m(e,t),o(e,i,t),o(e,n,t),v._mount(n,null),o(e,a,t),g&&g.m(e,t),o(e,s,t),c=!0},p:function(n,r){(t=r).urlParams.edit?f?f.p(n,t):((f=fe(e,t)).c(),f.m(i.parentNode,i)):f&&(f.d(1),f=null);var a={};n.permalink&&(a.permalink=t.permalink),!m.map&&n.map&&(a.map=t.map,m.map=void 0!==t.map),v._set(a),m={},t.share?(g?g.p(n,t):(g=ve(e,t))&&g.c(),g.i(s.parentNode,s)):g&&g.o(function(){g.d(1),g=null})},i:function(e,t){c||this.m(e,t)},o:function(e){c&&(e=r(e,2),v&&v._fragment.o(e),g?g.o(e):e(),c=!1)},d:function(e){f&&f.d(e),e&&(l(i),l(n)),v.destroy(),e&&l(a),g&&g.d(e),e&&l(s)}}}(this,this._state),this.root._oncreate.push(function(){t.fire("update",{changed:n({},t._state),current:t._state})}),e.target&&(this._fragment.c(),this._mount(e.target,e.anchor),_(this)),this._intro=!0}i(ge.prototype,x),i(ge.prototype,de);var ye,_e=(ye={},location.search.substr(1).split("&").forEach(function(e){var t=e.split("=");ye[t[0]]=t[1]}),ye);return new ge({target:document.body,data:{urlParams:_e,name:"world"}})}(L);
+var app = (function (leaflet) {
+	'use strict';
+
+	leaflet = leaflet && leaflet.hasOwnProperty('default') ? leaflet['default'] : leaflet;
+
+	function noop() {}
+
+	function assign(tar, src) {
+		for (var k in src) tar[k] = src[k];
+		return tar;
+	}
+
+	function assignTrue(tar, src) {
+		for (var k in src) tar[k] = 1;
+		return tar;
+	}
+
+	function callAfter(fn, i) {
+		if (i === 0) fn();
+		return () => {
+			if (!--i) fn();
+		};
+	}
+
+	function addLoc(element, file, line, column, char) {
+		element.__svelte_meta = {
+			loc: { file, line, column, char }
+		};
+	}
+
+	function run(fn) {
+		fn();
+	}
+
+	function append(target, node) {
+		target.appendChild(node);
+	}
+
+	function insert(target, node, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function destroyEach(iterations, detach) {
+		for (var i = 0; i < iterations.length; i += 1) {
+			if (iterations[i]) iterations[i].d(detach);
+		}
+	}
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function createSvgElement(name) {
+		return document.createElementNS('http://www.w3.org/2000/svg', name);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
+	}
+
+	function createComment() {
+		return document.createComment('');
+	}
+
+	function addListener(node, event, handler, options) {
+		node.addEventListener(event, handler, options);
+	}
+
+	function removeListener(node, event, handler, options) {
+		node.removeEventListener(event, handler, options);
+	}
+
+	function setAttribute(node, attribute, value) {
+		if (value == null) node.removeAttribute(attribute);
+		else node.setAttribute(attribute, value);
+	}
+
+	function setXlinkAttribute(node, attribute, value) {
+		node.setAttributeNS('http://www.w3.org/1999/xlink', attribute, value);
+	}
+
+	function setData(text, data) {
+		text.data = '' + data;
+	}
+
+	function setStyle(node, key, value) {
+		node.style.setProperty(key, value);
+	}
+
+	function blankObject() {
+		return Object.create(null);
+	}
+
+	function destroy(detach) {
+		this.destroy = noop;
+		this.fire('destroy');
+		this.set = noop;
+
+		this._fragment.d(detach !== false);
+		this._fragment = null;
+		this._state = {};
+	}
+
+	function destroyDev(detach) {
+		destroy.call(this, detach);
+		this.destroy = function() {
+			console.warn('Component was already destroyed');
+		};
+	}
+
+	function _differs(a, b) {
+		return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+	}
+
+	function fire(eventName, data) {
+		var handlers =
+			eventName in this._handlers && this._handlers[eventName].slice();
+		if (!handlers) return;
+
+		for (var i = 0; i < handlers.length; i += 1) {
+			var handler = handlers[i];
+
+			if (!handler.__calling) {
+				try {
+					handler.__calling = true;
+					handler.call(this, data);
+				} finally {
+					handler.__calling = false;
+				}
+			}
+		}
+	}
+
+	function flush(component) {
+		component._lock = true;
+		callAll(component._beforecreate);
+		callAll(component._oncreate);
+		callAll(component._aftercreate);
+		component._lock = false;
+	}
+
+	function get() {
+		return this._state;
+	}
+
+	function init(component, options) {
+		component._handlers = blankObject();
+		component._slots = blankObject();
+		component._bind = options._bind;
+		component._staged = {};
+
+		component.options = options;
+		component.root = options.root || component;
+		component.store = options.store || component.root.store;
+
+		if (!options.root) {
+			component._beforecreate = [];
+			component._oncreate = [];
+			component._aftercreate = [];
+		}
+	}
+
+	function on(eventName, handler) {
+		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
+		handlers.push(handler);
+
+		return {
+			cancel: function() {
+				var index = handlers.indexOf(handler);
+				if (~index) handlers.splice(index, 1);
+			}
+		};
+	}
+
+	function set(newState) {
+		this._set(assign({}, newState));
+		if (this.root._lock) return;
+		flush(this.root);
+	}
+
+	function _set(newState) {
+		var oldState = this._state,
+			changed = {},
+			dirty = false;
+
+		newState = assign(this._staged, newState);
+		this._staged = {};
+
+		for (var key in newState) {
+			if (this._differs(newState[key], oldState[key])) changed[key] = dirty = true;
+		}
+		if (!dirty) return;
+
+		this._state = assign(assign({}, oldState), newState);
+		this._recompute(changed, this._state);
+		if (this._bind) this._bind(changed, this._state);
+
+		if (this._fragment) {
+			this.fire("state", { changed: changed, current: this._state, previous: oldState });
+			this._fragment.p(changed, this._state);
+			this.fire("update", { changed: changed, current: this._state, previous: oldState });
+		}
+	}
+
+	function _stage(newState) {
+		assign(this._staged, newState);
+	}
+
+	function setDev(newState) {
+		if (typeof newState !== 'object') {
+			throw new Error(
+				this._debugName + '.set was called without an object of data key-values to update.'
+			);
+		}
+
+		this._checkReadOnly(newState);
+		set.call(this, newState);
+	}
+
+	function callAll(fns) {
+		while (fns && fns.length) fns.shift()();
+	}
+
+	function _mount(target, anchor) {
+		this._fragment[this._fragment.i ? 'i' : 'm'](target, anchor || null);
+	}
+
+	var protoDev = {
+		destroy: destroyDev,
+		get,
+		fire,
+		on,
+		set: setDev,
+		_recompute: noop,
+		_set,
+		_stage,
+		_mount,
+		_differs
+	};
+
+	/* src/LegendIconCell.html generated by Svelte v2.15.3 */
+
+	function backgroundColor({ item }) {
+		return L.gmxUtil.dec2rgba(item.RenderStyle.fillColor, item.RenderStyle.fillOpacity || 1);
+	}
+
+	function borderColor({ item }) {
+		return L.gmxUtil.dec2rgba(item.RenderStyle.color, item.RenderStyle.opacity || 1);
+	}
+
+	function data() {
+		return {
+		}
+	}
+	function onstate({ changed, current, previous }) {
+	 // console.log('LegendIconCell in onstate', changed, current, previous);
+	}
+	const file = "src/LegendIconCell.html";
+
+	function create_main_fragment(component, ctx) {
+		var span, current;
+
+		function select_block_type(ctx) {
+			if (ctx.item.RenderStyle.iconUrl) return create_if_block;
+			return create_else_block;
+		}
+
+		var current_block_type = select_block_type(ctx);
+		var if_block = current_block_type(component, ctx);
+
+		return {
+			c: function create() {
+				span = createElement("span");
+				if_block.c();
+				span.className = "legendIconCell style svelte-r7og3";
+				addLoc(span, file, 0, 0, 0);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, span, anchor);
+				if_block.m(span, null);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+					if_block.p(changed, ctx);
+				} else {
+					if_block.d(1);
+					if_block = current_block_type(component, ctx);
+					if_block.c();
+					if_block.m(span, null);
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: run,
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(span);
+				}
+
+				if_block.d();
+			}
+		};
+	}
+
+	// (4:0) {:else}
+	function create_else_block(component, ctx) {
+		var span, span_class_value;
+
+		return {
+			c: function create() {
+				span = createElement("span");
+				span.className = span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-r7og3";
+				setStyle(span, "background-color", ctx.backgroundColor);
+				setStyle(span, "border-color", ctx.borderColor);
+				addLoc(span, file, 4, 1, 150);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, span, anchor);
+			},
+
+			p: function update(changed, ctx) {
+				if ((changed.type) && span_class_value !== (span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-r7og3")) {
+					span.className = span_class_value;
+				}
+
+				if (changed.backgroundColor) {
+					setStyle(span, "background-color", ctx.backgroundColor);
+				}
+
+				if (changed.borderColor) {
+					setStyle(span, "border-color", ctx.borderColor);
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(span);
+				}
+			}
+		};
+	}
+
+	// (2:0) {#if item.RenderStyle.iconUrl}
+	function create_if_block(component, ctx) {
+		var img, img_src_value;
+
+		return {
+			c: function create() {
+				img = createElement("img");
+				img.src = img_src_value = ctx.item.RenderStyle.iconUrl;
+				setAttribute(img, "crossorigin", "");
+				img.alt = "Style Icon";
+				img.className = "svelte-r7og3";
+				addLoc(img, file, 2, 1, 68);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, img, anchor);
+			},
+
+			p: function update(changed, ctx) {
+				if ((changed.item) && img_src_value !== (img_src_value = ctx.item.RenderStyle.iconUrl)) {
+					img.src = img_src_value;
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(img);
+				}
+			}
+		};
+	}
+
+	function LegendIconCell(options) {
+		this._debugName = '<LegendIconCell>';
+		if (!options || (!options.target && !options.root)) {
+			throw new Error("'target' is a required option");
+		}
+
+		init(this, options);
+		this._state = assign(data(), options.data);
+
+		this._recompute({ item: 1 }, this._state);
+		if (!('item' in this._state)) console.warn("<LegendIconCell> was created without expected data property 'item'");
+		if (!('type' in this._state)) console.warn("<LegendIconCell> was created without expected data property 'type'");
+		this._intro = !!options.intro;
+
+		this._handlers.state = [onstate];
+
+		onstate.call(this, { changed: assignTrue({}, this._state), current: this._state });
+
+		this._fragment = create_main_fragment(this, this._state);
+
+		this.root._oncreate.push(() => {
+			this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
+		});
+
+		if (options.target) {
+			if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+			this._fragment.c();
+			this._mount(options.target, options.anchor);
+
+			flush(this);
+		}
+
+		this._intro = true;
+	}
+
+	assign(LegendIconCell.prototype, protoDev);
+
+	LegendIconCell.prototype._checkReadOnly = function _checkReadOnly(newState) {
+		if ('backgroundColor' in newState && !this._updatingReadonlyProperty) throw new Error("<LegendIconCell>: Cannot set read-only property 'backgroundColor'");
+		if ('borderColor' in newState && !this._updatingReadonlyProperty) throw new Error("<LegendIconCell>: Cannot set read-only property 'borderColor'");
+	};
+
+	LegendIconCell.prototype._recompute = function _recompute(changed, state) {
+		if (changed.item) {
+			if (this._differs(state.backgroundColor, (state.backgroundColor = backgroundColor(state)))) changed.backgroundColor = true;
+			if (this._differs(state.borderColor, (state.borderColor = borderColor(state)))) changed.borderColor = true;
+		}
+	};
+
+	/* src/LineNode.html generated by Svelte v2.15.3 */
+
+	function properties({ line }) {
+		return line.content.properties;
+	}
+
+	function nodeID({ properties }) {
+		return properties ? properties.name || properties.GroupID : 'root';
+	}
+
+	function styles({ properties }) {
+		return properties.gmxStyles ? properties.gmxStyles.styles : [];
+	}
+
+	function isVisible({line, layersTree}) {
+		let content = line.content,
+			props = content.properties,
+			nodeID = props.name || props.GroupID || 'root',
+			flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID],
+			isOpened = flag === undefined ? props && props.visible : flag;
+
+		return isOpened;
+	}
+
+	function data$1() {
+		return {
+			//gmxTimeline: false,
+			line: null
+		}
+	}
+	var methods = {
+		isOpened() {
+			let {line, layersTree} = this.get();
+			// console.log('isOpened', this.root, line, layersTree);
+			let content = line.content,
+				props = content.properties,
+				nodeID = props.name || props.GroupID || 'root',
+				flag = layersTree.visible[nodeID] || layersTree.expanded[nodeID],
+				opened = flag === undefined ? props && props.visible : flag;
+
+			if (opened && props.GroupID && content.children === undefined) ;
+			return opened;
+		},
+		toggleVisibility(target) {
+			let {line} = this.get(),
+				node = line.type === 'group' ? target.parentNode.getElementsByClassName('expanderInput')[0] : target;
+			
+			if (node) {
+				if (node.checked) {
+					node.checked = false;
+				} else {
+					node.checked = true;
+				}
+			}
+		},
+		toggleTimeline(node) {
+			if (node) {
+				if (node.classList.contains('disabled')) {
+					node.classList.remove('disabled');
+					node.classList.add('enabled');
+				} else {
+					node.classList.add('disabled');
+					node.classList.remove('enabled');
+				}
+			}
+		},
+		showInfo(target) {
+			let node = target.parentNode.nextElementSibling.getElementsByClassName('description')[0];
+			if (node) {
+				if (node.classList.contains('collapse')) {
+					let {line} = this.get();
+					node.innerHTML = line.content.properties.description || '';
+					node.classList.remove('collapse');
+				} else {
+					node.classList.add('collapse');
+				}
+			}
+		}
+	};
+
+	const file$1 = "src/LineNode.html";
+
+	function get_each_context_1(ctx, list, i) {
+		const child_ctx = Object.create(ctx);
+		child_ctx.child = list[i];
+		return child_ctx;
+	}
+
+	function get_each_context(ctx, list, i) {
+		const child_ctx = Object.create(ctx);
+		child_ctx.it = list[i];
+		return child_ctx;
+	}
+
+	function create_main_fragment$1(component, ctx) {
+		var li, text, li_class_value, current;
+
+		var if_block0 = (ctx.properties) && create_if_block_1(component, ctx);
+
+		var if_block1 = (ctx.line.content.children) && create_if_block$1(component, ctx);
+
+		return {
+			c: function create() {
+				li = createElement("li");
+				if (if_block0) if_block0.c();
+				text = createText("\n");
+				if (if_block1) if_block1.c();
+				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-1hqp5ox";
+				addLoc(li, file$1, 0, 0, 0);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, li, anchor);
+				if (if_block0) if_block0.m(li, null);
+				append(li, text);
+				if (if_block1) if_block1.m(li, null);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (ctx.properties) {
+					if (if_block0) {
+						if_block0.p(changed, ctx);
+					} else {
+						if_block0 = create_if_block_1(component, ctx);
+						if (if_block0) if_block0.c();
+					}
+
+					if_block0.i(li, text);
+				} else if (if_block0) {
+					if_block0.o(function() {
+						if_block0.d(1);
+						if_block0 = null;
+					});
+				}
+
+				if (ctx.line.content.children) {
+					if (if_block1) {
+						if_block1.p(changed, ctx);
+					} else {
+						if_block1 = create_if_block$1(component, ctx);
+						if (if_block1) if_block1.c();
+					}
+
+					if_block1.i(li, null);
+				} else if (if_block1) {
+					if_block1.o(function() {
+						if_block1.d(1);
+						if_block1 = null;
+					});
+				}
+
+				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-1hqp5ox")) {
+					li.className = li_class_value;
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				outrocallback = callAfter(outrocallback, 2);
+
+				if (if_block0) if_block0.o(outrocallback);
+				else outrocallback();
+
+				if (if_block1) if_block1.o(outrocallback);
+				else outrocallback();
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(li);
+				}
+
+				if (if_block0) if_block0.d();
+				if (if_block1) if_block1.d();
+			}
+		};
+	}
+
+	// (2:0) {#if properties}
+	function create_if_block_1(component, ctx) {
+		var text, if_block1_anchor, current;
+
+		var if_block0 = (ctx.line.type !== 'map') && create_if_block_7(component, ctx);
+
+		var if_block1 = (ctx.line.type !== 'map') && create_if_block_2(component, ctx);
+
+		return {
+			c: function create() {
+				if (if_block0) if_block0.c();
+				text = createText("\n\t");
+				if (if_block1) if_block1.c();
+				if_block1_anchor = createComment();
+			},
+
+			m: function mount(target, anchor) {
+				if (if_block0) if_block0.m(target, anchor);
+				insert(target, text, anchor);
+				if (if_block1) if_block1.m(target, anchor);
+				insert(target, if_block1_anchor, anchor);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (ctx.line.type !== 'map') {
+					if (if_block0) {
+						if_block0.p(changed, ctx);
+					} else {
+						if_block0 = create_if_block_7(component, ctx);
+						if_block0.c();
+						if_block0.m(text.parentNode, text);
+					}
+				} else if (if_block0) {
+					if_block0.d(1);
+					if_block0 = null;
+				}
+
+				if (ctx.line.type !== 'map') {
+					if (if_block1) {
+						if_block1.p(changed, ctx);
+					} else {
+						if_block1 = create_if_block_2(component, ctx);
+						if (if_block1) if_block1.c();
+					}
+
+					if_block1.i(if_block1_anchor.parentNode, if_block1_anchor);
+				} else if (if_block1) {
+					if_block1.o(function() {
+						if_block1.d(1);
+						if_block1 = null;
+					});
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (if_block1) if_block1.o(outrocallback);
+				else outrocallback();
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (if_block0) if_block0.d(detach);
+				if (detach) {
+					detachNode(text);
+				}
+
+				if (if_block1) if_block1.d(detach);
+				if (detach) {
+					detachNode(if_block1_anchor);
+				}
+			}
+		};
+	}
+
+	// (3:1) {#if line.type !== 'map'}
+	function create_if_block_7(component, ctx) {
+		var div, text0, text1, if_block1_anchor;
+
+		var if_block0 = (ctx.line.type === 'group') && create_if_block_12(component, ctx);
+
+		var if_block1 = (ctx.line.type === 'layer') && create_if_block_8(component, ctx);
+
+		return {
+			c: function create() {
+				div = createElement("div");
+				text0 = createText("\n\t");
+				if (if_block0) if_block0.c();
+				text1 = createText("\n\t\t");
+				if (if_block1) if_block1.c();
+				if_block1_anchor = createComment();
+				div.className = "borders ";
+				addLoc(div, file$1, 3, 1, 91);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div, anchor);
+				insert(target, text0, anchor);
+				if (if_block0) if_block0.m(target, anchor);
+				insert(target, text1, anchor);
+				if (if_block1) if_block1.m(target, anchor);
+				insert(target, if_block1_anchor, anchor);
+			},
+
+			p: function update(changed, ctx) {
+				if (ctx.line.type === 'group') {
+					if (if_block0) {
+						if_block0.p(changed, ctx);
+					} else {
+						if_block0 = create_if_block_12(component, ctx);
+						if_block0.c();
+						if_block0.m(text1.parentNode, text1);
+					}
+				} else if (if_block0) {
+					if_block0.d(1);
+					if_block0 = null;
+				}
+
+				if (ctx.line.type === 'layer') {
+					if (if_block1) {
+						if_block1.p(changed, ctx);
+					} else {
+						if_block1 = create_if_block_8(component, ctx);
+						if_block1.c();
+						if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+					}
+				} else if (if_block1) {
+					if_block1.d(1);
+					if_block1 = null;
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div);
+					detachNode(text0);
+				}
+
+				if (if_block0) if_block0.d(detach);
+				if (detach) {
+					detachNode(text1);
+				}
+
+				if (if_block1) if_block1.d(detach);
+				if (detach) {
+					detachNode(if_block1_anchor);
+				}
+			}
+		};
+	}
+
+	// (5:1) {#if line.type === 'group'}
+	function create_if_block_12(component, ctx) {
+		var input, text, span;
+
+		function click_handler(event) {
+			component.toggleVisibility(this);
+		}
+
+		return {
+			c: function create() {
+				input = createElement("input");
+				text = createText("\n\t");
+				span = createElement("span");
+				input.className = "expander expanderInput hidden svelte-1hqp5ox";
+				setAttribute(input, "type", "checkbox");
+				input.checked = ctx.isVisible;
+				addLoc(input, file$1, 5, 1, 150);
+				addListener(span, "click", click_handler);
+				span.className = "expander pointer expanderCont cmd:toggleVisibility svelte-1hqp5ox";
+				addLoc(span, file$1, 6, 1, 237);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, input, anchor);
+				insert(target, text, anchor);
+				insert(target, span, anchor);
+			},
+
+			p: function update(changed, ctx) {
+				if (changed.isVisible) {
+					input.checked = ctx.isVisible;
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(input);
+					detachNode(text);
+					detachNode(span);
+				}
+
+				removeListener(span, "click", click_handler);
+			}
+		};
+	}
+
+	// (9:2) {#if line.type === 'layer'}
+	function create_if_block_8(component, ctx) {
+		var text0, span1, span0, svg, use, text1, text2;
+
+		var if_block0 = (ctx.properties.styles.length > 1) && create_if_block_11(component, ctx);
+
+		var if_block1 = (ctx.properties.description) && create_if_block_10(component, ctx);
+
+		var if_block2 = (ctx.gmxTimeline && ctx.properties.Temporal && (ctx.properties.IsRasterCatalog || (ctx.properties.Quicklook && ctx.properties.Quicklook !== 'null'))) && create_if_block_9(component, ctx);
+
+		return {
+			c: function create() {
+				if (if_block0) if_block0.c();
+				text0 = createText("\n\t");
+				span1 = createElement("span");
+				span0 = createElement("span");
+				svg = createSvgElement("svg");
+				use = createSvgElement("use");
+				text1 = createText("\n\t\t\t");
+				if (if_block1) if_block1.c();
+				text2 = createText("\n\t\t");
+				if (if_block2) if_block2.c();
+				setXlinkAttribute(use, "xlink:href", "#center-on-click");
+				setAttribute(use, "href", "#center-on-click");
+				addLoc(use, file$1, 13, 115, 692);
+				setAttribute(svg, "role", "img");
+				setAttribute(svg, "class", "svgIcon svelte-1hqp5ox");
+				addLoc(svg, file$1, 13, 83, 660);
+				span0.className = "pointer cmd:fitBounds cont-center svelte-1hqp5ox";
+				span0.title = "Move map to this layer";
+				addLoc(span0, file$1, 13, 3, 580);
+				span1.className = "icons  svelte-1hqp5ox";
+				addLoc(span1, file$1, 12, 1, 555);
+			},
+
+			m: function mount(target, anchor) {
+				if (if_block0) if_block0.m(target, anchor);
+				insert(target, text0, anchor);
+				insert(target, span1, anchor);
+				append(span1, span0);
+				append(span0, svg);
+				append(svg, use);
+				append(span1, text1);
+				if (if_block1) if_block1.m(span1, null);
+				append(span1, text2);
+				if (if_block2) if_block2.m(span1, null);
+			},
+
+			p: function update(changed, ctx) {
+				if (ctx.properties.styles.length > 1) {
+					if (!if_block0) {
+						if_block0 = create_if_block_11(component, ctx);
+						if_block0.c();
+						if_block0.m(text0.parentNode, text0);
+					}
+				} else if (if_block0) {
+					if_block0.d(1);
+					if_block0 = null;
+				}
+
+				if (ctx.properties.description) {
+					if (!if_block1) {
+						if_block1 = create_if_block_10(component, ctx);
+						if_block1.c();
+						if_block1.m(span1, text2);
+					}
+				} else if (if_block1) {
+					if_block1.d(1);
+					if_block1 = null;
+				}
+
+				if (ctx.gmxTimeline && ctx.properties.Temporal && (ctx.properties.IsRasterCatalog || (ctx.properties.Quicklook && ctx.properties.Quicklook !== 'null'))) {
+					if (!if_block2) {
+						if_block2 = create_if_block_9(component, ctx);
+						if_block2.c();
+						if_block2.m(span1, null);
+					}
+				} else if (if_block2) {
+					if_block2.d(1);
+					if_block2 = null;
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (if_block0) if_block0.d(detach);
+				if (detach) {
+					detachNode(text0);
+					detachNode(span1);
+				}
+
+				if (if_block1) if_block1.d();
+				if (if_block2) if_block2.d();
+			}
+		};
+	}
+
+	// (10:3) {#if properties.styles.length > 1}
+	function create_if_block_11(component, ctx) {
+		var span, svg, use;
+
+		return {
+			c: function create() {
+				span = createElement("span");
+				svg = createSvgElement("svg");
+				use = createSvgElement("use");
+				setXlinkAttribute(use, "xlink:href", "#overlays");
+				setAttribute(use, "href", "#overlays");
+				addLoc(use, file$1, 10, 61, 480);
+				setAttribute(svg, "role", "img");
+				setAttribute(svg, "class", "svgIcon svelte-1hqp5ox");
+				addLoc(svg, file$1, 10, 29, 448);
+				span.className = "cont-overlays svelte-1hqp5ox";
+				addLoc(span, file$1, 10, 1, 420);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, span, anchor);
+				append(span, svg);
+				append(svg, use);
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(span);
+				}
+			}
+		};
+	}
+
+	// (15:3) {#if properties.description}
+	function create_if_block_10(component, ctx) {
+		var span, svg, use;
+
+		function click_handler(event) {
+			component.showInfo(this, event);
+		}
+
+		return {
+			c: function create() {
+				span = createElement("span");
+				svg = createSvgElement("svg");
+				use = createSvgElement("use");
+				setXlinkAttribute(use, "xlink:href", "#info-circle-i");
+				setAttribute(use, "href", "#info-circle-i");
+				addLoc(use, file$1, 15, 137, 940);
+				setAttribute(svg, "role", "img");
+				setAttribute(svg, "class", "svgIcon svelte-1hqp5ox");
+				addLoc(svg, file$1, 15, 105, 908);
+				addListener(span, "click", click_handler);
+				span.className = "pointer cmd:showInfo cont-info svelte-1hqp5ox";
+				span.title = "View description";
+				addLoc(span, file$1, 15, 2, 805);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, span, anchor);
+				append(span, svg);
+				append(svg, use);
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(span);
+				}
+
+				removeListener(span, "click", click_handler);
+			}
+		};
+	}
+
+	// (18:2) {#if gmxTimeline && properties.Temporal && (properties.IsRasterCatalog || (properties.Quicklook && properties.Quicklook !== 'null'))}
+	function create_if_block_9(component, ctx) {
+		var span, svg, use;
+
+		function click_handler(event) {
+			component.toggleTimeline(this);
+		}
+
+		return {
+			c: function create() {
+				span = createElement("span");
+				svg = createSvgElement("svg");
+				use = createSvgElement("use");
+				setXlinkAttribute(use, "xlink:href", "#timeline-icon");
+				setAttribute(use, "href", "#timeline-icon");
+				addLoc(use, file$1, 18, 125, 1285);
+				setAttribute(svg, "role", "img");
+				setAttribute(svg, "class", "svgIcon svelte-1hqp5ox");
+				addLoc(svg, file$1, 18, 93, 1253);
+				addListener(span, "click", click_handler);
+				span.className = "pointer cmd:toggleTimeline timeline disabled svelte-1hqp5ox";
+				addLoc(span, file$1, 18, 2, 1162);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, span, anchor);
+				append(span, svg);
+				append(svg, use);
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(span);
+				}
+
+				removeListener(span, "click", click_handler);
+			}
+		};
+	}
+
+	// (24:1) {#if line.type !== 'map'}
+	function create_if_block_2(component, ctx) {
+		var span, text0, label, text1_value = ctx.properties.title, text1, text2, div, text3, current;
+
+		var if_block0 = (ctx.line.type === 'layer') && create_if_block_5(component, ctx);
+
+		function click_handler(event) {
+			component.toggleVisibility(this);
+		}
+
+		var if_block1 = (ctx.line.type === 'layer') && create_if_block_3(component, ctx);
+
+		return {
+			c: function create() {
+				span = createElement("span");
+				if (if_block0) if_block0.c();
+				text0 = createText("\n\t\t");
+				label = createElement("label");
+				text1 = createText(text1_value);
+				text2 = createText("\n\t\t");
+				div = createElement("div");
+				text3 = createText("\n\t\t");
+				if (if_block1) if_block1.c();
+				addListener(label, "click", click_handler);
+				label.className = "pointer title cmd:toggleVisibility svelte-1hqp5ox";
+				addLoc(label, file$1, 31, 2, 1730);
+				div.className = "description collapse svelte-1hqp5ox";
+				addLoc(div, file$1, 32, 2, 1843);
+				span.className = "cont";
+				addLoc(span, file$1, 24, 1, 1420);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, span, anchor);
+				if (if_block0) if_block0.m(span, null);
+				append(span, text0);
+				append(span, label);
+				append(label, text1);
+				append(span, text2);
+				append(span, div);
+				append(span, text3);
+				if (if_block1) if_block1.m(span, null);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (ctx.line.type === 'layer') {
+					if (if_block0) {
+						if_block0.p(changed, ctx);
+					} else {
+						if_block0 = create_if_block_5(component, ctx);
+						if (if_block0) if_block0.c();
+					}
+
+					if_block0.i(span, text0);
+				} else if (if_block0) {
+					if_block0.o(function() {
+						if_block0.d(1);
+						if_block0 = null;
+					});
+				}
+
+				if ((!current || changed.properties) && text1_value !== (text1_value = ctx.properties.title)) {
+					setData(text1, text1_value);
+				}
+
+				if (ctx.line.type === 'layer') {
+					if (if_block1) {
+						if_block1.p(changed, ctx);
+					} else {
+						if_block1 = create_if_block_3(component, ctx);
+						if (if_block1) if_block1.c();
+					}
+
+					if_block1.i(span, null);
+				} else if (if_block1) {
+					if_block1.o(function() {
+						if_block1.d(1);
+						if_block1 = null;
+					});
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				outrocallback = callAfter(outrocallback, 2);
+
+				if (if_block0) if_block0.o(outrocallback);
+				else outrocallback();
+
+				if (if_block1) if_block1.o(outrocallback);
+				else outrocallback();
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(span);
+				}
+
+				if (if_block0) if_block0.d();
+				removeListener(label, "click", click_handler);
+				if (if_block1) if_block1.d();
+			}
+		};
+	}
+
+	// (26:2) {#if line.type === 'layer'}
+	function create_if_block_5(component, ctx) {
+		var input, text, if_block_anchor, current;
+
+		var if_block = (ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) && create_if_block_6(component, ctx);
+
+		return {
+			c: function create() {
+				input = createElement("input");
+				text = createText("\n\t\t");
+				if (if_block) if_block.c();
+				if_block_anchor = createComment();
+				input.className = "check visibility pointer cmd:toggleVisibility svelte-1hqp5ox";
+				setAttribute(input, "type", "checkbox");
+				input.checked = ctx.isVisible;
+				addLoc(input, file$1, 26, 2, 1472);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, input, anchor);
+				insert(target, text, anchor);
+				if (if_block) if_block.m(target, anchor);
+				insert(target, if_block_anchor, anchor);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (!current || changed.isVisible) {
+					input.checked = ctx.isVisible;
+				}
+
+				if (ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) {
+					if (if_block) {
+						if_block.p(changed, ctx);
+					} else {
+						if_block = create_if_block_6(component, ctx);
+						if (if_block) if_block.c();
+					}
+
+					if_block.i(if_block_anchor.parentNode, if_block_anchor);
+				} else if (if_block) {
+					if_block.o(function() {
+						if_block.d(1);
+						if_block = null;
+					});
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (if_block) if_block.o(outrocallback);
+				else outrocallback();
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(input);
+					detachNode(text);
+				}
+
+				if (if_block) if_block.d(detach);
+				if (detach) {
+					detachNode(if_block_anchor);
+				}
+			}
+		};
+	}
+
+	// (28:2) {#if styles.length && styles.length < 2 && styles[0].RenderStyle}
+	function create_if_block_6(component, ctx) {
+		var current;
+
+		var legendiconcell_initial_data = { item: ctx.styles[0], type: ctx.properties.GeometryType };
+		var legendiconcell = new LegendIconCell({
+			root: component.root,
+			store: component.store,
+			data: legendiconcell_initial_data
+		});
+
+		return {
+			c: function create() {
+				legendiconcell._fragment.c();
+			},
+
+			m: function mount(target, anchor) {
+				legendiconcell._mount(target, anchor);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				var legendiconcell_changes = {};
+				if (changed.styles) legendiconcell_changes.item = ctx.styles[0];
+				if (changed.properties) legendiconcell_changes.type = ctx.properties.GeometryType;
+				legendiconcell._set(legendiconcell_changes);
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (legendiconcell) legendiconcell._fragment.o(outrocallback);
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				legendiconcell.destroy(detach);
+			}
+		};
+	}
+
+	// (34:2) {#if line.type === 'layer'}
+	function create_if_block_3(component, ctx) {
+		var if_block_anchor, current;
+
+		var if_block = (ctx.styles.length && ctx.styles.length > 1 && ctx.styles[0].RenderStyle) && create_if_block_4(component, ctx);
+
+		return {
+			c: function create() {
+				if (if_block) if_block.c();
+				if_block_anchor = createComment();
+			},
+
+			m: function mount(target, anchor) {
+				if (if_block) if_block.m(target, anchor);
+				insert(target, if_block_anchor, anchor);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (ctx.styles.length && ctx.styles.length > 1 && ctx.styles[0].RenderStyle) {
+					if (if_block) {
+						if_block.p(changed, ctx);
+					} else {
+						if_block = create_if_block_4(component, ctx);
+						if (if_block) if_block.c();
+					}
+
+					if_block.i(if_block_anchor.parentNode, if_block_anchor);
+				} else if (if_block) {
+					if_block.o(function() {
+						if_block.d(1);
+						if_block = null;
+					});
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (if_block) if_block.o(outrocallback);
+				else outrocallback();
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (if_block) if_block.d(detach);
+				if (detach) {
+					detachNode(if_block_anchor);
+				}
+			}
+		};
+	}
+
+	// (35:3) {#if styles.length && styles.length > 1 && styles[0].RenderStyle}
+	function create_if_block_4(component, ctx) {
+		var div1, div0, current;
+
+		var each_value = ctx.styles;
+
+		var each_blocks = [];
+
+		for (var i = 0; i < each_value.length; i += 1) {
+			each_blocks[i] = create_each_block_1(component, get_each_context(ctx, each_value, i));
+		}
+
+		function outroBlock(i, detach, fn) {
+			if (each_blocks[i]) {
+				each_blocks[i].o(() => {
+					if (detach) {
+						each_blocks[i].d(detach);
+						each_blocks[i] = null;
+					}
+					if (fn) fn();
+				});
+			}
+		}
+
+		return {
+			c: function create() {
+				div1 = createElement("div");
+				div0 = createElement("div");
+
+				for (var i = 0; i < each_blocks.length; i += 1) {
+					each_blocks[i].c();
+				}
+				div0.className = "legend-cont svelte-1hqp5ox";
+				addLoc(div0, file$1, 36, 4, 2011);
+				div1.className = "legend svelte-1hqp5ox";
+				addLoc(div1, file$1, 35, 3, 1986);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div1, anchor);
+				append(div1, div0);
+
+				for (var i = 0; i < each_blocks.length; i += 1) {
+					each_blocks[i].i(div0, null);
+				}
+
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (changed.styles || changed.properties) {
+					each_value = ctx.styles;
+
+					for (var i = 0; i < each_value.length; i += 1) {
+						const child_ctx = get_each_context(ctx, each_value, i);
+
+						if (each_blocks[i]) {
+							each_blocks[i].p(changed, child_ctx);
+						} else {
+							each_blocks[i] = create_each_block_1(component, child_ctx);
+							each_blocks[i].c();
+						}
+						each_blocks[i].i(div0, null);
+					}
+					for (; i < each_blocks.length; i += 1) outroBlock(i, 1);
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				each_blocks = each_blocks.filter(Boolean);
+				const countdown = callAfter(outrocallback, each_blocks.length);
+				for (let i = 0; i < each_blocks.length; i += 1) outroBlock(i, 0, countdown);
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div1);
+				}
+
+				destroyEach(each_blocks, detach);
+			}
+		};
+	}
+
+	// (38:4) {#each styles as it}
+	function create_each_block_1(component, ctx) {
+		var div, span0, svg0, use0, text0, svg1, use1, text1, text2, span1, text3_value = ctx.it.Name, text3, current;
+
+		var legendiconcell_initial_data = { item: ctx.it, type: ctx.properties.GeometryType };
+		var legendiconcell = new LegendIconCell({
+			root: component.root,
+			store: component.store,
+			data: legendiconcell_initial_data
+		});
+
+		return {
+			c: function create() {
+				div = createElement("div");
+				span0 = createElement("span");
+				svg0 = createSvgElement("svg");
+				use0 = createSvgElement("use");
+				text0 = createText("\n\t\t\t\t\t\t\t");
+				svg1 = createSvgElement("svg");
+				use1 = createSvgElement("use");
+				text1 = createText("\n\t\t\t\t\t\t");
+				legendiconcell._fragment.c();
+				text2 = createText("\n\t\t\t\t\t\t");
+				span1 = createElement("span");
+				text3 = createText(text3_value);
+				setXlinkAttribute(use0, "xlink:href", "#eye-on");
+				setAttribute(use0, "href", "#eye-on");
+				addLoc(use0, file$1, 40, 42, 2207);
+				setAttribute(svg0, "role", "img");
+				setAttribute(svg0, "class", "svgIcon on svelte-1hqp5ox");
+				addLoc(svg0, file$1, 40, 7, 2172);
+				setXlinkAttribute(use1, "xlink:href", "#eye-off");
+				setAttribute(use1, "href", "#eye-off");
+				addLoc(use1, file$1, 41, 43, 2304);
+				setAttribute(svg1, "role", "img");
+				setAttribute(svg1, "class", "svgIcon off svelte-1hqp5ox");
+				addLoc(svg1, file$1, 41, 7, 2268);
+				span0.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-1hqp5ox";
+				addLoc(span0, file$1, 39, 6, 2104);
+				span1.className = "styleName svelte-1hqp5ox";
+				addLoc(span1, file$1, 44, 6, 2446);
+				div.className = "gmx-style-legend svelte-1hqp5ox";
+				addLoc(div, file$1, 38, 5, 2067);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div, anchor);
+				append(div, span0);
+				append(span0, svg0);
+				append(svg0, use0);
+				append(span0, text0);
+				append(span0, svg1);
+				append(svg1, use1);
+				append(div, text1);
+				legendiconcell._mount(div, null);
+				append(div, text2);
+				append(div, span1);
+				append(span1, text3);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				var legendiconcell_changes = {};
+				if (changed.styles) legendiconcell_changes.item = ctx.it;
+				if (changed.properties) legendiconcell_changes.type = ctx.properties.GeometryType;
+				legendiconcell._set(legendiconcell_changes);
+
+				if ((!current || changed.styles) && text3_value !== (text3_value = ctx.it.Name)) {
+					setData(text3, text3_value);
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (legendiconcell) legendiconcell._fragment.o(outrocallback);
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div);
+				}
+
+				legendiconcell.destroy();
+			}
+		};
+	}
+
+	// (55:0) {#if line.content.children}
+	function create_if_block$1(component, ctx) {
+		var ul, ul_class_value, current;
+
+		var each_value_1 = ctx.line.content.children || [];
+
+		var each_blocks = [];
+
+		for (var i = 0; i < each_value_1.length; i += 1) {
+			each_blocks[i] = create_each_block(component, get_each_context_1(ctx, each_value_1, i));
+		}
+
+		function outroBlock(i, detach, fn) {
+			if (each_blocks[i]) {
+				each_blocks[i].o(() => {
+					if (detach) {
+						each_blocks[i].d(detach);
+						each_blocks[i] = null;
+					}
+					if (fn) fn();
+				});
+			}
+		}
+
+		return {
+			c: function create() {
+				ul = createElement("ul");
+
+				for (var i = 0; i < each_blocks.length; i += 1) {
+					each_blocks[i].c();
+				}
+				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1hqp5ox";
+				addLoc(ul, file$1, 55, 1, 2600);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, ul, anchor);
+
+				for (var i = 0; i < each_blocks.length; i += 1) {
+					each_blocks[i].i(ul, null);
+				}
+
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (changed.line || changed.layersTree || changed.gmxTimeline) {
+					each_value_1 = ctx.line.content.children || [];
+
+					for (var i = 0; i < each_value_1.length; i += 1) {
+						const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+						if (each_blocks[i]) {
+							each_blocks[i].p(changed, child_ctx);
+						} else {
+							each_blocks[i] = create_each_block(component, child_ctx);
+							each_blocks[i].c();
+						}
+						each_blocks[i].i(ul, null);
+					}
+					for (; i < each_blocks.length; i += 1) outroBlock(i, 1);
+				}
+
+				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1hqp5ox")) {
+					ul.className = ul_class_value;
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				each_blocks = each_blocks.filter(Boolean);
+				const countdown = callAfter(outrocallback, each_blocks.length);
+				for (let i = 0; i < each_blocks.length; i += 1) outroBlock(i, 0, countdown);
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(ul);
+				}
+
+				destroyEach(each_blocks, detach);
+			}
+		};
+	}
+
+	// (57:1) {#each line.content.children || [] as child}
+	function create_each_block(component, ctx) {
+		var linenode_updating = {}, current;
+
+		var linenode_initial_data = { line: ctx.child };
+		if (ctx.layersTree  !== void 0) {
+			linenode_initial_data.layersTree = ctx.layersTree ;
+			linenode_updating.layersTree = true;
+		}
+		if (ctx.gmxTimeline  !== void 0) {
+			linenode_initial_data.gmxTimeline = ctx.gmxTimeline ;
+			linenode_updating.gmxTimeline = true;
+		}
+		var linenode = new LineNode({
+			root: component.root,
+			store: component.store,
+			data: linenode_initial_data,
+			_bind(changed, childState) {
+				var newState = {};
+				if (!linenode_updating.layersTree && changed.layersTree) {
+					newState.layersTree = childState.layersTree;
+				}
+
+				if (!linenode_updating.gmxTimeline && changed.gmxTimeline) {
+					newState.gmxTimeline = childState.gmxTimeline;
+				}
+				component._set(newState);
+				linenode_updating = {};
+			}
+		});
+
+		component.root._beforecreate.push(() => {
+			linenode._bind({ layersTree: 1, gmxTimeline: 1 }, linenode.get());
+		});
+
+		return {
+			c: function create() {
+				linenode._fragment.c();
+			},
+
+			m: function mount(target, anchor) {
+				linenode._mount(target, anchor);
+				current = true;
+			},
+
+			p: function update(changed, _ctx) {
+				ctx = _ctx;
+				var linenode_changes = {};
+				if (changed.line) linenode_changes.line = ctx.child;
+				if (!linenode_updating.layersTree && changed.layersTree) {
+					linenode_changes.layersTree = ctx.layersTree ;
+					linenode_updating.layersTree = ctx.layersTree  !== void 0;
+				}
+				if (!linenode_updating.gmxTimeline && changed.gmxTimeline) {
+					linenode_changes.gmxTimeline = ctx.gmxTimeline ;
+					linenode_updating.gmxTimeline = ctx.gmxTimeline  !== void 0;
+				}
+				linenode._set(linenode_changes);
+				linenode_updating = {};
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (linenode) linenode._fragment.o(outrocallback);
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				linenode.destroy(detach);
+			}
+		};
+	}
+
+	function LineNode(options) {
+		this._debugName = '<LineNode>';
+		if (!options || (!options.target && !options.root)) {
+			throw new Error("'target' is a required option");
+		}
+
+		init(this, options);
+		this._state = assign(data$1(), options.data);
+
+		this._recompute({ line: 1, properties: 1, layersTree: 1 }, this._state);
+		if (!('line' in this._state)) console.warn("<LineNode> was created without expected data property 'line'");
+
+		if (!('layersTree' in this._state)) console.warn("<LineNode> was created without expected data property 'layersTree'");
+
+
+		if (!('gmxTimeline' in this._state)) console.warn("<LineNode> was created without expected data property 'gmxTimeline'");
+		this._intro = !!options.intro;
+
+		this._fragment = create_main_fragment$1(this, this._state);
+
+		if (options.target) {
+			if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+			this._fragment.c();
+			this._mount(options.target, options.anchor);
+
+			flush(this);
+		}
+
+		this._intro = true;
+	}
+
+	assign(LineNode.prototype, protoDev);
+	assign(LineNode.prototype, methods);
+
+	LineNode.prototype._checkReadOnly = function _checkReadOnly(newState) {
+		if ('properties' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'properties'");
+		if ('nodeID' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'nodeID'");
+		if ('styles' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'styles'");
+		if ('isVisible' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'isVisible'");
+	};
+
+	LineNode.prototype._recompute = function _recompute(changed, state) {
+		if (changed.line) {
+			if (this._differs(state.properties, (state.properties = properties(state)))) changed.properties = true;
+		}
+
+		if (changed.properties) {
+			if (this._differs(state.nodeID, (state.nodeID = nodeID(state)))) changed.nodeID = true;
+			if (this._differs(state.styles, (state.styles = styles(state)))) changed.styles = true;
+		}
+
+		if (changed.line || changed.layersTree) {
+			if (this._differs(state.isVisible, (state.isVisible = isVisible(state)))) changed.isVisible = true;
+		}
+	};
+
+	/* src/TreeView.html generated by Svelte v2.15.3 */
+
+	let regs = {
+		cmd: /cmd:(\w+)/,
+		id: /id:(\w+)/
+	};
+	function data$2() {
+		return {
+			config: {},
+			layersTree: {
+				visible: {},
+				expanded: {}
+			},
+			//gmxTimeline: false,
+			group: null,
+			rawTree: null
+		}
+	}
+	var methods$1 = {
+		chkEvent(ev) {
+			let target = ev.target,
+				className = target.className,
+				arr = regs.cmd.exec(className);
+
+			if (arr && arr.length === 2) {
+				let out = {
+					cmd: arr[1],
+					type: ev.type,
+					originalEvent: ev
+				};
+				for(let i = 0; i < 10; i++) {
+					if (target.classList.contains('line')) {
+						arr = regs.id.exec(target.className);
+						if (arr && arr.length === 2) {
+							out.id = arr[1];
+						}
+						out.target = target;
+						break;
+					}
+					target = target.parentNode;
+				}
+				if (out.id) {
+					this.treeCommands(out);
+					this.fire('command', out);
+				}
+			}
+		},
+
+		treeCommands(attr) {
+			let {layersTree, rawTree} = this.get();
+
+			if (attr.cmd === 'toggleVisibility') {
+				let isGroup = attr.target.getElementsByClassName('expanderInput')[0],
+					input = isGroup || attr.target.getElementsByClassName('visibility')[0],
+					target = attr.originalEvent.target,
+					// isTitle = target.classList.contains('title'),
+					expanded = isGroup ? layersTree.expanded : layersTree.visible,
+					id = attr.id;
+				if (expanded[id]) {			// TODO: layersTree для пермалинков
+					delete expanded[id];
+					input.checked = false;
+					//layersTree.visible[id]
+				} else {
+					expanded[id] = true;
+					input.checked = true;
+				}
+				this.set({layersTree: layersTree});
+				return true;
+			// } else if (attr.cmd === 'showInfo') {
+				// let tt = rawTree;
+				// let input = attr.originalEvent.target,
+					// id = attr.id;
+			}
+			return false;
+		},
+
+		appendNode(id) {
+			this.options.appendNode(id);
+		}
+	};
+
+	const file$2 = "src/TreeView.html";
+
+	function create_main_fragment$2(component, ctx) {
+		var div, linenode_updating = {}, current;
+
+		var linenode_initial_data = { line: ctx.rawTree };
+		if (ctx.layersTree  !== void 0) {
+			linenode_initial_data.layersTree = ctx.layersTree ;
+			linenode_updating.layersTree = true;
+		}
+		if (ctx.gmxTimeline  !== void 0) {
+			linenode_initial_data.gmxTimeline = ctx.gmxTimeline ;
+			linenode_updating.gmxTimeline = true;
+		}
+		var linenode = new LineNode({
+			root: component.root,
+			store: component.store,
+			data: linenode_initial_data,
+			_bind(changed, childState) {
+				var newState = {};
+				if (!linenode_updating.layersTree && changed.layersTree) {
+					newState.layersTree = childState.layersTree;
+				}
+
+				if (!linenode_updating.gmxTimeline && changed.gmxTimeline) {
+					newState.gmxTimeline = childState.gmxTimeline;
+				}
+				component._set(newState);
+				linenode_updating = {};
+			}
+		});
+
+		component.root._beforecreate.push(() => {
+			linenode._bind({ layersTree: 1, gmxTimeline: 1 }, linenode.get());
+		});
+
+		function click_handler(event) {
+			component.chkEvent(event);
+		}
+
+		return {
+			c: function create() {
+				div = createElement("div");
+				linenode._fragment.c();
+				addListener(div, "click", click_handler);
+				div.className = "TreeView svelte-aljqq6";
+				addLoc(div, file$2, 0, 0, 0);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div, anchor);
+				linenode._mount(div, null);
+				current = true;
+			},
+
+			p: function update(changed, _ctx) {
+				ctx = _ctx;
+				var linenode_changes = {};
+				if (changed.rawTree) linenode_changes.line = ctx.rawTree;
+				if (!linenode_updating.layersTree && changed.layersTree) {
+					linenode_changes.layersTree = ctx.layersTree ;
+					linenode_updating.layersTree = ctx.layersTree  !== void 0;
+				}
+				if (!linenode_updating.gmxTimeline && changed.gmxTimeline) {
+					linenode_changes.gmxTimeline = ctx.gmxTimeline ;
+					linenode_updating.gmxTimeline = ctx.gmxTimeline  !== void 0;
+				}
+				linenode._set(linenode_changes);
+				linenode_updating = {};
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (linenode) linenode._fragment.o(outrocallback);
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div);
+				}
+
+				linenode.destroy();
+				removeListener(div, "click", click_handler);
+			}
+		};
+	}
+
+	function TreeView(options) {
+		this._debugName = '<TreeView>';
+		if (!options || (!options.target && !options.root)) {
+			throw new Error("'target' is a required option");
+		}
+
+		init(this, options);
+		this._state = assign(data$2(), options.data);
+		if (!('rawTree' in this._state)) console.warn("<TreeView> was created without expected data property 'rawTree'");
+		if (!('layersTree' in this._state)) console.warn("<TreeView> was created without expected data property 'layersTree'");
+		if (!('gmxTimeline' in this._state)) console.warn("<TreeView> was created without expected data property 'gmxTimeline'");
+		this._intro = !!options.intro;
+
+		this._fragment = create_main_fragment$2(this, this._state);
+
+		if (options.target) {
+			if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+			this._fragment.c();
+			this._mount(options.target, options.anchor);
+
+			flush(this);
+		}
+
+		this._intro = true;
+	}
+
+	assign(TreeView.prototype, protoDev);
+	assign(TreeView.prototype, methods$1);
+
+	TreeView.prototype._checkReadOnly = function _checkReadOnly(newState) {
+	};
+
+	var classCallCheck = function (instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	};
+
+	var createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];
+	      descriptor.enumerable = descriptor.enumerable || false;
+	      descriptor.configurable = true;
+	      if ("value" in descriptor) descriptor.writable = true;
+	      Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }
+
+	  return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	    if (staticProps) defineProperties(Constructor, staticProps);
+	    return Constructor;
+	  };
+	}();
+
+	var EventTarget = function () {
+	    function EventTarget() {
+	        classCallCheck(this, EventTarget);
+
+	        this.listeners = {};
+	    }
+
+	    createClass(EventTarget, [{
+	        key: 'addEventListener',
+	        value: function addEventListener(type, callback) {
+	            if (!(type in this.listeners)) {
+	                this.listeners[type] = [];
+	            }
+	            this.listeners[type].push(callback);
+	        }
+	    }, {
+	        key: 'on',
+	        value: function on(type, callback) {
+	            this.addEventListener(type, callback);
+	            return this;
+	        }
+	    }, {
+	        key: 'removeEventListener',
+	        value: function removeEventListener(type, callback) {
+	            if (!(type in this.listeners)) {
+	                return;
+	            }
+	            var stack = this.listeners[type];
+	            for (var i = 0, l = stack.length; i < l; i++) {
+	                if (stack[i] === callback) {
+	                    stack.splice(i, 1);
+	                    return this.removeEventListener(type, callback);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'off',
+	        value: function off(type, callback) {
+	            this.removeEventListener(type, callback);
+	            return this;
+	        }
+	    }, {
+	        key: 'dispatchEvent',
+	        value: function dispatchEvent(event) {
+	            if (!(event.type in this.listeners)) {
+	                return;
+	            }
+	            var stack = this.listeners[event.type];
+	            Object.defineProperty(event, 'target', {
+	                enumerable: false,
+	                configurable: false,
+	                writable: false,
+	                value: this
+	            });
+	            for (var i = 0, l = stack.length; i < l; i++) {
+	                stack[i].call(this, event);
+	            }
+	        }
+	    }]);
+	    return EventTarget;
+	}();
+
+	class Sidebar extends EventTarget {
+	    constructor(container, { position = 'left' } = {}) {
+	        super();
+	        this._container = container;
+	        this._container.classList.add('noselect');
+	        this._container.innerHTML = `<div class="scanex-sidebar">
+            <div class="${position === 'left' ? 'tabs' : 'panes'}"></div>
+            <div class="${position === 'left' ? 'panes' : 'tabs'}"></div>
+        </div>`;
+
+	        this._tabContainer = this._container.querySelector('.tabs');
+	        this._paneContainer = this._container.querySelector('.panes');
+
+	        this._current = null;
+	        this._data = {};
+	    }
+	    enable(id) {
+	        if (this._data[id]) {
+	            this._data[id].enabled = true;
+	        }
+	    }
+	    enabled(id) {
+	        const { enabled } = id && this._data[id] ? this._data[id] : { enabled: false };
+	        return enabled;
+	    }
+	    disable(id) {
+	        if (this._data[id]) {
+	            if (id === this.current) {
+	                this.current = null;
+	            }
+	            this._data[id].enabled = false;
+	        }
+	    }
+	    get current() {
+	        return this._current;
+	    }
+	    set current(current) {
+	        const tabs = this._tabContainer.children;
+	        const panes = this._paneContainer.children;
+	        let success = false;
+
+	        for (let i = 0; i < tabs.length; ++i) {
+	            const id = tabs[i].getAttribute('data-tab-id');
+	            const { opened, closed, enabled } = this._data[id];
+	            let tab = tabs[i].querySelector('i');
+	            let pane = panes[i];
+	            if (id === current) {
+	                tab.classList.remove(closed);
+	                tab.classList.add(opened);
+
+	                pane.classList.remove('hidden');
+	                pane.classList.add('shown');
+
+	                success = true;
+	            } else {
+	                tab.classList.remove(opened);
+	                tab.classList.add(closed);
+
+	                pane.classList.remove('shown');
+	                pane.classList.add('hidden');
+	            }
+	        }
+	        this._current = success ? current : null;
+	        let event = document.createEvent('Event');
+	        event.detail = { current: this._current };
+	        event.initEvent('change', false, false);
+	        this.dispatchEvent(event);
+	    }
+	    addTab({ id, icon, opened, closed, tooltip, enabled = true }) {
+	        let tab = document.createElement('div');
+	        let ic = document.createElement('i');
+	        icon.split(/\s+/g).forEach(x => ic.classList.add(x));
+	        ic.classList.add(id === this._current ? opened : closed);
+	        tab.appendChild(ic);
+	        tab.setAttribute('data-tab-id', id);
+	        if (tooltip) {
+	            tab.setAttribute('title', tooltip);
+	        }
+	        tab.addEventListener('click', this._toggle.bind(this, id));
+	        this._tabContainer.appendChild(tab);
+
+	        let pane = document.createElement('div');
+	        pane.setAttribute('data-pane-id', id);
+	        pane.classList.add(this.visible && this.current === id ? 'shown' : 'hidden');
+	        this._paneContainer.appendChild(pane);
+
+	        this._data[id] = { icon, opened, closed, enabled };
+
+	        return pane;
+	    }
+	    removeTab(id) {
+	        const tab = this._tabContainer.querySelector(`[data-tab-id=${id}]`);
+	        tab.removeEventListener('click', this._toggle.bind(this, id));
+	        this._tabContainer.removeChild(tab);
+
+	        const pane = this._paneContainer.querySelector(`[data-pane-id=${id}]`);
+	        this._paneContainer.removeChild(pane);
+
+	        for (let i = 0; i < this._data.length; ++i) {
+	            if (this._data[i].id === id) {
+	                this._data.splice(i, 1);
+	                break;
+	            }
+	        }
+	    }
+	    _toggle(current) {
+	        if (this.enabled(current)) {
+	            this.current = this.current === current ? null : current;
+	        }
+	    }
+	    getPane(id) {
+	        return this._paneContainer.querySelector(`[data-pane-id=${id}]`);
+	    }
+	}
+
+	let SidebarControl = L.Control.extend({
+	    includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
+
+	    initialize: function (options) {
+	        L.setOptions(this, options);
+	    },
+
+	    enable: function (id) {
+	        this._sidebar.enable(id);
+	    },
+
+	    enabled: function (id) {
+	        return this._sidebar.enabled(id);
+	    },
+
+	    disable: function (id) {
+	        this._sidebar.disable(id);
+	    },
+
+	    getCurrent: function () {
+	        return this._sidebar.current;
+	    },
+
+	    setCurrent: function (current) {
+	        this._sidebar.current = current;
+	    },
+
+	    addTab: function ({ id, icon, opened, closed, tooltip, enabled }) {
+	        return this._sidebar.addTab({ id, icon, opened, closed, tooltip, enabled });
+	    },
+
+	    removeTab: function (id) {
+	        this._sidebar.removeTab(id);
+	    },
+
+	    getPane: function (id) {
+	        return this._sidebar.getPane(id);
+	    },
+
+	    onAdd: function (map) {
+	        this._container = L.DomUtil.create('div');
+	        L.DomEvent.disableClickPropagation(this._container);
+	        L.DomEvent.disableScrollPropagation(this._container);
+	        const { position } = this.options;
+	        this._sidebar = new Sidebar(this._container, { position: position === 'topleft' || position === 'bottomleft' ? 'left' : 'right' });
+	        this._sidebar.addEventListener('change', e => {
+	            this.fire('change', e);
+	        });
+	        return this._container;
+	    },
+
+	    addTo: function (map) {
+	        L.Control.prototype.addTo.call(this, map);
+	        if (this.options.addBefore) {
+	            this.addBefore(this.options.addBefore);
+	        }
+	        return this;
+	    },
+
+	    addBefore: function (id) {
+	        let parentNode = this._parent && this._parent._container;
+	        if (!parentNode) {
+	            parentNode = this._map && this._map._controlCorners[this.getPosition()];
+	        }
+	        if (!parentNode) {
+	            this.options.addBefore = id;
+	        } else {
+	            for (let i = 0, len = parentNode.childNodes.length; i < len; i++) {
+	                let it = parentNode.childNodes[i];
+	                if (id === it._id) {
+	                    parentNode.insertBefore(this._container, it);
+	                    break;
+	                }
+	            }
+	        }
+	        return this;
+	    }
+	});
+
+	var scanexLeafletSidebar_cjs = SidebarControl;
+
+	function createCommonjsModule(fn, module) {
+		return module = { exports: {} }, fn(module, module.exports), module.exports;
+	}
+
+	var iconLayers = createCommonjsModule(function (module) {
+	/*eslint-env commonjs, browser */
+	(function(factory) {
+	    if (module.exports) {
+	        module.exports = factory(leaflet);
+	    } else {
+	        window.L.control.iconLayers = factory(window.L);
+	        window.L.Control.IconLayers = window.L.control.iconLayers.Constructor;
+	    }
+	})(function(L) {
+	    function each(o, cb) {
+	        for (var p in o) {
+	            if (o.hasOwnProperty(p)) {
+	                cb(o[p], p, o);
+	            }
+	        }
+	    }
+
+	    function find(ar, cb) {
+	        if (ar.length) {
+	            for (var i = 0; i < ar.length; i++) {
+	                if (cb(ar[i])) {
+	                    return ar[i];
+	                }
+	            }
+	        } else {
+	            for (var p in ar) {
+	                if (ar.hasOwnProperty(p) && cb(ar[p])) {
+	                    return ar[p];
+	                }
+	            }
+	        }
+	    }
+
+	    function first(o) {
+	        for (var p in o) {
+	            if (o.hasOwnProperty(p)) {
+	                return o[p];
+	            }
+	        }
+	    }
+
+	    function length(o) {
+	        var length = 0;
+	        for (var p in o) {
+	            if (o.hasOwnProperty(p)) {
+	                length++;
+	            }
+	        }
+	        return length;
+	    }
+
+	    function prepend(parent, el) {
+	        if (parent.children.length) {
+	            parent.insertBefore(el, parent.children[0]);
+	        } else {
+	            parent.appendChild(el);
+	        }
+	    }
+
+	    var IconLayers = L.Control.extend({
+
+	        includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
+	        _getActiveLayer: function() {
+	            if (this._activeLayerId) {
+	                return this._layers[this._activeLayerId];
+	            } else if (length(this._layers)) {
+	                return first(this._layers);
+	            } else {
+	                return null;
+	            }
+	        },
+	        _getPreviousLayer: function() {
+	            var activeLayer = this._getActiveLayer();
+	            if (!activeLayer) {
+	                return null;
+	            } else if (this._previousLayerId) {
+	                return this._layers[this._previousLayerId];
+	            } else {
+	                return find(this._layers, function(l) {
+	                    return l.id !== activeLayer.id;
+	                }.bind(this)) || null;
+	            }
+	        },
+	        _getInactiveLayers: function() {
+	            var ar = [];
+	            var activeLayerId = this._getActiveLayer() ? this._getActiveLayer().id : null;
+	            var previousLayerId = this._getPreviousLayer() ? this._getPreviousLayer().id : null;
+	            each(this._layers, function(l) {
+	                if ((l.id !== activeLayerId) && (l.id !== previousLayerId)) {
+	                    ar.push(l);
+	                }
+	            });
+	            return ar;
+	        },
+	        _arrangeLayers: function() {
+	            var behaviors = {};
+	            behaviors.previous = function() {
+	                var layers = this._getInactiveLayers();
+	                if (this._getActiveLayer()) {
+	                    layers.unshift(this._getActiveLayer());
+	                }
+	                if (this._getPreviousLayer()) {
+	                    layers.unshift(this._getPreviousLayer());
+	                }
+	                return layers;
+	            };
+	            return behaviors[this.options.behavior].apply(this, arguments);
+	        },
+	        _getLayerCellByLayerId: function(id) {
+	            var els = this._container.getElementsByClassName('leaflet-iconLayers-layerCell');
+	            for (var i = 0; i < els.length; i++) {
+	                if (els[i].getAttribute('data-layerid') == id) {
+	                    return els[i];
+	                }
+	            }
+	        },
+	        _createLayerElement: function(layerObj) {
+	            var el = L.DomUtil.create('div', 'leaflet-iconLayers-layer');
+	            if (layerObj.title) {
+	                var titleContainerEl = L.DomUtil.create('div', 'leaflet-iconLayers-layerTitleContainer');
+	                var titleEl = L.DomUtil.create('div', 'leaflet-iconLayers-layerTitle');
+	                var checkIconEl = L.DomUtil.create('div', 'leaflet-iconLayers-layerCheckIcon');
+	                titleEl.innerHTML = layerObj.title;
+	                titleContainerEl.appendChild(titleEl);
+	                el.appendChild(titleContainerEl);
+	                el.appendChild(checkIconEl);
+	            }
+	            if (layerObj.icon) {
+	                el.setAttribute('style', 'background-image: url(\'' + layerObj.icon + '\')');
+	            }
+	            return el;
+	        },
+	        _createLayerElements: function() {
+	            var currentRow, layerCell;
+	            var layers = this._arrangeLayers();
+	            var activeLayerId = this._getActiveLayer() && this._getActiveLayer().id;
+
+	            for (var i = 0; i < layers.length; i++) {
+	                if (i % this.options.maxLayersInRow === 0) {
+	                    currentRow = L.DomUtil.create('div', 'leaflet-iconLayers-layersRow');
+	                    if (this.options.position.indexOf('bottom') === -1) {
+	                        this._container.appendChild(currentRow);
+	                    } else {
+	                        prepend(this._container, currentRow);
+	                    }
+	                }
+	                layerCell = L.DomUtil.create('div', 'leaflet-iconLayers-layerCell');
+	                layerCell.setAttribute('data-layerid', layers[i].id);
+	                if (i !== 0) {
+	                    L.DomUtil.addClass(layerCell, 'leaflet-iconLayers-layerCell_hidden');
+	                }
+	                if (layers[i].id === activeLayerId) {
+	                    L.DomUtil.addClass(layerCell, 'leaflet-iconLayers-layerCell_active');
+	                }
+	                if (this._expandDirection === 'left') {
+	                    L.DomUtil.addClass(layerCell, 'leaflet-iconLayers-layerCell_expandLeft');
+	                } else {
+	                    L.DomUtil.addClass(layerCell, 'leaflet-iconLayers-layerCell_expandRight');
+	                }
+	                layerCell.appendChild(this._createLayerElement(layers[i]));
+
+	                if (this.options.position.indexOf('right') === -1) {
+	                    currentRow.appendChild(layerCell);
+	                } else {
+	                    prepend(currentRow, layerCell);
+	                }
+	            }
+	        },
+	        _onLayerClick: function(e) {
+	            e.stopPropagation();
+	            var layerId = e.currentTarget.getAttribute('data-layerid');
+	            var layer = this._layers[layerId];
+	            this.setActiveLayer(layer.layer);
+	            this.expand();
+	        },
+	        _attachEvents: function() {
+	            each(this._layers, function(l) {
+	                var e = this._getLayerCellByLayerId(l.id);
+	                if (e) {
+	                    e.addEventListener('click', this._onLayerClick.bind(this));
+	                }
+	            }.bind(this));
+	            var layersRowCollection = this._container.getElementsByClassName('leaflet-iconLayers-layersRow');
+
+	            var onMouseEnter = function(e) {
+	                e.stopPropagation();
+	                this.expand();
+	            }.bind(this);
+
+	            var onMouseLeave = function(e) {
+	                e.stopPropagation();
+	                this.collapse();
+	            }.bind(this);
+
+	            var stopPropagation = function(e) {
+	                e.stopPropagation();
+	            };
+
+	            //TODO Don't make functions within a loop.
+	            for (var i = 0; i < layersRowCollection.length; i++) {
+	                var el = layersRowCollection[i];
+	                el.addEventListener('mouseenter', onMouseEnter);
+	                el.addEventListener('mouseleave', onMouseLeave);
+	                el.addEventListener('mousemove', stopPropagation);
+	            }
+	        },
+	        _render: function() {
+	            this._container.innerHTML = '';
+	            this._createLayerElements();
+	            this._attachEvents();
+	        },
+	        _switchMapLayers: function() {
+	            if (!this._map) {
+	                return;
+	            }
+	            var activeLayer = this._getActiveLayer();
+	            var previousLayer = this._getPreviousLayer();
+	            if (previousLayer) {
+	                this._map.removeLayer(previousLayer.layer);
+	            } else {
+	                each(this._layers, function(layerObject) {
+	                    var layer = layerObject.layer;
+	                    this._map.removeLayer(layer);
+	                }.bind(this));
+	            }
+	            if (activeLayer) {
+	                this._map.addLayer(activeLayer.layer);
+	            }
+	        },
+	        options: {
+	            position: 'bottomleft', // one of expanding directions depends on this
+	            behavior: 'previous', // may be 'previous', 'expanded' or 'first'
+	            expand: 'horizontal', // or 'vertical'
+	            autoZIndex: true, // from L.Control.Layers
+	            maxLayersInRow: 5,
+	            manageLayers: true
+	        },
+	        initialize: function(layers, options) {
+	            if (!L.Util.isArray(arguments[0])) {
+	                // first argument is options
+	                options = layers;
+	                layers = [];
+	            }
+	            L.setOptions(this, options);
+	            this._expandDirection = (this.options.position.indexOf('left') != -1) ? 'right' : 'left';
+	            if (this.options.manageLayers) {
+	                this.on('activelayerchange', this._switchMapLayers, this);
+	            }
+	            this.setLayers(layers);
+	        },
+	        onAdd: function(map) {
+	            this._container = L.DomUtil.create('div', 'leaflet-iconLayers');
+	            L.DomUtil.addClass(this._container, 'leaflet-iconLayers_' + this.options.position);
+	            this._render();
+	            map.on('click', this.collapse, this);
+	            if (this.options.manageLayers) {
+	                this._switchMapLayers();
+	            }
+	            return this._container;
+	        },
+	        onRemove: function(map) {
+	            map.off('click', this.collapse, this);
+	        },
+	        setLayers: function(layers) {
+	            this._layers = {};
+	            layers.map(function(layer) {
+	                var id = L.stamp(layer.layer);
+	                this._layers[id] = L.extend(layer, {
+	                    id: id
+	                });
+	            }.bind(this));
+	            if (this._container) {
+	                this._render();
+	            }
+	        },
+	        setActiveLayer: function(layer) {
+	            var l = layer && this._layers[L.stamp(layer)];
+	            if (!l || l.id === this._activeLayerId) {
+	                return;
+	            }
+	            this._previousLayerId = this._activeLayerId;
+	            this._activeLayerId = l.id;
+	            if (this._container) {
+	                this._render();
+	            }
+	            this.fire('activelayerchange', {
+	                layer: layer
+	            });
+	        },
+	        expand: function() {
+	            this._arrangeLayers().slice(1).map(function(l) {
+	                var el = this._getLayerCellByLayerId(l.id);
+	                L.DomUtil.removeClass(el, 'leaflet-iconLayers-layerCell_hidden');
+	            }.bind(this));
+	        },
+	        collapse: function() {
+	            this._arrangeLayers().slice(1).map(function(l) {
+	                var el = this._getLayerCellByLayerId(l.id);
+	                L.DomUtil.addClass(el, 'leaflet-iconLayers-layerCell_hidden');
+	            }.bind(this));
+	        }
+	    });
+
+	    var iconLayers = function(layers, options) {
+	        return new IconLayers(layers, options);
+	    };
+
+	    iconLayers.Constructor = IconLayers;
+
+	    return iconLayers;
+	});
+	});
+
+	/* src/Map.html generated by Svelte v2.15.3 */
+
+
+
+	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/';
+
+	function data$3() {
+		return {
+			layersTree: {
+				visible: {},
+				expanded: {}
+			},
+			permalink: null,
+			map: null
+		}
+	}
+	var methods$2 = {
+		createMap(it) {
+			let {layersTree} = this.get();
+			let app = it.app || {},
+				gmxMap = app.gmxMap || {},
+				state = it.state || {},
+				// layersTree = state.layersTree || {},
+				calendar = state.calendar || {},
+				mapID = gmxMap.mapID || '946GH',
+				apiKey = gmxMap.apiKey,
+				pos = state.map ? state.map.position : {};
+
+			// console.log('createMap', it)
+			if(app.theme) {
+				document.body.classList.add(app.theme);
+			}
+			if(L.leafletMap) {
+				L.leafletMap.remove();
+			}
+
+			layersTree = state.layersTree || layersTree;
+			this.layersTree = layersTree;
+			let map = new L.Map('map', {
+				srs: 3857,
+				layers: [],
+				center: new L.LatLng(pos.y || 0, pos.x || 60),
+				zoom: pos.z || 3
+			});
+			L.leafletMap = map;
+
+			map.gmxControlsManager.init({
+				gmxDrawing: !app.drawing || app.drawing === 'false' ? null : {position: 'right'},
+				gmxZoom: {position: 'gmxbottomright'},
+				gmxHide: null
+			});
+			map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
+
+			if (app.iconSidebar && app.iconSidebar !== 'false') {
+				var iconSidebar = new scanexLeafletSidebar_cjs({position: 'topleft'});
+				iconSidebar.addTo(map);
+				this.iconSidebar = iconSidebar;
+				if (app.treeView && app.treeView !== 'false') {
+					var treePane = iconSidebar.addTab({id: 'treeView', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
+					this.treePane = treePane;
+				}
+			} else {
+				document.body.classList.add('noIconSidebar');
+			}
+
+			this.mapID = mapID;
+			let opt = {
+				leafletMap: map,
+				// visibleItemOnly: true,	// TODO: только видимые элементы (слои и папки) баги серверного скрипта
+				setZIndex: true
+				// ,
+				// visibility: layersTree.visible || {}
+			};
+			L.gmx.loadMap(mapID, opt).then(function(gmxMap) {
+				this.gmxMap = gmxMap;
+				let dateInterval = state.calendar || {},
+					tb = dateInterval.dateBegin,
+					te = dateInterval.dateEnd;
+				if(!tb) {
+					let day = 1000*60*60*24,
+						cd = new Date();
+					tb = Date.UTC(cd.getUTCFullYear(), cd.getUTCMonth(), cd.getUTCDate());
+					te = tb + day;
+				}
+				let db = new Date(tb), de = new Date(te);
+				gmxMap.layers.forEach((it) => {
+					if(it.getGmxProperties) {
+						let props = it.getGmxProperties(),
+							id = props.name;
+						if(it.setDateInterval) {
+							it.setDateInterval(db, de);
+						}
+						if(id in layersTree.visible) {
+							map[layersTree.visible[id] ? 'addLayer' : 'removeLayer'](it);
+						}
+					}
+				});
+				// let visible = layersTree.visible || {};
+				// L.gmx.gmxMapManager.iterateNode(gmxMap.rawTree, function(node) {
+					// let props = node.content.properties,
+						// layerId = props.name;
+					// if (layerId && layerId in visible && visible[layerId] !== props.visible) {
+						// props.visible = visible[layerId];
+					// }
+				// });
+
+				// this.set({layersTree: layersTree}); 
+				// this.set({gmxMap: gmxMap}); 
+				let shiftIconLayers = false,
+					repaintTimeline = null;
+
+				if (app.gmxTimeline && app.gmxTimeline !== 'false') {
+					/* TimeLine */
+					var control = L.control.gmxTimeline({
+						moveable: true
+						}).on('dateInterval', function (ev) {
+							gmxMap.layersByID[ev.layerID].setDateInterval(ev.beginDate, ev.endDate);
+						})
+						.on('statechanged', function () {
+							repaintTimeline();
+						})
+						.on('click', function (ev) {
+							gmxMap.layersByID[ev.layerID].repaint();
+						});
+					this.gmxTimeline = control;
+					repaintTimeline = () => {
+						if (control._container) {
+							control._container.classList[shiftIconLayers ? 'add' : 'remove']('shiftTimeline');
+							control._redrawTimeline();
+						}
+					};
+				}
+
+				if (this.iconSidebar) {
+					let triggerSidebar = (id) => {
+						
+						if (id === 'treeView') {
+							shiftIconLayers = true;
+							if (treePane) {
+								this._initTree({container: treePane, layersTree: layersTree, rawTree: gmxMap.rawTree, gmxTimeline: this.gmxTimeline});
+							}
+						} else {
+							shiftIconLayers = false;
+							if (treePane) {
+								treePane.innerHTML = '';
+							}
+						}
+						if (this.IconLayersContainer) {
+							this.IconLayersContainer.classList[shiftIconLayers ? 'add' : 'remove']('shiftIconLayers');
+						}
+						if (repaintTimeline) {
+							repaintTimeline();
+						}
+					};
+					this.iconSidebar.on('change', e => triggerSidebar(e.detail.current));
+				}
+
+				let bLayersConf = state.baseLayersManager || { activeIDs: gmxMap.properties.BaseLayers };
+				this._initBaseLayers(map, bLayersConf, app);
+			}.bind(this))
+			.catch(console.log);
+			this.set({map: map, config: it});
+		},
+		_initBaseLayers(map, baseLayers, app) {
+			const lang = 'rus';
+			let blm = map.gmxBaseLayersManager,
+				activeIDs = baseLayers.activeIDs || ['sputnik'],
+				currentID = baseLayers.currentID || activeIDs[0];
+			blm.initDefaults().then(function() {
+				blm.setActiveIDs(activeIDs);
+				let layers = blm.getActiveIDs().map(id => {
+					var layer = blm.get(id);
+					if (!layer) {
+						return null;
+					} else {
+						return {
+							layer: layer,
+							icon: layer.options.icon,
+							title: layer.options[lang]
+						}
+					}
+				}).filter(e => e);
+
+				if (app.iconLayers && app.iconLayers !== 'false') {
+					let baseLayersControl = new iconLayers(layers, {id: 'iconLayers'});
+					map.gmxControlsManager.add(baseLayersControl);
+					map.addControl(baseLayersControl);
+					baseLayersControl.setActiveLayer(blm.get(currentID));
+					this.IconLayersContainer = baseLayersControl.getContainer();
+				}
+				blm.setCurrentID(currentID);
+				if (app.treeView === 'opened' && this.iconSidebar) { this.iconSidebar.setCurrent('treeView'); }
+			}.bind(this));
+		},
+		_getNodeIndex(target) {
+			let arr = target.parentNode.children,
+				i, len;
+			for(i = 0, len = arr.length; i < len; i++) {
+				if (arr[i] === target) break;
+			}
+			return i === len ? null : i;
+		},
+
+		_initTree(it) {
+			let rawTree = {
+				type: 'map',
+				content: it.rawTree
+			};
+			this._treeView = new TreeView({
+				appendNode: (id) => {	// TODO: только видимые элементы (слои и папки) баги серверного скрипта
+					return;
+					if (this.gmxMap.nodes) {
+						let {map} = this.get();
+						let mapID = this.mapID,
+							layersTree = this.layersTree,
+							visible = layersTree.visible || {},
+							// mapItem = L.gmx._maps['maps.kosmosnimki.ru'][mapID],
+							gmxMap = this.gmxMap,
+							layersByID = gmxMap.layersByID;
+						L.gmx.gmxMapManager.getMapFolder({
+							treeConfig: layersTree,
+							mapId: mapID,
+							folderId: id
+						}).then(function(json) {
+							L.gmx.gmxMapManager.iterateNode(json.content, function(node) {
+								let props = node.content.properties,
+									layerId = props.name;
+								if (layerId && layerId in visible && visible[layerId] !== props.visible) {
+									props.visible = visible[layerId];
+								}
+							}, {nodes: gmxMap.nodes});
+							gmxMap.addLayersToMap(map);
+							this.treePane.innerHTML = '';
+							this._initTree({
+								container: this.treePane,
+								layersTree: this.layersTree,
+								rawTree: gmxMap.rawTree
+							});
+
+						}.bind(this));
+					}
+				},
+				target: it.container,
+				data: {
+					container: it.container,
+					layersTree: it.layersTree,
+					gmxTimeline: it.gmxTimeline ? true : false,
+					rawTree: rawTree
+				}
+			});
+			// this._treeView = app;
+
+			this._treeView.on('command', (ev) => {
+				let {map} = this.get();
+				let cmd = ev.cmd,
+					target = ev.originalEvent.target,
+					gmxMap = this.gmxMap,
+					node = gmxMap.nodes ? gmxMap.nodes[ev.id] : true,
+					gmxLayer = gmxMap.layersByID[ev.id];
+
+				// console.log('Map command', ev, gmxLayer, gmxMap);
+				if (gmxLayer) {
+					if (cmd === 'fitBounds') {
+						map.fitBounds(gmxLayer.getBounds());
+					} else if (cmd === 'toggleVisibility') {
+						// if (target.checked) {
+						if (gmxLayer._map) {
+							map.removeLayer(gmxLayer);
+						} else {
+							map.addLayer(gmxLayer);
+						}
+					} else if (cmd === 'toggleTimeline' && this.gmxTimeline) {
+						if (target.classList.contains('enabled')) {
+							if (!this.gmxTimeline._map) {
+								map.addControl(this.gmxTimeline);
+							}
+							this.gmxTimeline.addLayer(gmxLayer);
+						} else {
+							this.gmxTimeline.removeLayer(gmxLayer);
+						}
+					} else if (cmd === 'toggleStyle') {
+						let num = this._getNodeIndex(target.parentNode),
+							styles = gmxLayer.getStyles();
+						if (target.classList.contains('enabled')) {
+							target.classList.remove('enabled');
+							styles[num].disabled = true;
+						} else {
+							target.classList.add('enabled');
+							delete styles[num].disabled;
+						}
+						gmxLayer.setStyles(styles);
+					}
+				} else {
+					if (cmd === 'toggleVisibility' && !node) {
+						this._treeView.appendNode(ev.id);
+					}
+				}
+			});
+		}
+	};
+
+	function onstate$1({ changed, current, previous }) {
+		if (changed.permalink && current.permalink) {
+			this.createMap(current.permalink);
+		}
+	}
+	const file$3 = "src/Map.html";
+
+	function create_main_fragment$3(component, ctx) {
+		var div, current;
+
+		return {
+			c: function create() {
+				div = createElement("div");
+				div.id = "map";
+				addLoc(div, file$3, 0, 0, 0);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div, anchor);
+				current = true;
+			},
+
+			p: noop,
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: run,
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div);
+				}
+			}
+		};
+	}
+
+	function Map(options) {
+		this._debugName = '<Map>';
+		if (!options || (!options.target && !options.root)) {
+			throw new Error("'target' is a required option");
+		}
+
+		init(this, options);
+		this._state = assign(data$3(), options.data);
+		this._intro = !!options.intro;
+
+		this._handlers.state = [onstate$1];
+
+		onstate$1.call(this, { changed: assignTrue({}, this._state), current: this._state });
+
+		this._fragment = create_main_fragment$3(this, this._state);
+
+		this.root._oncreate.push(() => {
+			this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
+		});
+
+		if (options.target) {
+			if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+			this._fragment.c();
+			this._mount(options.target, options.anchor);
+
+			flush(this);
+		}
+
+		this._intro = true;
+	}
+
+	assign(Map.prototype, protoDev);
+	assign(Map.prototype, methods$2);
+
+	Map.prototype._checkReadOnly = function _checkReadOnly(newState) {
+	};
+
+	/* src/Share.html generated by Svelte v2.15.3 */
+
+	function link({ conf }) {
+		return location.pathname + '?config=' + conf;
+	}
+
+	function data$4() {
+		return {
+			frameWidth: 800,
+			frameHeight: 600,
+			conf: 'R6UIY',
+			title: ''
+		}
+	}
+	const file$4 = "src/Share.html";
+
+	function create_main_fragment$4(component, ctx) {
+		var div13, div0, text0, text1, div12, div11, div10, div1, span0, text3, a0, i0, a0_href_value, text4, a1, i1, a1_href_value, text5, a2, i2, a2_href_value, text6, div3, div2, input0, text7, a3, i3, text8, div4, text10, div6, div5, input1, text11, span1, text13, input2, text14, span3, span2, i4, text16, span4, a4, text17, a4_href_value, i5, text18, div9, textarea, textarea_value_value, text19, div8, div7, current;
+
+		var if_block = (ctx.title) && create_if_block$2(component, ctx);
+
+		function change_handler(event) {
+			component.set({frameWidth: this.value});
+		}
+
+		function change_handler_1(event) {
+			component.set({frameHeight: this.value});
+		}
+
+		return {
+			c: function create() {
+				div13 = createElement("div");
+				div0 = createElement("div");
+				text0 = createText("\n\t");
+				if (if_block) if_block.c();
+				text1 = createText("\n\t");
+				div12 = createElement("div");
+				div11 = createElement("div");
+				div10 = createElement("div");
+				div1 = createElement("div");
+				span0 = createElement("span");
+				span0.textContent = "Ссылка на карту:";
+				text3 = createText("\n\t\t\t\t");
+				a0 = createElement("a");
+				i0 = createElement("i");
+				text4 = createText("\n\t\t\t\t");
+				a1 = createElement("a");
+				i1 = createElement("i");
+				text5 = createText("\n\t\t\t\t");
+				a2 = createElement("a");
+				i2 = createElement("i");
+				text6 = createText("\n\t\t");
+				div3 = createElement("div");
+				div2 = createElement("div");
+				input0 = createElement("input");
+				text7 = createText("\n\t\t");
+				a3 = createElement("a");
+				i3 = createElement("i");
+				text8 = createText("\n");
+				div4 = createElement("div");
+				div4.textContent = "Код для вставки:";
+				text10 = createText("\n");
+				div6 = createElement("div");
+				div5 = createElement("div");
+				input1 = createElement("input");
+				text11 = createText("\n            ");
+				span1 = createElement("span");
+				span1.textContent = "x";
+				text13 = createText("\n            ");
+				input2 = createElement("input");
+				text14 = createText("\n        ");
+				span3 = createElement("span");
+				span2 = createElement("span");
+				span2.textContent = "предпросмотр";
+				i4 = createElement("i");
+				text16 = createText("\n        ");
+				span4 = createElement("span");
+				a4 = createElement("a");
+				text17 = createText("предпросмотр");
+				i5 = createElement("i");
+				text18 = createText("\n");
+				div9 = createElement("div");
+				textarea = createElement("textarea");
+				text19 = createText("\n    ");
+				div8 = createElement("div");
+				div7 = createElement("div");
+				div0.className = "arrow svelte-whikqv";
+				addLoc(div0, file$4, 1, 1, 21);
+				span0.className = "bold svelte-whikqv";
+				addLoc(span0, file$4, 7, 4, 254);
+				i0.className = "icon-twitter svelte-whikqv";
+				addLoc(i0, file$4, 8, 87, 384);
+				a0.className = "gmx-link_icon svelte-whikqv";
+				a0.target = "_blank";
+				a0.href = a0_href_value = "//www.twitter.com/share?url=" + ctx.link;
+				addLoc(a0, file$4, 8, 4, 301);
+				i1.className = "icon-facebook svelte-whikqv";
+				addLoc(i1, file$4, 9, 104, 521);
+				a1.className = "gmx-link_icon svelte-whikqv";
+				a1.target = "_blank";
+				a1.href = a1_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + ctx.link;
+				addLoc(a1, file$4, 9, 4, 421);
+				i2.className = "icon-vk svelte-whikqv";
+				addLoc(i2, file$4, 10, 87, 642);
+				a2.className = "gmx-link_icon svelte-whikqv";
+				a2.target = "_blank";
+				a2.href = a2_href_value = "//vkontakte.ru/share.php?url" + ctx.link;
+				addLoc(a2, file$4, 10, 4, 559);
+				div1.className = "shareDialog-row shareDialog-title svelte-whikqv";
+				addLoc(div1, file$4, 6, 3, 202);
+				input0.className = "shareDialog-inputPermalinkUrl svelte-whikqv";
+				setAttribute(input0, "type", "text");
+				input0.readOnly = "readonly";
+				input0.value = ctx.link;
+				addLoc(input0, file$4, 14, 2, 742);
+				i3.className = "icon-link-ext svelte-whikqv";
+				i3.title = "открыть в новом окне";
+				addLoc(i3, file$4, 15, 57, 892);
+				a3.className = "gmx-link_icon svelte-whikqv";
+				a3.target = "_blank";
+				a3.href = ctx.link;
+				addLoc(a3, file$4, 15, 2, 837);
+				div2.className = "gmx-table";
+				addLoc(div2, file$4, 13, 4, 716);
+				div3.className = "shareDialog-row svelte-whikqv";
+				addLoc(div3, file$4, 12, 2, 682);
+				div4.className = "shareDialog-row bold svelte-whikqv";
+				addLoc(div4, file$4, 18, 0, 973);
+				addListener(input1, "change", change_handler);
+				input1.className = " svelte-whikqv";
+				setAttribute(input1, "type", "number");
+				input1.value = ctx.frameWidth;
+				addLoc(input1, file$4, 21, 12, 1128);
+				span1.className = "shareDialog-resolutionCross";
+				addLoc(span1, file$4, 22, 12, 1234);
+				addListener(input2, "change", change_handler_1);
+				input2.className = " svelte-whikqv";
+				setAttribute(input2, "type", "number");
+				input2.value = ctx.frameHeight;
+				addLoc(input2, file$4, 23, 12, 1297);
+				addLoc(span2, file$4, 25, 12, 1463);
+				i4.className = "icon-link-ext svelte-whikqv";
+				addLoc(i4, file$4, 25, 37, 1488);
+				span3.className = "shareDialog-validationError hidden svelte-whikqv";
+				addLoc(span3, file$4, 24, 8, 1401);
+				a4.className = "shareDialog-previewLink gmx-link svelte-whikqv";
+				a4.href = a4_href_value = "http://winnie.kosmosnimki.ru/iframePreview.html?width=" + ctx.frameWidth + "&height=" + ctx.frameHeight + "&url=" + ctx.link;
+				a4.target = "_blank";
+				addLoc(a4, file$4, 28, 12, 1622);
+				i5.className = "gmx-icon icon-link-ext svelte-whikqv";
+				addLoc(i5, file$4, 28, 202, 1812);
+				span4.className = "shareDialog-previewLinkCell shareDialog-validationOk svelte-whikqv";
+				addLoc(span4, file$4, 27, 8, 1542);
+				div5.className = "gmx-table shareDialog-resolutionTable svelte-whikqv";
+				addLoc(div5, file$4, 20, 4, 1064);
+				div6.className = "shareDialog-row svelte-whikqv";
+				addLoc(div6, file$4, 19, 0, 1030);
+				textarea.className = "shareDialog-validationOk svelte-whikqv";
+				textarea.readOnly = "readonly";
+				textarea.value = textarea_value_value = "<iframe src=\"" + ctx.link + "\" width=\"" + ctx.frameWidth + "\" height=\"" + ctx.frameHeight + "\"></iframe>";
+				addLoc(textarea, file$4, 33, 4, 1919);
+				div7.className = "alertWidget ui-widget";
+				addLoc(div7, file$4, 34, 56, 2136);
+				div8.className = "shareDialog-validationErrorView hidden svelte-whikqv";
+				addLoc(div8, file$4, 34, 4, 2084);
+				div9.className = "shareDialog-row svelte-whikqv";
+				addLoc(div9, file$4, 32, 0, 1885);
+				div10.className = "shareDialog";
+				addLoc(div10, file$4, 5, 2, 173);
+				div11.className = "shareDialogContainer";
+				addLoc(div11, file$4, 4, 2, 136);
+				div12.className = "popover-content svelte-whikqv";
+				addLoc(div12, file$4, 3, 1, 104);
+				div13.className = "share svelte-whikqv";
+				addLoc(div13, file$4, 0, 0, 0);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div13, anchor);
+				append(div13, div0);
+				append(div13, text0);
+				if (if_block) if_block.m(div13, null);
+				append(div13, text1);
+				append(div13, div12);
+				append(div12, div11);
+				append(div11, div10);
+				append(div10, div1);
+				append(div1, span0);
+				append(div1, text3);
+				append(div1, a0);
+				append(a0, i0);
+				append(div1, text4);
+				append(div1, a1);
+				append(a1, i1);
+				append(div1, text5);
+				append(div1, a2);
+				append(a2, i2);
+				append(div10, text6);
+				append(div10, div3);
+				append(div3, div2);
+				append(div2, input0);
+				append(div2, text7);
+				append(div2, a3);
+				append(a3, i3);
+				append(div10, text8);
+				append(div10, div4);
+				append(div10, text10);
+				append(div10, div6);
+				append(div6, div5);
+				append(div5, input1);
+				append(div5, text11);
+				append(div5, span1);
+				append(div5, text13);
+				append(div5, input2);
+				append(div5, text14);
+				append(div5, span3);
+				append(span3, span2);
+				append(span3, i4);
+				append(div5, text16);
+				append(div5, span4);
+				append(span4, a4);
+				append(a4, text17);
+				append(span4, i5);
+				append(div10, text18);
+				append(div10, div9);
+				append(div9, textarea);
+				append(div9, text19);
+				append(div9, div8);
+				append(div8, div7);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (ctx.title) {
+					if (if_block) {
+						if_block.p(changed, ctx);
+					} else {
+						if_block = create_if_block$2(component, ctx);
+						if_block.c();
+						if_block.m(div13, text1);
+					}
+				} else if (if_block) {
+					if_block.d(1);
+					if_block = null;
+				}
+
+				if ((changed.link) && a0_href_value !== (a0_href_value = "//www.twitter.com/share?url=" + ctx.link)) {
+					a0.href = a0_href_value;
+				}
+
+				if ((changed.link) && a1_href_value !== (a1_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + ctx.link)) {
+					a1.href = a1_href_value;
+				}
+
+				if ((changed.link) && a2_href_value !== (a2_href_value = "//vkontakte.ru/share.php?url" + ctx.link)) {
+					a2.href = a2_href_value;
+				}
+
+				if (changed.link) {
+					input0.value = ctx.link;
+					a3.href = ctx.link;
+				}
+
+				if (changed.frameWidth) {
+					input1.value = ctx.frameWidth;
+				}
+
+				if (changed.frameHeight) {
+					input2.value = ctx.frameHeight;
+				}
+
+				if ((changed.frameWidth || changed.frameHeight || changed.link) && a4_href_value !== (a4_href_value = "http://winnie.kosmosnimki.ru/iframePreview.html?width=" + ctx.frameWidth + "&height=" + ctx.frameHeight + "&url=" + ctx.link)) {
+					a4.href = a4_href_value;
+				}
+
+				if ((changed.link || changed.frameWidth || changed.frameHeight) && textarea_value_value !== (textarea_value_value = "<iframe src=\"" + ctx.link + "\" width=\"" + ctx.frameWidth + "\" height=\"" + ctx.frameHeight + "\"></iframe>")) {
+					textarea.value = textarea_value_value;
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: run,
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div13);
+				}
+
+				if (if_block) if_block.d();
+				removeListener(input1, "change", change_handler);
+				removeListener(input2, "change", change_handler_1);
+			}
+		};
+	}
+
+	// (3:1) {#if title}
+	function create_if_block$2(component, ctx) {
+		var h3, text;
+
+		return {
+			c: function create() {
+				h3 = createElement("h3");
+				text = createText(ctx.title);
+				h3.className = "popover-title";
+				addLoc(h3, file$4, 2, 12, 59);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, h3, anchor);
+				append(h3, text);
+			},
+
+			p: function update(changed, ctx) {
+				if (changed.title) {
+					setData(text, ctx.title);
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(h3);
+				}
+			}
+		};
+	}
+
+	function Share(options) {
+		this._debugName = '<Share>';
+		if (!options || (!options.target && !options.root)) {
+			throw new Error("'target' is a required option");
+		}
+
+		init(this, options);
+		this._state = assign(data$4(), options.data);
+
+		this._recompute({ conf: 1 }, this._state);
+		if (!('conf' in this._state)) console.warn("<Share> was created without expected data property 'conf'");
+		if (!('title' in this._state)) console.warn("<Share> was created without expected data property 'title'");
+
+		if (!('frameWidth' in this._state)) console.warn("<Share> was created without expected data property 'frameWidth'");
+		if (!('frameHeight' in this._state)) console.warn("<Share> was created without expected data property 'frameHeight'");
+		this._intro = !!options.intro;
+
+		this._fragment = create_main_fragment$4(this, this._state);
+
+		if (options.target) {
+			if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+			this._fragment.c();
+			this._mount(options.target, options.anchor);
+		}
+
+		this._intro = true;
+	}
+
+	assign(Share.prototype, protoDev);
+
+	Share.prototype._checkReadOnly = function _checkReadOnly(newState) {
+		if ('link' in newState && !this._updatingReadonlyProperty) throw new Error("<Share>: Cannot set read-only property 'link'");
+	};
+
+	Share.prototype._recompute = function _recompute(changed, state) {
+		if (changed.conf) {
+			if (this._differs(state.link, (state.link = link(state)))) changed.link = true;
+		}
+	};
+
+	/* src/App.html generated by Svelte v2.15.3 */
+
+	const serverBase$1 = window.serverBase || '//maps.kosmosnimki.ru/',
+		chkPar = (key, h1, h2, zn) => h1[key] || (key in h2 ? h2[key] : zn || true);
+	function data$5() {
+		return {
+			share: false,
+			conf: '',
+			urlParams: {},
+			dropdownMenu: [
+				{ name: 'refresh', title: 'Refresh' },
+				{ name: 'link', title: 'Share', checked: false }
+			],
+			map: null,
+			permalink: null
+		}
+	}
+	var methods$3 = {
+		checkMe(it, node) {
+			let cmd = it.name,
+				json = this.editor.getValue(),
+				out = null;
+			try {
+				out = JSON.parse(json);
+			} catch (err) {
+				let error = this.editor.getSession().getAnnotations()[0];
+				alert('Ошибка в конфигурации:\n строка: ' + error.row + '\n позиция: ' + error.column + '\n сообщение: ' + error.text);
+				console.log('error in json: ' , error);
+			}
+			if (out) {
+				if (cmd === 'refresh') {
+					this.set({permalink: out});
+				} else if (cmd === 'link') {
+					let {share} = this.get();
+					if (share) {
+						node.classList.remove('checked');
+						this.set({share: false});
+					} else {
+						node.classList.add('checked');
+						fetch(serverBase$1 + 'TinyReference/Create.ashx', {
+							method: 'post',
+							headers: {'Content-type': 'application/x-www-form-urlencoded'},
+							body: L.gmxUtil.getFormData({WrapStyle: 'None', content: out}),
+							mode: 'cors',
+							credentials: 'include'
+						})
+						.then(res => res.json())
+						.then(json => {
+							if (json.Status === 'ok') {
+								this.set({share: true, conf:json.Result});
+							}
+						})
+						.catch(console.error);
+					}
+				}
+			}
+		},
+		checkPermalink(out) {
+			let {urlParams} = this.get();
+			// console.log('?config=7ZSC4  dddddddd', out, urlParams)
+			if (out.app) {
+				out.app.theme = chkPar('theme', urlParams, out.app, 'dark');		// тема по умолчанию
+				out.app.iconSidebar = chkPar('iconSidebar', urlParams, out.app);	// iconSidebar по умолчанию
+				out.app.treeView = chkPar('treeView', urlParams, out.app);			// treeView по умолчанию
+				out.app.iconLayers = chkPar('iconLayers', urlParams, out.app);		// iconLayers по умолчанию
+				out.app.drawing = chkPar('drawing', urlParams, out.app);			// drawing по умолчанию
+				out.app.gmxTimeline = chkPar('gmxTimeline', urlParams, out.app);	// gmxTimeline по умолчанию
+			}
+			this.set({permalink: out});
+			// this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
+			if (urlParams.edit) {
+				// L.gmxUtil.requestLink('ext/ace.js').then(() => {
+					var editor = ace.edit("editor");
+					editor.setTheme("ace/theme/monokai");
+					// editor.session.setMode("ace/mode/json");
+					editor.getSession().setMode("ace/mode/json");
+
+	 // editor.setOptions({
+	    // mode: "ace/mode/json",
+	    // theme: "ace/theme/monokai",
+	    // fontSize: "10pt",
+	    // showPrintMargin : false,
+	    // enableBasicAutocompletion: true,
+	    // enableSnippets: true,
+	    // enableLiveAutocompletion: true,
+	    // wrap: true,
+	    // scrollPastEnd: true,
+	    // displayIndentGuides: true,
+	  // });
+					// editor.session.setMode("ace/mode/javascript");
+					editor.container.getElementsByClassName('ace_scrollbar-v')[0].style.width = '4px';
+					editor.setValue(JSON.stringify(out, null, 2));
+					this.editor = editor;
+					// window.ted = editor;
+				// });
+			}
+			if (out.app.gmxTimeline && out.app.gmxTimeline !== 'false') {
+				L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.js');
+				L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.css');
+				// L.gmxUtil.requestLink('L.Control.gmxTimeLine.js');
+				L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.js');
+				L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.css');
+			}
+		},
+		getPermalink(id) {
+			let out = {};
+			if (id) {
+				fetch(serverBase$1 + 'TinyReference/Get.ashx?WrapStyle=None&id=' + id, {
+					mode: 'cors',
+					credentials: 'include'
+				})
+				.then(res => res.json())
+				.then(json => {
+					if (json.Status === 'ok') {
+						out = json.Result ? JSON.parse(json.Result) : {};
+					}
+					this.checkPermalink(out);
+				});
+					// .catch(err => console.log(err));
+			// } else {
+				// setTimeout(function() {
+					// this.checkPermalink(out);
+				// }.bind(this), 0);
+			}
+		}
+	};
+
+	function onstate$2({ changed, current, previous }) {
+		// console.log('in onstate', changed, current, previous);
+		if (changed.urlParams) {
+			this.getPermalink(current.urlParams.config);
+		}
+	}
+	const file$5 = "src/App.html";
+
+	function click_handler(event) {
+		const { component, ctx } = this._svelte;
+
+		component.checkMe(ctx.it, this);
+	}
+
+	function get_each_context$1(ctx, list, i) {
+		const child_ctx = Object.create(ctx);
+		child_ctx.it = list[i];
+		return child_ctx;
+	}
+
+	function create_main_fragment$5(component, ctx) {
+		var text0, div, map_updating = {}, text1, if_block1_anchor, current;
+
+		var if_block0 = (ctx.urlParams.edit) && create_if_block_1$1(component, ctx);
+
+		var map_initial_data = { permalink: ctx.permalink };
+		if (ctx.map  !== void 0) {
+			map_initial_data.map = ctx.map ;
+			map_updating.map = true;
+		}
+		var map = new Map({
+			root: component.root,
+			store: component.store,
+			data: map_initial_data,
+			_bind(changed, childState) {
+				var newState = {};
+				if (!map_updating.map && changed.map) {
+					newState.map = childState.map;
+				}
+				component._set(newState);
+				map_updating = {};
+			}
+		});
+
+		component.root._beforecreate.push(() => {
+			map._bind({ map: 1 }, map.get());
+		});
+
+		var if_block1 = (ctx.share) && create_if_block$3(component, ctx);
+
+		return {
+			c: function create() {
+				if (if_block0) if_block0.c();
+				text0 = createText("\n");
+				div = createElement("div");
+				map._fragment.c();
+				text1 = createText("\n");
+				if (if_block1) if_block1.c();
+				if_block1_anchor = createComment();
+				div.className = "editor-viewerContainer editor_sidebarExpanded svelte-gw2s3e";
+				addLoc(div, file$5, 17, 0, 486);
+			},
+
+			m: function mount(target, anchor) {
+				if (if_block0) if_block0.m(target, anchor);
+				insert(target, text0, anchor);
+				insert(target, div, anchor);
+				map._mount(div, null);
+				insert(target, text1, anchor);
+				if (if_block1) if_block1.m(target, anchor);
+				insert(target, if_block1_anchor, anchor);
+				current = true;
+			},
+
+			p: function update(changed, _ctx) {
+				ctx = _ctx;
+				if (ctx.urlParams.edit) {
+					if (if_block0) {
+						if_block0.p(changed, ctx);
+					} else {
+						if_block0 = create_if_block_1$1(component, ctx);
+						if_block0.c();
+						if_block0.m(text0.parentNode, text0);
+					}
+				} else if (if_block0) {
+					if_block0.d(1);
+					if_block0 = null;
+				}
+
+				var map_changes = {};
+				if (changed.permalink) map_changes.permalink = ctx.permalink;
+				if (!map_updating.map && changed.map) {
+					map_changes.map = ctx.map ;
+					map_updating.map = ctx.map  !== void 0;
+				}
+				map._set(map_changes);
+				map_updating = {};
+
+				if (ctx.share) {
+					if (if_block1) {
+						if_block1.p(changed, ctx);
+					} else {
+						if_block1 = create_if_block$3(component, ctx);
+						if (if_block1) if_block1.c();
+					}
+
+					if_block1.i(if_block1_anchor.parentNode, if_block1_anchor);
+				} else if (if_block1) {
+					if_block1.o(function() {
+						if_block1.d(1);
+						if_block1 = null;
+					});
+				}
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				outrocallback = callAfter(outrocallback, 2);
+
+				if (map) map._fragment.o(outrocallback);
+
+				if (if_block1) if_block1.o(outrocallback);
+				else outrocallback();
+
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				if (if_block0) if_block0.d(detach);
+				if (detach) {
+					detachNode(text0);
+					detachNode(div);
+				}
+
+				map.destroy();
+				if (detach) {
+					detachNode(text1);
+				}
+
+				if (if_block1) if_block1.d(detach);
+				if (detach) {
+					detachNode(if_block1_anchor);
+				}
+			}
+		};
+	}
+
+	// (1:0) {#if urlParams.edit}
+	function create_if_block_1$1(component, ctx) {
+		var div4, div3, div1, div0, text, div2;
+
+		var each_value = ctx.dropdownMenu;
+
+		var each_blocks = [];
+
+		for (var i = 0; i < each_value.length; i += 1) {
+			each_blocks[i] = create_each_block$1(component, get_each_context$1(ctx, each_value, i));
+		}
+
+		return {
+			c: function create() {
+				div4 = createElement("div");
+				div3 = createElement("div");
+				div1 = createElement("div");
+				div0 = createElement("div");
+
+				for (var i = 0; i < each_blocks.length; i += 1) {
+					each_blocks[i].c();
+				}
+
+				text = createText("\n\t\t\t");
+				div2 = createElement("div");
+				div0.className = "dropdownMenuWidget svelte-gw2s3e";
+				addLoc(div0, file$5, 4, 3, 159);
+				div1.className = "sidebarPanel-toolbarContainer svelte-gw2s3e";
+				addLoc(div1, file$5, 3, 2, 112);
+				div2.id = "editor";
+				div2.className = "editor svelte-gw2s3e";
+				addLoc(div2, file$5, 13, 3, 426);
+				div3.className = "sidebarPanel svelte-gw2s3e";
+				addLoc(div3, file$5, 2, 1, 83);
+				div4.className = "editor-sidebarContainer editor_sidebarExpanded svelte-gw2s3e";
+				addLoc(div4, file$5, 1, 0, 21);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div4, anchor);
+				append(div4, div3);
+				append(div3, div1);
+				append(div1, div0);
+
+				for (var i = 0; i < each_blocks.length; i += 1) {
+					each_blocks[i].m(div0, null);
+				}
+
+				append(div3, text);
+				append(div3, div2);
+			},
+
+			p: function update(changed, ctx) {
+				if (changed.dropdownMenu) {
+					each_value = ctx.dropdownMenu;
+
+					for (var i = 0; i < each_value.length; i += 1) {
+						const child_ctx = get_each_context$1(ctx, each_value, i);
+
+						if (each_blocks[i]) {
+							each_blocks[i].p(changed, child_ctx);
+						} else {
+							each_blocks[i] = create_each_block$1(component, child_ctx);
+							each_blocks[i].c();
+							each_blocks[i].m(div0, null);
+						}
+					}
+
+					for (; i < each_blocks.length; i += 1) {
+						each_blocks[i].d(1);
+					}
+					each_blocks.length = each_value.length;
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div4);
+				}
+
+				destroyEach(each_blocks, detach);
+			}
+		};
+	}
+
+	// (6:0) {#each dropdownMenu as it}
+	function create_each_block$1(component, ctx) {
+		var div, i, i_class_value, text0, span, text1_value = ctx.it.title, text1, div_class_value;
+
+		return {
+			c: function create() {
+				div = createElement("div");
+				i = createElement("i");
+				text0 = createText("\n\t\t\t\t\t");
+				span = createElement("span");
+				text1 = createText(text1_value);
+				i.className = i_class_value = "icon-" + ctx.it.name + " svelte-gw2s3e";
+				addLoc(i, file$5, 7, 5, 325);
+				addLoc(span, file$5, 8, 5, 361);
+
+				div._svelte = { component, ctx };
+
+				addListener(div, "click", click_handler);
+				div.className = div_class_value = "dropdownMenuWidget-item" + (ctx.it.checked ? ' checked' : '') + " svelte-gw2s3e";
+				addLoc(div, file$5, 6, 4, 223);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div, anchor);
+				append(div, i);
+				append(div, text0);
+				append(div, span);
+				append(span, text1);
+			},
+
+			p: function update(changed, _ctx) {
+				ctx = _ctx;
+				if ((changed.dropdownMenu) && i_class_value !== (i_class_value = "icon-" + ctx.it.name + " svelte-gw2s3e")) {
+					i.className = i_class_value;
+				}
+
+				if ((changed.dropdownMenu) && text1_value !== (text1_value = ctx.it.title)) {
+					setData(text1, text1_value);
+				}
+
+				div._svelte.ctx = ctx;
+				if ((changed.dropdownMenu) && div_class_value !== (div_class_value = "dropdownMenuWidget-item" + (ctx.it.checked ? ' checked' : '') + " svelte-gw2s3e")) {
+					div.className = div_class_value;
+				}
+			},
+
+			d: function destroy$$1(detach) {
+				if (detach) {
+					detachNode(div);
+				}
+
+				removeListener(div, "click", click_handler);
+			}
+		};
+	}
+
+	// (21:0) {#if share}
+	function create_if_block$3(component, ctx) {
+		var current;
+
+		var share_initial_data = { conf: ctx.conf };
+		var share = new Share({
+			root: component.root,
+			store: component.store,
+			data: share_initial_data
+		});
+
+		return {
+			c: function create() {
+				share._fragment.c();
+			},
+
+			m: function mount(target, anchor) {
+				share._mount(target, anchor);
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				var share_changes = {};
+				if (changed.conf) share_changes.conf = ctx.conf;
+				share._set(share_changes);
+			},
+
+			i: function intro(target, anchor) {
+				if (current) return;
+
+				this.m(target, anchor);
+			},
+
+			o: function outro(outrocallback) {
+				if (!current) return;
+
+				if (share) share._fragment.o(outrocallback);
+				current = false;
+			},
+
+			d: function destroy$$1(detach) {
+				share.destroy(detach);
+			}
+		};
+	}
+
+	function App(options) {
+		this._debugName = '<App>';
+		if (!options || (!options.target && !options.root)) {
+			throw new Error("'target' is a required option");
+		}
+
+		init(this, options);
+		this._state = assign(data$5(), options.data);
+		if (!('urlParams' in this._state)) console.warn("<App> was created without expected data property 'urlParams'");
+		if (!('dropdownMenu' in this._state)) console.warn("<App> was created without expected data property 'dropdownMenu'");
+		if (!('permalink' in this._state)) console.warn("<App> was created without expected data property 'permalink'");
+		if (!('map' in this._state)) console.warn("<App> was created without expected data property 'map'");
+		if (!('share' in this._state)) console.warn("<App> was created without expected data property 'share'");
+		if (!('conf' in this._state)) console.warn("<App> was created without expected data property 'conf'");
+		this._intro = !!options.intro;
+
+		this._handlers.state = [onstate$2];
+
+		onstate$2.call(this, { changed: assignTrue({}, this._state), current: this._state });
+
+		this._fragment = create_main_fragment$5(this, this._state);
+
+		this.root._oncreate.push(() => {
+			this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
+		});
+
+		if (options.target) {
+			if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+			this._fragment.c();
+			this._mount(options.target, options.anchor);
+
+			flush(this);
+		}
+
+		this._intro = true;
+	}
+
+	assign(App.prototype, protoDev);
+	assign(App.prototype, methods$3);
+
+	App.prototype._checkReadOnly = function _checkReadOnly(newState) {
+	};
+
+	let pars = (() => {
+		let p = {};
+		location.search.substr(1).split('&').forEach((it) => {
+			let arr = it.split('=');
+			p[arr[0]] = arr[1];
+		});
+		return p;
+	})();
+
+	const app = new App({
+		target: document.body,
+		//target: document.getElementsByClassName('editor-sidebarContainer')[0] || document.body,
+		data: {
+			urlParams: pars,
+			name: 'world'
+		}
+	});
+
+	return app;
+
+}(L));
 //# sourceMappingURL=bundle.js.map
