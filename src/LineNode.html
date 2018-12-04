@@ -5,6 +5,7 @@
 	{#if line.type === 'group'}
 	<input class="expander expanderInput hidden" type="checkbox" checked="{isVisible}" />
 	<span class="expander pointer expanderCont cmd:toggleVisibility" on:click="toggleVisibility(this)"></span>
+	<input class="expander expanderInput" type="checkbox" checked="{isVisible}" />
 	{/if}
 		{#if line.type === 'layer'}
 			{#if properties.styles.length > 1}
