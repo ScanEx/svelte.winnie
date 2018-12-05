@@ -62,9 +62,10 @@
 	width: 27px;
 	height: 12px;
 	position: relative;
-	top: 0;
+	top: -2px;
 	float: left;
 	left: 6px;
+	padding-right: 2px;
 }
 
 .dark input.expander:checked+span.expander::before {
@@ -73,9 +74,10 @@
 	width: 27px;
 	height: 12px;
 	position: relative;
-	top: 0;
+	top: -2px;
 	float: left;
 	left: 6px;
+	padding-right: 2px;
 }
 
 .dark .group.css-treeview ul {
