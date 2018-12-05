@@ -101,65 +101,31 @@
 	display: none;
 }
 
-.dark ul.group li .expander::after {
+/*.dark ul.group li .expander::after {
 	left: -15px;
 	top: -6px;
 	content: '';
 	display: block;
-	/*border-left: 1px solid #D8E1E8;*/
 	height: 1em;
 	border-bottom: 1px solid #D8E1E8;
 	width: 14px;
 	position: absolute;
 	z-index: 1000000;
-}
+}*/
 
 .dark .TreeView  li.line  ul.group.css-treeview  li.line::before {
 	border-left: 1px solid #D8E1E8;
 	display: block;
 	position: absolute;
 	content: '';
-	height: calc(100% - 47px);
+	height: calc(100% - 57px);
 	left: 27px;
-	top: 30px;
+	top: 33px;
+	width: 11px;
+	border-bottom: 1px solid #D8E1E8;
 }
 
-/*.dark .TreeView > li.line > ul.group.css-treeview > li.line::before {
-	border-left: 1px solid #D8E1E8;
-	display: block;
-	position: absolute;
-	content: '';
-	height: calc(100% - 50px);
-	left: 27px;
-	top: 30px;
-}*/
 
-.dark .TreeView  li.line  ul.group.css-treeview  li.line::after {
-
-    border-bottom: 1px solid #D8E1E8;
-    display: block;
-    position: absolute;
-    content: '';
-    height: 5px;
-    width: 11px;
-    left: 27px;
-    bottom: 17px;
-
-}
-
-/*.dark .TreeView > li.line > ul.group.css-treeview > li.line::after {
-
-    border-bottom: 1px solid #D8E1E8;
-    display: block;
-    position: absolute;
-    content: '';
-    height: 5px;
-    width: 11px;
-    left: 27px;
-    bottom: 21px;
-
-}
-*/
 .dark li {
 	list-style: none;
 	text-overflow: ellipsis;
@@ -326,7 +292,6 @@
 	z-index: -1;
 	width: 100vh;
 	left: -3px;
-	/*left: -50px;*/
 	bottom: -7px;
 
 }
@@ -368,19 +333,7 @@
 
 }
 
-/*ul.group.css-treeview > li.line:last-child:before {
 
-	border-bottom: 3px solid orange;
-	display: block;
-	position: absolute;
-	content: '';
-	height: 5px;
-	width: 523px;
-	left: 27px;
-	bottom: 30px;
-
-
-}*/
 
 
 
