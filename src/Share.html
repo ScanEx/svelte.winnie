@@ -3,38 +3,46 @@
 	{#if title}<h3 class="popover-title">{title}</h3>{/if}
 	<div class="popover-content">
 		<div class="shareDialogContainer">
-		<div class="shareDialog">
-			<div class="shareDialog-row shareDialog-title">
-				<span class="bold">Ссылка на карту:</span>
-				<a class="gmx-link_icon" target="_blank" href="//www.twitter.com/share?url={link}"><i class="icon-twitter"></i></a>
-				<a class="gmx-link_icon" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={link}"><i class="icon-facebook"></i></a>
-				<a class="gmx-link_icon" target="_blank" href="//vkontakte.ru/share.php?url{link}"><i class="icon-vk"></i></a>
+			<div class="shareDialog">
+				<div class="shareDialog-row shareDialog-title">
+					<span class="bold">Ссылка на карту:</span>
+					<a class="gmx-link_icon" target="_blank" href="//www.twitter.com/share?url={link}"><i class="icon-twitter"></i></a>
+					<a class="gmx-link_icon" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={link}"><i class="icon-facebook"></i></a>
+					<a class="gmx-link_icon" target="_blank" href="//vkontakte.ru/share.php?url{link}"><i class="icon-vk"></i></a>
+				</div>
+				<div class="shareDialog-row">
+					<div class="gmx-table">
+						<input class="shareDialog-inputPermalinkUrl" type="text" readonly="readonly" value="{link}">
+						<a class="gmx-link_icon" target="_blank" href="{link}"><i class="icon-link-ext" title="открыть в новом окне"></i></a>
+					</div>
+				</div>
+				<div class="shareDialog-row bold">Код для вставки:</div>
+				<div class="shareDialog-row">
+					<div class="gmx-table shareDialog-resolutionTable">
+							<input class="" type="number" value="{frameWidth}" on:change="set({frameWidth: this.value})">
+							<span class="shareDialog-resolutionCross">x</span>
+							<input class="" type="number" value="{frameHeight}" on:change="set({frameHeight: this.value})">
+						<span class="shareDialog-validationError hidden">
+							<span>предпросмотр</span><i class="icon-link-ext"></i>
+						</span>
+						<span class="shareDialog-previewLinkCell constrLink shareDialog-validationOk">
+							<a class="shareDialog-previewLink gmx-link" href="{link}&edit=1" target="_blank">конструктор приложений</a><i class="gmx-icon icon-link-ext"></i>
+						</span>
+					</div>
+				</div>
+				<div class="shareDialog-row">
+					<textarea class="shareDialog-validationOk" readonly="readonly">&lt;iframe src="{link}" width="{frameWidth}" height="{frameHeight}"&gt;&lt;/iframe&gt;</textarea>
+					<div class="shareDialog-validationErrorView hidden"><div class="alertWidget ui-widget"></div></div>
+				</div>
+				<div class="shareDialog-row">
+					<span class="shareDialog-previewLinkCell shareDialog-validationOk">
+						<a class="shareDialog-previewLink gmx-link" href="//www.kosmosnimki.ru/demo/winnie_2.0/iframePreview.html?width={frameWidth}&amp;height={frameHeight}&amp;url={link}" target="_blank">предпросмотр</a><i class="gmx-icon icon-link-ext"></i>
+					</span>
+				</div>
 			</div>
-		<div class="shareDialog-row">
-    <div class="gmx-table">
-		<input class="shareDialog-inputPermalinkUrl" type="text" readonly="readonly" value="{link}">
-		<a class="gmx-link_icon" target="_blank" href="{link}"><i class="icon-link-ext" title="открыть в новом окне"></i></a>
-    </div>
+		</div>
+	</div>
 </div>
-<div class="shareDialog-row bold">Код для вставки:</div>
-<div class="shareDialog-row">
-    <div class="gmx-table shareDialog-resolutionTable">
-            <input class="" type="number" value="{frameWidth}" on:change="set({frameWidth: this.value})">
-            <span class="shareDialog-resolutionCross">x</span>
-            <input class="" type="number" value="{frameHeight}" on:change="set({frameHeight: this.value})">
-        <span class="shareDialog-validationError hidden">
-            <span>предпросмотр</span><i class="icon-link-ext"></i>
-        </span>
-        <span class="shareDialog-previewLinkCell shareDialog-validationOk">
-            <a class="shareDialog-previewLink gmx-link" href="http://winnie.kosmosnimki.ru/iframePreview.html?width={frameWidth}&amp;height={frameHeight}&amp;url={link}" target="_blank">предпросмотр</a><i class="gmx-icon icon-link-ext"></i>
-        </span>
-    </div>
-</div>
-<div class="shareDialog-row">
-    <textarea class="shareDialog-validationOk" readonly="readonly">&lt;iframe src="{link}" width="{frameWidth}" height="{frameHeight}"&gt;&lt;/iframe&gt;</textarea>
-    <div class="shareDialog-validationErrorView hidden"><div class="alertWidget ui-widget"></div></div>
-</div>
-</div></div></div></div>
  
 <script>
 
@@ -48,7 +56,7 @@
 			}
 		},
 		computed: {
-			link: ({ conf }) => location.pathname + '?config=' + conf,
+			link: ({ conf }) => '//www.kosmosnimki.ru/demo/winnie_2.0/?config=' + conf,
 		}
 	}
 </script>
@@ -96,6 +104,10 @@ textarea.shareDialog-validationOk {
     width: 50%;
     text-align: right;
 	float: right;
+}
+.constrLink {
+	float: unset;
+    padding-left: 14px;
 }
 .shareDialog-previewLinkCell a {
     color: #121212;

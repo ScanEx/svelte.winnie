@@ -161,7 +161,8 @@
 		onstate({ changed, current, previous }) {
 			// console.log('in onstate', changed, current, previous);
 			if (changed.urlParams) {
-				this.getPermalink(current.urlParams.config)
+				let conf = current.urlParams.config || 'M6QMS';
+				this.getPermalink(conf);
 			}
 		}
 	}
