@@ -806,6 +806,8 @@ var app = (function (leaflet) {
 				span.className = "expander pointer expanderCont cmd:toggleVisibility svelte-1ncwc65";
 				addLoc(span, file$1, 6, 1, 237);
 				input1.className = "expander expanderInput svelte-1ncwc65";
+				setStyle(input1, "position", "relative");
+				setStyle(input1, "left", "7px");
 				setAttribute(input1, "type", "checkbox");
 				input1.checked = ctx.isVisible;
 				addLoc(input1, file$1, 7, 1, 345);
@@ -866,15 +868,15 @@ var app = (function (leaflet) {
 				if (if_block2) if_block2.c();
 				setXlinkAttribute(use, "xlink:href", "#center-on-click");
 				setAttribute(use, "href", "#center-on-click");
-				addLoc(use, file$1, 17, 115, 1023);
+				addLoc(use, file$1, 17, 115, 1060);
 				setAttribute(svg, "role", "img");
 				setAttribute(svg, "class", "svgIcon svelte-1ncwc65");
-				addLoc(svg, file$1, 17, 83, 991);
+				addLoc(svg, file$1, 17, 83, 1028);
 				span0.className = "pointer cmd:fitBounds cont-center svelte-1ncwc65";
 				span0.title = "Move map to this layer";
-				addLoc(span0, file$1, 17, 3, 911);
+				addLoc(span0, file$1, 17, 3, 948);
 				span1.className = "icons  svelte-1ncwc65";
-				addLoc(span1, file$1, 13, 1, 635);
+				addLoc(span1, file$1, 13, 1, 672);
 			},
 
 			m: function mount(target, anchor) {
@@ -949,12 +951,12 @@ var app = (function (leaflet) {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#overlays");
 				setAttribute(use, "href", "#overlays");
-				addLoc(use, file$1, 11, 61, 560);
+				addLoc(use, file$1, 11, 61, 597);
 				setAttribute(svg, "role", "img");
 				setAttribute(svg, "class", "svgIcon svelte-1ncwc65");
-				addLoc(svg, file$1, 11, 29, 528);
+				addLoc(svg, file$1, 11, 29, 565);
 				span.className = "cont-overlays svelte-1ncwc65";
-				addLoc(span, file$1, 11, 1, 500);
+				addLoc(span, file$1, 11, 1, 537);
 			},
 
 			m: function mount(target, anchor) {
@@ -986,14 +988,14 @@ var app = (function (leaflet) {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#info-circle-i");
 				setAttribute(use, "href", "#info-circle-i");
-				addLoc(use, file$1, 15, 137, 825);
+				addLoc(use, file$1, 15, 137, 862);
 				setAttribute(svg, "role", "img");
 				setAttribute(svg, "class", "svgIcon svelte-1ncwc65");
-				addLoc(svg, file$1, 15, 105, 793);
+				addLoc(svg, file$1, 15, 105, 830);
 				addListener(span, "click", click_handler);
 				span.className = "pointer cmd:showInfo cont-info svelte-1ncwc65";
 				span.title = "View description";
-				addLoc(span, file$1, 15, 2, 690);
+				addLoc(span, file$1, 15, 2, 727);
 			},
 
 			m: function mount(target, anchor) {
@@ -1027,13 +1029,13 @@ var app = (function (leaflet) {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#timeline-icon");
 				setAttribute(use, "href", "#timeline-icon");
-				addLoc(use, file$1, 20, 125, 1367);
+				addLoc(use, file$1, 20, 125, 1404);
 				setAttribute(svg, "role", "img");
 				setAttribute(svg, "class", "svgIcon svelte-1ncwc65");
-				addLoc(svg, file$1, 20, 93, 1335);
+				addLoc(svg, file$1, 20, 93, 1372);
 				addListener(span, "click", click_handler);
 				span.className = "pointer cmd:toggleTimeline timeline disabled svelte-1ncwc65";
-				addLoc(span, file$1, 20, 2, 1244);
+				addLoc(span, file$1, 20, 2, 1281);
 			},
 
 			m: function mount(target, anchor) {
@@ -1077,11 +1079,11 @@ var app = (function (leaflet) {
 				if (if_block1) if_block1.c();
 				addListener(label, "click", click_handler);
 				label.className = "pointer title cmd:toggleVisibility svelte-1ncwc65";
-				addLoc(label, file$1, 33, 2, 1812);
+				addLoc(label, file$1, 33, 2, 1849);
 				div.className = "description collapse svelte-1ncwc65";
-				addLoc(div, file$1, 34, 2, 1925);
+				addLoc(div, file$1, 34, 2, 1962);
 				span.className = "cont";
-				addLoc(span, file$1, 26, 1, 1502);
+				addLoc(span, file$1, 26, 1, 1539);
 			},
 
 			m: function mount(target, anchor) {
@@ -1182,7 +1184,7 @@ var app = (function (leaflet) {
 				input.className = "check visibility pointer cmd:toggleVisibility svelte-1ncwc65";
 				setAttribute(input, "type", "checkbox");
 				input.checked = ctx.isVisible;
-				addLoc(input, file$1, 28, 2, 1554);
+				addLoc(input, file$1, 28, 2, 1591);
 			},
 
 			m: function mount(target, anchor) {
@@ -1384,9 +1386,9 @@ var app = (function (leaflet) {
 					each_blocks[i].c();
 				}
 				div0.className = "legend-cont svelte-1ncwc65";
-				addLoc(div0, file$1, 38, 4, 2093);
+				addLoc(div0, file$1, 38, 4, 2130);
 				div1.className = "legend svelte-1ncwc65";
-				addLoc(div1, file$1, 37, 3, 2068);
+				addLoc(div1, file$1, 37, 3, 2105);
 			},
 
 			m: function mount(target, anchor) {
@@ -1472,22 +1474,22 @@ var app = (function (leaflet) {
 				text3 = createText(text3_value);
 				setXlinkAttribute(use0, "xlink:href", "#eye-on");
 				setAttribute(use0, "href", "#eye-on");
-				addLoc(use0, file$1, 42, 42, 2289);
+				addLoc(use0, file$1, 42, 42, 2326);
 				setAttribute(svg0, "role", "img");
 				setAttribute(svg0, "class", "svgIcon on svelte-1ncwc65");
-				addLoc(svg0, file$1, 42, 7, 2254);
+				addLoc(svg0, file$1, 42, 7, 2291);
 				setXlinkAttribute(use1, "xlink:href", "#eye-off");
 				setAttribute(use1, "href", "#eye-off");
-				addLoc(use1, file$1, 43, 43, 2386);
+				addLoc(use1, file$1, 43, 43, 2423);
 				setAttribute(svg1, "role", "img");
 				setAttribute(svg1, "class", "svgIcon off svelte-1ncwc65");
-				addLoc(svg1, file$1, 43, 7, 2350);
+				addLoc(svg1, file$1, 43, 7, 2387);
 				span0.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-1ncwc65";
-				addLoc(span0, file$1, 41, 6, 2186);
+				addLoc(span0, file$1, 41, 6, 2223);
 				span1.className = "styleName svelte-1ncwc65";
-				addLoc(span1, file$1, 46, 6, 2528);
+				addLoc(span1, file$1, 46, 6, 2565);
 				div.className = "gmx-style-legend svelte-1ncwc65";
-				addLoc(div, file$1, 40, 5, 2149);
+				addLoc(div, file$1, 40, 5, 2186);
 			},
 
 			m: function mount(target, anchor) {
@@ -1572,7 +1574,7 @@ var app = (function (leaflet) {
 					each_blocks[i].c();
 				}
 				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1ncwc65";
-				addLoc(ul, file$1, 57, 1, 2682);
+				addLoc(ul, file$1, 57, 1, 2719);
 			},
 
 			m: function mount(target, anchor) {
