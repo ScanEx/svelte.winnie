@@ -59,24 +59,24 @@
 .dark span.expander::before {
 	content: url('ext/img/small.svg') !important;
 	display: inline-block;
-	width: 27px;
+	width: 23px;
 	height: 12px;
 	position: relative;
-	top: 0;
+	top: 6px;
 	float: left;
-	left: 6px;
+	left: -1px;
 	padding-right: 3px;
 }
 
 .dark input.expander:checked+span.expander::before {
 	content: url('ext/img/small-o.svg') !important;
 	display: inline-block;
-	width: 27px;
+	width: 23px;
 	height: 12px;
 	position: relative;
-	top: 0;
+	top: 6px;
 	float: left;
-	left: 6px;
+	left: -1px;
 	padding-right: 3px;
 }
 
