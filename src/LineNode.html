@@ -4,8 +4,9 @@
 	<div class="borders "></div>
 	{#if line.type === 'group'}
 	<input class="expander expanderInput hidden" type="checkbox" checked="{isVisible}" />
+	<input class="expander expanderInput" type="checkbox" checked="{isVisible}" />
 	<span class="expander pointer expanderCont cmd:toggleVisibility" on:click="toggleVisibility(this)"></span>
-	<input class="expander expanderInput" style="position: relative;left:7px;" type="checkbox" checked="{isVisible}" />
+	
 	{/if}
 		{#if line.type === 'layer'}
 			{#if properties.styles.length > 1}
@@ -188,6 +189,9 @@ svg {
 }
 .expanderInput {
 	display: initial;
+	position: relative;
+	right: 17px;
+	top: 0;
 }
 .expanderCont {
     position: relative;
