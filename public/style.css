@@ -71,7 +71,7 @@
 .dark input.expander:checked+span.expander::before {
 	content: url('ext/img/small-o.svg') !important;
 	display: inline-block;
-	width: 27px;
+	width: 23px;
 	height: 12px;
 	position: relative;
 	top: 0;
@@ -101,26 +101,15 @@
 	display: none;
 }
 
-/*.dark ul.group li .expander::after {
-	left: -15px;
-	top: -6px;
-	content: '';
-	display: block;
-	height: 1em;
-	border-bottom: 1px solid #D8E1E8;
-	width: 14px;
-	position: absolute;
-	z-index: 1000000;
-}*/
 
 .dark .TreeView  li.line  ul.group.css-treeview  li.line::before {
 	border-left: 1px solid #D8E1E8;
 	display: block;
 	position: absolute;
 	content: '';
-	height: calc(100% - 57px);
+	height: calc(100% - 41px);
 	left: 27px;
-	top: 33px;
+	top: 21px;
 	width: 11px;
 	border-bottom: 1px solid #D8E1E8;
 }
@@ -155,20 +144,7 @@
 	left: 7px;
 }
 
-.dark .point.legendIconStyle {
-	width: 10px !important;
-	height: 10px !important;
-	position: relative !important;
-	top: 1.5px !important;
-}
 
-.dark .polygon.legendIconStyle {
-
-    width: 10px !important;
-    height: 10px !important;
-    position: relative !important;
-    top: 1.5px !important;
-}
 
 .dark .pointer.cont-center {
 
@@ -211,11 +187,11 @@
     display: none;
 }
 
-.dark .pointer.title {
+/*.dark .pointer.title {
     z-index: 0;
     position: relative;
     bottom: 0!important;
-}
+}*/
 
 .dark .legendIconEye.enabled.pointer::before {
 
@@ -283,23 +259,6 @@
 }
 
 
-
-.dark li.line:hover > .cont label.title:before {
-	font-weight: normal;
-	background: #EBF1F5;
-	position: absolute;
-	content: '';
-	width: 50px;
-	min-height: 100vw;
-	z-index: -1;
-	width: 100vh;
-	left: -3px;
-	bottom: -7px;
-
-}
-
-
-
 .dark li.line:hover > .cont label.title {
 
     font-weight: normal!important;
@@ -335,16 +294,28 @@
 
 }
 
-.legendIconCell.style {
 
-    width: 10px;
-    height: 10px;
-    bottom: 4px;
-    position: relative;
+/*.dark li.line:hover > .cont label.title:before {
+	font-weight: normal;
+	background: #EBF1F5;
+	position: absolute;
+	content: '';
+	width: 50px;
+	min-height: 100vw;
+	z-index: 1;
+	width: 100vh;
+	left: -3px;
+	bottom: -7px;
 
-}
+}*/
 
+/*span.cont {
 
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+
+}*/
 
 
 
