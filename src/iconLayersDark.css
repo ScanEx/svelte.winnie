@@ -56,35 +56,7 @@
 
 
 
-@media not all and (min-resolution:.001dpcm) { 
-    @media {
 
-    .dark span.expander::before {
-	content: url('ext/img/small.svg') !important;
-	display: inline-block;
-	width: 32px;
-	height: 12px;
-	position: relative;
-	top: 6px;
-	float: left;
-	left: -2px;
-	padding-right: 3px;
-}
-
-	.dark input.expander:checked+span.expander::before {
-	content: url('ext/img/small-o.svg') !important;
-	display: inline-block;
-	width: 32px;
-	height: 12px;
-	position: relative;
-	top: 6px;
-	float: left;
-	left: -2px;
-	padding-right: 3px;
-}
-        
-    }
-}
 
 
 
@@ -114,6 +86,37 @@
   	left: 6px;
   	padding-right: 3px;
 
+}
+}
+
+@media not all and (min-resolution:.001dpcm) { 
+    @media {
+
+    .dark span.expander::before {
+	content: url('ext/img/small.svg') !important;
+	display: inline-block;
+	width: 32px;
+	height: 12px;
+	position: relative;
+	top: 6px;
+	float: left;
+	left: -2px;
+	padding-right: 3px;
+}
+
+	.dark input.expander:checked+span.expander::before {
+	content: url('ext/img/small-o.svg') !important;
+	display: inline-block;
+	width: 32px;
+	height: 12px;
+	position: relative;
+	top: 6px;
+	float: left;
+	left: -2px;
+	padding-right: 3px;
+}
+        
+    }
 }
 
 
