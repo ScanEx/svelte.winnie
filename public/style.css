@@ -62,7 +62,7 @@
 	width: 27px;
 	height: 12px;
 	position: relative;
-	top: -2px;
+	top: 0;
 	float: left;
 	left: 6px;
 	padding-right: 3px;
@@ -74,7 +74,7 @@
 	width: 27px;
 	height: 12px;
 	position: relative;
-	top: -2px;
+	top: 0;
 	float: left;
 	left: 6px;
 	padding-right: 3px;
@@ -213,6 +213,8 @@
 
 .dark .pointer.title {
     z-index: 0;
+    position: relative;
+    bottom: 0!important;
 }
 
 .dark .legendIconEye.enabled.pointer::before {
@@ -332,6 +334,8 @@
     top: 1px;
 
 }
+
+
 
 
 
