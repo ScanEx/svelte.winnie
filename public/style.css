@@ -156,18 +156,18 @@
 }
 
 .dark .point.legendIconStyle {
-	width: 11px !important;
-	height: 11px !important;
+	width: 10px !important;
+	height: 10px !important;
 	position: relative !important;
-	top: -1.5px !important;
+	top: 1.5px !important;
 }
 
 .dark .polygon.legendIconStyle {
 
-    width: 11px !important;
-    height: 11px !important;
+    width: 10px !important;
+    height: 10px !important;
     position: relative !important;
-    top: -2px !important;
+    top: 1.5px !important;
 }
 
 .dark .pointer.cont-center {
