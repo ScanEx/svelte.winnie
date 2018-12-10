@@ -56,61 +56,72 @@
 
 
 
+@media not all and (min-resolution:.001dpcm) { 
+    @media {
+
+    .dark span.expander::before {
+	content: url('ext/img/small.svg') !important;
+	display: inline-block;
+	width: 32px;
+	height: 12px;
+	position: relative;
+	top: 6px;
+	float: left;
+	left: -2px;
+	padding-right: 3px;
+}
+
+	.dark input.expander:checked+span.expander::before {
+	content: url('ext/img/small-o.svg') !important;
+	display: inline-block;
+	width: 32px;
+	height: 12px;
+	position: relative;
+	top: 6px;
+	float: left;
+	left: -2px;
+	padding-right: 3px;
+}
+        
+    }
+}
+
+
+
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
 
 .dark span.expander::before {
 	content: url('ext/img/small.svg') !important;
 	display: inline-block;
-	width: 32px;
-	height: 12px;
-	position: relative;
-	top: 6px;
-	float: left;
-	left: -2px;
-	padding-right: 3px;
+	width: 27px;
+  	height: 12px;
+  	position: relative;
+  	top: 0;
+  	float: left;
+  	left: 6px;
+  	padding-right: 3px;
 }
 
 .dark input.expander:checked+span.expander::before {
 	content: url('ext/img/small-o.svg') !important;
-	display: inline-block;
-	width: 32px;
-	height: 12px;
-	position: relative;
-	top: 6px;
-	float: left;
-	left: -2px;
-	padding-right: 3px;
-}
-
-}
-
-@-moz-document url-prefix() {
-
-.dark span.expander::before {
-	content: url('ext/img/small.svg') !important;
 	display: inline-block;
 	width: 27px;
-	height: 12px;
-	position: relative;
-	top: 0;
-	float: left;
-	left: 6px;
-	padding-right: 3px;
+  	height: 12px;
+  	position: relative;
+  	top: 0;
+  	float: left;
+  	left: 6px;
+  	padding-right: 3px;
+
 }
 
-.dark input.expander:checked+span.expander::before {
-	content: url('ext/img/small-o.svg') !important;
-	display: inline-block;
-	width: 23px;
-	height: 12px;
-	position: relative;
-	top: 0;
-	float: left;
-	left: 6px;
-	padding-right: 3px;
-}
-}
+
+
+
+
+	
+
 
 
 .dark .group.css-treeview ul {
