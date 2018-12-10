@@ -276,7 +276,7 @@ var app = (function (leaflet) {
 			c: function create() {
 				span = createElement("span");
 				if_block.c();
-				span.className = "legendIconCell style svelte-gy7vh5";
+				span.className = "legendIconCell style svelte-1kw43tf";
 				addLoc(span, file, 0, 0, 0);
 			},
 
@@ -322,7 +322,7 @@ var app = (function (leaflet) {
 		return {
 			c: function create() {
 				span = createElement("span");
-				span.className = span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-gy7vh5";
+				span.className = span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-1kw43tf";
 				setStyle(span, "background-color", ctx.backgroundColor);
 				setStyle(span, "border-color", ctx.borderColor);
 				addLoc(span, file, 4, 1, 150);
@@ -333,7 +333,7 @@ var app = (function (leaflet) {
 			},
 
 			p: function update(changed, ctx) {
-				if ((changed.type) && span_class_value !== (span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-gy7vh5")) {
+				if ((changed.type) && span_class_value !== (span_class_value = "" + ctx.type + " legendIconStyle " + " svelte-1kw43tf")) {
 					span.className = span_class_value;
 				}
 
@@ -364,7 +364,7 @@ var app = (function (leaflet) {
 				img.src = img_src_value = ctx.item.RenderStyle.iconUrl;
 				setAttribute(img, "crossorigin", "");
 				img.alt = "Style Icon";
-				img.className = "svelte-gy7vh5";
+				img.className = "svelte-1kw43tf";
 				addLoc(img, file, 2, 1, 68);
 			},
 
