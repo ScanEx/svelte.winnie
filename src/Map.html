@@ -36,7 +36,7 @@
 					// layersTree = state.layersTree || {},
 					calendar = state.calendar || {},
 					mapID = gmxMap.mapID || '946GH',
-					apiKey = gmxMap.apiKey,
+					apiKey = gmxMap.apiKey || 'Z2SSNR87N4',
 					pos = state.map ? state.map.position : {};
 
 				// console.log('createMap', it)
@@ -79,6 +79,7 @@
 				this.mapID = mapID;
 				let opt = {
 					leafletMap: map,
+					apiKey: apiKey,
 					// visibleItemOnly: true,	// TODO: только видимые элементы (слои и папки) баги серверного скрипта
 					setZIndex: true
 					// ,
