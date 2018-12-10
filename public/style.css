@@ -56,6 +56,37 @@
 
 
 
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+
+.dark span.expander::before {
+	content: url('ext/img/small.svg') !important;
+	display: inline-block;
+	width: 32px;
+	height: 12px;
+	position: relative;
+	top: 6px;
+	float: left;
+	left: -2px;
+	padding-right: 3px;
+}
+
+.dark input.expander:checked+span.expander::before {
+	content: url('ext/img/small-o.svg') !important;
+	display: inline-block;
+	width: 32px;
+	height: 12px;
+	position: relative;
+	top: 6px;
+	float: left;
+	left: -2px;
+	padding-right: 3px;
+}
+
+}
+
+@-moz-document url-prefix() {
+
 .dark span.expander::before {
 	content: url('ext/img/small.svg') !important;
 	display: inline-block;
@@ -79,6 +110,8 @@
 	left: 6px;
 	padding-right: 3px;
 }
+}
+
 
 .dark .group.css-treeview ul {
 	padding-inline-start: 37px;
