@@ -1,4 +1,5 @@
 <li class="line cmd:toggleIcons id:{nodeID}">
+<div on:mouseover="toggleBG(this, true)" on:mouseout="toggleBG(this)">
 {#if properties}
 	{#if line.type !== 'map'}
 	<div class="borders "></div>
@@ -55,6 +56,7 @@
 	</span>
 	{/if}
 {/if}
+</div>
 {#if line.content.children}
 	<ul class="group css-treeview id_{properties ? properties.name : 'root'}">
 	{#each line.content.children || [] as child}
@@ -109,13 +111,24 @@
 			},
 			toggleVisibility(target) {
 				let {line} = this.get(),
-					node = line.type === 'group' ? target.parentNode.getElementsByClassName('expanderInput')[0] : target;
+					node = line.type === 'group' ? target.parentNode.parentNode.getElementsByClassName('expanderInput')[0] : target;
 				
 				if (node) {
 					if (node.checked) {
 						node.checked = false;
 					} else {
 						node.checked = true;
+					}
+				}
+			},
+			toggleBG(node, flag) {
+				console.log(flag,node.className);
+				if (node) {
+					if (flag) {
+						node.classList.add('bgcolor');	
+					} else {
+						node.classList.remove('bgcolor');
+						
 					}
 				}
 			},
@@ -260,7 +273,8 @@ span.cont-overlays {
 span.icons {
 	z-index: 1;
     right: 8px;
-    position: absolute;
+    position: relative;
+    /*position: absolute;*/
 }
 .hidden {
     visibility: hidden;
@@ -276,4 +290,6 @@ span.icons {
     bottom: 4px;
 
 }
+
+
 </style>

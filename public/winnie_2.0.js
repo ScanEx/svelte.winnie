@@ -480,13 +480,24 @@ var app = (function (leaflet) {
 		},
 		toggleVisibility(target) {
 			let {line} = this.get(),
-				node = line.type === 'group' ? target.parentNode.getElementsByClassName('expanderInput')[0] : target;
+				node = line.type === 'group' ? target.parentNode.parentNode.getElementsByClassName('expanderInput')[0] : target;
 			
 			if (node) {
 				if (node.checked) {
 					node.checked = false;
 				} else {
 					node.checked = true;
+				}
+			}
+		},
+		toggleBG(node, flag) {
+			console.log(flag,node.className);
+			if (node) {
+				if (flag) {
+					node.classList.add('bgcolor');	
+				} else {
+					node.classList.remove('bgcolor');
+					
 				}
 			}
 		},
@@ -530,25 +541,38 @@ var app = (function (leaflet) {
 	}
 
 	function create_main_fragment$1(component, ctx) {
-		var li, text, li_class_value, current;
+		var li, div, text, li_class_value, current;
 
 		var if_block0 = (ctx.properties) && create_if_block_1(component, ctx);
+
+		function mouseover_handler(event) {
+			component.toggleBG(this, true);
+		}
+
+		function mouseout_handler(event) {
+			component.toggleBG(this);
+		}
 
 		var if_block1 = (ctx.line.content.children) && create_if_block$1(component, ctx);
 
 		return {
 			c: function create() {
 				li = createElement("li");
+				div = createElement("div");
 				if (if_block0) if_block0.c();
 				text = createText("\n");
 				if (if_block1) if_block1.c();
-				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-8xi1dp";
+				addListener(div, "mouseover", mouseover_handler);
+				addListener(div, "mouseout", mouseout_handler);
+				addLoc(div, file$1, 1, 0, 46);
+				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-hfao39";
 				addLoc(li, file$1, 0, 0, 0);
 			},
 
 			m: function mount(target, anchor) {
 				insert(target, li, anchor);
-				if (if_block0) if_block0.m(li, null);
+				append(li, div);
+				if (if_block0) if_block0.m(div, null);
 				append(li, text);
 				if (if_block1) if_block1.m(li, null);
 				current = true;
@@ -563,7 +587,7 @@ var app = (function (leaflet) {
 						if (if_block0) if_block0.c();
 					}
 
-					if_block0.i(li, text);
+					if_block0.i(div, null);
 				} else if (if_block0) {
 					if_block0.o(function() {
 						if_block0.d(1);
@@ -587,7 +611,7 @@ var app = (function (leaflet) {
 					});
 				}
 
-				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-8xi1dp")) {
+				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-hfao39")) {
 					li.className = li_class_value;
 				}
 			},
@@ -618,12 +642,14 @@ var app = (function (leaflet) {
 				}
 
 				if (if_block0) if_block0.d();
+				removeListener(div, "mouseover", mouseover_handler);
+				removeListener(div, "mouseout", mouseout_handler);
 				if (if_block1) if_block1.d();
 			}
 		};
 	}
 
-	// (2:0) {#if properties}
+	// (3:0) {#if properties}
 	function create_if_block_1(component, ctx) {
 		var text, if_block1_anchor, current;
 
@@ -707,7 +733,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (3:1) {#if line.type !== 'map'}
+	// (4:1) {#if line.type !== 'map'}
 	function create_if_block_7(component, ctx) {
 		var div, text0, text1, if_block1_anchor;
 
@@ -724,7 +750,7 @@ var app = (function (leaflet) {
 				if (if_block1) if_block1.c();
 				if_block1_anchor = createComment();
 				div.className = "borders ";
-				addLoc(div, file$1, 3, 1, 91);
+				addLoc(div, file$1, 4, 1, 162);
 			},
 
 			m: function mount(target, anchor) {
@@ -783,7 +809,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (5:1) {#if line.type === 'group'}
+	// (6:1) {#if line.type === 'group'}
 	function create_if_block_12(component, ctx) {
 		var input0, text0, input1, text1, span;
 
@@ -798,17 +824,17 @@ var app = (function (leaflet) {
 				input1 = createElement("input");
 				text1 = createText("\n\t");
 				span = createElement("span");
-				input0.className = "expander expanderInput hidden svelte-8xi1dp";
+				input0.className = "expander expanderInput hidden svelte-hfao39";
 				setAttribute(input0, "type", "checkbox");
 				input0.checked = ctx.isVisible;
-				addLoc(input0, file$1, 5, 1, 150);
-				input1.className = "expander expanderInput svelte-8xi1dp";
+				addLoc(input0, file$1, 6, 1, 221);
+				input1.className = "expander expanderInput svelte-hfao39";
 				setAttribute(input1, "type", "checkbox");
 				input1.checked = ctx.isVisible;
-				addLoc(input1, file$1, 6, 1, 237);
+				addLoc(input1, file$1, 7, 1, 308);
 				addListener(span, "click", click_handler);
-				span.className = "expander pointer expanderCont cmd:toggleVisibility svelte-8xi1dp";
-				addLoc(span, file$1, 7, 1, 317);
+				span.className = "expander pointer expanderCont cmd:toggleVisibility svelte-hfao39";
+				addLoc(span, file$1, 8, 1, 388);
 			},
 
 			m: function mount(target, anchor) {
@@ -840,7 +866,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (11:2) {#if line.type === 'layer'}
+	// (12:2) {#if line.type === 'layer'}
 	function create_if_block_8(component, ctx) {
 		var text0, span1, text1, span0, svg, use, text2;
 
@@ -864,15 +890,15 @@ var app = (function (leaflet) {
 				if (if_block2) if_block2.c();
 				setXlinkAttribute(use, "xlink:href", "#center-on-click");
 				setAttribute(use, "href", "#center-on-click");
-				addLoc(use, file$1, 18, 115, 1025);
+				addLoc(use, file$1, 19, 115, 1096);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-8xi1dp");
-				addLoc(svg, file$1, 18, 83, 993);
-				span0.className = "pointer cmd:fitBounds cont-center svelte-8xi1dp";
+				setAttribute(svg, "class", "svgIcon svelte-hfao39");
+				addLoc(svg, file$1, 19, 83, 1064);
+				span0.className = "pointer cmd:fitBounds cont-center svelte-hfao39";
 				span0.title = "Move map to this layer";
-				addLoc(span0, file$1, 18, 3, 913);
-				span1.className = "icons  svelte-8xi1dp";
-				addLoc(span1, file$1, 14, 1, 637);
+				addLoc(span0, file$1, 19, 3, 984);
+				span1.className = "icons  svelte-hfao39";
+				addLoc(span1, file$1, 15, 1, 708);
 			},
 
 			m: function mount(target, anchor) {
@@ -936,7 +962,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (12:3) {#if properties.styles.length > 1}
+	// (13:3) {#if properties.styles.length > 1}
 	function create_if_block_11(component, ctx) {
 		var span, svg, use;
 
@@ -947,12 +973,12 @@ var app = (function (leaflet) {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#overlays");
 				setAttribute(use, "href", "#overlays");
-				addLoc(use, file$1, 12, 61, 562);
+				addLoc(use, file$1, 13, 61, 633);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-8xi1dp");
-				addLoc(svg, file$1, 12, 29, 530);
-				span.className = "cont-overlays svelte-8xi1dp";
-				addLoc(span, file$1, 12, 1, 502);
+				setAttribute(svg, "class", "svgIcon svelte-hfao39");
+				addLoc(svg, file$1, 13, 29, 601);
+				span.className = "cont-overlays svelte-hfao39";
+				addLoc(span, file$1, 13, 1, 573);
 			},
 
 			m: function mount(target, anchor) {
@@ -969,7 +995,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (16:2) {#if properties.description}
+	// (17:2) {#if properties.description}
 	function create_if_block_10(component, ctx) {
 		var span, svg, use;
 
@@ -984,14 +1010,14 @@ var app = (function (leaflet) {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#info-circle-i");
 				setAttribute(use, "href", "#info-circle-i");
-				addLoc(use, file$1, 16, 137, 827);
+				addLoc(use, file$1, 17, 137, 898);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-8xi1dp");
-				addLoc(svg, file$1, 16, 105, 795);
+				setAttribute(svg, "class", "svgIcon svelte-hfao39");
+				addLoc(svg, file$1, 17, 105, 866);
 				addListener(span, "click", click_handler);
-				span.className = "pointer cmd:showInfo cont-info svelte-8xi1dp";
+				span.className = "pointer cmd:showInfo cont-info svelte-hfao39";
 				span.title = "View description";
-				addLoc(span, file$1, 16, 2, 692);
+				addLoc(span, file$1, 17, 2, 763);
 			},
 
 			m: function mount(target, anchor) {
@@ -1010,7 +1036,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (21:2) {#if gmxTimeline && properties.Temporal && (properties.IsRasterCatalog || (properties.Quicklook && properties.Quicklook !== 'null'))}
+	// (22:2) {#if gmxTimeline && properties.Temporal && (properties.IsRasterCatalog || (properties.Quicklook && properties.Quicklook !== 'null'))}
 	function create_if_block_9(component, ctx) {
 		var span, svg, use;
 
@@ -1025,13 +1051,13 @@ var app = (function (leaflet) {
 				use = createSvgElement("use");
 				setXlinkAttribute(use, "xlink:href", "#timeline-icon");
 				setAttribute(use, "href", "#timeline-icon");
-				addLoc(use, file$1, 21, 125, 1369);
+				addLoc(use, file$1, 22, 125, 1440);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-8xi1dp");
-				addLoc(svg, file$1, 21, 93, 1337);
+				setAttribute(svg, "class", "svgIcon svelte-hfao39");
+				addLoc(svg, file$1, 22, 93, 1408);
 				addListener(span, "click", click_handler);
-				span.className = "pointer cmd:toggleTimeline timeline disabled svelte-8xi1dp";
-				addLoc(span, file$1, 21, 2, 1246);
+				span.className = "pointer cmd:toggleTimeline timeline disabled svelte-hfao39";
+				addLoc(span, file$1, 22, 2, 1317);
 			},
 
 			m: function mount(target, anchor) {
@@ -1050,7 +1076,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (27:1) {#if line.type !== 'map'}
+	// (28:1) {#if line.type !== 'map'}
 	function create_if_block_2(component, ctx) {
 		var span, text0, label, text1_value = ctx.properties.title, text1, text2, div, text3, current;
 
@@ -1074,12 +1100,12 @@ var app = (function (leaflet) {
 				text3 = createText("\n\t\t");
 				if (if_block1) if_block1.c();
 				addListener(label, "click", click_handler);
-				label.className = "pointer title cmd:toggleVisibility svelte-8xi1dp";
-				addLoc(label, file$1, 34, 2, 1814);
-				div.className = "description collapse svelte-8xi1dp";
-				addLoc(div, file$1, 35, 2, 1927);
+				label.className = "pointer title cmd:toggleVisibility svelte-hfao39";
+				addLoc(label, file$1, 35, 2, 1885);
+				div.className = "description collapse svelte-hfao39";
+				addLoc(div, file$1, 36, 2, 1998);
 				span.className = "cont";
-				addLoc(span, file$1, 27, 1, 1504);
+				addLoc(span, file$1, 28, 1, 1575);
 			},
 
 			m: function mount(target, anchor) {
@@ -1165,7 +1191,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (29:2) {#if line.type === 'layer'}
+	// (30:2) {#if line.type === 'layer'}
 	function create_if_block_5(component, ctx) {
 		var input, text, if_block_anchor, current;
 
@@ -1177,10 +1203,10 @@ var app = (function (leaflet) {
 				text = createText("\n\t\t");
 				if (if_block) if_block.c();
 				if_block_anchor = createComment();
-				input.className = "check visibility pointer cmd:toggleVisibility svelte-8xi1dp";
+				input.className = "check visibility pointer cmd:toggleVisibility svelte-hfao39";
 				setAttribute(input, "type", "checkbox");
 				input.checked = ctx.isVisible;
-				addLoc(input, file$1, 29, 2, 1556);
+				addLoc(input, file$1, 30, 2, 1627);
 			},
 
 			m: function mount(target, anchor) {
@@ -1242,7 +1268,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (31:2) {#if styles.length && styles.length < 2 && styles[0].RenderStyle}
+	// (32:2) {#if styles.length && styles.length < 2 && styles[0].RenderStyle}
 	function create_if_block_6(component, ctx) {
 		var current;
 
@@ -1289,7 +1315,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (37:2) {#if line.type === 'layer'}
+	// (38:2) {#if line.type === 'layer'}
 	function create_if_block_3(component, ctx) {
 		var if_block_anchor, current;
 
@@ -1349,7 +1375,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (38:3) {#if styles.length && styles.length > 1 && styles[0].RenderStyle}
+	// (39:3) {#if styles.length && styles.length > 1 && styles[0].RenderStyle}
 	function create_if_block_4(component, ctx) {
 		var div1, div0, current;
 
@@ -1381,10 +1407,10 @@ var app = (function (leaflet) {
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-				div0.className = "legend-cont svelte-8xi1dp";
-				addLoc(div0, file$1, 39, 4, 2095);
-				div1.className = "legend svelte-8xi1dp";
-				addLoc(div1, file$1, 38, 3, 2070);
+				div0.className = "legend-cont svelte-hfao39";
+				addLoc(div0, file$1, 40, 4, 2166);
+				div1.className = "legend svelte-hfao39";
+				addLoc(div1, file$1, 39, 3, 2141);
 			},
 
 			m: function mount(target, anchor) {
@@ -1443,7 +1469,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (41:4) {#each styles as it}
+	// (42:4) {#each styles as it}
 	function create_each_block_1(component, ctx) {
 		var div, span0, svg0, use0, text0, svg1, use1, text1, text2, span1, text3_value = ctx.it.Name, text3, current;
 
@@ -1470,22 +1496,22 @@ var app = (function (leaflet) {
 				text3 = createText(text3_value);
 				setXlinkAttribute(use0, "xlink:href", "#eye-on");
 				setAttribute(use0, "href", "#eye-on");
-				addLoc(use0, file$1, 43, 42, 2291);
+				addLoc(use0, file$1, 44, 42, 2362);
 				setAttribute(svg0, "role", "img");
-				setAttribute(svg0, "class", "svgIcon on svelte-8xi1dp");
-				addLoc(svg0, file$1, 43, 7, 2256);
+				setAttribute(svg0, "class", "svgIcon on svelte-hfao39");
+				addLoc(svg0, file$1, 44, 7, 2327);
 				setXlinkAttribute(use1, "xlink:href", "#eye-off");
 				setAttribute(use1, "href", "#eye-off");
-				addLoc(use1, file$1, 44, 43, 2388);
+				addLoc(use1, file$1, 45, 43, 2459);
 				setAttribute(svg1, "role", "img");
-				setAttribute(svg1, "class", "svgIcon off svelte-8xi1dp");
-				addLoc(svg1, file$1, 44, 7, 2352);
-				span0.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-8xi1dp";
-				addLoc(span0, file$1, 42, 6, 2188);
-				span1.className = "styleName svelte-8xi1dp";
-				addLoc(span1, file$1, 47, 6, 2530);
-				div.className = "gmx-style-legend svelte-8xi1dp";
-				addLoc(div, file$1, 41, 5, 2151);
+				setAttribute(svg1, "class", "svgIcon off svelte-hfao39");
+				addLoc(svg1, file$1, 45, 7, 2423);
+				span0.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-hfao39";
+				addLoc(span0, file$1, 43, 6, 2259);
+				span1.className = "styleName svelte-hfao39";
+				addLoc(span1, file$1, 48, 6, 2601);
+				div.className = "gmx-style-legend svelte-hfao39";
+				addLoc(div, file$1, 42, 5, 2222);
 			},
 
 			m: function mount(target, anchor) {
@@ -1538,7 +1564,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (58:0) {#if line.content.children}
+	// (60:0) {#if line.content.children}
 	function create_if_block$1(component, ctx) {
 		var ul, ul_class_value, current;
 
@@ -1569,8 +1595,8 @@ var app = (function (leaflet) {
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-8xi1dp";
-				addLoc(ul, file$1, 58, 1, 2684);
+				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-hfao39";
+				addLoc(ul, file$1, 60, 1, 2762);
 			},
 
 			m: function mount(target, anchor) {
@@ -1601,7 +1627,7 @@ var app = (function (leaflet) {
 					for (; i < each_blocks.length; i += 1) outroBlock(i, 1);
 				}
 
-				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-8xi1dp")) {
+				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-hfao39")) {
 					ul.className = ul_class_value;
 				}
 			},
@@ -1632,7 +1658,7 @@ var app = (function (leaflet) {
 		};
 	}
 
-	// (60:1) {#each line.content.children || [] as child}
+	// (62:1) {#each line.content.children || [] as child}
 	function create_each_block(component, ctx) {
 		var linenode_updating = {}, current;
 
