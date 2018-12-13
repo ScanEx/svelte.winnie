@@ -85,9 +85,9 @@
 	width: 27px;
 	height: 12px;
 	position: absolute;
-	top: -3px;
+	top: -21px;
 	float: left;
-	left: 111px;
+	left: 98px;
 	}
 	.dark .TreeView li.line ul.group.css-treeview li.line::after {
 		border-left: 1px solid #D8E1E8;
@@ -196,6 +196,17 @@
 		z-index: 1;
 		border-top: 1px solid #D8E1E8;
 	}
+
+	.dark .legend::before {
+    		content: url('ext/img/multi.svg') !important;
+			display: inline-block;
+			width: 27px;
+			height: 12px;
+			position: absolute;
+			top: -3px;
+			float: left;
+			left: 111px;
+		}
 
 
     .dark .TreeView>li.line {
