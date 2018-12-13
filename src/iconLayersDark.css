@@ -113,7 +113,7 @@
 	}
 	.dark .TreeView>li.line {
 		position: relative;
-		left: -5px;
+		left: -21px;
 	}
 }
 
@@ -178,6 +178,13 @@
 			position: relative;
 			left: -15px;
 		}
+	}
+}
+
+@-moz-document url-prefix() {
+    .dark .TreeView>li.line {
+		position: relative;
+		left: -5px;
 	}
 }
 
