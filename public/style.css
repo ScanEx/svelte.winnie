@@ -1,4 +1,4 @@
-.scanex-sidebar .tabs {
+	.scanex-sidebar .tabs {
 	background-color: white;
 	display: block;
 }
@@ -77,8 +77,8 @@
 		left: 6px;
 		padding-right: 3px;
 	}
-	.dark .TreeView li.line ul.group.css-treeview li.line::before {
-		border-left: 1px solid #D8E1E8;
+	.dark .TreeView li.line ul.group.css-treeview li.line::after {
+		border-left: 1px solid #D8E1E8 ;
 		display: block;
 		position: absolute;
 		content: '';
@@ -86,13 +86,30 @@
 		left: 27px;
 		top: 21px;
 		width: 9px;
-		border-bottom: 1px solid #D8E1E8;
 	}
+
+	.dark .TreeView li.line ul.group.css-treeview li.line:last-child:before {
+		border-left: 3px solid #FFF;
+		display: block;
+		position: absolute;
+		content: '';
+		height: calc(100% - 15px);
+		left: -12px;
+		top: 10px;
+		width: 11px;
+		z-index: 1;
+		border-top: 1px solid #D8E1E8;
+	}
+
+
+	
 	.dark .TreeView>li.line {
 		position: relative;
 		left: -5px;
 	}
 }
+
+
 
 @media not all and (min-resolution:.001dpcm) {
 	@media {
@@ -118,7 +135,7 @@
 			left: -2px;
 			padding-right: 3px;
 		}
-		.dark .TreeView li.line ul.group.css-treeview li.line::before {
+		.dark .TreeView li.line ul.group.css-treeview li.line::after {
 			border-left: 1px solid #D8E1E8;
 			display: block;
 			position: absolute;
@@ -161,7 +178,7 @@
 	list-style: none;
 	text-overflow: ellipsis;
 	width: 100% !important;
-	overflow: hidden;
+	overflow: inherit;
 	float: left;
 	position: relative;
 	line-height: 201%;
@@ -189,7 +206,7 @@
 	top: 7px;
 	content: url('ext/img/coord.svg') !important;
 	visibility: visible !important;
-	background: #FFF;
+	/*background: #FFF;*/
 	float: right;
 	padding-left: 5px;
 	right: 3px;
@@ -200,7 +217,29 @@
 	top: 7px;
 	content: url('ext/img/info.svg') !important;
 	visibility: visible !important;
-	background: #FFF;
+	/*background: #FFF;*/
+	float: right;
+	padding-left: 5px;
+	right: 3px;
+}
+
+.dark li.line:hover>.icons>.pointer.cont-center {
+	position: relative;
+	top: 7px;
+	content: url('ext/img/coord-o.svg') !important;
+	visibility: visible !important;
+	/*background: #EBF1F5 !important;*/
+	float: right;
+	padding-left: 5px;
+	right: 3px;
+}
+
+.dark li.line:hover>.icons>.pointer.cont-info {
+	position: relative;
+	top: 7px;
+	content: url('ext/img/info-o.svg') !important;
+	visibility: visible !important;
+	/*background: #EBF1F5 !important;*/
 	float: right;
 	padding-left: 5px;
 	right: 3px;
@@ -271,35 +310,49 @@
 	left: -6px;
 }
 
-.dark li.line:hover>.cont label.title {
+.dark li.line:hover > .cont label.title {
 	font-weight: normal!important;
 }
 
-.dark li.line:hover>.bgcolor>.icons>.pointer.cont-center {
-	position: relative;
-	top: 7px;
-	content: url('ext/img/coord-o.svg') !important;
-	visibility: visible !important;
-	background: #EBF1F5 !important;
-	float: right;
-	padding-left: 5px;
-	right: 3px;
-}
 
-.dark li.line:hover>.bgcolor>.icons>.pointer.cont-info {
-	position: relative;
-	top: 7px;
-	content: url('ext/img/info-o.svg') !important;
-	visibility: visible !important;
-	background: #EBF1F5 !important;
-	float: right;
-	padding-left: 5px;
-	right: 3px;
-}
 
 .bgcolor {
 	background-color: #EBF1F5;
+	display: inline;
 }
+
+.legendIconCell span {
+    margin-bottom:2px!important;
+}
+
+
+.bgcolor::before {
+
+    background-color: #EBF1F5;
+    position: absolute;
+    display: inline;
+    width: 100vw;
+    /*min-height: 32px;*/
+    min-height: 27px;
+    content: '';
+    margin-left: -3px;
+    z-index: 0;
+
+}
+
+.cont {
+
+    z-index: 1;
+    position: relative;
+
+}
+
+.gmx-style-legend:hover {
+	background-color: #EBF1F5;
+
+}
+
+
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
