@@ -147,9 +147,9 @@
 			width: 27px;
 			height: 12px;
 			position: absolute;
-			top: -3px;
+			top: -21px;
 			float: left;
-			left: 111px;
+			left: 98px;
 		}
 		.dark .TreeView li.line ul.group.css-treeview li.line::after {
 			border-left: 1px solid #D8E1E8;
@@ -160,7 +160,6 @@
 			left: 20px;
 			top: 21px;
 			width: 15px;
-			border-bottom: 1px solid #D8E1E8;
 		}
 		.dark .TreeView li.line ul.group.css-treeview li.line:last-child:before {
 			border-left: 3px solid #FFF;
@@ -168,7 +167,7 @@
 			position: absolute;
 			content: '';
 			height: calc(100% - 15px);
-			left: -12px;
+			left: -22px;
 			top: 10px;
 			width: 11px;
 			z-index: 1;
