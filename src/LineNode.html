@@ -53,6 +53,7 @@
 </span>
   {/if}
 {/if}
+</li>
 
 {#if line.content.children}
 	<ul class="group css-treeview id_{properties ? properties.name : 'root'}">
@@ -61,7 +62,6 @@
 	{/each}
 	</ul>
 {/if}
-</li>
  
 <script>
 /*
@@ -123,14 +123,14 @@
 			},
 			toggleBG(node, flag) {
 				console.log(flag,node.className);
-				if (node) {
-					if (flag) {
-						node.classList.add('bgcolor');	
-					} else {
-						node.classList.remove('bgcolor');
+				// if (node) {
+					// if (flag) {
+						// node.classList.add('bgcolor');	
+					// } else {
+						// node.classList.remove('bgcolor');
 						
-					}
-				}
+					// }
+				// }
 			},
 			toggleTimeline(node) {
 				if (node) {

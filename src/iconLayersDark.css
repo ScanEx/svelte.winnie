@@ -506,3 +506,8 @@
 
 .dark li { overflow: -moz-scrollbars-none; }
 
+.dark ul li.line:hover {
+    background-color: #63B0C3;
+}
+
+
