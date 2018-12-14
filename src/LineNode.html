@@ -38,8 +38,8 @@
 				{#each styles as it}
 					<div class="gmx-style-legend">
 						<span class="legendIconEye enabled pointer cmd:toggleStyle">
-							<svg role="img" class="svgIcon on"><use xlink:href="#eye-on" href="#eye-on"></use></svg>
-							<svg role="img" class="svgIcon off"><use xlink:href="#eye-off" href="#eye-off"></use></svg>
+							<!-- <svg role="img" class="svgIcon on"><use xlink:href="#eye-on" href="#eye-on"></use></svg> -->
+							<!-- <svg role="img" class="svgIcon off"><use xlink:href="#eye-off" href="#eye-off"></use></svg> -->
 						</span>
 						<LegendIconCell item={it} type={properties.GeometryType} />
 						<span class="styleName">{it.Name}</span>
@@ -168,18 +168,18 @@ ul {
 li {
 	list-style: none;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: initial;
     overflow-x: inherit;
-	width: 98%;
+	width: 100%;
 }
 li.line > .icons span.cont-center {
-	visibility: hidden;
+	visibility: visible;
 }
 li.line:hover > .icons span.cont-center {
 	visibility: visible;
 }
 li.line:hover > .cont label.title {
-	font-weight: bold;
+	font-weight: normal;
 }
 
 svg {
@@ -209,16 +209,14 @@ svg {
 .expanderCont {
     position: relative;
 	top: -5px;
-	padding-right: 3px;
-	margin-left: -20px;
 }
 
-span.expander:before {
+/*span.expander:before {
 	content: '\2b9e';
 }
 input.expander:checked + span.expander:before {
     content: '\2b9f';
-}
+}*/
 
 .legend {
 	padding-left: 20px;
@@ -266,8 +264,8 @@ input.check.visibility:checked ~ .legend {
 }
 
 span.cont-overlays {
-    position: absolute;
-    left: 1px;
+    position: relative;
+    left: 26px;
     padding-top: 2px;
 }
 span.icons {
