@@ -436,9 +436,9 @@
 
 }
 
-dark li.line::-webkit-scrollbar { display: none; }
+.dark li::-webkit-scrollbar { display: none!important; width:0!important; }
 
-dark li.line { -ms-overflow-style: none; }
+.dark li { -ms-overflow-style: none!important; }
 
-/*dark li.line { overflow: -moz-scrollbars-none; }*/
+.dark li { overflow: -moz-scrollbars-none!important; }
 
