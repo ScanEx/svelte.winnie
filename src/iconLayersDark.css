@@ -428,7 +428,7 @@
     display: block;
     width: 5px;
     height: 14px;
-    height: 100%;
+    height: 88%;
     position: relative;
     top: 12px;
     left: 27px;
@@ -436,5 +436,9 @@
 
 }
 
+dark li.line::-webkit-scrollbar { display: none; }
 
+dark li.line { -ms-overflow-style: none; }
+
+/*dark li.line { overflow: -moz-scrollbars-none; }*/
 
