@@ -449,6 +449,10 @@ var app = (function (leaflet) {
 		return properties.gmxStyles ? properties.gmxStyles.styles : [];
 	}
 
+	function multiStyles({ properties }) {
+		return properties.gmxStyles && properties.gmxStyles.styles.length > 1 ? 'multiStyles' : '';
+	}
+
 	function isVisible({line, layersTree}) {
 		let content = line.content,
 			props = content.properties,
@@ -553,7 +557,7 @@ var app = (function (leaflet) {
 				if (if_block0) if_block0.c();
 				text = createText("\n\n");
 				if (if_block1) if_block1.c();
-				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-1qmljnz";
+				li.className = li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-19ga62s";
 				addLoc(li, file$1, 0, 0, 0);
 			},
 
@@ -599,7 +603,7 @@ var app = (function (leaflet) {
 					});
 				}
 
-				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-1qmljnz")) {
+				if ((!current || changed.nodeID) && li_class_value !== (li_class_value = "line cmd:toggleIcons id:" + ctx.nodeID + " svelte-19ga62s")) {
 					li.className = li_class_value;
 				}
 			},
@@ -809,12 +813,12 @@ var app = (function (leaflet) {
 				input = createElement("input");
 				text = createText("\n\t");
 				span = createElement("span");
-				input.className = "expander expanderInput hidden svelte-1qmljnz";
+				input.className = "expander expanderInput hidden svelte-19ga62s";
 				setAttribute(input, "type", "checkbox");
 				input.checked = ctx.isVisible;
 				addLoc(input, file$1, 5, 1, 159);
 				addListener(span, "click", click_handler);
-				span.className = "expander pointer expanderCont cmd:toggleVisibility svelte-1qmljnz";
+				span.className = "expander pointer expanderCont cmd:toggleVisibility svelte-19ga62s";
 				addLoc(span, file$1, 6, 1, 246);
 			},
 
@@ -868,12 +872,12 @@ var app = (function (leaflet) {
 				setAttribute(use, "href", "#center-on-click");
 				addLoc(use, file$1, 16, 115, 990);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1qmljnz");
+				setAttribute(svg, "class", "svgIcon svelte-19ga62s");
 				addLoc(svg, file$1, 16, 83, 958);
-				span0.className = "pointer cmd:fitBounds cont-center svelte-1qmljnz";
+				span0.className = "pointer cmd:fitBounds cont-center svelte-19ga62s";
 				span0.title = "Move map to this layer";
 				addLoc(span0, file$1, 16, 3, 878);
-				span1.className = "icons  svelte-1qmljnz";
+				span1.className = "icons  svelte-19ga62s";
 				addLoc(span1, file$1, 12, 1, 602);
 			},
 
@@ -951,9 +955,9 @@ var app = (function (leaflet) {
 				setAttribute(use, "href", "#overlays");
 				addLoc(use, file$1, 10, 61, 527);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1qmljnz");
+				setAttribute(svg, "class", "svgIcon svelte-19ga62s");
 				addLoc(svg, file$1, 10, 29, 495);
-				span.className = "cont-overlays svelte-1qmljnz";
+				span.className = "cont-overlays svelte-19ga62s";
 				addLoc(span, file$1, 10, 1, 467);
 			},
 
@@ -988,10 +992,10 @@ var app = (function (leaflet) {
 				setAttribute(use, "href", "#info-circle-i");
 				addLoc(use, file$1, 14, 137, 792);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1qmljnz");
+				setAttribute(svg, "class", "svgIcon svelte-19ga62s");
 				addLoc(svg, file$1, 14, 105, 760);
 				addListener(span, "click", click_handler);
-				span.className = "pointer cmd:showInfo cont-info svelte-1qmljnz";
+				span.className = "pointer cmd:showInfo cont-info svelte-19ga62s";
 				span.title = "View description";
 				addLoc(span, file$1, 14, 2, 657);
 			},
@@ -1029,10 +1033,10 @@ var app = (function (leaflet) {
 				setAttribute(use, "href", "#timeline-icon");
 				addLoc(use, file$1, 19, 125, 1334);
 				setAttribute(svg, "role", "img");
-				setAttribute(svg, "class", "svgIcon svelte-1qmljnz");
+				setAttribute(svg, "class", "svgIcon svelte-19ga62s");
 				addLoc(svg, file$1, 19, 93, 1302);
 				addListener(span, "click", click_handler);
-				span.className = "pointer cmd:toggleTimeline timeline disabled svelte-1qmljnz";
+				span.className = "pointer cmd:toggleTimeline timeline disabled svelte-19ga62s";
 				addLoc(span, file$1, 19, 2, 1211);
 			},
 
@@ -1054,7 +1058,7 @@ var app = (function (leaflet) {
 
 	// (25:1) {#if line.type !== 'map'}
 	function create_if_block_2(component, ctx) {
-		var span1, span0, input, text0, text1, label, text2_value = ctx.properties.title, text2, text3, div, text4, current;
+		var span1, span0, input, text0, text1, label, text2_value = ctx.properties.title, text2, label_class_value, text3, div, text4, current;
 
 		var if_block0 = (ctx.line.type === 'layer' && ctx.styles.length && ctx.styles.length < 2 && ctx.styles[0].RenderStyle) && create_if_block_5(component, ctx);
 
@@ -1086,15 +1090,15 @@ var app = (function (leaflet) {
 				div = createElement("div");
 				text4 = createText("\n\t\t");
 				if (if_block1) if_block1.c();
-				input.className = "check visibility pointer cmd:toggleVisibility svelte-1qmljnz";
+				input.className = "check visibility pointer cmd:toggleVisibility svelte-19ga62s";
 				setAttribute(input, "type", "checkbox");
 				input.checked = ctx.isVisible;
 				addLoc(input, file$1, 27, 2, 1599);
 				addListener(label, "click", click_handler);
-				label.className = "pointer title cmd:toggleVisibility svelte-1qmljnz";
+				label.className = label_class_value = "pointer title cmd:toggleVisibility " + ctx.multiStyles + " svelte-19ga62s";
 				addLoc(label, file$1, 31, 2, 1874);
-				div.className = "description collapse svelte-1qmljnz";
-				addLoc(div, file$1, 32, 2, 1987);
+				div.className = "description collapse svelte-19ga62s";
+				addLoc(div, file$1, 32, 2, 2001);
 				span0.className = "cont";
 				addLoc(span0, file$1, 26, 1, 1577);
 				addListener(span1, "mouseover", mouseover_handler);
@@ -1141,6 +1145,10 @@ var app = (function (leaflet) {
 
 				if ((!current || changed.properties) && text2_value !== (text2_value = ctx.properties.title)) {
 					setData(text2, text2_value);
+				}
+
+				if ((!current || changed.multiStyles) && label_class_value !== (label_class_value = "pointer title cmd:toggleVisibility " + ctx.multiStyles + " svelte-19ga62s")) {
+					label.className = label_class_value;
 				}
 
 				if (ctx.line.type === 'layer') {
@@ -1333,10 +1341,10 @@ var app = (function (leaflet) {
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-				div0.className = "legend-cont svelte-1qmljnz";
-				addLoc(div0, file$1, 36, 4, 2155);
-				div1.className = "legend svelte-1qmljnz";
-				addLoc(div1, file$1, 35, 3, 2130);
+				div0.className = "legend-cont svelte-19ga62s";
+				addLoc(div0, file$1, 36, 4, 2169);
+				div1.className = "legend svelte-19ga62s";
+				addLoc(div1, file$1, 35, 3, 2144);
 			},
 
 			m: function mount(target, anchor) {
@@ -1422,22 +1430,22 @@ var app = (function (leaflet) {
 				text3 = createText(text3_value);
 				setXlinkAttribute(use0, "xlink:href", "#eye-on");
 				setAttribute(use0, "href", "#eye-on");
-				addLoc(use0, file$1, 40, 42, 2351);
+				addLoc(use0, file$1, 40, 42, 2365);
 				setAttribute(svg0, "role", "img");
-				setAttribute(svg0, "class", "svgIcon on svelte-1qmljnz");
-				addLoc(svg0, file$1, 40, 7, 2316);
+				setAttribute(svg0, "class", "svgIcon on svelte-19ga62s");
+				addLoc(svg0, file$1, 40, 7, 2330);
 				setXlinkAttribute(use1, "xlink:href", "#eye-off");
 				setAttribute(use1, "href", "#eye-off");
-				addLoc(use1, file$1, 41, 43, 2448);
+				addLoc(use1, file$1, 41, 43, 2462);
 				setAttribute(svg1, "role", "img");
-				setAttribute(svg1, "class", "svgIcon off svelte-1qmljnz");
-				addLoc(svg1, file$1, 41, 7, 2412);
-				span0.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-1qmljnz";
-				addLoc(span0, file$1, 39, 6, 2248);
-				span1.className = "styleName svelte-1qmljnz";
-				addLoc(span1, file$1, 44, 6, 2590);
-				div.className = "gmx-style-legend svelte-1qmljnz";
-				addLoc(div, file$1, 38, 5, 2211);
+				setAttribute(svg1, "class", "svgIcon off svelte-19ga62s");
+				addLoc(svg1, file$1, 41, 7, 2426);
+				span0.className = "legendIconEye enabled pointer cmd:toggleStyle svelte-19ga62s";
+				addLoc(span0, file$1, 39, 6, 2262);
+				span1.className = "styleName svelte-19ga62s";
+				addLoc(span1, file$1, 44, 6, 2604);
+				div.className = "gmx-style-legend svelte-19ga62s";
+				addLoc(div, file$1, 38, 5, 2225);
 			},
 
 			m: function mount(target, anchor) {
@@ -1521,8 +1529,8 @@ var app = (function (leaflet) {
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1qmljnz";
-				addLoc(ul, file$1, 57, 1, 2754);
+				ul.className = ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-19ga62s";
+				addLoc(ul, file$1, 57, 1, 2768);
 			},
 
 			m: function mount(target, anchor) {
@@ -1553,7 +1561,7 @@ var app = (function (leaflet) {
 					for (; i < each_blocks.length; i += 1) outroBlock(i, 1);
 				}
 
-				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-1qmljnz")) {
+				if ((!current || changed.properties) && ul_class_value !== (ul_class_value = "group css-treeview id_" + (ctx.properties ? ctx.properties.name : 'root') + " svelte-19ga62s")) {
 					ul.className = ul_class_value;
 				}
 			},
@@ -1703,6 +1711,7 @@ var app = (function (leaflet) {
 		if ('properties' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'properties'");
 		if ('nodeID' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'nodeID'");
 		if ('styles' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'styles'");
+		if ('multiStyles' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'multiStyles'");
 		if ('isVisible' in newState && !this._updatingReadonlyProperty) throw new Error("<LineNode>: Cannot set read-only property 'isVisible'");
 	};
 
@@ -1714,6 +1723,7 @@ var app = (function (leaflet) {
 		if (changed.properties) {
 			if (this._differs(state.nodeID, (state.nodeID = nodeID(state)))) changed.nodeID = true;
 			if (this._differs(state.styles, (state.styles = styles(state)))) changed.styles = true;
+			if (this._differs(state.multiStyles, (state.multiStyles = multiStyles(state)))) changed.multiStyles = true;
 		}
 
 		if (changed.line || changed.layersTree) {

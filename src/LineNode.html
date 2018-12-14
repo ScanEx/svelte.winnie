@@ -29,7 +29,7 @@
 		{#if line.type === 'layer' && styles.length && styles.length < 2 && styles[0].RenderStyle}
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
-		<label class="pointer title cmd:toggleVisibility" on:click="toggleVisibility(this)">{properties.title}</label>
+		<label class="pointer title cmd:toggleVisibility {multiStyles}" on:click="toggleVisibility(this)">{properties.title}</label>
 		<div class="description collapse"></div>
 		{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
@@ -81,6 +81,7 @@
 			properties: ({ line }) => line.content.properties,
 			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
 			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : [],
+			multiStyles: ({ properties }) => properties.gmxStyles && properties.gmxStyles.styles.length > 1 ? 'multiStyles' : '',
 			isVisible: ({line, layersTree}) => {
 				let content = line.content,
 					props = content.properties,
@@ -168,8 +169,8 @@ li {
 	list-style: none;
     text-overflow: ellipsis;
     white-space: nowrap;
+    overflow-x: inherit;
 	width: 98%;
-    overflow: initial;	
 }
 li.line > .icons span.cont-center {
 	visibility: hidden;
