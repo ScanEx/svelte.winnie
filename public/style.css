@@ -132,6 +132,22 @@
     position: absolute;
     z-index: -1;
 	}
+
+	.dark ul li.line .mega:hover .pointer.title::before {
+
+    content: '';
+    border-left: 1px solid transparent;
+    display: block;
+    width: 5px;
+    height: 14px;
+    height: 88%;
+    position: relative;
+    top: 12px;
+    left: 27px;
+    position: absolute;
+    z-index: -1;
+	}
+
 	.dark .expanderCont {
 	position: relative;
 	top: -5px;
@@ -220,6 +236,21 @@
     		z-index: -1;
 
 		}
+
+		.dark ul li.line .mega:hover .pointer.title::before {
+
+    		content: '';
+    		border-left: 1px solid transparent;
+    		display: block;
+    		width: 5px;
+    		height: 14px;
+    		height: 88%;
+    		position: relative;
+    		top: 12px;
+    		left: 20px;
+    		position: absolute;
+    		z-index: -1;
+	}
 		.dark .expanderCont {
 			position: relative;
 			top: -5px;
@@ -270,6 +301,21 @@
 
     content: '';
     border-left: 1px solid #FFF;
+    display: block;
+    width: 5px;
+    height: 14px;
+    height: 88%;
+    position: relative;
+    top: 12px;
+    left: 27px;
+    position: absolute;
+    z-index: -1;
+	}
+
+	.dark ul li.line .mega:hover .pointer.title::before {
+
+    content: '';
+    border-left: 1px solid transparent;
     display: block;
     width: 5px;
     height: 14px;
@@ -364,7 +410,7 @@
 	right: 3px;
 }
 
-.dark li.line:hover>.icons>.pointer.cont-center {
+.dark ul li.line .mega:hover>.icons>.pointer.cont-center {
 	position: relative;
 	top: 7px;
 	content: url('ext/img/coord-o.svg');
@@ -374,7 +420,7 @@
 	right: 3px;
 }
 
-.dark li.line:hover>.icons>.pointer.cont-info {
+.dark ul li.line .mega:hover>.icons>.pointer.cont-info {
 	position: relative;
 	top: 7px;
 	content: url('ext/img/info-o.svg');
@@ -487,6 +533,18 @@
 }
 
 .dark label.pointer.title.multiStyles::before {
+    content: url('ext/img/multi.svg');
+	left: -2px;
+	padding-right: 7px;
+	display: inline-block;
+	position: relative;
+	bottom: 12px;
+	width: 10px;
+	height: 12px;
+	top: 0;
+}
+
+.dark ul li.line .mega:hover label.pointer.title.multiStyles::before {
     content: url('ext/img/multi.svg');
 	left: -2px;
 	padding-right: 7px;
