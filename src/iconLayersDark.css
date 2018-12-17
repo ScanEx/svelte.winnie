@@ -186,7 +186,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow-x: hidden;
-    width: 67%;
+    width: 100vw;
 	}
 
 }
@@ -321,7 +321,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow-x: hidden;
-    width: 67%;
+    width: 100vw;
 	}
 
 	}
