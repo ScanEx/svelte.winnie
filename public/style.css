@@ -446,7 +446,7 @@
 	position: absolute;
 	width: 100vh;
 	height: 94%;
-	background: #EBF1F5;
+	background: transparent;
 	content: '';
 	top: 5px;
 	z-index: -1;
@@ -505,6 +505,11 @@
 .dark li { -ms-overflow-style: none; }
 
 .dark li { overflow: -moz-scrollbars-none; }
+
+.dark ul li.line .mega:hover {
+    background-color: #EBF1F5;
+}
+
 
 
 .noselect {

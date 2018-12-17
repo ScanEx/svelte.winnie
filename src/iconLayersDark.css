@@ -446,7 +446,7 @@
 	position: absolute;
 	width: 100vh;
 	height: 94%;
-	background: #EBF1F5;
+	background: transparent;
 	content: '';
 	top: 5px;
 	z-index: -1;
@@ -506,8 +506,8 @@
 
 .dark li { overflow: -moz-scrollbars-none; }
 
-.dark ul li.line:hover {
-    background-color: #63B0C3;
+.dark ul li.line .mega:hover {
+    background-color: #EBF1F5;
 }
 
 

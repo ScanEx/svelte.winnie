@@ -1,4 +1,5 @@
 <li class="line cmd:toggleIcons id:{nodeID}" ref:line>
+<div class="mega">
 {#if properties}
  {#if line.type !== 'map'}
 	<div class="borders "></div>
@@ -53,7 +54,8 @@
 </span>
   {/if}
 {/if}
-</li>
+</div>
+
 
 {#if line.content.children}
 	<ul class="group css-treeview id_{properties ? properties.name : 'root'}">
@@ -62,7 +64,7 @@
 	{/each}
 	</ul>
 {/if}
- 
+</li> 
 <script>
 /*
 */
