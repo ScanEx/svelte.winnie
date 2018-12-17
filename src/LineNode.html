@@ -2,7 +2,7 @@
 <div class="mega">
 {#if properties}
  {#if line.type !== 'map'}
-	<div class="borders "></div>
+	<!-- <div class="borders "></div> -->
 	{#if line.type === 'group'}
 	<input class="expander expanderInput hidden" type="checkbox" checked="{isVisible}" />
 	<span class="expander pointer expanderCont cmd:toggleVisibility" on:click="toggleVisibility(this)"></span>
@@ -24,9 +24,9 @@
 		{/if} <!-- end: line.type === 'layer' -->
  {/if}
  {#if line.type !== 'map'}
-<span on:mouseover="toggleBG(this, true)" on:mouseout="toggleBG(this)">
+<!-- <span on:mouseover="toggleBG(this, true)" on:mouseout="toggleBG(this)"> -->
 	<span class="cont">
-		<input class="check visibility pointer cmd:toggleVisibility" type="checkbox" checked="{isVisible}" />
+		<input class="check visibility pointer cmd:toggleVisibility" on:click="toggleVisibility(this)" type="checkbox" checked="{isVisible}" />
 		{#if line.type === 'layer' && styles.length && styles.length < 2 && styles[0].RenderStyle}
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
@@ -51,14 +51,14 @@
 			{/if}
 		{/if}
 	</span>
-</span>
+<!-- </span> -->
   {/if}
 {/if}
 </div>
 
 
 {#if line.content.children}
-	<ul class="group css-treeview id_{properties ? properties.name : 'root'}">
+	<ul class="group css-treeview id_{nodeID} {isVisible || isRoot ? '' : 'collapse'}" ref:ul>
 	{#each line.content.children || [] as child}
 		<svelte:self line="{child}"  bind:layersTree bind:gmxTimeline />
 	{/each}
@@ -84,6 +84,7 @@
 			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
 			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : [],
 			multiStyles: ({ properties }) => properties.gmxStyles && properties.gmxStyles.styles.length > 1 ? 'multiStyles' : '',
+			isRoot: ({ properties }) => properties.MapID,
 			isVisible: ({line, layersTree}) => {
 				let content = line.content,
 					props = content.properties,
@@ -118,8 +119,12 @@
 				if (node) {
 					if (node.checked) {
 						node.checked = false;
+						
 					} else {
 						node.checked = true;
+					}
+					if (this.refs.ul) {
+						this.refs.ul.classList[node.checked ? 'remove' : 'add']('collapse');
 					}
 				}
 			},
@@ -253,7 +258,7 @@ input.check.visibility:checked ~ .legend {
 .legendIconEye > .on, .legendIconEye.enabled > .off {
     display: none;
 }
-
+/*
 .line input.expander:checked ~ ul {
     display: block;
 }
@@ -261,6 +266,7 @@ input.check.visibility:checked ~ .legend {
 .line input.expander ~ ul {
     display: none;
 }
+*/
 .collapse {
     display: none;
 }
