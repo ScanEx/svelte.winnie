@@ -96,7 +96,7 @@
 		position: absolute;
 		content: '';
 		height: calc(100% - 15px);
-		left: -13px;
+		left: -12px;
 		top: 10px;
 		width: 11px;
 		z-index: 1;
@@ -109,12 +109,18 @@
 
 	.legendIconCell {
     
+    	top: 3px;
+    	position: relative;
+	}
+
+	.legendIconCell .point{
     	top: 1px;
     	position: relative;
 	}
 
-	.legendIconCell  .point{
-    	top: 2px;
+	.multiStyles .legendIconCell {
+    
+    	top: 0;
     	position: relative;
 	}
 
@@ -155,6 +161,32 @@
 	margin-left: -15px;
 	z-index: 0;
 	background: transparent;
+	}
+
+	.dark .legend-cont {
+	float: left;
+	position: relative;
+	left: -10px;
+	}
+
+	.gmx-style-legend::before {
+    border-left: 1px solid #FFF;
+    display: block;
+    position: absolute;
+    content: '';
+    height: calc(100%);
+    left: 17px;
+    top: -6px;
+    width: 15px;
+    z-index: 1;
+	}
+
+	.gmx-style-legend {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 67%;
 	}
 
 }
@@ -212,13 +244,19 @@
 		}
 
 		.legendIconCell {
+    		top: 3px;
+    		position: relative;
+		}
+
+		.legendIconCell .point{
     		top: 1px;
     		position: relative;
 		}
 
-		.legendIconCell  .point{
-    		top: 2px;
-    		position: relative;
+		.multiStyles .legendIconCell {
+    
+    	top: 0;
+    	position: relative;
 		}
 
 		.pointer.title::before {
@@ -251,7 +289,7 @@
     		position: absolute;
     		z-index: -1;
 	}
-		.dark .expanderCont {
+	.dark .expanderCont {
 			position: relative;
 			top: -5px;
 			padding-right: 0;
@@ -259,6 +297,33 @@
 			z-index: 0;
 			background: transparent;
 	}
+
+	.dark .legend-cont {
+	float: left;
+	position: relative;
+	left: -10px;
+	}
+
+	.gmx-style-legend::before {
+    border-left: 1px solid #FFF;
+    display: block;
+    position: absolute;
+    content: '';
+    height: calc(100%);
+    left: 17px;
+    top: -6px;
+    width: 15px;
+    z-index: 1;
+	}
+
+	.gmx-style-legend {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 67%;
+	}
+
 	}
 }
 
@@ -336,19 +401,35 @@
 	background: transparent;
 	}
 
-}
+	.dark .legend-cont {
+	float: left;
+	position: relative;
+	left: -6px;
+	}
 
-.gmx-style-legend::before {
+	.gmx-style-legend::before {
     border-left: 1px solid #FFF;
     display: block;
     position: absolute;
     content: '';
     height: calc(100%);
-    left: 8px;
+    left: 13px;
     top: -6px;
     width: 15px;
     z-index: 1;
+	}
+
+	.gmx-style-legend {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 98%;
+	}
+
 }
+
+
 
 .dark .group.css-treeview ul {
 	padding-inline-start: 37px;
@@ -384,11 +465,7 @@
 }
 
 
-.dark .legend-cont {
-	float: left;
-	position: relative;
-	left: -1px;
-}
+
 
 .dark .pointer.cont-center {
 	position: relative;
@@ -528,6 +605,7 @@
 	position: relative;
 }
 
+
 .dark .gmx-style-legend:hover {
 	background-color: #EBF1F5;
 }
@@ -541,7 +619,7 @@
 	bottom: 12px;
 	width: 10px;
 	height: 12px;
-	top: 0;
+	top: 1px;
 }
 
 .dark ul li.line .mega:hover label.pointer.title.multiStyles::before {
@@ -553,7 +631,7 @@
 	bottom: 12px;
 	width: 10px;
 	height: 12px;
-	top: 0;
+	top: 1px;
 }
 
 
