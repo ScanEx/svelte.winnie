@@ -118,7 +118,7 @@
     	position: relative;
 	}
 
-	.multiStyles .legendIconCell {
+	.legend-cont span.legendIconCell {
     
     	top: 0;
     	position: relative;
@@ -186,7 +186,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow-x: hidden;
-    width: 67%;
+    width: 100vw; 
 	}
 
 }
@@ -253,7 +253,7 @@
     		position: relative;
 		}
 
-		.multiStyles .legendIconCell {
+		.legend-cont span.legendIconCell {
     
     	top: 0;
     	position: relative;
@@ -321,7 +321,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow-x: hidden;
-    width: 67%;
+    width: 100vw;
 	}
 
 	}
