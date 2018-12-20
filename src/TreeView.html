@@ -64,28 +64,51 @@
 
 			treeCommands(attr) {
 				let {layersTree, rawTree} = this.get();
+//console.log('treeCommands', attr);
 
-				if (attr.cmd === 'toggleVisibility') {
+				if (attr.cmd === 'clickOnExpander') {
+					layersTree.expanded[attr.id] = !layersTree.expanded[attr.id];
+					this.set({layersTree: layersTree});
+				} else if (attr.cmd === 'toggleGroup') {
+					let inputs = attr.target.getElementsByClassName('visibility'),
+						isExpanded = !layersTree.visible[attr.id];
+
+					layersTree.expanded[attr.id] = isExpanded;
+					layersTree.visible[attr.id] = isExpanded;
+
+					for(let i = 0, len = inputs.length; i < len; i++) {
+						let it = inputs[i],
+							arr = regs.id.exec(it.className),
+							pid = arr && arr.length === 2 ? arr[1] : '';
+						if (it.classList.contains('group')) {
+							layersTree.expanded[pid] = isExpanded;
+							layersTree.visible[pid] = isExpanded;
+						} else {
+							this.fire('command', {
+								cmd: 'toggleNode',
+								type: attr.type,
+								target: it,
+								set: isExpanded,
+								id: pid,
+								originalEvent: attr.originalEvent
+							});
+							layersTree.visible[pid] = isExpanded;
+						}
+					}
+
+					this.set({layersTree: layersTree});
+				} else if (attr.cmd === 'toggleVisibility') {
 					let isGroup = attr.target.getElementsByClassName('expanderInput')[0],
-						input = isGroup || attr.target.getElementsByClassName('visibility')[0],
 						target = attr.originalEvent.target,
-						// isTitle = target.classList.contains('title'),
 						expanded = isGroup ? layersTree.expanded : layersTree.visible,
 						id = attr.id;
 					if (expanded[id]) {			// TODO: layersTree для пермалинков
 						delete expanded[id];
-						input.checked = false;
-						//layersTree.visible[id]
 					} else {
 						expanded[id] = true;
-						input.checked = true;
 					}
 					this.set({layersTree: layersTree});
 					return true;
-				// } else if (attr.cmd === 'showInfo') {
-					// let tt = rawTree;
-					// let input = attr.originalEvent.target,
-						// id = attr.id;
 				}
 				return false;
 			},

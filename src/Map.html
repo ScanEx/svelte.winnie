@@ -109,14 +109,22 @@
 							}
 						}
 					});
-					// let visible = layersTree.visible || {};
-					// L.gmx.gmxMapManager.iterateNode(gmxMap.rawTree, function(node) {
-						// let props = node.content.properties,
-							// layerId = props.name;
-						// if (layerId && layerId in visible && visible[layerId] !== props.visible) {
-							// props.visible = visible[layerId];
-						// }
-					// });
+					L.gmx.gmxMapManager.iterateNode(gmxMap.rawTree, function(node) {
+						let props = node.content.properties,
+							id = props.name || props.GroupID;
+						if (props.GroupID) {
+							if (props.expanded && !(id in layersTree.expanded)) {
+								layersTree.expanded[id] = props.expanded;
+							}
+							if (props.visible && !(id in layersTree.visible)) {
+								layersTree.visible[id] = props.visible;
+							}
+						} else {
+							if (props.visible && !(id in layersTree.visible)) {
+								layersTree.visible[id] = props.visible;
+							}
+						}
+					}, {nodes: gmxMap.nodes});
 
 					// this.set({layersTree: layersTree}); 
 					// this.set({gmxMap: gmxMap}); 
@@ -224,6 +232,7 @@
 				this._treeView = new TreeView({
 					appendNode: (id) => {	// TODO: только видимые элементы (слои и папки) баги серверного скрипта
 						return;
+						/*
 						if (this.gmxMap.nodes) {
 							let {map} = this.get();
 							let mapID = this.mapID,
@@ -254,6 +263,7 @@
 
 							}.bind(this));
 						}
+						*/
 					},
 					target: it.container,
 					data: {
@@ -263,22 +273,32 @@
 						rawTree: rawTree
 					}
 				});
-				// this._treeView = app;
 
 				this._treeView.on('command', (ev) => {
 					let {map} = this.get();
 					let cmd = ev.cmd,
 						target = ev.originalEvent.target,
+						layersTree = this.layersTree,
 						gmxMap = this.gmxMap,
 						node = gmxMap.nodes ? gmxMap.nodes[ev.id] : true,
 						gmxLayer = gmxMap.layersByID[ev.id];
 
-					// console.log('Map command', ev, gmxLayer, gmxMap);
+					// console.log('Map command', ev, this.layersTree);
 					if (gmxLayer) {
 						if (cmd === 'fitBounds') {
 							map.fitBounds(gmxLayer.getBounds());
+						} else if (cmd === 'toggleNode') {
+							let flag = ev.set;
+							if (flag) {
+								if (!gmxLayer._map) {
+									map.addLayer(gmxLayer);
+								}
+							} else {
+								if (gmxLayer._map) {
+									map.removeLayer(gmxLayer);
+								}
+							}
 						} else if (cmd === 'toggleVisibility') {
-							// if (target.checked) {
 							if (gmxLayer._map) {
 								map.removeLayer(gmxLayer);
 							} else {
