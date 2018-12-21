@@ -62,9 +62,43 @@
 				}
 			},
 
+			_getId(className) {
+				let arr = regs.id.exec(className);
+				return arr && arr.length === 2 ? arr[1] : '';
+			},
+			_isExistVisible(node, layersTree) {
+				for(let i = 0, len = node.children.length; i < len; i++) {
+					let it = node.children[i],
+						id = this._getId(it.className);
+					if (layersTree.visible[id]) {
+						return true;
+					}
+				}
+				return false;
+			},
+
+			_toggleParents(node, visible, layersTree) {
+				let flag = true;
+				while(flag) {
+					node = node.parentNode
+					if (node.classList.contains('line')) {
+						let id = this._getId(node.className);
+						if (id) {
+							layersTree.visible[id] = visible;
+						}
+					} else if (node.classList.contains('group')) {
+						if (!visible && this._isExistVisible(node, layersTree)) {
+							flag = false;
+						}
+					} else {
+						flag = false;
+					}
+				};
+			},
+
 			treeCommands(attr) {
 				let {layersTree, rawTree} = this.get();
-//console.log('treeCommands', attr);
+				// console.log('treeCommands', attr);
 
 				if (attr.cmd === 'clickOnExpander') {
 					layersTree.expanded[attr.id] = !layersTree.expanded[attr.id];
@@ -95,6 +129,7 @@
 							layersTree.visible[pid] = isExpanded;
 						}
 					}
+					this._toggleParents(attr.target, isExpanded, layersTree);
 
 					this.set({layersTree: layersTree});
 				} else if (attr.cmd === 'toggleVisibility') {
@@ -107,6 +142,7 @@
 					} else {
 						expanded[id] = true;
 					}
+					this._toggleParents(attr.target, expanded[id], layersTree);
 					this.set({layersTree: layersTree});
 					return true;
 				}

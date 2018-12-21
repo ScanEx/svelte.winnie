@@ -32,7 +32,7 @@
 		{#if line.type === 'layer' && styles.length && styles.length < 2 && styles[0].RenderStyle}
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
-		<label class="pointer title cmd:toggleVisibility {multiStyles}" on:click="toggleVisibility(this)">{properties.title}</label>
+		<label class="pointer title cmd:toggleGroup {multiStyles}">{properties.title}</label>
 		<div class="description collapse"></div>
 		{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
@@ -116,22 +116,22 @@
 					}
 				}
 			},
-			toggleVisibility(target) {
-				let {line} = this.get(),
-					node = line.type === 'group' ? this.refs.line.getElementsByClassName('expanderInput')[0] : target;
+			// toggleVisibility(target) {
+				// let {line} = this.get(),
+					// node = line.type === 'group' ? this.refs.line.getElementsByClassName('expanderInput')[0] : target;
 				
-				if (node) {
-					if (node.checked) {
-						node.checked = false;
+				// if (node) {
+					// if (node.checked) {
+						// node.checked = false;
 						
-					} else {
-						node.checked = true;
-					}
-					if (this.refs.ul) {
-						this.refs.ul.classList[node.checked ? 'remove' : 'add']('collapse');
-					}
-				}
-			},
+					// } else {
+						// node.checked = true;
+					// }
+					// if (this.refs.ul) {
+						// this.refs.ul.classList[node.checked ? 'remove' : 'add']('collapse');
+					// }
+				// }
+			// },
 			toggleTimeline(node) {
 				if (node) {
 					if (node.classList.contains('disabled')) {
