@@ -25,14 +25,14 @@
  {#if line.type !== 'map'}
 	<span class="cont">
 		{#if line.type === 'group'}
-			<input class="check visibility pointer cmd:toggleGroup {line.type} id:{nodeID}" type="checkbox" checked="{isGroupVisible}" />
+			<input class="check visibility pointer cmd:toggleGroup {line.type} id:{nodeID}" name="{checkboxName}" type="{checkboxType}" checked="{isGroupVisible}" />
 		{:else}
-			<input class="check visibility pointer cmd:toggleVisibility {line.type} id:{nodeID}" type="checkbox" checked="{isVisible}" />
+			<input class="check visibility pointer cmd:toggleVisibility {line.type} id:{nodeID}" name="{checkboxName}" type="{checkboxType}" checked="{isVisible}" />
 		{/if}
 		{#if line.type === 'layer' && styles.length && styles.length < 2 && styles[0].RenderStyle}
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
-		<label class="pointer title cmd:toggleGroup {multiStyles}">{properties.title}</label>
+		<label class="pointer title cmd:{line.type === 'group' ? 'toggleGroup' : 'toggleVisibility'} {multiStyles}">{properties.title}</label>
 		<div class="description collapse"></div>
 		{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
@@ -40,10 +40,7 @@
 				<div class="legend-cont">
 				{#each styles as it}
 					<div class="gmx-style-legend">
-						<span class="legendIconEye enabled pointer cmd:toggleStyle">
-							<!-- <svg role="img" class="svgIcon on"><use xlink:href="#eye-on" href="#eye-on"></use></svg> -->
-							<!-- <svg role="img" class="svgIcon off"><use xlink:href="#eye-off" href="#eye-off"></use></svg> -->
-						</span>
+						<span class="legendIconEye enabled pointer cmd:toggleStyle"></span>
 						<LegendIconCell item={it} type={properties.GeometryType} />
 						<span class="styleName">{it.Name}</span>
 					</div>
@@ -57,18 +54,17 @@
 {/if}
 </div>
 
-
 {#if line.content.children}
-	<ul class="group css-treeview id_{nodeID} {isOpened || isRoot ? '' : 'collapse'}" ref:ul>
+	<ul class="group css-treeview id_{nodeID} {isOpened || isRoot ? '' : 'collapse'} {isRadio}" ref:ul>
 	{#each line.content.children || [] as child}
-		<svelte:self line="{child}"  bind:layersTree bind:gmxTimeline />
+		<svelte:self line={child} parentProps={line.content.properties} bind:layersTree bind:gmxTimeline />
 	{/each}
 	</ul>
 {/if}
 </li> 
+
 <script>
-/*
-*/
+
 	import LegendIconCell from './LegendIconCell.html';
 
 	export default {
@@ -81,7 +77,10 @@
 		// helpers: {
 		// },
 		computed: {
+			checkboxType: ({ parentProps }) => parentProps && parentProps.list ? 'radio' : 'checkbox',
+			checkboxName: ({ parentProps }) => parentProps && parentProps.GroupID || '',
 			properties: ({ line }) => line.content.properties,
+			isRadio: ({ properties }) => properties.list ? 'radio' : 'checkbox',
 			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
 			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : [],
 			multiStyles: ({ properties }) => properties.gmxStyles && properties.gmxStyles.styles.length > 1 ? 'multiStyles' : '',

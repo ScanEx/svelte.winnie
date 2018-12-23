@@ -20,6 +20,7 @@
 		data() {
 			return {
 				layersTree: {
+					options: {},
 					visible: {},
 					expanded: {}
 				},
@@ -48,6 +49,7 @@
 				}
 
 				layersTree = state.layersTree || layersTree;
+				layersTree.options = layersTree.options || {};
 				this.layersTree = layersTree;
 				let map = new L.Map('map', {
 					srs: 3857,
@@ -109,7 +111,7 @@
 							}
 						}
 					});
-					L.gmx.gmxMapManager.iterateNode(gmxMap.rawTree, function(node) {
+					L.gmx.gmxMapManager.iterateNode(gmxMap.rawTree, function(node, prnt) {
 						let props = node.content.properties,
 							id = props.name || props.GroupID;
 						if (props.GroupID) {
@@ -122,6 +124,12 @@
 						} else {
 							if (props.visible && !(id in layersTree.visible)) {
 								layersTree.visible[id] = props.visible;
+							}
+							let prntProps = prnt.properties;
+							if (prntProps.GroupID && prntProps.list) {
+								let opt = layersTree.options[id] || {};
+								opt.list = prntProps.list;
+								layersTree.options[id]  = opt;
 							}
 						}
 					}, {nodes: gmxMap.nodes});
@@ -277,7 +285,7 @@
 				this._treeView.on('command', (ev) => {
 					let {map} = this.get();
 					let cmd = ev.cmd,
-						target = ev.originalEvent.target,
+						target = ev.originalEvent ? ev.originalEvent.target : null,
 						layersTree = this.layersTree,
 						gmxMap = this.gmxMap,
 						node = gmxMap.nodes ? gmxMap.nodes[ev.id] : true,
