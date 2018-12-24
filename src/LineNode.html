@@ -25,7 +25,9 @@
  {#if line.type !== 'map'}
 	<span class="cont">
 		{#if line.type === 'group'}
-			<input class="check visibility pointer cmd:toggleGroup {line.type} id:{nodeID}" name="{checkboxName}" type="{checkboxType}" checked="{isGroupVisible}" />
+			{#if properties.ShowCheckbox}
+				<input class="check visibility pointer cmd:toggleGroup {line.type} id:{nodeID}" name="{checkboxName}" type="{checkboxType}" checked="{isGroupVisible}" />
+			{/if}
 		{:else}
 			<input class="check visibility pointer cmd:toggleVisibility {line.type} id:{nodeID}" name="{checkboxName}" type="{checkboxType}" checked="{isVisible}" />
 		{/if}
