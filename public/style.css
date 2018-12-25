@@ -197,6 +197,11 @@
     position: relative;
 	}
 
+	span.cont > label.pointer.title {
+    position: relative;
+    left: 3px;
+	}
+
 	span.legendIconCell + label.pointer.title {
     position: relative;
     left: 0px;
@@ -205,10 +210,7 @@
     position: relative;
     left: 0px;
 	}
-	span.cont > label.pointer.title {
-    position: relative;
-    left: 3px;
-	}
+
 
 }
 
