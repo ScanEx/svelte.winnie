@@ -204,11 +204,11 @@
 
 	span.legendIconCell + label.pointer.title {
     position: relative;
-    left: 0px;
+    left: 0px!important;
 	}
 	input.check + label.pointer.title {
     position: relative;
-    left: 0px;
+    left: 0px!important;
 	}
 
 
