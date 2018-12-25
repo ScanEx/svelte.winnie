@@ -86,7 +86,7 @@
 		position: absolute;
 		content: '';
 		height: calc(100% - 41px);
-		left: 27px;
+		left: 26px;
 		top: 21px;
 		width: 9px;
 	}
@@ -134,7 +134,7 @@
     height: 88%;
     position: relative;
     top: 12px;
-    left: 27px;
+    left: 25px;
     position: absolute;
     z-index: -1;
 	}
@@ -166,7 +166,7 @@
 	.dark .legend-cont {
 	float: left;
 	position: relative;
-	left: -10px;
+	left: -18px;
 	}
 
 	.gmx-style-legend::before {
@@ -175,7 +175,7 @@
     position: absolute;
     content: '';
     height: calc(100%);
-    left: 17px;
+    left: 29px;
     top: -6px;
     width: 15px;
     z-index: 1;
@@ -623,6 +623,7 @@
 .dark .cont {
 	z-index: 1;
 	position: relative;
+	left: -5px;
 }
 
 
@@ -674,6 +675,33 @@
 
 
 
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.scanex-sidebar {
+    display: flex;
+    vertical-align: top;    
+}
+.scanex-sidebar .tabs,
+.scanex-sidebar .panes {        
+    vertical-align: top;
+    display: inline-block;    
+}    
+.scanex-sidebar .tabs div {
+    text-align: center;
+    cursor: pointer;       
+}
+.scanex-sidebar .shown {
+	display: block;
+}
+.scanex-sidebar .hidden {
+	display: none;
+}
 .leaflet-iconLayers {
     pointer-events: none;
 }
@@ -736,30 +764,3 @@
 .leaflet-iconLayers-layerCell_hidden { display: none; }
 .leaflet-iconLayers-layerCell_active .leaflet-iconLayers-layer { cursor: default; }
 .leaflet-iconLayers-layerCell_active .leaflet-iconLayers-layerCheckIcon { display: block; }
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-.scanex-sidebar {
-    display: flex;
-    vertical-align: top;    
-}
-.scanex-sidebar .tabs,
-.scanex-sidebar .panes {        
-    vertical-align: top;
-    display: inline-block;    
-}    
-.scanex-sidebar .tabs div {
-    text-align: center;
-    cursor: pointer;       
-}
-.scanex-sidebar .shown {
-	display: block;
-}
-.scanex-sidebar .hidden {
-	display: none;
-}
