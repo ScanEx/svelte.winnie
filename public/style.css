@@ -86,7 +86,7 @@
 		position: absolute;
 		content: '';
 		height: calc(100% - 41px);
-		left: 26px;
+		left: 27px;
 		top: 21px;
 		width: 9px;
 	}
@@ -134,7 +134,7 @@
     height: 88%;
     position: relative;
     top: 12px;
-    left: 25px;
+    left: 27px;
     position: absolute;
     z-index: -1;
 	}
@@ -166,7 +166,7 @@
 	.dark .legend-cont {
 	float: left;
 	position: relative;
-	left: -18px;
+	left: -10px;
 	}
 
 	.gmx-style-legend::before {
@@ -175,7 +175,7 @@
     position: absolute;
     content: '';
     height: calc(100%);
-    left: 29px;
+    left: 17px;
     top: -6px;
     width: 15px;
     z-index: 1;
@@ -623,7 +623,6 @@
 .dark .cont {
 	z-index: 1;
 	position: relative;
-	left: -5px;
 }
 
 
