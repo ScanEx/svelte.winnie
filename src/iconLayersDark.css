@@ -197,6 +197,19 @@
     position: relative;
 	}
 
+	span.legendIconCell + label.pointer.title {
+    position: relative;
+    left: 0px;
+	}
+	input.check + label.pointer.title {
+    position: relative;
+    left: 0px;
+	}
+	span.cont > label.pointer.title {
+    position: relative;
+    left: 3px;
+	}
+
 }
 
 @media not all and (min-resolution:.001dpcm) {
@@ -671,18 +684,7 @@
     font-size: 11px;
 }
 
-span.legendIconCell + label.pointer.title {
-    position: relative;
-    left: 0px;
-}
-input.check + label.pointer.title {
-    position: relative;
-    left: 0px;
-}
-span.cont > label.pointer.title {
-    position: relative;
-    left: 3px;
-}
+
 
 
 
