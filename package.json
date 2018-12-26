@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "dependencies": {
     "leaflet-iconlayers": "git+https://github.com/ScanEx/Leaflet-IconLayers.git",
-    "scanex-leaflet-sidebar": "git+https://github.com/Scanex/Leaflet.Sidebar.git",
-    "scanex-event-target": "git+https://github.com/Scanex/EventTarget.git"
+    "scanex-event-target": "git+https://github.com/Scanex/EventTarget.git",
+    "scanex-leaflet-sidebar": "git+https://github.com/Scanex/Leaflet.Sidebar.git"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.3",

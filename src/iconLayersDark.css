@@ -687,6 +687,19 @@
     font-size: 11px;
 }
 
+.leaflet-left .leaflet-control {
+    margin-left: 0!important;
+}
+
+.leaflet-top .leaflet-control {
+    margin-top: 0!important;
+}
+
+span.linestring.legendIconStyle {
+    bottom: 4px;
+    position: relative;
+}
+
 
 
 
