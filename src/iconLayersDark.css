@@ -700,6 +700,9 @@ span.linestring.legendIconStyle {
     position: relative;
 }
 
+.dark .leaflet-iconLayers.shiftIconLayers {
+    margin-left: 360px!important;
+}
 
 
 
