@@ -30,18 +30,6 @@
 	border-bottom: inherit;
 }
 
-.dark .leaflet-iconLayers.shiftIconLayers {
-	margin-left: 360px;
-}
-
-.dark .leaflet-iconLayers {
-	padding-left: 44px;
-}
-
-.dark.noIconSidebar .leaflet-iconLayers {
-	padding-left: inherit;
-}
-
 .dark .gmxTimeline.leaflet-control {
 	left: 145px;
 	right: 48px;
@@ -687,23 +675,25 @@
     font-size: 11px;
 }
 
-.leaflet-left .leaflet-control {
-    margin-left: 0!important;
-}
-
-.leaflet-top .leaflet-control {
-    margin-top: 0!important;
-}
-
 span.linestring.legendIconStyle {
     bottom: 4px;
     position: relative;
 }
 
+.dark .leaflet-control.sidebarControl {
+    margin: 0;
+}
 .dark .leaflet-iconLayers.shiftIconLayers {
-    margin-left: 360px!important;
+	margin-left: 360px;
 }
 
+.dark .leaflet-iconLayers {
+	padding-left: 44px;
+}
+
+.dark.noIconSidebar .leaflet-iconLayers {
+	padding-left: inherit;
+}
 
 
 

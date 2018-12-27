@@ -67,8 +67,10 @@
 				map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
 
 				if (app.iconSidebar && app.iconSidebar !== 'false') {
-					var iconSidebar = new SidebarControl({position: 'topleft'});
+					var iconSidebar = new SidebarControl({position: 'topleft', className: 'sidebarControl'});
 					iconSidebar.addTo(map);
+					iconSidebar.getContainer().classList.add('sidebarControl');
+
 					this.iconSidebar = iconSidebar;
 					if (app.treeView && app.treeView !== 'false') {
 						var treePane = iconSidebar.addTab({id: 'treeView', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
