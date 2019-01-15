@@ -35,7 +35,7 @@
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
 		<label class="pointer title cmd:{line.type === 'group' ? 'toggleGroup' : 'toggleVisibility'} {multiStyles}">{properties.title}</label>
-		<div class="description collapse"></div>
+		<div class="description collapse">{properties.description || ''}</div>
 		{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
 			<div class="legend">
@@ -211,14 +211,6 @@ svg {
     position: relative;
 	top: -5px;
 }
-
-/*span.expander:before {
-	content: '\2b9e';
-}
-input.expander:checked + span.expander:before {
-    content: '\2b9f';
-}*/
-
 .legend {
 	padding-left: 20px;
     display: none;
@@ -240,10 +232,8 @@ input.check.visibility:checked ~ .legend {
 }
 .legendIconEye {
 	display: inline-block;
-	/*margin-right: -5px;*/
 }
 .legendIconEye > .off {
-    /*left: -4px;*/
     position: relative;
 }
 .legendIconEye.enabled > .on, .legendIconEye > .off {
@@ -252,16 +242,8 @@ input.check.visibility:checked ~ .legend {
 .legendIconEye > .on, .legendIconEye.enabled > .off {
     display: none;
 }
-/*
-.line input.expander:checked ~ ul {
-    display: block;
-}
 
-.line input.expander ~ ul {
-    display: none;
-}
-*/
-.collapse {
+:global(.collapse) {
     display: none;
 }
 
@@ -280,12 +262,7 @@ span.icons {
     visibility: hidden;
 }
 
-/*.pointer.title {
-    position: relative;
-    bottom: 3px;
-}*/
 .styleName {
-
     position: relative;
     bottom: 4px;
     z-index: 2;

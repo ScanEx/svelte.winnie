@@ -1,6 +1,11 @@
 <div id="map"></div>
 
 <style>
+:global(.leaflet-gmx-loaderStatus.leaflet-control) {
+    top: -123px;
+    right: 5px;
+    left: unset;
+}
 </style>
 
 <script>
@@ -62,6 +67,7 @@
 				map.gmxControlsManager.init({
 					gmxDrawing: !app.drawing || app.drawing === 'false' ? null : {position: 'right'},
 					gmxZoom: {position: 'gmxbottomright'},
+					gmxLoaderStatus: {position: 'gmxbottomright'},
 					gmxHide: null
 				});
 				map.gmxControlsManager.setSvgSprites('//www.kosmosnimki.ru/lib/geomixer_1.3/img/svg-symbols.svg');
@@ -296,7 +302,12 @@
 					// console.log('Map command', ev, this.layersTree);
 					if (gmxLayer) {
 						if (cmd === 'fitBounds') {
-							map.fitBounds(gmxLayer.getBounds());
+							let bounds = gmxLayer.getBounds(),
+								zoom = map.getBoundsZoom(bounds),
+								opt = gmxLayer.options;
+
+							zoom = zoom < opt.minZoom ? opt.minZoom : (zoom > opt.maxZoom ? opt.maxZoom : zoom);
+							map.setView(bounds.getCenter(), zoom);
 						} else if (cmd === 'toggleNode') {
 							let flag = ev.set;
 							if (flag) {
