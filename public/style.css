@@ -574,7 +574,6 @@
 
 .dark .description {
 	color: #444;
-	display: block;
 	position: relative;
 	left: 0;
 	font-size: 10px;
@@ -669,10 +668,6 @@
 
 .dark ul li.line .mega:hover {
     background-color: #EBF1F5;
-}
-
-.styleName {
-    font-size: 11px;
 }
 
 span.linestring.legendIconStyle {

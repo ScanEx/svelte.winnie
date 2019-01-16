@@ -35,7 +35,7 @@
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
 		<label class="pointer title cmd:{line.type === 'group' ? 'toggleGroup' : 'toggleVisibility'} {multiStyles}">{properties.title}</label>
-		<div class="description collapse">{properties.description || ''}</div>
+		<div class="description {properties.description ? '' : 'collapse'}">{properties.description || ''}</div>
 		{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
 			<div class="legend">
@@ -266,6 +266,7 @@ span.icons {
     position: relative;
     bottom: 4px;
     z-index: 2;
+    font-size: 11px;
 
 }
 
