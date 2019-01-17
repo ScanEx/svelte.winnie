@@ -539,7 +539,7 @@
 }
 
 .dark span .timeline .svgIcon {
-	display: none;
+	/* display: none; */
 }
 
 .dark .legendIconEye.enabled.pointer::before {
