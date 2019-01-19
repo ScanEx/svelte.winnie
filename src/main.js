@@ -11,10 +11,8 @@ let pars = (() => {
 
 const app = new App({
 	target: document.body,
-	//target: document.getElementsByClassName('editor-sidebarContainer')[0] || document.body,
 	data: {
-		urlParams: pars,
-		name: 'world'
+		urlParams: pars
 	}
 });
 
