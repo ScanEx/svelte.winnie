@@ -132,7 +132,7 @@
 	}
 	.pointer.title::before {
 		content: '';
-		border-left: 1px solid #FFF;
+		border-left: 2px solid #FFF;
 		display: block;
 		width: 5px;
 		height: 14px;
@@ -145,7 +145,7 @@
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
 		content: '';
-		border-left: 1px solid transparent;
+		border-left: 2px solid transparent;
 		display: block;
 		width: 5px;
 		height: 14px;
@@ -340,27 +340,27 @@
 	}
 	.pointer.title::before {
 		content: '';
-		border-left: 1px solid #FFF;
+		border-left: 2px solid #FFF;
 		display: block;
 		width: 5px;
 		height: 14px;
 		height: 88%;
 		position: relative;
 		top: 12px;
-		left: 27px;
+		left: -19px;
 		position: absolute;
-		z-index: -1;
+		z-index: -1; 
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
 		content: '';
-		border-left: 1px solid transparent;
+		border-left: 2px solid transparent;
 		display: block;
 		width: 5px;
 		height: 14px;
 		height: 88%;
 		position: relative;
 		top: 12px;
-		left: 27px;
+		left: -19px;
 		position: absolute;
 		z-index: -1;
 	}
@@ -512,7 +512,7 @@
 }
 
 .dark .description {
-	color: #444;
+	color: #A7B6C2;
 	position: relative;
 	left: 0;
 	font-size: 10px;

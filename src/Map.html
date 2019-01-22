@@ -51,6 +51,9 @@
 				if(app.theme) {
 					document.body.classList.add(app.theme);
 				}
+				if(navigator.platform.match('Linux x86_64') !== null) {
+					document.body.classList.add('OSX');
+				}
 				if(L.leafletMap) {
 					L.leafletMap.remove();
 				}
