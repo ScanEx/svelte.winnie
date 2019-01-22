@@ -164,7 +164,7 @@ input.check {
 		left: 6px;
 	}
 	.dark .TreeView li.line ul.group.css-treeview li.line::after {
-		height: calc(100% - 41px);
+		height: calc(100% - 53px);
 		left: 27px;
 		top: 21px;
 		width: 9px;
@@ -194,7 +194,7 @@ input.check {
 	.dark ul li.line .mega:hover .pointer.title::before {
 		border-left: 2px solid #EBF1F5;
 		top: 12px;
-		left: 27px;
+		left: -16px;
 	}
 	.dark .expanderCont {
 		margin-left: -15px;
