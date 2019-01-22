@@ -145,7 +145,7 @@
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
 		content: '';
-		border-left: 2px solid transparent;
+		border-left: 2px solid #EBF1F5;
 		display: block;
 		width: 5px;
 		height: 14px;
@@ -267,7 +267,7 @@
 		}
 		.dark ul li.line .mega:hover .pointer.title::before {
 			content: '';
-			border-left: 1px solid transparent;
+			border-left: 1px solid #EBF1F5;
 			display: block;
 			width: 5px;
 			height: 14px;
@@ -353,7 +353,7 @@
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
 		content: '';
-		border-left: 2px solid transparent;
+		border-left: 2px solid #EBF1F5;
 		display: block;
 		width: 5px;
 		height: 14px;
