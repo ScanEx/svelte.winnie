@@ -44,7 +44,12 @@ html, body, #map {
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 .icon-layers:before {
-  content: '\e82e';
+  /*content: '\e82e';*/
+  content: url('ext/img/icon_s.png');
+  display: inherit;
+  position: relative;
+  bottom: 15px;
+  left: -3px;
 }
 
 .icon-refresh:before {
@@ -183,7 +188,7 @@ html, body, #map {
 	width: 37px;
 	justify-content: center;
 	display: flex;
-	background: #364a58;
+	background: #4c5567;
 }
 
 .dark .opened {
@@ -549,7 +554,7 @@ input.check {
 	position: relative;
 	top: 7px;
 	content: url('ext/img/coord.svg');
-	visibility: visible;
+	visibility: hidden;
 	float: right;
 	padding-left: 5px;
 	right: 3px;
@@ -630,7 +635,7 @@ input.check {
 	color: #A7B6C2;
 	position: relative;
 	left: 0;
-	font-size: 10px;
+	font-size: 11px;
 	height: 100%;
 	width: 100%;
 	bottom: 5px;

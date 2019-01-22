@@ -44,7 +44,12 @@ html, body, #map {
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 .icon-layers:before {
-  content: '\e82e';
+  /*content: '\e82e';*/
+  content: url('ext/img/icon_s.png');
+  display: inherit;
+  position: relative;
+  bottom: 15px;
+  left: -3px;
 }
 
 .icon-refresh:before {
