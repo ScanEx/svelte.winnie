@@ -47,11 +47,20 @@
 .dark span.expander::before {
 	content: url('ext/img/small.svg');
 	display: inline-block;
+	position: relative;
+	float: left;
+	padding-right: 3px;
+	height: 12px;
 }
 
 .dark input.expander:checked+span.expander::before {
 	content: url('ext/img/small-o.svg');
 	display: inline-block;
+	position: relative;
+	float: left;
+	padding-right: 3px;
+	height: 12px;
+	
 }
 
 .dark .TreeView li.line ul.group.css-treeview li.line::after {
@@ -68,6 +77,8 @@
 	content: '';
 	z-index: 1;
 	border-top: 1px solid #D8E1E8;
+	top: 10px;
+	width: 11px;
 }
 
 .dark .TreeView>li.line {
@@ -87,24 +98,70 @@
 	z-index: 2;
 }
 
+.pointer.title::before {
+		content: '';
+		display: block;
+		width: 5px;
+		height: 88%;
+		position: absolute;
+		z-index: -1;
+	}
+.dark ul li.line .mega:hover .pointer.title::before {
+		content: '';
+		display: block;
+		width: 5px;
+		height: 88%;
+		position: absolute;
+		z-index: -1;
+	}
+
+.dark .expanderCont {
+		position: relative;
+		top: -5px;
+		padding-right: 0;
+		z-index: 0;
+		background: transparent;
+	}
+
+.dark .legend-cont {
+		float: left;
+		position: relative;
+	}
+
+.gmx-style-legend::before {
+		border-left: 1px solid #FFF;
+		display: block;
+		position: absolute;
+		content: '';
+		height: calc(100%);
+		top: -6px;
+		width: 15px;
+		z-index: 1;
+	}
+
+.gmx-style-legend {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow-x: hidden;
+	}
+
+input.check {
+		width: 14px;
+		height: 14px;
+		position: relative;
+	}
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.dark span.expander::before {
 		width: 27px;
-		height: 12px;
-		position: relative;
 		top: 0;
-		float: left;
 		left: 6px;
-		padding-right: 3px;
 	}
 	.dark input.expander:checked+span.expander::before {
 		width: 27px;
-		height: 12px;
-		position: relative;
 		top: 0;
-		float: left;
 		left: 6px;
-		padding-right: 3px;
 	}
 	.dark .TreeView li.line ul.group.css-treeview li.line::after {
 		height: calc(100% - 41px);
@@ -115,8 +172,6 @@
 	.dark .TreeView li.line ul.group.css-treeview li.line:last-child:before {
 		height: calc(100% - 15px);
 		left: -12px;
-		top: 10px;
-		width: 11px;
 	}
 	.dark .TreeView>li.line {
 		left: -5px;
@@ -131,67 +186,30 @@
 		top: 0;
 	}
 	.pointer.title::before {
-		content: '';
+		
 		border-left: 2px solid #FFF;
-		display: block;
-		width: 5px;
-		height: 14px;
-		height: 88%;
-		position: relative;
 		top: 12px;
-		left: -16px;
-		position: absolute;
-		z-index: -1;
+		left: -16px;	
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
-		content: '';
 		border-left: 2px solid #EBF1F5;
-		display: block;
-		width: 5px;
-		height: 14px;
-		height: 88%;
-		position: relative;
 		top: 12px;
 		left: 27px;
-		position: absolute;
-		z-index: -1;
 	}
 	.dark .expanderCont {
-		position: relative;
-		top: -5px;
-		padding-right: 0;
 		margin-left: -15px;
-		z-index: 0;
-		background: transparent;
 	}
 	.dark .legend-cont {
-		float: left;
-		position: relative;
 		left: -7px;
 	}
 	.gmx-style-legend::before {
-		border-left: 1px solid #FFF;
-		display: block;
-		position: absolute;
-		content: '';
-		height: calc(100%);
 		left: 14px;
-		top: -6px;
-		width: 15px;
-		z-index: 1;
 	}
 	.gmx-style-legend {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow-x: hidden;
 		width: 100vw;
 	}
 	input.check {
-		width: 14px;
-		height: 14px;
 		top: 2px;
-		position: relative;
 	}
 	span.cont>label.pointer.title {
 		position: relative;
@@ -212,21 +230,13 @@
 	@media {
 		.dark span.expander::before {
 			width: 32px;
-			height: 12px;
-			position: relative;
 			top: 6px;
-			float: left;
 			left: -2px;
-			padding-right: 3px;
 		}
 		.dark input.expander:checked+span.expander::before {
 			width: 32px;
-			height: 12px;
-			position: relative;
 			top: 6px;
-			float: left;
 			left: -2px;
-			padding-right: 3px;
 		}
 		.dark .TreeView li.line ul.group.css-treeview li.line::after {
 			height: calc(100% - 40px);
@@ -237,8 +247,6 @@
 		.dark .TreeView li.line ul.group.css-treeview li.line:last-child:before {
 			height: calc(100% - 15px);
 			left: -22px;
-			top: 10px;
-			width: 11px;
 		}
 		.dark .TreeView>li.line {
 			left: -15px;
@@ -253,67 +261,31 @@
 			top: 0;
 		}
 		.pointer.title::before {
-			content: '';
 			border-left: 1px solid #FFF;
-			display: block;
-			width: 5px;
-			height: 14px;
-			height: 88%;
-			position: relative;
 			top: 12px;
 			left: 20px;
-			position: absolute;
 			z-index: -1;
 		}
 		.dark ul li.line .mega:hover .pointer.title::before {
-			content: '';
+			
 			border-left: 1px solid #EBF1F5;
-			display: block;
-			width: 5px;
-			height: 14px;
-			height: 88%;
-			position: relative;
 			top: 12px;
 			left: 20px;
-			position: absolute;
-			z-index: -1;
 		}
 		.dark .expanderCont {
-			position: relative;
-			top: -5px;
-			padding-right: 0;
 			margin-left: -15px;
-			z-index: 0;
-			background: transparent;
 		}
 		.dark .legend-cont {
-			float: left;
-			position: relative;
 			left: -10px;
 		}
 		.gmx-style-legend::before {
-			border-left: 1px solid #FFF;
-			display: block;
-			position: absolute;
-			content: '';
-			height: calc(100%);
 			left: 17px;
-			top: -6px;
-			width: 15px;
-			z-index: 1;
 		}
 		.gmx-style-legend {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow-x: hidden;
 			width: 100vw;
 		}
 		input.check {
-			width: 14px;
-			height: 14px;
 			top: 0;
-			position: relative;
 		}
 	}
 }
@@ -322,8 +294,6 @@
 	.dark .TreeView li.line ul.group.css-treeview li.line:last-child:before {
 		height: calc(100% - 15px);
 		left: -12px;
-		top: 10px;
-		width: 11px;
 	}
 	.dark .TreeView>li.line {
 		left: -5px;
@@ -339,17 +309,10 @@
 		top: -1px;
 	}
 	.pointer.title::before {
-		content: '';
+		
 		border-left: 2px solid #FFF;
-		display: block;
-		width: 5px;
-		height: 14px;
-		height: 88%;
-		position: relative;
 		top: 12px;
 		left: -19px;
-		position: absolute;
-		z-index: -1; 
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
 		content: '';
@@ -365,34 +328,15 @@
 		z-index: -1;
 	}
 	.dark .expanderCont {
-		position: relative;
-		top: -5px;
-		padding-right: 0;
 		margin-left: -20px;
-		z-index: 0;
-		background: transparent;
 	}
 	.dark .legend-cont {
-		float: left;
-		position: relative;
 		left: -6px;
 	}
 	.gmx-style-legend::before {
-		border-left: 1px solid #FFF;
-		display: block;
-		position: absolute;
-		content: '';
-		height: calc(100%);
 		left: 13px;
-		top: -6px;
-		width: 15px;
-		z-index: 1;
 	}
 	.gmx-style-legend {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow-x: hidden;
 		width: 98%;
 	}
 }
