@@ -6,6 +6,18 @@
     right: 5px;
     left: unset;
 }
+:global(.leaflet-popup-content table.vectorInfoParams td) {
+    border: 1px solid #dddddd;
+	width: 70%;
+}
+:global(.leaflet-popup-content table.vectorInfoParams td.key) {
+    font-weight: bold;
+	width: 30%;
+}
+:global(.dark .leaflet-popup-tip-container) {
+	display: none;
+}
+
 </style>
 
 <script>
@@ -305,7 +317,7 @@
 						gmxLayer = gmxMap.layersByID[ev.id];
 
 					// console.log('Map command', ev, this.layersTree);
-					if (gmxLayer) {
+					if (gmxLayer && !(gmxLayer instanceof L.gmx.DummyLayer)) {
 						if (cmd === 'fitBounds') {
 							let bounds = gmxLayer.getBounds(),
 								zoom = map.getBoundsZoom(bounds),
@@ -313,6 +325,58 @@
 
 							zoom = zoom < opt.minZoom ? opt.minZoom : (zoom > opt.maxZoom ? opt.maxZoom : zoom);
 							map.setView(bounds.getCenter(), zoom);
+						} else if (cmd === 'showInfo') {
+							let props = gmxLayer.getGmxProperties(),
+								meta = props.MetaProperties,
+								getContent = () => {
+									if (meta.desc_long) {
+										return meta.desc_long.Value;
+									} else if (Object.keys(meta).length) {
+										let arr = [];
+										for(let key in meta) {
+											arr.push('<tr><td class="key"><span>' + key + '</span></td><td><div>' + meta[key].Value + '</div></td></tr>');
+										}
+										return '<table class="vectorInfoParams"><tbody>' + arr.join('') + '</tbody></table>';
+									}
+									return;
+								},
+								desc = getContent();
+
+							if (desc) {
+								let popup = L.popup(),
+									latlng = map.getCenter(),
+									onAdd = () => {
+										let ww = 300,
+											maxChild = null,
+											h = L.point(0,0),
+											offset = [0, 0],
+											container = popup._contentNode,
+											arr = container.childNodes;
+										for(let i = 0, len = arr.length; i < len; i++) {
+											let it = arr[i],
+												w = it.clientWidth;
+											if (w > ww) {
+												maxChild = it;
+												ww = w;
+											}
+										}
+										if (maxChild) {
+											popup.options.maxHeight = map.getContainer().clientHeight - 100;
+											popup.options.maxWidth = maxChild.clientWidth;
+											popup.options.offset = L.point(maxChild.clientWidth / 2, container.clientHeight / 2);
+											popup
+												.remove()
+												.off('add', onAdd, this)
+												.openOn(map);
+										}
+									};
+									
+								popup
+									.on('add', onAdd, this)
+									.setLatLng(latlng)
+									.setContent(desc)
+									.openOn(map);
+							}
 						} else if (cmd === 'toggleNode') {
 							let flag = ev.set;
 							if (flag) {

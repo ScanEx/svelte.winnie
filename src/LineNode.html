@@ -11,8 +11,8 @@
 	<span class="cont-overlays"><svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg></span>
 			{/if}
 	<span class="icons ">
-		{#if properties.description}
-		<span class="pointer cmd:showInfo cont-info" title="View description" on:click="showInfo(this, event)"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
+		{#if isInfo}
+		<span class="pointer cmd:showInfo cont-info" title="View description"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
 		{/if}
  		<span class="pointer cmd:fitBounds cont-center"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
 			
@@ -82,6 +82,7 @@
 			checkboxType: ({ parentProps }) => parentProps && parentProps.list ? 'radio' : 'checkbox',
 			checkboxName: ({ parentProps }) => parentProps && parentProps.GroupID || '',
 			properties: ({ line }) => line.content.properties,
+			isInfo: ({ properties }) => properties.MetaProperties && Object.keys(properties.MetaProperties).length,
 			isRadio: ({ properties }) => properties.list ? 'radio' : 'checkbox',
 			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
 			styles: ({ properties }) => properties.gmxStyles ? properties.gmxStyles.styles : [],

@@ -48,7 +48,7 @@ export default {
 		// instead of npm run dev), minify
 		css({dest: 'public/style.css', minified: true}),
 		copy({files: ['node_modules/leaflet-iconlayers/dist/*.png'], dest: 'public'}),
-		production && buble({ include: ['src/**', 'node_modules/svelte/shared.js'] }),
+		production && buble({ include: ['src/**', 'node_modules/**'] }),
 		//production && terser()
 	]
 };
