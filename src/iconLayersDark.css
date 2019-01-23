@@ -161,9 +161,9 @@ input.check {
 		left: 6px;
 	}
 	.dark input.expander:checked+span.expander::before {
-		width: 27px;
-		top: 3px;
-		left: 6px;
+		width: 32px;
+		top: 6px;
+		left: 2px;
 	}
 	.dark .TreeView li.line ul.group.css-treeview li.line::after {
 		height: calc(100% - 40px);
