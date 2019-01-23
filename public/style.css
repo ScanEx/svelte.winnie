@@ -259,6 +259,7 @@ html, body, #map {
 
 .dark .TreeView>li.line {
 	position: relative;
+	bottom: 3px;
 }
 
 .legendIconCell {
@@ -320,6 +321,7 @@ html, body, #map {
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		overflow-x: hidden;
+		padding-top: 5px;
 	}
 
 input.check {
@@ -331,16 +333,16 @@ input.check {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.dark span.expander::before {
 		width: 27px;
-		top: 0;
+		top: 3px;
 		left: 6px;
 	}
 	.dark input.expander:checked+span.expander::before {
 		width: 27px;
-		top: 0;
+		top: 3px;
 		left: 6px;
 	}
 	.dark .TreeView li.line ul.group.css-treeview li.line::after {
-		height: calc(100% - 53px);
+		height: calc(100% - 40px);
 		left: 27px;
 		top: 21px;
 		width: 9px;
@@ -362,7 +364,6 @@ input.check {
 		top: 0;
 	}
 	.pointer.title::before {
-		
 		border-left: 2px solid #FFF;
 		top: 12px;
 		left: -16px;	
@@ -406,16 +407,16 @@ input.check {
 	@media {
 		.dark span.expander::before {
 			width: 32px;
-			top: 6px;
+			top: 9px;
 			left: -2px;
 		}
 		.dark input.expander:checked+span.expander::before {
 			width: 32px;
-			top: 6px;
+			top: 9px;
 			left: -2px;
 		}
 		.dark .TreeView li.line ul.group.css-treeview li.line::after {
-			height: calc(100% - 40px);
+			height: calc(100% - 27px);
 			left: 20px;
 			top: 21px;
 			width: 15px;
@@ -440,10 +441,8 @@ input.check {
 			border-left: 1px solid #FFF;
 			top: 12px;
 			left: 20px;
-			z-index: -1;
 		}
 		.dark ul li.line .mega:hover .pointer.title::before {
-			
 			border-left: 1px solid #EBF1F5;
 			top: 12px;
 			left: 20px;
@@ -485,23 +484,14 @@ input.check {
 		top: -1px;
 	}
 	.pointer.title::before {
-		
 		border-left: 2px solid #FFF;
 		top: 12px;
 		left: -19px;
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
-		content: '';
 		border-left: 2px solid #EBF1F5;
-		display: block;
-		width: 5px;
-		height: 14px;
-		height: 88%;
-		position: relative;
 		top: 12px;
 		left: -19px;
-		position: absolute;
-		z-index: -1;
 	}
 	.dark .expanderCont {
 		margin-left: -20px;
@@ -544,7 +534,7 @@ input.check {
 	width: 100%;
 	float: left;
 	position: relative;
-	line-height: 201%;
+	line-height: 150%;
 	padding-bottom: 3px;
 	white-space: initial;
 	overflow-x: inherit;
@@ -633,18 +623,17 @@ input.check {
 
 .dark .description {
 	color: #808080;
-	position: relative;
-	left: 0;
-	font-size: 11px;
-	height: 100%;
-	width: 100%;
-	bottom: 5px;
-	margin-top: -7px;
-	background: transparent;
-	z-index: 0;
-	padding-left: 5px;
-	padding-top: 12px;
-	line-height: 123%;
+    position: relative;
+    left: 0;
+    font-size: 11px;
+    height: 100%;
+    width: 100%;
+    background: #FFF;
+    z-index: 1;
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    line-height: 123%;
 }
 
 .dark .description::before {
@@ -728,8 +717,16 @@ input.check {
 	overflow: -moz-scrollbars-none;
 }
 
+.dark .mega {
+	padding-bottom: 3px;
+}
+
 .dark ul li.line .mega:hover {
 	background-color: #EBF1F5;
+}
+
+.dark ul li.line .mega:hover .description {
+    background: #EBF1F5;
 }
 
 span.linestring.legendIconStyle {
