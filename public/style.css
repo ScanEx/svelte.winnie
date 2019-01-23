@@ -438,14 +438,14 @@ input.check {
 			top: 0;
 		}
 		.pointer.title::before {
-			border-left: 1px solid #FFF;
+			border-left: 2px solid #FFF;
 			top: 12px;
-			left: 20px;
+			left: -20px;
 		}
 		.dark ul li.line .mega:hover .pointer.title::before {
-			border-left: 1px solid #EBF1F5;
+			border-left: 2px solid #EBF1F5;
 			top: 12px;
-			left: 20px;
+			left: -20px;
 		}
 		.dark .expanderCont {
 			margin-left: -15px;
@@ -461,6 +461,10 @@ input.check {
 		}
 		input.check {
 			top: 0;
+		}
+		input[type="radio"] {
+			position: relative;;
+			left: 3px;
 		}
 	}
 }
