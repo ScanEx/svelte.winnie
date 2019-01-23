@@ -264,12 +264,12 @@ input.check {
 		.pointer.title::before {
 			border-left: 2px solid #FFF;
 			top: 12px;
-			left: -20px;
+			left: -16px;
 		}
 		.dark ul li.line .mega:hover .pointer.title::before {
 			border-left: 2px solid #EBF1F5;
 			top: 12px;
-			left: -20px;
+			left: -16px;
 		}
 		.dark .expanderCont {
 			margin-left: -15px;
@@ -288,7 +288,10 @@ input.check {
 		}
 		input[type="radio"] {
 			position: relative;;
-			left: 3px;
+			left: -3px;
+		}
+		.dark .cont {
+			left:-3px;
 		}
 	}
 }
