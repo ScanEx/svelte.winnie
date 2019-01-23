@@ -189,12 +189,12 @@ input.check {
 	}
 	.pointer.title::before {
 		border-left: 2px solid #FFF;
-		top: 12px;
+		top: 14px;
 		left: -16px;	
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
 		border-left: 2px solid #EBF1F5;
-		top: 12px;
+		top: 14px;
 		left: -16px;
 	}
 	.dark .expanderCont {
@@ -230,14 +230,14 @@ input.check {
 @media not all and (min-resolution:.001dpcm) {
 	@media {
 		.dark span.expander::before {
-			width: 32px;
-			top: 9px;
-			left: -2px;
+			width: 29px;
+			top: 6px;
+			left: -1px;
 		}
 		.dark input.expander:checked+span.expander::before {
-			width: 32px;
-			top: 9px;
-			left: -2px;
+			width: 29px;
+			top: 6px;
+			left: -1px;
 		}
 		.dark .TreeView li.line ul.group.css-treeview li.line::after {
 			height: calc(100% - 27px);
@@ -278,7 +278,7 @@ input.check {
 			left: -10px;
 		}
 		.gmx-style-legend::before {
-			left: 17px;
+			left: 14px;
 		}
 		.gmx-style-legend {
 			width: 100vw;
