@@ -401,6 +401,10 @@ input.check {
 		position: relative;
 		left: 0px!important;
 	}
+	.dark .description {
+			margin-left: 0;
+			padding-left: 5px;
+	}
 }
 
 @media not all and (min-resolution:.001dpcm) {
@@ -469,6 +473,10 @@ input.check {
 		.dark .cont {
 			left:-3px;
 		}
+		.dark .description {
+			margin-left: 3px;
+			padding-left: 2px;
+		}
 	}
 }
 
@@ -511,6 +519,10 @@ input.check {
 	}
 	.gmx-style-legend {
 		width: 98%;
+	}
+	.dark .description {
+		margin-left: 0;
+		padding-left: 5px;
 	}
 }
 
@@ -637,7 +649,6 @@ input.check {
     width: 100%;
     background: #FFF;
     z-index: 1;
-    padding-left: 5px;
     padding-top: 3px;
     padding-bottom: 3px;
     line-height: 123%;
