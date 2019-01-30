@@ -279,7 +279,8 @@ html, body, #map {
 		content: '';
 		display: block;
 		width: 5px;
-		height: 88%;
+		/*height: 88%;*/
+		height: 50%;
 		position: absolute;
 		z-index: -1;
 	}
@@ -287,7 +288,8 @@ html, body, #map {
 		content: '';
 		display: block;
 		width: 5px;
-		height: 88%;
+		/*height: 88%;*/
+		height: 50%;
 		position: absolute;
 		z-index: -1;
 	}
@@ -364,12 +366,14 @@ input.check {
 		top: 0;
 	}
 	.pointer.title::before {
-		border-left: 2px solid #FFF;
+		/*border-left: 2px solid #FFF;*/
+		border-left: 2px solid transparent;
 		top: 14px;
 		left: -16px;	
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
-		border-left: 2px solid #EBF1F5;
+		/*border-left: 2px solid #EBF1F5;*/
+		border-left: 2px solid transparent;
 		top: 14px;
 		left: -16px;
 	}
@@ -442,12 +446,14 @@ input.check {
 			top: 0;
 		}
 		.pointer.title::before {
-			border-left: 1px solid #FFF;
+			/*border-left: 1px solid #FFF;*/
+			border-left: 1px solid transparent;
 			top: 12px;
 			left: -16px;
 		}
 		.dark ul li.line .mega:hover .pointer.title::before {
-			border-left: 1px solid #EBF1F5;
+			/*border-left: 1px solid #EBF1F5;*/
+			border-left: 1px solid transparent;
 			top: 12px;
 			left: -16px;
 		}
@@ -499,12 +505,14 @@ input.check {
 		top: -1px;
 	}
 	.pointer.title::before {
-		border-left: 2px solid #FFF;
+		/*border-left: 2px solid #FFF;*/
+		border-left: 2px solid transparent;
 		top: 12px;
 		left: -19px;
 	}
 	.dark ul li.line .mega:hover .pointer.title::before {
-		border-left: 2px solid #EBF1F5;
+		/*border-left: 2px solid #EBF1F5;*/
+		border-left: 2px solid transparent;
 		top: 12px;
 		left: -19px;
 	}
@@ -737,6 +745,10 @@ input.check {
 
 .dark .mega {
 	padding-bottom: 3px;
+	background: #FFF;
+    z-index: 1;
+    position: relative;
+
 }
 
 .dark ul li.line .mega:hover {
