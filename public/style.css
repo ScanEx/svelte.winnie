@@ -308,7 +308,7 @@ html, body, #map {
 		position: relative;
 	}
 
-.gmx-style-legend::before {
+/*.gmx-style-legend::before {
 		border-left: 1px solid #FFF;
 		display: block;
 		position: absolute;
@@ -317,7 +317,7 @@ html, body, #map {
 		top: -6px;
 		width: 15px;
 		z-index: 1;
-	}
+	}*/
 
 .gmx-style-legend {
 		overflow: hidden;
@@ -384,9 +384,9 @@ input.check {
 	.dark .legend-cont {
 		left: -7px;
 	}
-	.gmx-style-legend::before {
-		left: 14px;
-	}
+	/*.gmx-style-legend::before {
+		left: 14px;*/
+	/*}*/
 	.gmx-style-legend {
 		width: 100vw;
 	}
@@ -464,9 +464,9 @@ input.check {
 		.dark .legend-cont {
 			left: -10px;
 		}
-		.gmx-style-legend::before {
+		/*.gmx-style-legend::before {
 			left: 13px;
-		}
+		}*/
 		.gmx-style-legend {
 			width: 100vw;
 		}
@@ -475,7 +475,7 @@ input.check {
 		}
 		input[type="radio"] {
 			position: relative;;
-			left: -2px;
+			left: -1px;
 		}
 		.dark .cont {
 			left:-3px;
@@ -523,9 +523,9 @@ input.check {
 	.dark .legend-cont {
 		left: -6px;
 	}
-	.gmx-style-legend::before {
+	/*.gmx-style-legend::before {
 		left: 13px;
-	}
+	}*/
 	.gmx-style-legend {
 		width: 98%;
 	}
