@@ -356,6 +356,7 @@ input.check {
 	}
 	.dark .TreeView>li.line {
 		left: -5px;
+		width: 100%
 	}
 	.legendIconCell {
 		top: 3px;
@@ -436,6 +437,7 @@ input.check {
 		}
 		.dark .TreeView>li.line {
 			left: -15px;
+			width: 104%;
 		}
 		.legendIconCell {
 			top: 3px;
@@ -494,6 +496,7 @@ input.check {
 	}
 	.dark .TreeView>li.line {
 		left: -5px;
+		width: 100%;
 	}
 	.legendIconCell {
 		top: 2px;
