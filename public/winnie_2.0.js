@@ -501,6 +501,13 @@ var app = (function (leaflet) {
 		}
 	}
 	var methods = {
+
+		// clickOnMega(target) {
+		// 	let {line} = this.get();
+		// 	console.log("clickOnMega",line.content.properties.title);
+			
+		// },
+
 		clickOnExpander: function clickOnExpander(target) {
 			var ref = this.get();
 			var line = ref.line;

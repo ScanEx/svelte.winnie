@@ -752,6 +752,7 @@ input.check {
 	background: #FFF;
     z-index: 1;
     position: relative;
+    /*cursor: pointer;*/
 
 }
 
