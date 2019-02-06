@@ -115,13 +115,6 @@
 			LegendIconCell
 		},
 		methods: {
-
-			// clickOnMega(target) {
-			// 	let {line} = this.get();
-			// 	console.log("clickOnMega",line.content.properties.title);
-				
-			// },
-
 			clickOnExpander(target) {
 				let {line} = this.get();
 				
@@ -137,26 +130,9 @@
 							node.classList.add('collapse');
 							expander.checked = false;
 						}
-						//node.classList[node.classList.contains('collapse') ? 'remove' : 'add']('collapse');
 					}
 				}
 			},
-			// toggleVisibility(target) {
-				// let {line} = this.get(),
-					// node = line.type === 'group' ? this.refs.line.getElementsByClassName('expanderInput')[0] : target;
-				
-				// if (node) {
-					// if (node.checked) {
-						// node.checked = false;
-						
-					// } else {
-						// node.checked = true;
-					// }
-					// if (this.refs.ul) {
-						// this.refs.ul.classList[node.checked ? 'remove' : 'add']('collapse');
-					// }
-				// }
-			// },
 			toggleTimeline(node) {
 				if (node) {
 					if (node.classList.contains('disabled')) {

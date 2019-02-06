@@ -343,17 +343,18 @@
 					// console.log('Map command', ev, this.layersTree);
 					if (gmxLayer && !(gmxLayer instanceof L.gmx.DummyLayer)) {
 						if (cmd === 'fitBounds') {
-							let bounds = gmxLayer.getBounds();
-								// zoom = map.getBoundsZoom(bounds),
-								// opt = gmxLayer.options;
-							// zoom = zoom < opt.minZoom ? opt.minZoom : (zoom > opt.maxZoom ? opt.maxZoom : zoom);
-							// map.setView(bounds.getCenter(), zoom);
+							if (gmxLayer.getBounds) {
+								let bounds = gmxLayer.getBounds();
+									// zoom = map.getBoundsZoom(bounds),
+									// opt = gmxLayer.options;
+								// zoom = zoom < opt.minZoom ? opt.minZoom : (zoom > opt.maxZoom ? opt.maxZoom : zoom);
+								// map.setView(bounds.getCenter(), zoom);
 
-							map.fitBounds(bounds, {	// maxZoom от М.Потанина
-								animation: false,
-								maxZoom: Math.min(Math.max(15, map.getZoom()), map.getBoundsZoom(bounds))
-							});
-							
+								map.fitBounds(bounds, {	// maxZoom от М.Потанина
+									animation: false,
+									maxZoom: Math.min(Math.max(15, map.getZoom()), map.getBoundsZoom(bounds))
+								});
+							}
 						} else if (cmd === 'showInfo') {
 							let props = gmxLayer.getGmxProperties(),
 								meta = props.MetaProperties,
