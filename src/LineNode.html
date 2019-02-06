@@ -3,7 +3,7 @@
 {#if properties}
  {#if line.type !== 'map'}
 	{#if line.type === 'group'}
-	<input class="expander expanderInput hidden" type="checkbox" checked="{isOpened}" />
+	<input class="expander expanderInput hidden" type="checkbox" checked="{isOpened}" ref:expander />
 	<span class="expander pointer expanderCont cmd:clickOnExpander" on:click="clickOnExpander(this)"></span>
 	{/if}
 		{#if line.type === 'layer'} <!-- begin: line.type === 'layer' -->
@@ -34,7 +34,12 @@
 		{#if line.type === 'layer' && styles.length && styles.length < 2 && styles[0].RenderStyle}
 			<LegendIconCell item={styles[0]} type={properties.GeometryType} />
 		{/if}
-		<label class="pointer title cmd:{line.type === 'group' ? 'toggleGroup' : 'toggleVisibility'} {multiStyles}">{properties.title}</label>
+		<label class="pointer title 
+			{!isGroup ? ' cmd:toggleVisibility' : (isShowCheckbox ? ' cmd:toggleGroup' : '')}
+			{multiStyles}
+			"
+			on:click="clickOnExpander(this)"
+			>{properties.title}</label>
 		<div class="description {properties.description ? '' : 'collapse'}">{properties.description || ''}</div>
 		{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
@@ -82,6 +87,8 @@
 			checkboxType: ({ parentProps }) => parentProps && parentProps.list ? 'radio' : 'checkbox',
 			checkboxName: ({ parentProps }) => parentProps && parentProps.GroupID || '',
 			properties: ({ line }) => line.content.properties,
+			isGroup: ({ line }) => line.type === 'group',
+			isShowCheckbox: ({ properties }) => properties.ShowCheckbox,
 			isInfo: ({ properties }) => properties.MetaProperties && Object.keys(properties.MetaProperties).length,
 			isRadio: ({ properties }) => properties.list ? 'radio' : 'checkbox',
 			nodeID: ({ properties }) => properties ? properties.name || properties.GroupID : 'root',
@@ -111,10 +118,19 @@
 			clickOnExpander(target) {
 				let {line} = this.get();
 				
-				if (line.type === 'group') {
+				if (line.type === 'group' && !line.content.properties.ShowCheckbox) {
 					let node = this.refs.ul;
 					if (node) {
-						node.classList[node.classList.contains('collapse') ? 'remove' : 'add']('collapse');
+						let isCollapse = node.classList.contains('collapse'),
+							expander = this.refs.expander;
+						if (isCollapse) {
+							node.classList.remove('collapse');
+							expander.checked = true;
+						} else {
+							node.classList.add('collapse');
+							expander.checked = false;
+						}
+						//node.classList[node.classList.contains('collapse') ? 'remove' : 'add']('collapse');
 					}
 				}
 			},

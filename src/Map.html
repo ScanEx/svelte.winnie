@@ -188,6 +188,27 @@
 								control._redrawTimeline();
 							}
 						};
+						map
+							.on('layerremove', function (ev) {
+								let layer = ev.layer,
+									props = layer && layer.getGmxProperties && layer.getGmxProperties();
+								if (props && props.name) {
+									layersTree.visible[props.name] = false;
+									if (this._treeView) {
+										this._treeView.set({layersTree: layersTree}); 
+									}
+								}
+							}, this)
+							.on('layeradd', function (ev) {
+								let layer = ev.layer,
+									props = layer && layer.getGmxProperties && layer.getGmxProperties();
+								if (props && props.name) {
+									layersTree.visible[props.name] = true;
+									if (this._treeView) {
+										this._treeView.set({layersTree: layersTree}); 
+									}
+								}
+							}, this);
 					}
 
 					if (this.iconSidebar) {
