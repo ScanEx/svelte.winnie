@@ -220,6 +220,9 @@ input.check {
 	span.cont>label.pointer.title {
 		position: relative;
 		left: 3px;
+		display: inline-flex;
+    	width: calc(100% - 70px);
+    	word-break: break-word;
 	}
 	span.legendIconCell+label.pointer.title {
 		position: relative;
