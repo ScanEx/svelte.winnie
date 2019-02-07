@@ -225,14 +225,22 @@ input.check {
 		position: relative;
 		left: 6px;
 		margin-left: -6px;
+		display: inline-flex;
+    	width: calc(100% - 70px);
+    	word-break: break-word;
 	}
 	input.check+label.pointer.title {
 		position: relative;
 		left: 0px!important;
+		display: inline-flex;
+    	width: calc(100% - 70px);
+    	word-break: break-word;
+
 	}
 	.dark .description {
 			margin-left: 0;
-			padding-left: 5px;
+			width: calc(100% - 43px);
+			padding-left: 43px;
 	}
 }
 
@@ -307,7 +315,9 @@ input.check {
 		}
 		.dark .description {
 			margin-left: 3px;
-			padding-left: 2px;
+			width: calc(100% - 40px);
+			padding-left: 40px;
+			/*padding-left: 2px;*/
 		}
 	}
 }
@@ -357,7 +367,9 @@ input.check {
 	}
 	.dark .description {
 		margin-left: 0;
-		padding-left: 5px;
+		width: calc(100% - 43px);
+		padding-left: 43px;
+		/*padding-left: 5px;*/
 	}
 }
 
@@ -481,7 +493,7 @@ input.check {
     left: 0;
     font-size: 11px;
     height: 100%;
-    width: 100%;
+    word-break: break-word;
     background: #FFF;
     z-index: 1;
     padding-top: 3px;
