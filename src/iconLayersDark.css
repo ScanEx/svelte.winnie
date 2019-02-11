@@ -317,6 +317,7 @@ input.check {
 
 		body.OSX input.check {
     		top: 0;
+    		left: -1px;
 		}
 		input[type="radio"] {
 			position: relative;;
