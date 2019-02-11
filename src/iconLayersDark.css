@@ -314,6 +314,10 @@ input.check {
 		input.check {
 			top: 0;
 		}
+
+		body.OSX input.check {
+    		top: 0;
+		}
 		input[type="radio"] {
 			position: relative;;
 			left: -1px;
