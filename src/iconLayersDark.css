@@ -217,6 +217,11 @@ input.check {
 	input.check {
 		top: 2px;
 	}
+
+	body.OSX input.check {
+    left: 1px;
+    top: 0;
+	}
 	span.cont>label.pointer.title {
 		position: relative;
 		left: 3px;
