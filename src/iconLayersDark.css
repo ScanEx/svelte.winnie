@@ -68,6 +68,7 @@
 	display: block;
 	position: absolute;
 	content: '';
+	/*z-index: 1;*/
 }
 
 .dark .TreeView li.line ul.group.css-treeview li.line:last-child:before {
