@@ -246,10 +246,17 @@ input.check {
     	word-break: break-word;
 
 	}
-	.dark .description {
-			margin-left: 0;
-			width: calc(100% - 43px);
-			padding-left: 43px;
+
+	input.check+label.pointer.title+.description {
+		  margin-left: 0;
+		  width: calc(100% - 27px);
+          padding-left: 27px;
+	}
+
+	span.legendIconCell+label.pointer.title+.description {
+		  margin-left: 0;
+		  width: calc(100% - 43px);
+          padding-left: 43px;
 	}
 }
 
@@ -327,12 +334,18 @@ input.check {
 		.dark .cont {
 			left:-3px;
 		}
-		.dark .description {
-			margin-left: 3px;
-			width: calc(100% - 35px);
-			padding-left: 35px;
-			/*padding-left: 2px;*/
+		input.check+label.pointer.title+.description {
+		    margin-left: 0;
+		    width: calc(100% - 18px);
+            padding-left: 18px;
 		}
+
+		span.legendIconCell+label.pointer.title+.description {
+		    margin-left: 0;
+		    width: calc(100% - 35px);
+            padding-left: 35px;
+		}
+		
 	}
 }
 
@@ -379,11 +392,16 @@ input.check {
 	.gmx-style-legend {
 		width: 98%;
 	}
-	.dark .description {
+	input.check+label.pointer.title+.description {
 		margin-left: 0;
-		width: calc(100% - 43px);
-		padding-left: 43px;
-		/*padding-left: 5px;*/
+		width: calc(100% - 18px);
+        padding-left: 18px;
+	}
+
+	span.legendIconCell+label.pointer.title+.description {
+		margin-left: 0;
+		width: calc(100% - 35px);
+        padding-left: 35px;
 	}
 }
 
