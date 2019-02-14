@@ -625,7 +625,7 @@ input.check {
 		display: inline-flex;
 		width: calc(100% - 70px);
 		word-break: break-word;
-		bottom: 4px;
+		bottom: 2px;
 	}
 	input.check+label.pointer.title+.description {
 		margin-left: 0;
