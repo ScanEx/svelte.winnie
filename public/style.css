@@ -417,6 +417,11 @@ input.check {
 		width: calc(100% - 43px);
 		padding-left: 43px;
 	}
+	input.check+label.pointer.title.multiStyles+.description {
+    margin-left: 0;
+    width: calc(100% - 43px);
+    padding-left: 43px;
+	}
 	.dark input.expander:checked+span.expander::after {
     	content: '';
     	display: block;
@@ -536,6 +541,11 @@ input.check {
 			width: calc(100% - 35px);
 			padding-left: 35px;
 		}
+		input.check+label.pointer.title.multiStyles+.description {
+    		margin-left: 0;
+    		width: calc(100% - 35px);
+    		padding-left: 35px;
+		}
 
 		.dark input.expander:checked+span.expander::after {
 		    content: '';
@@ -626,6 +636,12 @@ input.check {
 		margin-left: 0;
 		width: calc(100% - 35px);
 		padding-left: 35px;
+	}
+
+	input.check+label.pointer.title.multiStyles+.description {
+    	margin-left: 0;
+    	width: calc(100% - 35px);
+    	padding-left: 35px;
 	}
 	.dark input.expander:checked+span.expander::after {
     	content: '';
