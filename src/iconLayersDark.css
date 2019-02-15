@@ -203,6 +203,9 @@ input.check {
 		left: 1px;
 		top: 0;
 	}
+	.dark .cont {
+		left: 2px;
+	}
 	span.cont>label.pointer.title {
 		position: relative;
 		left: 3px;
@@ -332,7 +335,7 @@ input.check {
 			left: -1px;
 		}
 		.dark .cont {
-			left: -3px;
+			left: -1px;
 		}
 		input.check+label.pointer.title {
 		position: relative;
@@ -427,6 +430,9 @@ input.check {
 	}
 	.gmx-style-legend {
 		width: 98%;
+	}
+	.dark .cont {
+		left: 2px;
 	}
 	input.check+label.pointer.title {
 		position: relative;
