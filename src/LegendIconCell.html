@@ -1,6 +1,8 @@
 <span class="legendIconCell style">
 {#if item.RenderStyle.iconUrl}
 	<img src="{item.RenderStyle.iconUrl}" crossorigin="" alt="Style Icon" />
+{:elseif fillPattern}
+	<img src="{fillPattern}" alt="Style Icon" />
 {:else}
 	<span class="{type} legendIconStyle " style="background-color: {backgroundColor}; border-color: {borderColor};"></span>
 {/if}
@@ -13,6 +15,11 @@
 			}
 		},
 		computed: {
+			fillPattern: ({ item }) => {
+				let st = L.extend({}, item.RenderStyle, {fillOpacity: 1}),
+					fillPattern = L.gmxUtil.getPatternIcon(null, st);
+				return fillPattern ? fillPattern.canvas.toDataURL() : null;
+			},
 			backgroundColor: ({ item }) => L.gmxUtil.dec2rgba(item.RenderStyle.fillColor, item.RenderStyle.fillOpacity || 1),
 			borderColor: ({ item }) => L.gmxUtil.dec2rgba(item.RenderStyle.color, item.RenderStyle.opacity || 1)
 		},
