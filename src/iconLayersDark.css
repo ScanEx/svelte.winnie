@@ -723,3 +723,16 @@ span.linestring.legendIconStyle {
 	padding-left: inherit;
 }
 
+.panes .shown:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 7px;
+    background: #FFF;
+    z-index: 3;
+    margin-left: 1px;
+}
+
+img.fillPattern {
+    padding-right: 3px;
+}

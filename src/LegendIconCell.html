@@ -2,7 +2,7 @@
 {#if item.RenderStyle.iconUrl}
 	<img src="{item.RenderStyle.iconUrl}" crossorigin="" alt="Style Icon" />
 {:elseif fillPattern}
-	<img src="{fillPattern}" alt="Style Icon" />
+	<img src="{fillPattern}" alt="Style Icon" class="fillPattern" />
 {:else}
 	<span class="{type} legendIconStyle " style="background-color: {backgroundColor}; border-color: {borderColor};"></span>
 {/if}

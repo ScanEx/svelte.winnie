@@ -348,7 +348,7 @@ var app = (function (leaflet) {
 				img = createElement("img");
 				img.src = ctx.fillPattern;
 				img.alt = "Style Icon";
-				img.className = "svelte-1vhs5pf";
+				img.className = "fillPattern svelte-1vhs5pf";
 			},
 
 			m: function m(target, anchor) {
@@ -2816,6 +2816,7 @@ var app = (function (leaflet) {
 				this.iconSidebar = iconSidebar;
 				if (app.treeView && app.treeView !== 'false') {
 					var treePane = iconSidebar.addTab({id: 'treeView', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
+					// var treeMini = iconSidebar.addTab({id: 'aura', icon: 'icon-layers', opened: 'opened', closed: 'closed'});
 					this.treePane = treePane;
 				}
 			} else {
