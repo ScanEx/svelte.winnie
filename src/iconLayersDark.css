@@ -344,17 +344,24 @@ input.check {
 		.dark .cont {
 			left: -1px;
 		}
-		input.check+label.pointer.title {
+		span.cont>label.pointer.title {
 		position: relative;
-		left: 0px!important;
+		left: 3px;
 		display: inline-flex;
 		width: calc(100% - 73px);
 		word-break: break-word;
 		}
-
-		span.cont>label.pointer.title {
+		span.legendIconCell+label.pointer.title {
 		position: relative;
-		left: 3px;
+		left: 6px;
+		margin-left: -6px;
+		display: inline-flex;
+		width: calc(100% - 73px);
+		word-break: break-word;
+		}
+		input.check+label.pointer.title {
+		position: relative;
+		left: 0px!important;
 		display: inline-flex;
 		width: calc(100% - 73px);
 		word-break: break-word;
@@ -448,18 +455,25 @@ input.check {
 	.dark .cont {
 		left: 2px;
 	}
-	input.check+label.pointer.title {
+	span.cont>label.pointer.title {
 		position: relative;
-		left: 0px!important;
+		left: 3px;
 		display: inline-flex;
 		width: calc(100% - 73px);
 		word-break: break-word;
 		bottom: 2px;
 	}
-
-	span.cont>label.pointer.title {
+	span.legendIconCell+label.pointer.title {
 		position: relative;
-		left: 3px;
+		left: 6px;
+		margin-left: -6px;
+		display: inline-flex;
+		width: calc(100% - 73px);
+		word-break: break-word;
+	}
+	input.check+label.pointer.title {
+		position: relative;
+		left: 0px!important;
 		display: inline-flex;
 		width: calc(100% - 73px);
 		word-break: break-word;
