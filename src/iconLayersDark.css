@@ -210,7 +210,7 @@ input.check {
 		position: relative;
 		left: 3px;
 		display: inline-flex;
-		width: calc(100% - 70px);
+		width: calc(100% - 73px);
 		word-break: break-word;
 	}
 	span.legendIconCell+label.pointer.title {
@@ -218,14 +218,14 @@ input.check {
 		left: 6px;
 		margin-left: -6px;
 		display: inline-flex;
-		width: calc(100% - 70px);
+		width: calc(100% - 73px);
 		word-break: break-word;
 	}
 	input.check+label.pointer.title {
 		position: relative;
 		left: 0px!important;
 		display: inline-flex;
-		width: calc(100% - 70px);
+		width: calc(100% - 73px);
 		word-break: break-word;
 	}
 	input.check+label.pointer.title+.description {
@@ -264,6 +264,13 @@ input.check {
     	border-left: 1px solid #D8E1E8;
     	left: -8px;
     	bottom: -29px;
+	}
+	.dark .group.css-treeview ul {
+	padding-inline-start: 37px;
+	}
+
+	body.OSX .group.css-treeview ul {
+	padding-inline-start: 36px;
 	}
 }
 
@@ -341,7 +348,7 @@ input.check {
 		position: relative;
 		left: 0px!important;
 		display: inline-flex;
-		width: calc(100% - 70px);
+		width: calc(100% - 73px);
 		word-break: break-word;
 		}
 
@@ -349,7 +356,7 @@ input.check {
 		position: relative;
 		left: 3px;
 		display: inline-flex;
-		width: calc(100% - 70px);
+		width: calc(100% - 73px);
 		word-break: break-word;
 		}
 		input.check+label.pointer.title+.description {
@@ -389,6 +396,13 @@ input.check {
     		border-left: 1px solid #D8E1E8;
     		left: -19px;
     		bottom: -29px;
+		}
+		.dark .group.css-treeview ul {
+			padding-inline-start: 37px;
+		}
+
+		body.OSX .group.css-treeview ul {
+			padding-inline-start: 37px;
 		}
 	}
 }
@@ -438,7 +452,7 @@ input.check {
 		position: relative;
 		left: 0px!important;
 		display: inline-flex;
-		width: calc(100% - 70px);
+		width: calc(100% - 73px);
 		word-break: break-word;
 		bottom: 2px;
 	}
@@ -447,7 +461,7 @@ input.check {
 		position: relative;
 		left: 3px;
 		display: inline-flex;
-		width: calc(100% - 70px);
+		width: calc(100% - 73px);
 		word-break: break-word;
 		bottom: 2px;
 	}
@@ -478,10 +492,13 @@ input.check {
     	left: -9px;
     	bottom: -29px;
 	}
-}
+	.dark .group.css-treeview ul {
+		padding-inline-start: 37px;
+	}
 
-.dark .group.css-treeview ul {
-	padding-inline-start: 37px;
+	body.OSX .group.css-treeview ul {
+		padding-inline-start: 37px;
+	}
 }
 
 .dark ul.group {
