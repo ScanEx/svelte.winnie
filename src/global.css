@@ -64,11 +64,7 @@ html, body, #map {
 .icon-link:before {
   content: '\';
 }
-/*
-.overlays:before {
-    content: "\f5fd";
-}
-*/
+
 /* контейнер sidebar */
 .editor-sidebarContainer {
   position: relative;
@@ -127,19 +123,6 @@ html, body, #map {
 .leaflet-right.leaflet-top.leaflet-bottom.gmx-bottom-shift {
 	top: 36%;
 }
-/*
-.fa, .far, .fas {
-	font-family: "FontAwesome";
-	font-style: normal;
-}
-.fa, .fas {
-    font-weight: 900;
-}
-
-.fa-layer-group:before {
-    content: "\f5fd";
-}
- */
 
 .opened {
 	color: #f57c00;
@@ -147,34 +130,26 @@ html, body, #map {
 .closed {
 	color: #757575;
 }
+
 .scanex-sidebar .tabs > div {
-	padding: 15px;
-	cursor: pointer;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.23s ease;
+  opacity: 0.9;
+}
+
+.scanex-sidebar .tabs > div:hover {
+  opacity: 1.0;
 }
 .scanex-sidebar .panes > div[data-pane-id="treeView"] {
 	width: 300px;
-/*
-	height: 100vh;
-	padding: 5px;
-	border: 1px solid;
-    overflow-y: auto;
-    height: 400px;
-*/
 }
 
-/*
-.scanex-sidebar .panes {
-	background-color: #fff;		
-}
-*/
 .scanex-sidebar {	
   font-family: 'IBM Plex Sans', sans-serif;
-	/*font-family: sans-serif;*/
 	font-size: 12px;	
 }
-.leaflet-iconLayers {
-    /* padding-left: 44px; */
-}
+
 .TreeView {
 	max-height: calc(100vh - 128px);
 	border: 1px solid;

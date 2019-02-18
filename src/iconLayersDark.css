@@ -8,11 +8,14 @@
 }
 
 .dark .scanex-sidebar .tabs {
+	background: #4c5567;
 	height: calc(100vh - 20px);
 	width: 37px;
-	justify-content: center;
 	display: flex;
-	background: #4c5567;
+	justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 15px;
 }
 
 .dark .opened {
