@@ -864,7 +864,7 @@ input.check {
 
 .dark label.pointer.title.multiStyles::before {
 	content: url('ext/img/multi.svg');
-	left: -2px;
+	left: -1px;
 	padding-right: 7px;
 	display: inline-block;
 	position: relative;
@@ -876,7 +876,7 @@ input.check {
 
 .dark ul li.line .mega:hover label.pointer.title.multiStyles::before {
 	content: url('ext/img/multi.svg');
-	left: -2px;
+	left: -1px;
 	padding-right: 7px;
 	display: inline-block;
 	position: relative;
