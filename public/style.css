@@ -530,7 +530,7 @@ input.check {
 		position: relative;
 		left: 1px;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 67px);
 		word-break: break-word;
 		}
 		span.legendIconCell+label.pointer.title {
@@ -538,14 +538,14 @@ input.check {
 		left: 6px;
 		margin-left: -6px;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 67px);
 		word-break: break-word;
 		}
 		input.check+label.pointer.title {
 		position: relative;
 		left: 0px!important;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 67px);
 		word-break: break-word;
 		}
 		input.check+label.pointer.title+.description {
