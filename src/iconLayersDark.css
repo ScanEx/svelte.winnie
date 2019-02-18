@@ -162,7 +162,7 @@ input.check {
 	}
 	.dark .TreeView li.line ul.group.css-treeview li.line:last-child:before {
 		height: calc(100% - 15px);
-		left: -12px;
+		left: -10px;
 	}
 	.dark .TreeView>li.line {
 		left: -7px;
