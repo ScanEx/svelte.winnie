@@ -40,7 +40,7 @@
 			"
 			on:click="clickOnExpander(this)"
 			>{properties.title}</label>
-		<div class="description {properties.description ? '' : 'collapse'}">{properties.description || ''}</div>
+		<div class="description {properties.description ? '' : 'collapse'}">{@html properties.description || ''}</div>
 		{#if line.type === 'layer'}
 			{#if styles.length && styles.length > 1 && styles[0].RenderStyle}
 			<div class="legend">
