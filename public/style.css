@@ -885,7 +885,7 @@ input.check {
 }
 
 .dark ul li.line .mega:hover label.pointer.title.multiStyles::before {
-	content: url('ext/img/multi.svg')
+	content: url('ext/img/multi.svg');
 	/*content: url('data:image/svg+xml;utf8, <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" stroke="#A7B6C2" d="M3.5 3.5h8v8h-8z"/><path fill="#F3F7FA" stroke="#A7B6C2" d="M.5.5h8v8h-8z"/></svg>');*/
 	left: -1px;
 	padding-right: 7px;
