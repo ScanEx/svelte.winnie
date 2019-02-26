@@ -3659,8 +3659,31 @@ var app = (function (leaflet) {
 				out.app.drawing = chkPar('drawing', urlParams, out.app);			// drawing по умолчанию
 				//out.app.gmxTimeline = chkPar('gmxTimeline', urlParams, out.app);	// gmxTimeline по умолчанию
 				out.app.gmxTimeline = urlParams.gmxTimeline === 'true' || out.app.gmxTimeline || false;	// gmxTimeline по умолчанию false
+				out.app.GWWFPlugin = urlParams.GWWFPlugin === 'true' || out.app.GWWFPlugin || false;	// GWWFPlugin по умолчанию false
 			}
-			this.set({permalink: out});
+			var plugins = out.plugins || {};
+			if (out.app.GWWFPlugin && !plugins.GWWFPlugin) {
+				plugins.GWWFPlugin = {
+				  "pluginName": "WWF Plugin new",
+				  "file": "//maps.kosmosnimki.ru/api/plugins/external/GMXPluginWWF/gmxPluginWWF.js",
+				  "module": "GWWFPlugin",
+				  "mapPlugin": true,
+				  "isPublic": true
+				};
+			}
+
+			if (plugins.GWWFPlugin) {
+				L.gmxUtil.requestLink(plugins.GWWFPlugin.file.replace(/\.js$/, '\.css'));
+				L.gmxUtil.requestLink(plugins.GWWFPlugin.file, {
+				}).then(function () {
+					out.plugins = plugins;
+					this$1.set({permalink: out});
+				}).catch(console.warn);
+			} else {
+				this.set({permalink: out});
+			}
+
+			//this.set({permalink: out});
 			// this.set({permalink: out, confStr: JSON.stringify(out, null, 2)});
 			if (urlParams.edit) {
 				L.gmxUtil.requestLink('//cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js', {
