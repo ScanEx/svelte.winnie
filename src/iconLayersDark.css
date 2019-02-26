@@ -48,7 +48,7 @@
 }
 
 .dark span.expander::before {
-	content: url('ext/img/small.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="28" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 9.75L8.25 6l-4.5-3.75v7.5z" fill="#394B59"/><path d="M16 6v5.25c0 .45.3.75.75.75h10.5c.45 0 .75-.3.75-.75V6H16zM28 4.5V3c0-.45-.3-.75-.75-.75H22.3L20.275.225A.68.68 0 0 0 19.75 0h-3c-.45 0-.75.3-.75.75V4.5h12z" fill="#BFCCD6"/></svg>');
 	display: inline-block;
 	position: relative;
 	float: left;
@@ -57,7 +57,7 @@
 }
 
 .dark input.expander:checked+span.expander::before {
-	content: url('ext/img/small-o.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="28" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.25 3.75L6 8.25l3.75-4.5h-7.5z" fill="#394B59"/><g clip-path="url(#clip0)" fill="#BFCCD6"><path d="M27.85 5.55c-.15-.15-.375-.3-.6-.3H19c-.3 0-.6.15-.675.45l-2.25 5.25c-.15.45 0 1.05.675 1.05H25c.3 0 .6-.15.675-.45l2.25-5.25c.15-.225.075-.525-.075-.75z"/><path d="M16.9 5.1A2.308 2.308 0 0 1 19 3.75h6.75v-1.5c0-.45-.3-.75-.75-.75h-4.2L19.525.225A.68.68 0 0 0 19 0h-2.25c-.45 0-.75.3-.75.75v6.525l.9-2.175z"/></g><defs><clipPath id="clip0"><path fill="#fff" transform="translate(16)" d="M0 0h12v12H0z"/></clipPath></defs></svg>');
 	display: inline-block;
 	position: relative;
 	float: left;
@@ -550,7 +550,7 @@ input.check {
 .dark .pointer.cont-center {
 	position: relative;
 	top: 7px;
-	content: url('ext/img/coord.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.75 1.75h3.5V0H0v5.25h1.75v-3.5zM8.75 0v1.75h3.5v3.5H14V0H8.75zM12.25 12.25h-3.5V14H14V8.75h-1.75v3.5zM1.75 8.75H0V14h5.25v-1.75h-3.5v-3.5z" fill="#8A9BA8"/><path d="M10.5 3.5h-7v7h7v-7z" fill="#8A9BA8"/></svg>');
 	visibility: hidden;
 	float: right;
 	padding-left: 5px;
@@ -560,17 +560,38 @@ input.check {
 .dark .pointer.cont-info {
 	position: relative;
 	top: 7px;
-	content: url('ext/img/info.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="14" height="14" rx="2" fill="#8A9BA8"/><path d="M7 4.028c-.36 0-.625-.08-.793-.24a.885.885 0 0 1-.24-.636v-.264c0-.256.08-.464.24-.624.168-.168.432-.252.792-.252.36 0 .62.084.78.252.168.16.252.368.252.624v.264a.862.862 0 0 1-.252.636c-.16.16-.42.24-.78.24zM6.11 4.7h1.776V11H6.111V4.7z" fill="#fff"/></svg>');
 	visibility: visible;
 	float: right;
 	padding-left: 5px;
 	right: 3px;
 }
 
+.dark .pointer.cont-timeline {
+	position: relative;
+	top: 7px;
+	content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="14" height="14" rx="2" fill="#8A9BA8"/><path d="M7.65 3.102V4.66h1.084v1.242H7.65v3.164c0 .235.045.403.135.504.09.102.262.153.516.153a2.7 2.7 0 0 0 .498-.041v1.283a3.485 3.485 0 0 1-1.026.152c-1.187 0-1.793-.6-1.816-1.799V5.902h-.926V4.66h.926V3.102H7.65z" fill="#fff"/></svg>');
+	visibility: visible;
+	float: right;
+	padding-left: 5px;
+	right: 3px;
+}
+
+.dark ul li.line .mega:hover>.icons>.pointer.cont-timeline {
+	position: relative;
+	top: 7px;
+	content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="14" height="14" rx="2" fill="#394B59"/><path d="M7.74 11c-.617 0-1.085-.156-1.405-.468-.312-.312-.468-.768-.468-1.368V6.08H4.98V4.7h.444c.24 0 .404-.056.492-.168.088-.12.132-.288.132-.504V2.996h1.596V4.7h1.248v1.38H7.643v3.54h1.152V11H7.74z" fill="#fff"/></svg>');
+	visibility: visible;
+	float: right;
+	padding-left: 5px;
+	right: 3px;
+}
+
+
 .dark ul li.line .mega:hover>.icons>.pointer.cont-center {
 	position: relative;
 	top: 7px;
-	content: url('ext/img/coord-o.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.75 1.75h3.5V0H0v5.25h1.75v-3.5zM8.75 0v1.75h3.5v3.5H14V0H8.75zM12.25 12.25h-3.5V14H14V8.75h-1.75v3.5zM1.75 8.75H0V14h5.25v-1.75h-3.5v-3.5z" fill="#394B59"/><path d="M10.5 3.5h-7v7h7v-7z" fill="#394B59"/></svg>');
 	visibility: visible;
 	float: right;
 	padding-left: 5px;
@@ -580,7 +601,7 @@ input.check {
 .dark ul li.line .mega:hover>.icons>.pointer.cont-info {
 	position: relative;
 	top: 7px;
-	content: url('ext/img/info-o.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="14" height="14" rx="2" fill="#394B59"/><path d="M7 4.028c-.36 0-.625-.08-.793-.24a.885.885 0 0 1-.24-.636v-.264c0-.256.08-.464.24-.624.168-.168.432-.252.792-.252.36 0 .62.084.78.252.168.16.252.368.252.624v.264a.862.862 0 0 1-.252.636c-.16.16-.42.24-.78.24zM6.11 4.7h1.776V11H6.111V4.7z" fill="#fff"/></svg>');
 	visibility: visible;
 	float: right;
 	padding-left: 5px;
@@ -595,7 +616,7 @@ input.check {
 }
 
 .dark .legendIconEye.enabled.pointer::before {
-	content: url('ext/img/preview.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.25c3.15 0 5.6-2.713 6.65-4.287.438-.613.438-1.4 0-2.013-1.05-1.487-3.5-4.2-6.65-4.2-3.15 0-5.6 2.713-6.65 4.287-.437.613-.437 1.4 0 1.926C1.4 9.537 3.85 12.25 7 12.25zm0-7.875c1.488 0 2.625 1.138 2.625 2.625 0 1.488-1.137 2.625-2.625 2.625-1.487 0-2.625-1.137-2.625-2.625 0-1.487 1.138-2.625 2.625-2.625z" fill="#394B59"/></svg>'); 
 	display: inline-block;
 	width: 27px;
 	height: 12px;
@@ -606,7 +627,7 @@ input.check {
 }
 
 .dark .legendIconEye.pointer::before {
-	content: url('ext/img/preview-o.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.25c3.15 0 5.6-2.713 6.65-4.287.438-.613.438-1.4 0-2.013-1.05-1.487-3.5-4.2-6.65-4.2-3.15 0-5.6 2.713-6.65 4.287-.437.613-.437 1.4 0 1.926C1.4 9.537 3.85 12.25 7 12.25zm0-7.875c1.488 0 2.625 1.138 2.625 2.625 0 1.488-1.137 2.625-2.625 2.625-1.487 0-2.625-1.137-2.625-2.625 0-1.487 1.138-2.625 2.625-2.625z" fill="#BFCCD6"/></svg>' );
 	display: inline-block;
 	width: 27px;
 	height: 12px;
@@ -684,7 +705,7 @@ input.check {
 }
 
 .dark label.pointer.title.multiStyles::before {
-	content: url('ext/img/multi.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" stroke="#A7B6C2" d="M3.5 3.5h8v8h-8z"/><path fill="#F3F7FA" stroke="#A7B6C2" d="M.5.5h8v8h-8z"/></svg>');
 	left: -1px;
 	padding-right: 7px;
 	display: inline-block;
@@ -696,7 +717,7 @@ input.check {
 }
 
 .dark ul li.line .mega:hover label.pointer.title.multiStyles::before {
-	content: url('ext/img/multi.svg');
+	content: url('data:image/svg+xml;utf8, <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" stroke="#A7B6C2" d="M3.5 3.5h8v8h-8z"/><path fill="#F3F7FA" stroke="#A7B6C2" d="M.5.5h8v8h-8z"/></svg>');
 	left: -1px;
 	padding-right: 7px;
 	display: inline-block;

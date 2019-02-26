@@ -11,14 +11,17 @@
 	<span class="cont-overlays"><svg role="img" class="svgIcon"><use xlink:href="#overlays" href="#overlays"></use></svg></span>
 			{/if}
 	<span class="icons ">
-		{#if isInfo}
-		<span class="pointer cmd:showInfo cont-info" title="View description"><svg role="img" class="svgIcon"><use xlink:href="#info-circle-i" href="#info-circle-i"></use></svg></span>
-		{/if}
- 		<span class="pointer cmd:fitBounds cont-center"  title="Move map to this layer"><svg role="img" class="svgIcon"><use xlink:href="#center-on-click" href="#center-on-click"></use></svg></span>
-			
+
 		{#if gmxTimeline && properties.Temporal && (properties.IsRasterCatalog || (properties.Quicklook && properties.Quicklook !== 'null'))}
-		<span class="pointer cmd:toggleTimeline timeline disabled" title="Add timeline" on:click="toggleTimeline(this)"><svg role="img" class="svgIcon"><use xlink:href="#timeline-icon" href="#timeline-icon"></use></svg></span>
+		<span class="pointer cmd:toggleTimeline cont-timeline disabled" title="Add timeline" on:click="toggleTimeline(this)"></span>
 		{/if}
+		
+		{#if isInfo}
+		<span class="pointer cmd:showInfo cont-info" title="View description"></span>
+		{/if}
+ 		<span class="pointer cmd:fitBounds cont-center"  title="Move map to this layer"></span>
+			
+		
 	</span>
 		{/if} <!-- end: line.type === 'layer' -->
  {/if}
