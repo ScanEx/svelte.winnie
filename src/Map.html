@@ -56,16 +56,17 @@
 		methods: {
 			createMap(it) {
 				let {layersTree} = this.get();
-                let app = it.app || {},
-                    gmxMap = app.gmxMap || {},
-                    state = it.state || {},
-                    // layersTree = state.layersTree || {},
-                    calendar = state.calendar || {},
-                    mapID = gmxMap.mapID || '946GH',
-                    apiKey = gmxMap.apiKey || 'Z2SSNR87N4',
-                    pos = state.map ? state.map.position : {},
-                    minZoom = state.map ? state.map.minZoom || 1 : 1,
-                    maxZoom = state.map ? state.map.maxZoom || 21 : 21;
+				let app = it.app || {},
+					gmxMap = app.gmxMap || {},
+					state = it.state || {},
+					// layersTree = state.layersTree || {},
+					calendar = state.calendar || {},
+					mapID = gmxMap.mapID || '946GH',
+					apiKey = gmxMap.apiKey || 'Z2SSNR87N4',
+					stateMap = state.map || {},
+					pos = stateMap.position || {},
+                    minZoom = stateMap.minZoom || 1,
+                    maxZoom = stateMap.maxZoom || 21;
 
 				// console.log('createMap', it)
 				if(app.theme) {
@@ -85,9 +86,9 @@
 					srs: 3857,
 					layers: [],
 					center: new L.LatLng(pos.y || 0, pos.x || 60),
-                    zoom: pos.z || 3,
-                    minZoom: minZoom,
-                    maxZoom: maxZoom
+					zoom: pos.z || 3,
+					minZoom: minZoom,
+					maxZoom: maxZoom
 				});
 				L.leafletMap = map;
 

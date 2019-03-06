@@ -720,12 +720,23 @@ input.check {
 .dark .pointer.cont-info {
 	position: relative;
 	top: 7px;
-	content: url('ext/img/info.svg');
+	/* content: url('ext/img/info.svg'); */
 	/*content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="14" height="14" rx="2" fill="#8A9BA8"/><path d="M7 4.028c-.36 0-.625-.08-.793-.24a.885.885 0 0 1-.24-.636v-.264c0-.256.08-.464.24-.624.168-.168.432-.252.792-.252.36 0 .62.084.78.252.168.16.252.368.252.624v.264a.862.862 0 0 1-.252.636c-.16.16-.42.24-.78.24zM6.11 4.7h1.776V11H6.111V4.7z" fill="#fff"/></svg>');*/
 	visibility: visible;
 	float: right;
 	padding-left: 5px;
 	right: 3px;
+}
+.dark .icons .cont-info {
+	height: 14px;
+	width: 19px;
+}
+
+.dark .icons .cont-info {
+	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><rect width="14" height="14" rx="2" fill="rgb(138, 155, 168)"/><path d="M6.9992 4.028C6.6392 4.028 6.3752 3.948 6.2072 3.788C6.0472 3.62 5.9672 3.408 5.9672 3.152V2.888C5.9672 2.632 6.0472 2.424 6.2072 2.264C6.3752 2.096 6.6392 2.012 6.9992 2.012C7.3592 2.012 7.6192 2.096 7.7792 2.264C7.9472 2.424 8.0312 2.632 8.0312 2.888V3.152C8.0312 3.408 7.9472 3.62 7.7792 3.788C7.6192 3.948 7.3592 4.028 6.9992 4.028ZM6.1112 4.7H7.8872V11H6.1112V4.7Z" fill="white"/></svg>');
+}
+.dark ul li.line .mega:hover>.icons>.pointer.cont-info {
+	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><rect width="14" height="14" rx="2" fill="rgb(57, 75, 89)"/><path d="M6.9992 4.028C6.6392 4.028 6.3752 3.948 6.2072 3.788C6.0472 3.62 5.9672 3.408 5.9672 3.152V2.888C5.9672 2.632 6.0472 2.424 6.2072 2.264C6.3752 2.096 6.6392 2.012 6.9992 2.012C7.3592 2.012 7.6192 2.096 7.7792 2.264C7.9472 2.424 8.0312 2.632 8.0312 2.888V3.152C8.0312 3.408 7.9472 3.62 7.7792 3.788C7.6192 3.948 7.3592 4.028 6.9992 4.028ZM6.1112 4.7H7.8872V11H6.1112V4.7Z" fill="white"/></svg>');
 }
 
 .dark .pointer.cont-timeline {
@@ -765,7 +776,7 @@ input.check {
 .dark ul li.line .mega:hover>.icons>.pointer.cont-info {
 	position: relative;
 	top: 7px;
-	content: url('ext/img/info-o.svg');
+	/* content: url('ext/img/info-o.svg'); */
 	/*content: url('data:image/svg+xml;utf8, <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="14" height="14" rx="2" fill="#394B59"/><path d="M7 4.028c-.36 0-.625-.08-.793-.24a.885.885 0 0 1-.24-.636v-.264c0-.256.08-.464.24-.624.168-.168.432-.252.792-.252.36 0 .62.084.78.252.168.16.252.368.252.624v.264a.862.862 0 0 1-.252.636c-.16.16-.42.24-.78.24zM6.11 4.7h1.776V11H6.111V4.7z" fill="#fff"/></svg>');*/
 	visibility: visible;
 	float: right;
