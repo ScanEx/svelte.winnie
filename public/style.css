@@ -405,7 +405,7 @@ input.check {
     width: calc(100% - 43px);
     padding-left: 43px;
 	}
-	.dark input.expander:checked+span.expander::after {
+	/*.dark input.expander:checked+span.expander::after {
     	content: '';
     	display: block;
     	width: 5px;
@@ -415,8 +415,8 @@ input.check {
     	border-left: 1px solid #D8E1E8;
     	left: -10px;
     	bottom: -29px;
-	}
-	.OSX input.expander:checked+span.expander::after {
+	}*/
+	/*.OSX input.expander:checked+span.expander::after {
     	content: '';
     	display: block;
     	width: 5px;
@@ -426,7 +426,7 @@ input.check {
     	border-left: 1px solid #D8E1E8;
     	left: -8px;
     	bottom: -29px;
-	}
+	}*/
 	.dark .group.css-treeview ul {
 	padding-inline-start: 37px;
 	}
@@ -544,7 +544,7 @@ input.check {
     		padding-left: 35px;
 		}
 
-		.dark input.expander:checked+span.expander::after {
+		/*.dark input.expander:checked+span.expander::after {
 		    content: '';
 		    display: block;
 		    width: 5px;
@@ -554,8 +554,8 @@ input.check {
 		    border-left: 1px solid #D8E1E8;
 		    left: -19px;
 		    bottom: -29px;
-		}
-		.OSX input.expander:checked+span.expander::after {
+		}*/
+		/*.OSX input.expander:checked+span.expander::after {
     		content: '';
     		display: block;
     		width: 5px;
@@ -565,7 +565,7 @@ input.check {
     		border-left: 1px solid #D8E1E8;
     		left: -19px;
     		bottom: -29px;
-		}
+		}*/
 		.dark .group.css-treeview ul {
 			padding-inline-start: 37px;
 		}
@@ -657,7 +657,7 @@ input.check {
     	width: calc(100% - 35px);
     	padding-left: 35px;
 	}
-	.dark input.expander:checked+span.expander::after {
+	/*.dark input.expander:checked+span.expander::after {
     	content: '';
     	display: block;
     	width: 5px;
@@ -667,7 +667,7 @@ input.check {
     	border-left: 1px solid #D8E1E8;
     	left: -9px;
     	bottom: -29px;
-	}
+	}*/
 	.dark .group.css-treeview ul {
 		padding-inline-start: 37px;
 	}
