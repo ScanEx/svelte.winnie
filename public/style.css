@@ -2,8 +2,8 @@
 
 
 html, body, #map {
-	height: 100%;
-  height: 100vh;
+  /*height: 100vh;*/
+  height: 100%;
 	width: 100%;
 	margin: 0px;
 	display: flex;
@@ -971,12 +971,6 @@ span.linestring.legendIconStyle {
 img.fillPattern {
     padding-right: 3px;
 }
-
-.leaflet-bottom.gmx-bottom-shift {
-    position:absolute;
-}
-
-
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

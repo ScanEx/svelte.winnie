@@ -814,8 +814,3 @@ span.linestring.legendIconStyle {
 img.fillPattern {
     padding-right: 3px;
 }
-
-.leaflet-bottom.gmx-bottom-shift {
-    position:absolute;
-}
-
