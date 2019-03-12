@@ -123,11 +123,11 @@
 
 .dark .expanderCont {
 	position: relative;
-	margin-left: -16px; 
 	top: -5px;
 	padding-right: 0;
 	z-index: 0;
 	background: transparent;
+	margin-left: -16px;
 }
 
 .dark .legend-cont {
