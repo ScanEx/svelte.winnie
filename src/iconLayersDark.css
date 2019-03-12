@@ -123,7 +123,7 @@
 
 .dark .expanderCont {
 	position: relative;
-	margin-left: -16px;
+	margin-left: -16px; 
 	top: -5px;
 	padding-right: 0;
 	z-index: 0;
