@@ -284,7 +284,6 @@ html, body, #map {
 	padding-right: 0;
 	z-index: 0;
 	background: transparent;
-	margin-left: -16px;
 }
 
 .dark .legend-cont {
@@ -306,7 +305,7 @@ input.check {
 	position: relative;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-width: 1025px) {
 	.dark span.expander::before {
 		width: 27px;
 		top: 3px;
@@ -352,6 +351,137 @@ input.check {
 	}
 	.dark .expanderCont {
 		margin-left: -16px;
+	}
+	.dark .legend-cont {
+		left: -7px;
+	}
+	.gmx-style-legend {
+		width: 100vw;
+	}
+	input.check {
+		top: 2px;
+	}
+	body.OSX input.check {
+		left: 1px;
+		top: 0;
+	}
+	.dark .cont {
+		left: 2px;
+	}
+	span.cont>label.pointer.title {
+		position: relative;
+		left: 3px;
+		display: inline-flex;
+		width: calc(100% - 73px);
+		word-break: break-word;
+	}
+	span.legendIconCell+label.pointer.title {
+		position: relative;
+		left: 6px;
+		margin-left: -6px;
+		display: inline-flex;
+		width: calc(100% - 73px);
+		word-break: break-word;
+	}
+	input.check+label.pointer.title {
+		position: relative;
+		left: 0px!important;
+		display: inline-flex;
+		width: calc(100% - 73px);
+		word-break: break-word;
+	}
+	input.check+label.pointer.title+.description {
+		margin-left: 0;
+		width: calc(100% - 27px);
+		padding-left: 27px;
+	}
+	span.legendIconCell+label.pointer.title+.description {
+		margin-left: 0;
+		width: calc(100% - 43px);
+		padding-left: 43px;
+	}
+	input.check+label.pointer.title.multiStyles+.description {
+    margin-left: 0;
+    width: calc(100% - 43px);
+    padding-left: 43px;
+	}
+	/*.dark input.expander:checked+span.expander::after {
+    	content: '';
+    	display: block;
+    	width: 5px;
+    	height: 20px;
+    	position: absolute;
+    	z-index: -1;
+    	border-left: 1px solid #D8E1E8;
+    	left: -10px;
+    	bottom: -29px;
+	}*/
+	/*.OSX input.expander:checked+span.expander::after {
+    	content: '';
+    	display: block;
+    	width: 5px;
+    	height: 20px;
+    	position: absolute;
+    	z-index: -1;
+    	border-left: 1px solid #D8E1E8;
+    	left: -8px;
+    	bottom: -29px;
+	}*/
+	.dark .group.css-treeview ul {
+	padding-inline-start: 37px;
+	}
+
+	body.OSX .group.css-treeview ul {
+	padding-inline-start: 35px;
+	}
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) and (max-width: 1024px) {
+	.dark span.expander::before {
+		width: 27px;
+		top: 5px;
+		left: 6px;
+	}
+	.dark input.expander:checked+span.expander::before {
+		width: 27px;
+		top: 5px;
+		left: 6px;
+	}
+	.dark .TreeView li.line ul.group.css-treeview li.line::after {
+		height: calc(100% - 40px);
+		left: 27px;
+		top: 21px;
+		width: 9px;
+	}
+	.dark .TreeView li.line ul.group.css-treeview li.line:last-child:before {
+		height: calc(100% - 15px);
+		left: -10px;
+	}
+	.dark .TreeView>li.line {
+		left: -7px;
+		width: 100%
+	}
+	.legendIconCell {
+		top: 3px;
+	}
+	.legendIconCell .point {
+		position: relative;
+	}
+	.legend-cont span.legendIconCell {
+		top: 0;
+	}
+	.pointer.title::before {
+		border-left: 2px solid transparent;
+		top: 14px;
+		left: -16px;
+	}
+	.dark ul li.line .mega:hover .pointer.title::before {
+		border-left: 2px solid transparent;
+		top: 14px;
+		left: -16px;
+	}
+	.dark .expanderCont {
+		margin-left: -18px;
 	}
 	.dark .legend-cont {
 		left: -7px;
