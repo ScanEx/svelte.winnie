@@ -952,7 +952,7 @@ img.fillPattern {
     content: '';
     display: inline-block;
     position: absolute;
-    height: 26px;
+    height: 24px;
     width: 100%;
     left: 22px;
     background: #FFF;
