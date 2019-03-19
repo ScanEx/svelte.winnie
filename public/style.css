@@ -224,7 +224,7 @@ html, body, #map {
 	height: 12px;
 }
 
-.dark .TreeView li.line ul.group.css-treeview li.line::after {
+.dark .TreeView li.line ul.group.css-treeview li.line.group::after {
 	border-left: 1px solid #D8E1E8;
 	display: block;
 	position: absolute;
@@ -316,7 +316,7 @@ input.check {
 		top: 3px;
 		left: 6px;
 	}
-	.dark .TreeView li.line ul.group.css-treeview li.line::after {
+	.dark .TreeView li.line ul.group.css-treeview li.line.group::after {
 		height: calc(100% - 40px);
 		left: 27px;
 		top: 21px;
@@ -447,7 +447,7 @@ input.check {
 		top: 5px;
 		left: 6px;
 	}
-	.dark .TreeView li.line ul.group.css-treeview li.line::after {
+	.dark .TreeView li.line ul.group.css-treeview li.line.group::after {
 		height: calc(100% - 40px);
 		left: 27px;
 		top: 21px;
@@ -579,7 +579,7 @@ input.check {
 			top: 6px;
 			left: 2px;
 		}
-		.dark .TreeView li.line ul.group.css-treeview li.line::after {
+		.dark .TreeView li.line ul.group.css-treeview li.line.group::after {
 			height: calc(100% - 27px);
 			left: 20px;
 			top: 21px;
@@ -761,7 +761,7 @@ input.check {
 		left: 6px;
 		margin-left: -6px;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 85px);
 		word-break: break-word;
 	}
 	input.check+label.pointer.title {
@@ -1047,13 +1047,15 @@ input.check {
 	-ms-overflow-style: none;
 }
 
-.dark li {
-	overflow: -moz-scrollbars-none;
+.dark .TreeView > li.line {
+	overflow: hidden;
 }
+
+
 
 .dark .mega {
 	padding-bottom: 3px;
-	background: #FFF;
+	background: transparent;
 	z-index: 1;
 	position: relative;
 }
@@ -1101,6 +1103,36 @@ span.linestring.legendIconStyle {
 
 img.fillPattern {
     padding-right: 3px;
+}
+
+.dark .mega::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    height: 26px;
+    width: 100%;
+    left: 22px;
+    background: #FFF;
+}
+
+.dark ul li.line .mega:hover {
+	background-color: #EBF1F5;
+}
+
+.dark ul li.line .mega:hover:before {
+	background-color: #EBF1F5;
+}
+
+.dark {outline:none;}
+
+.dark .icons .cont-info {
+    outline: none;
+    user-select: none
+}
+
+.dark .icons .cont-center {
+    outline: none;
+    user-select: none
 }
 .noselect {
     -webkit-touch-callout: none;
