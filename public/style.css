@@ -380,14 +380,14 @@ input.check {
 		left: 6px;
 		margin-left: -6px;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 85px);
 		word-break: break-word;
 	}
 	input.check+label.pointer.title {
 		position: relative;
 		left: 0px!important;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 85px);
 		word-break: break-word;
 	}
 	input.check+label.pointer.title+.description {
@@ -511,14 +511,14 @@ input.check {
 		left: 6px;
 		margin-left: -6px;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 85px);
 		word-break: break-word;
 	}
 	input.check+label.pointer.title {
 		position: relative;
 		left: 0px!important;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 85px);
 		word-break: break-word;
 	}
 	input.check+label.pointer.title+.description {
@@ -768,7 +768,7 @@ input.check {
 		position: relative;
 		left: 0px!important;
 		display: inline-flex;
-		width: calc(100% - 73px);
+		width: calc(100% - 85px);
 		word-break: break-word;
 		bottom: 2px;
 	}
