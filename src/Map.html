@@ -51,6 +51,8 @@
     border-radius: 4px;
     font-family: 'IBM Plex Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    word-break: break-word;
 }
 
 :global(.gmxControlPopup .content-wrapper) {
@@ -430,7 +432,7 @@
 										for(let key in meta) {
 											arr.push('<tr><td class="key"><span>' + key + '</span></td><td><div>' + meta[key].Value + '</div></td></tr>');
 										}
-										return '<table class="vectorInfoParams"><div class="table_pop"></div><tbody>' + arr.join('') + '</tbody></table>';
+										return '<div class="table_pop">&nbsp;</div><table class="vectorInfoParams"><tbody>' + arr.join('') + '</tbody></table>';
 									}
 									return;
 								},
