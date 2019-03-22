@@ -3088,7 +3088,7 @@ var app = (function (leaflet) {
 									for(var key in meta) {
 										arr.push('<tr><td class="key"><span>' + key + '</span></td><td><div>' + meta[key].Value + '</div></td></tr>');
 									}
-									return '<table class="vectorInfoParams"><tbody>' + arr.join('') + '</tbody></table>';
+									return '<table class="vectorInfoParams"><div class="table_pop"></div><tbody>' + arr.join('') + '</tbody></table>';
 								}
 								return;
 							},
