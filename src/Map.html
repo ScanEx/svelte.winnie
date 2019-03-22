@@ -43,7 +43,7 @@
 }
 
 :global(.gmxControlPopup.leaflet-control) {
-    width: 423px;
+    min-width: 423px;
     background: #FFFFFF;
     border: 1px solid #D8E1E8;
     box-sizing: border-box;
@@ -51,7 +51,8 @@
     border-radius: 4px;
     font-family: 'IBM Plex Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     word-break: break-word;
 }
 
