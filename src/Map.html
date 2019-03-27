@@ -58,7 +58,7 @@
 
 :global(.gmxControlPopup div.content-wrapper) {
     margin: 0;
-	margin-top: 20px;
+    margin-top: 40px;
     padding: 0;
     text-align: left;
     cursor: default;
@@ -73,11 +73,23 @@
 }
 
 :global(.gmxControlPopup .title) {
-	top: -18px;
-	display: inline;
-    position: relative;
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    padding-left: 12px;
+    top: 0;
+    width: 100%;
     pointer-events: none;
-    padding: 3px;
+    height: 30px;
+    background: #F3F7FA;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: normal;
+    color: #394B59;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 /*
 :global(.table_pop) {
@@ -97,6 +109,7 @@
     top: 7px;
     right: 10px;
     cursor: pointer;
+    z-index: 1;
 }
 
 </style>
