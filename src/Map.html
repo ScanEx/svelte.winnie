@@ -443,14 +443,15 @@
 							let props = gmxLayer.getGmxProperties(),
 								meta = props.MetaProperties,
 								getContent = () => {
+									let str = '<div class="title">' + props.title + '</div>';
 									if (meta.desc_long) {
-										return meta.desc_long.Value;
+										return str + meta.desc_long.Value;
 									} else if (Object.keys(meta).length) {
 										let arr = [];
 										for(let key in meta) {
 											arr.push('<tr><td class="key"><span>' + key + '</span></td><td><div>' + meta[key].Value + '</div></td></tr>');
 										}
-										return '<div class="title">' + props.title + '</div><table class="vectorInfoParams"><tbody>' + arr.join('') + '</tbody></table>';
+										return str + '<table class="vectorInfoParams"><tbody>' + arr.join('') + '</tbody></table>';
 									}
 									return;
 								},
