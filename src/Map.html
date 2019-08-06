@@ -137,20 +137,21 @@
 					visible: {},
 					expanded: {}
 				},
+				urlParams: null,
 				permalink: null,
 				map: null
 			}
 		},
 		methods: {
 			createMap(it) {
-				let {layersTree} = this.get();
+				let {layersTree, urlParams} = this.get();
 				let app = it.app || {},
 					gmxMap = app.gmxMap || {},
 					state = it.state || {},
 					// layersTree = state.layersTree || {},
 					calendar = state.calendar || {},
 					mapID = gmxMap.mapID || '946GH',
-					apiKey = gmxMap.apiKey || 'Z2SSNR87N4',
+					apiKey = app.apiKey || gmxMap.apiKey || 'Z2SSNR87N4',
 					stateMap = state.map || {},
 					pos = stateMap.position || {},
                     minZoom = stateMap.minZoom || 1,
@@ -267,7 +268,9 @@
 
 					if (app.gmxTimeline && app.gmxTimeline !== 'false') {
 						/* TimeLine */
+						window.nsGmx.gmxTimeLine.afterViewer({gmxMap: gmxMap}, map);
 						var control = L.control.gmxTimeline({
+							locale: 'ru',
 							moveable: true
 							}).on('dateInterval', function (ev) {
 								gmxMap.layersByID[ev.layerID].setDateInterval(ev.beginDate, ev.endDate);
@@ -472,7 +475,12 @@
 
 							if (desc) {
 								
-								map.gmxControlsManager.add(L.control.gmxPopup({content: desc}).openOn(map));
+								let gmxPopup = L.control.gmxPopup({content: desc}).openOn(map),
+									cont = gmxPopup.getContainer(),
+									p = L.DomUtil.getPosition(cont);
+									
+								L.DomUtil.setPosition(cont, {x: Math.floor(p.x), y: Math.floor(p.y)});
+								//map.gmxControlsManager.add(L.control.gmxPopup({content: desc}).openOn(map));
 /*
 								let popup = L.popup(),
 									latlng = map.getCenter(),

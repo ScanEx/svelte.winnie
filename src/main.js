@@ -9,8 +9,17 @@ let pars = (() => {
 	return p;
 })();
 
+let locConfig = window.locConfig || {};
+if (locConfig.permID) {
+	pars.config = locConfig.permID;
+}
+if (locConfig.apiKey) {
+	pars.apiKey = locConfig.apiKey;
+}
+let mCont = document.getElementsByClassName('layout-mapPlaceholder')[0];
+
 const app = new App({
-	target: document.body,
+	target: mCont || document.body,
 	data: {
 		urlParams: pars
 	}

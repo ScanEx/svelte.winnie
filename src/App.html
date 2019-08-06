@@ -16,7 +16,7 @@
 </div>
 {/if}
 <div class="editor-viewerContainer editor_sidebarExpanded">
-	<Map permalink={permalink} bind:map />
+	<Map permalink={permalink} bind:map bind:urlParams />
 </div>
 {#if share}
 <Share conf={conf} />
@@ -100,6 +100,7 @@
 				let {urlParams} = this.get();
 				// console.log('?config=7ZSC4  dddddddd', out, urlParams)
 				if (out.app) {
+					out.app.apiKey = chkPar('apiKey', urlParams, out.apiKey, '');		// apiKey
 					out.app.theme = chkPar('theme', urlParams, out.app, 'dark');		// тема по умолчанию
 					out.app.iconSidebar = chkPar('iconSidebar', urlParams, out.app);	// iconSidebar по умолчанию
 					out.app.treeView = chkPar('treeView', urlParams, out.app);			// treeView по умолчанию
@@ -167,8 +168,13 @@
 					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.js');
 					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/timeline/2.9.1/timeline.css');
 					// L.gmxUtil.requestLink('L.Control.gmxTimeLine.js');
-					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.js');
 					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.css');
+
+					L.gmxUtil.requestLink('//maps.kosmosnimki.ru/api/plugins/external/GMXPluginTimeLine/L.Control.gmxTimeLine.js', {
+					}).then(() => {
+						out.plugins = plugins;
+						this.set({permalink: out});
+					}).catch(console.warn);
 				}
 			},
 			getPermalink(id) {
