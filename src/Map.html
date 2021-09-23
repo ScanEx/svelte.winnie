@@ -144,7 +144,7 @@
 		},
 		methods: {
 			createMap(it) {
-				let {layersTree, urlParams} = this.get();
+				let {layersTree, urlParams = {}} = this.get();
 				let app = it.app || {},
 					gmxMap = app.gmxMap || {},
 					state = it.state || {},
@@ -158,6 +158,9 @@
                     maxZoom = stateMap.maxZoom || 21;
 
 				// console.log('createMap', it)
+				for (let key in pos) {
+					if(urlParams[key]) { pos[key] = urlParams[key]; }
+				}
 				if(app.theme) {
 					document.body.classList.add(app.theme);
 				}

@@ -38,7 +38,7 @@
 
 <script>
 	const serverBase = window.serverBase || '//maps.kosmosnimki.ru/',
-		chkPar = (key, h1, h2, zn) => h1[key] || (key in h2 ? h2[key] : zn || true);
+		chkPar = (key, h1, h2, zn) => h1[key] || (h2 && key in h2 ? h2[key] : zn || true);
 
 	import Map from './Map.html';
 	import Share from './Share.html';
